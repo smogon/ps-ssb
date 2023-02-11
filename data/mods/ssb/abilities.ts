@@ -108,4 +108,20 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	*/
 	// Please keep abilites organized alphabetically based on staff member name!
+	// Aeonic
+	changetempo: {
+		desc: "Summons Trick Room on switch-in.",
+		name: "Change Tempo",
+		onStart(target) {
+			if (!this.field.getPseudoWeather('trickroom')) {
+				this.add('-ability', target, 'Change Tempo');
+				this.field.addPseudoWeather('trickroom', target, target.getAbility());
+			}
+		},
+		onModifyMove(move, pokemon, target) {
+			if (move.volatileStatus === 'mustrecharge') delete move.volatileStatus;
+			if (move.self?.volatileStatus === 'mustrecharge') delete move.self.volatileStatus;
+			delete move.flags['recharge'];
+		},
+	},
 };

@@ -40,4 +40,16 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	aeonic: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kris')}|aeo you need to submit your switch in and out messages`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kris')}|aeo forgot to fill out his switch messages so I'm here instead.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Aeonic')}|i guess they never miss huh`);
+		},
+	},
 };

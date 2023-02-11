@@ -22,10 +22,10 @@ export const ssbSets: SSBSets = {
 	/*
 	// Example:
 	Username: {
-		species: 'Species', ability: 'Ability', item: 'Item', gender: '', teraType: 'Type',
+		species: 'Species', ability: 'Ability', item: 'Item', gender: '',
 		moves: ['Move Name', ['Move Name', 'Move Name']],
 		signatureMove: 'Move Name',
-		evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', level: 100, shiny: false,
+		evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', teraType: 'Type', level: 100, shiny: false,
 	},
 	// Species, ability, and item need to be captialized properly ex: Ludicolo, Swift Swim, Life Orb
 	// Gender can be M, F, N, or left as an empty string
@@ -36,6 +36,12 @@ export const ssbSets: SSBSets = {
 	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	Aeonic: {
+		species: 'Nosepass', ability: 'Change Tempo', item: 'Fossilized Fish', gender: 'M',
+		moves: ['Ice Burn', 'Electro Drift', 'Milk Drink'],
+		signatureMove: 'Memes That Burn The Sky',
+		evs: {hp: 252, spa: 252, spd: 4}, ivs: {spe: 0}, nature: 'Quiet', teraType: 'Rock',
+	},
 };
 
 export class RandomStaffBrosTeams extends RandomGen8Teams {
