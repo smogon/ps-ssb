@@ -118,10 +118,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.field.addPseudoWeather('trickroom', target, target.getAbility());
 			}
 		},
-		onModifyMove(move, pokemon, target) {
-			if (move.volatileStatus === 'mustrecharge') delete move.volatileStatus;
-			if (move.self?.volatileStatus === 'mustrecharge') delete move.self.volatileStatus;
-			delete move.flags['recharge'];
-		},
+		// Recharge nullifying implemented in conditions.ts
 	},
 };

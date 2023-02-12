@@ -47,7 +47,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 140,
 		category: "Status",
 		shortDesc: "No additional effect.",
-		name: "Move Name",
+		name: "Memes That Burn The Sky",
 		gen: 9,
 		pp: 5,
 		priority: 0,
@@ -56,8 +56,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Light That Burns The Sky', target);
-			this.add('-anim', source, 'Rock Wrecker', target);
+			this.attrLastMove('[anim] Light That Burns The Sky');
+			this.attrLastMove('[anim] Rock Wrecker');
 		},
 		secondary: null,
 		target: "normal",

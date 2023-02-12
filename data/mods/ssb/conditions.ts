@@ -52,4 +52,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Aeonic')}|i guess they never miss huh`);
 		},
 	},
+
+	// Modified existing conditions
+	mustrecharge: {
+		inherit: true,
+		onBeforeMove(pokemon) {
+			if (pokemon.hasAbility('changetempo')) return;
+			this.add('cant', pokemon, 'recharge');
+			pokemon.removeVolatile('mustrecharge');
+			pokemon.removeVolatile('truant');
+			return null;
+		},
+		onStart(pokemon) {
+			if (pokemon.hasAbility('changetempo')) return;
+			this.add('-mustrecharge', pokemon);
+		},
+		onLockMove(pokemon) {
+			if (pokemon.hasAbility('changetempo')) return;
+			return 'recharge';
+		},
+	},
 };
