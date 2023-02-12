@@ -118,7 +118,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.field.addPseudoWeather('trickroom', target, target.getAbility());
 			}
 		},
-		onChargeMove() {
+		onChargeMove(pokemon, target, move) {
+			this.attrLastMove('[still]');
+			this.addMove('-anim', pokemon, move.name, target);
 			return false;
 		},
 		onUpdate(pokemon) {
