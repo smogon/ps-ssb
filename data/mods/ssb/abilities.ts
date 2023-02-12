@@ -2,7 +2,7 @@ import {SSBSet, ssbSets} from "./random-teams";
 import {getName} from './conditions';
 
 // Used in many abilities, placed here to reduce the number of updates needed and to reduce the chance of errors
-const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm', 'winterhail', 'turbulence'];
+const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream'];
 
 /**
  * Assigns a new set to a Pokémon
@@ -118,6 +118,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.field.addPseudoWeather('trickroom', target, target.getAbility());
 			}
 		},
-		// Recharge nullifying implemented in conditions.ts
+		onChargeMove() {
+			return false;
+		},
+		onUpdate(pokemon) {
+			if (pokemon.volatiles['mustrecharge']) pokemon.removeVolatile('mustrecharge');
+		},
 	},
 };
