@@ -41,4 +41,26 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// Aeonic
+	memesthatburnthesky: {
+		accuracy: 100,
+		basePower: 140,
+		category: "Status",
+		shortDesc: "No additional effect.",
+		name: "Memes That Burn The Sky",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, recharge: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.attrLastMove('[anim] Light That Burns The Sky');
+			this.attrLastMove('[anim] Rock Wrecker');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+	},
 };

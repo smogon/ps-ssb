@@ -2,7 +2,7 @@ import {SSBSet, ssbSets} from "./random-teams";
 import {getName} from './conditions';
 
 // Used in many abilities, placed here to reduce the number of updates needed and to reduce the chance of errors
-const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm', 'winterhail', 'turbulence'];
+const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream'];
 
 /**
  * Assigns a new set to a Pokémon
@@ -108,4 +108,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	*/
 	// Please keep abilites organized alphabetically based on staff member name!
+	// Aeonic
+	changetempo: {
+		desc: "Summons Trick Room on switch-in.",
+		name: "Change Tempo",
+		onStart(target) {
+			if (!this.field.getPseudoWeather('trickroom')) {
+				this.add('-ability', target, 'Change Tempo');
+				this.field.addPseudoWeather('trickroom', target, target.getAbility());
+			}
+		},
+		onChargeMove(pokemon, target, move) {
+			this.attrLastMove('[still]');
+			this.addMove('-anim', pokemon, move.name, target);
+			return false;
+		},
+		onUpdate(pokemon) {
+			if (pokemon.volatiles['mustrecharge']) pokemon.removeVolatile('mustrecharge');
+		},
+	},
 };
