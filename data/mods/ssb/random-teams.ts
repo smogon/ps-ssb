@@ -42,6 +42,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Memes That Burn The Sky',
 		evs: {hp: 252, spa: 252, spd: 4}, ivs: {spe: 0}, nature: 'Quiet', teraType: 'Rock',
 	},
+	Mia: {
+		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
+		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
+		signatureMove: 'Testing in Production',
+		evs: {atk: 252, spe: 252, spa: 4}, nature: 'Jolly',
+	},
 };
 
 export class RandomStaffBrosTeams extends RandomTeams {
@@ -114,7 +120,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				happiness: typeof ssbSet.happiness === 'number' ? ssbSet.happiness : 255,
 				shiny: typeof ssbSet.shiny === 'number' ? this.randomChance(1, ssbSet.shiny) : !!ssbSet.shiny,
 				teraType: !ssbSet.teraType ? undefined :
-					Array.isArray(ssbSet.teraType) ? this.sampleNoReplace(ssbSet.teraType) : ssbSet.teraType,
+				Array.isArray(ssbSet.teraType) ? this.sampleNoReplace(ssbSet.teraType) : ssbSet.teraType,
 			};
 			while (set.moves.length < 3 && ssbSet.moves.length > 0) {
 				let move = this.sampleNoReplace(ssbSet.moves);
