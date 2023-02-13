@@ -99,8 +99,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			randomStat = stats.length ? this.sample(stats) : undefined;
 			if (randomStat) {
-				if (!boost[randomStat]) boost[randomStat] = 0;
-				boost[randomStat]! -= 2;
+				if (boost[randomStat]) {
+					boost[randomStat] = 0;
+					this.add(`c:|${getName('Mia')}|Well. Guess that broke. Time to roll back.`);
+				} else {
+					boost[randomStat] = -2;
+				}
 			}
 
 			this.boost(boost, pokemon, pokemon);
