@@ -75,7 +75,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit() {
 			this.attrLastMove('[anim] Curse');
 		},
-		onHit(target, pokemon) {
+		onHit(pokemon) {
 			this.add(`c:|${getName('Mia')}|Please don't break...`);
 			let stats: BoostID[] = [];
 			const boost: SparseBoostsTable = {};
