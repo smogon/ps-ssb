@@ -98,7 +98,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 			}
 			randomStat = stats.length ? this.sample(stats) : undefined;
-			if (randomStat) boost[randomStat] = -2;
+			if (randomStat) {
+				if (!boost[randomStat]) boost[randomStat] = 0;
+				boost[randomStat]! -= 2;
+			}
 
 			this.boost(boost, pokemon, pokemon);
 		},
@@ -106,6 +109,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (this.randomChance(1, 10)) {
 				this.add(`c:|${getName('Mia')}|Ouch! That crash is really getting on my nerves...`);
 				this.damage(pokemon.baseMaxhp / 10);
+				if (pokemon.hp <= 0) return;
 			}
 
 			if (this.randomChance(1, 20)) {
