@@ -68,12 +68,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		name: "Testing in Production",
+		gen: 9,
 		pp: 5,
 		priority: 0,
-		secondary: null,
 		flags: {},
-		target: "self",
-		type: "Electric",
 		onPrepareHit() {
 			this.attrLastMove('[anim] Curse');
 		},
@@ -130,5 +128,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				pokemon.setStatus(status);
 			}
 		},
+		secondary: null,
+		target: "self",
+		type: "Electric",
 	},
 };

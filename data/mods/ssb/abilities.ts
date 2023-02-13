@@ -35,7 +35,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (pokemon.volatiles['mustrecharge']) pokemon.removeVolatile('mustrecharge');
 		},
 	},
-	// mia
+	// Mia
 	hacking: {
 		name: "Hacking",
 		desc: "Hacks into PS and finds out if the enemy has any super effective moves.",
