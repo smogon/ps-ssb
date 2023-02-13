@@ -25,7 +25,7 @@ export function getRoomauth(name: string, room: string) {
 	if (roomauth[roomid]) return roomauth[roomid][userid] || null;
 	const roomsList: any[] = JSON.parse(FS('config/chatrooms.json').readIfExistsSync() || '[]');
 	const roomData = roomsList.find(r => toID(r.title) === roomid);
-	if (!roomData) throw new Error(`Invalid room: ${room}`);
+	if (!roomData) return null;
 	roomauth[roomid] = roomData.auth;
 	return roomauth[roomid][userid] || null;
 }
