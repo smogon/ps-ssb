@@ -37,7 +37,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	// trace
 	eyesofeternity: {
-		desc: "Moves used by/against this Pokemon always hit; only damaged by attacks.",
+		shortDesc: "Moves used by/against this Pokemon always hit; only damaged by attacks.",
 		name: "Eyes of Eternity",
 		onAnyInvulnerabilityPriority: 1,
 		onAnyInvulnerability(target, source, move) {
