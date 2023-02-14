@@ -59,7 +59,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Clod of Ruin');
 		},
-		onAnyModifyDef(def, target, source, move) {
+		onAnyModifyAtk(atk, target, source, move) {
 			const abilityHolder = this.effectState.target;
 			if (target.hasAbility('Clod of Ruin')) return;
 			if (!move.ruinedAtk?.hasAbility('Clod of Ruin')) move.ruinedAtk = abilityHolder;

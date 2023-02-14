@@ -68,7 +68,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "",
+		shortDesc: "Quag: Protect; Clod: Recover. Switch to other sire.",
 		name: "Sire Switch",
 		gen: 9,
 		pp: 20,
