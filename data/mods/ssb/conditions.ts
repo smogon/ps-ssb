@@ -31,7 +31,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Aeonic')}|i guess they never miss huh`);
 		},
 	},
-	trace: {
+	traceuser: {
 		noCopy: true,
 		onStart() {
 			this.add(`c:|${getName('trace')}|I'm both the beginning and the end.`);
