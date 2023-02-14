@@ -1,9 +1,3 @@
-import {SSBSet, ssbSets} from "./random-teams";
-import {getName} from './scripts';
-
-// Used in many abilities, placed here to reduce the number of updates needed and to reduce the chance of errors
-const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream'];
-
 export const Abilities: {[k: string]: ModdedAbilityData} = {
 	/*
 	// Example
@@ -78,6 +72,26 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					`${warnTarget.name}'s move ${warnMoveName} drew her eye.`
 			);
 			this.add(`c:|${getName('Mia')}|Interesting. With that in mind, bring it!`);
+  },
+	// trace
+	eyesofeternity: {
+		shortDesc: "Moves used by/against this Pokemon always hit; only damaged by attacks.",
+		name: "Eyes of Eternity",
+		onAnyInvulnerabilityPriority: 1,
+		onAnyInvulnerability(target, source, move) {
+			if (move && (source === this.effectState.target || target === this.effectState.target)) return 0;
+		},
+		onAnyAccuracy(accuracy, target, source, move) {
+			if (move && (source === this.effectState.target || target === this.effectState.target)) {
+				return true;
+			}
+			return accuracy;
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
 		},
 	},
 };

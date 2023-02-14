@@ -1,6 +1,3 @@
-import {changeSet, changeMoves, getName} from "./scripts";
-import {ssbSets} from "./random-teams";
-
 export const Moves: {[k: string]: ModdedMoveData} = {
 	/*
 	// Example
@@ -139,5 +136,39 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Electric",
+  },
+	// trace
+	chronostasis: {
+		accuracy: 90,
+		basePower: 80,
+		category: "Special",
+		shortDesc: "If target is KOed, user boosts a random stat by 2.",
+		name: "Chronostasis",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Future Sight');
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (!target || target.fainted || target.hp <= 0) {
+				const stats: BoostID[] = [];
+				let stat: BoostID;
+				for (stat in target.boosts) {
+					if (stat === 'accuracy' || stat === 'evasion') continue;
+					if (target.boosts[stat] < 6) {
+						stats.push(stat);
+					}
+				}
+				if (stats.length) {
+					const randomStat = this.sample(stats);
+					this.boost({[randomStat]: 2}, pokemon, pokemon, move);
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
 	},
 };

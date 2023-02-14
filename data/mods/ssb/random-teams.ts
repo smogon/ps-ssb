@@ -47,6 +47,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
 		signatureMove: 'Testing in Production',
 		evs: {atk: 252, spe: 252, spa: 4}, nature: 'Jolly',
+  },
+	trace: {
+		species: 'Delphox', ability: 'Eyes of Eternity', item: 'Life Orb', gender: 'F',
+		moves: ['Calm Mind', 'Inferno', 'Recover'],
+		signatureMove: 'Chronostasis',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
 	},
 };
 
