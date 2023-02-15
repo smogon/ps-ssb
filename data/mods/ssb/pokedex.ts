@@ -14,6 +14,6 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	// mia
 	mewtwomegax: {
 		inherit: true,
-		abilities: {0: 'hacking'},
+		abilities: {0: 'Hacking'},
 	},
 };
