@@ -206,7 +206,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Mad Monty
 	climatechange: {
-		shortDesc: "1.5x SpA in sun, 1.5x Def/SpD in snow, 50% HP in rain. Changes forme/weather.",
+		shortDesc: "1.5x SpA in sun, 1.5x Def/SpD in snow, heals 50% in rain. Changes forme/weather.",
 		name: "Climate Change",
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
