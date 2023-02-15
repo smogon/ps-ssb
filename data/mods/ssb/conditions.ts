@@ -91,6 +91,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	kennedy: {
 		noCopy: true,
+		innateName: "Battle Bond",
+		shortDesc: "After KOing a Pokemon: becomes Cinderace-Gmax.",
 		onStart(target, source, effect) {
 			const message = this.sample(['Justice for the 97', 'up the reds']);
 			this.add(`c:|${getName('Kennedy')}|${message}`);
