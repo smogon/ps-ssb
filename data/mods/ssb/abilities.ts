@@ -263,10 +263,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (!relevantMove) return;
 				const move = this.dex.moves.get(relevantMove);
 
-				const sketchIndex = Math.max(pokemon.moves.indexOf("solarbeam"), pokemon.moves.indexOf("thunder"), pokemon.moves.indexOf("auroraveil"));
+				const sketchIndex = Math.max(
+					pokemon.moves.indexOf("solarbeam"), pokemon.moves.indexOf("thunder"), pokemon.moves.indexOf("auroraveil")
+				);
 				if (sketchIndex < 0) return;
 				const carryOver = pokemon.moveSlots[sketchIndex].pp / pokemon.moveSlots[sketchIndex].maxpp;
-				console.log(carryOver);
 				const sketchedMove = {
 					move: move.name,
 					id: move.id,
