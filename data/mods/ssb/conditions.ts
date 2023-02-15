@@ -146,6 +146,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onSourceCriticalHit(pokemon, source, move) {
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
 		},
+		onFlinch(pokemon) {
+			if (pokemon.illusion) return;
+			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
 	},
 	mia: {
 		noCopy: true,
@@ -169,69 +173,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
-		},
-	},
-
-	// Existing effects
-	flinch: {
-		inherit: true,
-		onBeforeMove(pokemon) {
-			this.add('cant', pokemon, 'flinch');
-			this.runEvent('Flinch', pokemon);
-			if (pokemon.name === 'Kennedy') {
-				this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
-			}
-			return false;
-		},
-	},
-	stealthrock: {
-		// this is a side condition
-		onSideStart(side) {
-			this.add('-sidestart', side, 'move: Stealth Rock');
-		},
-		onEntryHazard(pokemon) {
-			if (pokemon.hasItem('heavydutyboots')) return;
-			const typeMod = this.clampIntRange(pokemon.runEffectiveness(this.dex.getActiveMove('stealthrock')), -6, 6);
-			const damage = (pokemon.maxhp * Math.pow(2, typeMod) / 8) /
-				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
-			this.damage(damage);
-		},
-	},
-	spikes: {
-		// this is a side condition
-		onSideStart(side) {
-			this.add('-sidestart', side, 'Spikes');
-			this.effectState.layers = 1;
-		},
-		onSideRestart(side) {
-			if (this.effectState.layers >= 3) return false;
-			this.add('-sidestart', side, 'Spikes');
-			this.effectState.layers++;
-		},
-		onEntryHazard(pokemon) {
-			if (!pokemon.isGrounded() || pokemon.hasItem('heavydutyboots')) return;
-			const damageAmounts = [0, 3, 4, 6]; // 1/8, 1/6, 1/4
-			const damage = (damageAmounts[this.effectState.layers] * pokemon.maxhp / 24) /
-				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
-			this.damage(damage);
-		},
-	},
-	gmaxsteelsurge: {
-		onSideStart(side) {
-			this.add('-sidestart', side, 'move: G-Max Steelsurge');
-		},
-		onEntryHazard(pokemon) {
-			if (pokemon.hasItem('heavydutyboots')) return;
-			// Ice Face and Disguise correctly get typed damage from Stealth Rock
-			// because Stealth Rock bypasses Substitute.
-			// They don't get typed damage from Steelsurge because Steelsurge doesn't,
-			// so we're going to test the damage of a Steel-type Stealth Rock instead.
-			const steelHazard = this.dex.getActiveMove('Stealth Rock');
-			steelHazard.type = 'Steel';
-			const typeMod = this.clampIntRange(pokemon.runEffectiveness(steelHazard), -6, 6);
-			const damage = (pokemon.maxhp * Math.pow(2, typeMod) / 8) /
-				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
-			this.damage(damage);
 		},
 	},
 };

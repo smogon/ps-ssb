@@ -243,6 +243,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					pokemon.addVolatile(status, null, this.effect);
 				}
 			},
+			onDamage(damage, target, source, effect) {
+				if (effect && ['stealthrock', 'spikes', 'gmaxsteelsurge'].includes(effect.id)) {
+					return damage / 2;
+				}
+			},
 			onFieldResidualOrder: 27,
 			onFieldResidualSubOrder: 1,
 			onFieldEnd() {
