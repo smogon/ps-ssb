@@ -149,7 +149,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onPrepareHit(pokemon) {
 			this.attrLastMove('[anim] Teleport');
-
 			if (pokemon.status === 'slp') pokemon.cureStatus();
 		},
 		selfSwitch: true,
