@@ -64,7 +64,7 @@ export const ssbSets: SSBSets = {
 		species: 'Castform', ability: 'Climate Change', item: 'Heavy-Duty Boots', gender: 'M',
 		moves: ['Weather Ball', 'Defog', ['Solar Beam', 'Thunder', 'Aurora Veil']],
 		signatureMove: 'Storm Shelter',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest', teraType: 'Rock',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Rock',
 	},
 	Mia: {
 		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
