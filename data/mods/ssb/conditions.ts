@@ -89,6 +89,64 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	kennedy: {
+		noCopy: true,
+		onStart(target, source, effect) {
+			const message = this.sample(['Justice for the 97', 'up the reds']);
+			this.add(`c:|${getName('Kennedy')}|${message}`);
+			if (source && source.name === 'Clementine') {
+				if (source.volatiles['flipped']) {
+					source.removeVolatile('flipped');
+					this.add(`c:|${getName('Kennedy')}|┬──┬◡ﾉ(° -°ﾉ)`);
+				} else {
+					source.addVolatile('flipped', target, this.effect);
+					this.add(`c:|${getName('Kennedy')}|(╯°o°）╯︵ ┻━┻`);
+				}
+			}
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kennedy')}|!lastfm`);
+			this.add(`c:|${getName('Kennedy')}|Whilst I'm gone, stream this ^`);
+		},
+		onFoeSwitchIn(pokemon) {
+			switch ((pokemon.illusion || pokemon).name) {
+			case 'Links':
+				this.add(`c:|${getName('Kennedy')}|Blue and white shite, blue and white shite, hello, hello.`);
+				this.add(`c:|${getName('Kennedy')}|Blue and white shite, blue and white shite, hello, hello.`);
+				break;
+			case 'Clementine':
+				this.add(`c:|${getName('Kennedy')}|Not the Fr*nch....`);
+				break;
+			case 'Kris':
+				this.add(`c:|${getName('Kennedy')}|fuck that`);
+				this.effectState.target.faint();
+				this.add('message', 'Kennedy fainted mysteriously.....');
+				break;
+			}
+		},
+		onFaint() {
+			this.add(`c:|${getName('A Quag To The Past')}|FUCK OFF, REALLY?????`);
+		},
+		onSourceAfterFaint(length, target, source, effect) {
+			const message = this.sample(['ALLEZZZZZ', 'VAMOSSSSS', 'FORZAAAAA', 'LET\'S GOOOOO']);
+			this.add(`c:|${getName('Kennedy')}|${message}`);
+			if (source.species.id === 'Cinderace' && this.field.pseudoWeather['anfieldatmosphere'] &&
+				!source.transformed && effect?.effectType === 'Move' && source.hp && source.side.foePokemonLeft()) {
+				this.add('-activate', source, 'ability: Battle Bond');
+				source.formeChange('Cinderace-Gmax', this.effect, true);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.volatiles['attract']) {
+				this.add(`c:|${getName('Kennedy')}|NAAA FUCK OFF, I'd rather be dead`);
+				pokemon.faint();
+				this.add('message', 'Kennedy would have been infatuated but fainted mysteriously');
+			}
+		},
+		onSourceCriticalHit(pokemon, source, move) {
+			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
+	},
 	mia: {
 		noCopy: true,
 		onStart() {
@@ -111,6 +169,69 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
+		},
+	},
+
+	// Existing effects
+	flinch: {
+		inherit: true,
+		onBeforeMove(pokemon) {
+			this.add('cant', pokemon, 'flinch');
+			this.runEvent('Flinch', pokemon);
+			if (pokemon.name === 'Kennedy') {
+				this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+			}
+			return false;
+		},
+	},
+	stealthrock: {
+		// this is a side condition
+		onSideStart(side) {
+			this.add('-sidestart', side, 'move: Stealth Rock');
+		},
+		onEntryHazard(pokemon) {
+			if (pokemon.hasItem('heavydutyboots')) return;
+			const typeMod = this.clampIntRange(pokemon.runEffectiveness(this.dex.getActiveMove('stealthrock')), -6, 6);
+			const damage = (pokemon.maxhp * Math.pow(2, typeMod) / 8) /
+				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
+			this.damage(damage);
+		},
+	},
+	spikes: {
+		// this is a side condition
+		onSideStart(side) {
+			this.add('-sidestart', side, 'Spikes');
+			this.effectState.layers = 1;
+		},
+		onSideRestart(side) {
+			if (this.effectState.layers >= 3) return false;
+			this.add('-sidestart', side, 'Spikes');
+			this.effectState.layers++;
+		},
+		onEntryHazard(pokemon) {
+			if (!pokemon.isGrounded() || pokemon.hasItem('heavydutyboots')) return;
+			const damageAmounts = [0, 3, 4, 6]; // 1/8, 1/6, 1/4
+			const damage = (damageAmounts[this.effectState.layers] * pokemon.maxhp / 24) /
+				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
+			this.damage(damage);
+		},
+	},
+	gmaxsteelsurge: {
+		onSideStart(side) {
+			this.add('-sidestart', side, 'move: G-Max Steelsurge');
+		},
+		onEntryHazard(pokemon) {
+			if (pokemon.hasItem('heavydutyboots')) return;
+			// Ice Face and Disguise correctly get typed damage from Stealth Rock
+			// because Stealth Rock bypasses Substitute.
+			// They don't get typed damage from Steelsurge because Steelsurge doesn't,
+			// so we're going to test the damage of a Steel-type Stealth Rock instead.
+			const steelHazard = this.dex.getActiveMove('Stealth Rock');
+			steelHazard.type = 'Steel';
+			const typeMod = this.clampIntRange(pokemon.runEffectiveness(steelHazard), -6, 6);
+			const damage = (pokemon.maxhp * Math.pow(2, typeMod) / 8) /
+				(this.field.pseudoWeather['anfieldatmosphere'] ? 2 : 1);
+			this.damage(damage);
 		},
 	},
 };
