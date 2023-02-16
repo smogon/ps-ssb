@@ -459,7 +459,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 70,
 		category: "Physical",
-		shortDesc: "Damages foe and pivots out",
+		shortDesc: "Damages foe and pivots out.",
 		name: "Wingover",
 		pp: 20,
 		priority: 0,
