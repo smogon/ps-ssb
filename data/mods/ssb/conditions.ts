@@ -187,6 +187,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Mia')}|git checkout --detach HEAD && git commit -m "war crimes"`);
 		},
 	},
+	scotteh: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Compilation completed successfully. Executing...\`\``);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Execution temporarily paused.\`\``);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Segmentation fault (core dumped)\`\``);
+		},
+	},
 	traceuser: {
 		noCopy: true,
 		onStart() {
