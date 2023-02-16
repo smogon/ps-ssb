@@ -215,8 +215,8 @@ interface ModdedBattleActions {
 	inherit?: true;
 	afterMoveSecondaryEvent?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => undefined;
 	calcRecoilDamage?: (this: BattleActions, damageDealt: number, move: Move) => number;
-	canTerastallize?: (this: BattleActions, pokemon: Pokemon) => string | null;
 	canMegaEvo?: (this: BattleActions, pokemon: Pokemon) => string | undefined | null;
+	canTerastallize?: (this: BattleActions, pokemon: Pokemon) => string | null;
 	canUltraBurst?: (this: BattleActions, pokemon: Pokemon) => string | null;
 	canZMove?: (this: BattleActions, pokemon: Pokemon) => ZMoveOptions | void;
 	canDynamax?: (this: BattleActions, pokemon: Pokemon, skipChecks?: boolean) => DynamaxOptions | void;
