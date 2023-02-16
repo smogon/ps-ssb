@@ -418,6 +418,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// TheJesucristoOsAma
+	theloveofchrist: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Attracts and confuses the target.",
+		name: "The Love Of Christ",
+		gen: 9,
+		pp: 1,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {protect: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Morning Sun');
+			this.attrLastMove('[anim] Lovely Kiss');
+		},
+		onHit(target, source) {
+			target.addVolatile('attract', source);
+			target.addVolatile('confusion', source);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
+
 	// trace
 	chronostasis: {
 		accuracy: 90,
@@ -451,30 +476,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
-	},
-	// TheJesucristoOsAma
-	theloveofchrist: {
-		accuracy: 100,
-		basePower: 0,
-		category: "Status",
-		shortDesc: "Attracts and confuses the target.",
-		name: "The Love Of Christ",
-		gen: 9,
-		pp: 1,
-		noPPBoosts: true,
-		priority: 0,
-		flags: {protect: 1},
-		onPrepareHit() {
-			this.attrLastMove('[anim] Morning Sun');
-			this.attrLastMove('[anim] Lovely Kiss');
-		},
-		onHit(target, source) {
-			target.addVolatile('attract', source);
-			target.addVolatile('confusion', source);
-		},
-		secondary: null,
-		target: "normal",
-		type: "Normal",
 	},
 
 	// UT

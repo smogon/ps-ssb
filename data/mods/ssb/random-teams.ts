@@ -78,6 +78,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'ok',
 		evs: {hp: 252, def: 4, spa: 252}, nature: 'Quiet', teraType: 'Normal',
 	},
+	phoopes: {
+		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
+		moves: ['Lovely Kiss', 'Psychic', 'Toxic'],
+		signatureMove: 'Gen 1 Blizzard',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
+	},
 	TheJesucristoOsAma: {
 		species: 'Arceus', ability: 'The Grace Of Jesus Christ', gender: 'N',
 		item: [
@@ -87,12 +93,6 @@ export const ssbSets: SSBSets = {
 		moves: ['Earthquake', 'Surf', 'Judgment'],
 		signatureMove: 'The Love Of Christ',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
-	},
-	phoopes: {
-		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
-		moves: ['Lovely Kiss', 'Psychic', 'Toxic'],
-		signatureMove: 'Gen 1 Blizzard',
-		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
 	},
 	trace: {
 		species: 'Delphox', ability: 'Eyes of Eternity', item: 'Life Orb', gender: 'F',
