@@ -72,6 +72,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Chronostasis',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
 	},
+	'snake_rattler': {
+		species: 'Fidgit', ability: 'Persistent', item: ['Mental Herb', 'Covert Cloak'], gender: 'M',
+		moves: ['Tailwind', 'Healing Wish', 'Taunt'],
+		signatureMove: 'Concept Relevant',
+		evs: {hp: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Water',
+	},
 };
 
 export class RandomStaffBrosTeams extends RandomTeams {
