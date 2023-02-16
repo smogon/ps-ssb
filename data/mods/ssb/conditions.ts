@@ -214,13 +214,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	ut: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('ut')}|I just hope both teams have fun!`);
+			this.add(`c:|${getName('UT')}|I just hope both teams have fun!`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('ut')}|this path is reckless`);
+			this.add(`c:|${getName('UT')}|this path is reckless`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('ut')}|screaming, crying, perfect storm`);
+			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
 		},
 	},
 	// Effects needed to be overriden for things to happen
