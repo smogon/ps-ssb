@@ -289,7 +289,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 				this.boost({spa: -spaBoosts, ...randomStat}, pokemon, pokemon, this.effect);
 			} else {
-				if (!pokemon.volatiles['okboosts']) pokemon.addVolatile('okboosts');
+				if (!pokemon.volatiles['ok']) pokemon.addVolatile('ok');
 			}
 		},
 		condition: {
@@ -308,7 +308,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				pokemon.storedStats.spe = this.effectState.spe;
 			},
 			onRestart(pokemon) {
-				pokemon.removeVolatile('okboosts');
+				pokemon.removeVolatile('ok');
 			},
 		},
 		secondary: null,
