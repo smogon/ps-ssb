@@ -270,6 +270,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {},
 		stallingMove: true,
 		volatileStatus: 'protect',
+		// TODO move anims
 		onPrepareHit(pokemon) {
 			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
 		},
