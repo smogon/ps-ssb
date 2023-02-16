@@ -64,7 +64,29 @@ export const ssbSets: SSBSets = {
 		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
 		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
 		signatureMove: 'Testing in Production',
-		evs: {atk: 252, spe: 252, spa: 4}, nature: 'Jolly',
+		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Jolly',
+	},
+	Kennedy: {
+		species: 'Cinderace', ability: 'Anfield', item: 'Berserk Gene', gender: 'M',
+		moves: ['Blaze Kick', ['Triple Kick', 'Trop Kick'], 'U-turn'],
+		signatureMove: 'Hat-Trick',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Any',
+	},
+	Kris: {
+		species: 'Nymble', ability: 'Cacophony', item: 'Heavy-Duty Boots', gender: 'N',
+		moves: ['Boomburst', 'Bug Buzz', 'Torch Song'],
+		signatureMove: 'ok',
+		evs: {hp: 252, def: 4, spa: 252}, nature: 'Quiet', teraType: 'Normal',
+	},
+	TheJesucristoOsAma: {
+		species: 'Arceus', ability: 'The Grace Of Jesus Christ', gender: 'N',
+		item: [
+			'Draco Plate', 'Dread Plate', 'Earth Plate', 'Fist Plate', 'Flame Plate', 'Icicle Plate', 'Insect Plate', 'Iron Plate', 'Meadow Plate',
+			'Mind Plate', 'Pixie Plate', 'Sky Plate', 'Splash Plate', 'Spooky Plate', 'Stone Plate', 'Toxic Plate', 'Zap Plate',
+		],
+		moves: ['Earthquake', 'Surf', 'Judgment'],
+		signatureMove: 'The Love Of Christ',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
 	},
 	phoopes: {
 		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
@@ -77,6 +99,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Calm Mind', 'Inferno', 'Recover'],
 		signatureMove: 'Chronostasis',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
+	},
+	UT: {
+		species: 'Talonflame', ability: 'Gale Guard', item: 'Life Orb', gender: 'M',
+		moves: ['Brave Bird', 'Roost', ['Swords Dance', 'Flare Blitz', 'Will-O-Wisp']],
+		signatureMove: 'Wingover',
+		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant', teraType: 'Flying',
 	},
 };
 
@@ -135,6 +163,13 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				}
 			}
 
+			let teraType: string | undefined;
+			if (ssbSet.teraType) {
+				teraType = ssbSet.teraType === 'Any' ?
+					this.sample(this.dex.types.all().map(x => x.name)) :
+					this.sampleIfArray(ssbSet.teraType);
+			}
+
 			const set: PokemonSet = {
 				name: name,
 				species: ssbSet.species,
@@ -149,8 +184,6 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				level: this.adjustLevel || ssbSet.level || 100,
 				happiness: typeof ssbSet.happiness === 'number' ? ssbSet.happiness : 255,
 				shiny: typeof ssbSet.shiny === 'number' ? this.randomChance(1, ssbSet.shiny) : !!ssbSet.shiny,
-				teraType: !ssbSet.teraType ? undefined :
-				Array.isArray(ssbSet.teraType) ? this.sampleNoReplace(ssbSet.teraType) : ssbSet.teraType,
 			};
 			while (set.moves.length < 3 && ssbSet.moves.length > 0) {
 				let move = this.sampleNoReplace(ssbSet.moves);
@@ -158,6 +191,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				set.moves.push(move);
 			}
 			set.moves.push(ssbSet.signatureMove);
+			if (teraType) set.teraType = teraType;
 
 			// Any set specific tweaks occur here.
 

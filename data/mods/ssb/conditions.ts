@@ -89,6 +89,92 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	kennedy: {
+		noCopy: true,
+		innateName: "Battle Bond",
+		shortDesc: "After KOing a Pokemon: becomes Cinderace-Gmax.",
+		onStart(target, source, effect) {
+			const message = this.sample(['Justice for the 97', 'up the reds']);
+			this.add(`c:|${getName('Kennedy')}|${message}`);
+			if (source && source.name === 'Clementine') {
+				if (source.volatiles['flipped']) {
+					source.removeVolatile('flipped');
+					this.add(`c:|${getName('Kennedy')}|┬──┬◡ﾉ(° -°ﾉ)`);
+				} else {
+					source.addVolatile('flipped', target, this.effect);
+					this.add(`c:|${getName('Kennedy')}|(╯°o°）╯︵ ┻━┻`);
+				}
+			}
+			if (target.species.id === 'cinderacegmax' && !target.terastallized) {
+				this.add('-start', target, 'typechange', target.getTypes(true, true).join('/'), '[silent]');
+			}
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kennedy')}|!lastfm`); // TODO replace
+			this.add(`c:|${getName('Kennedy')}|Whilst I'm gone, stream this ^`);
+		},
+		onFoeSwitchIn(pokemon) {
+			switch ((pokemon.illusion || pokemon).name) {
+			case 'Links':
+				this.add(`c:|${getName('Kennedy')}|Blue and white shite, blue and white shite, hello, hello.`);
+				this.add(`c:|${getName('Kennedy')}|Blue and white shite, blue and white shite, hello, hello.`);
+				break;
+			case 'Clementine':
+				this.add(`c:|${getName('Kennedy')}|Not the Fr*nch....`);
+				break;
+			case 'Kris':
+				this.add(`c:|${getName('Kennedy')}|fuck that`);
+				this.effectState.target.faint();
+				this.add('message', 'Kennedy fainted mysteriously.....');
+				break;
+			}
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kennedy')}|FUCK OFF, REALLY?????`);
+		},
+		onSourceAfterFaint(length, target, source, effect) {
+			const message = this.sample(['ALLEZZZZZ', 'VAMOSSSSS', 'FORZAAAAA', 'LET\'S GOOOOO']);
+			this.add(`c:|${getName('Kennedy')}|${message}`);
+			if (source.species.id === 'cinderace' && this.field.pseudoWeather['anfieldatmosphere'] &&
+				!source.transformed && effect?.effectType === 'Move' && source.hp && source.side.foePokemonLeft()) {
+				this.add('-activate', source, 'ability: Battle Bond');
+				source.formeChange('Cinderace-Gmax', this.effect, true);
+				source.baseMaxhp = Math.floor(Math.floor(
+					2 * source.species.baseStats['hp'] + source.set.ivs['hp'] + Math.floor(source.set.evs['hp'] / 4) + 100
+				) * source.level / 100 + 10);
+				const newMaxHP = source.volatiles['dynamax'] ? (2 * source.baseMaxhp) : source.baseMaxhp;
+				source.hp = newMaxHP - (source.maxhp - source.hp);
+				source.maxhp = newMaxHP;
+				this.add('-heal', source, source.getHealth, '[silent]');
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.volatiles['attract']) {
+				this.add(`c:|${getName('Kennedy')}|NAAA FUCK OFF, I'd rather be dead`);
+				pokemon.faint();
+				this.add('message', 'Kennedy would have been infatuated but fainted mysteriously');
+			}
+		},
+		onSourceCriticalHit(pokemon, source, move) {
+			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
+		onFlinch(pokemon) {
+			if (pokemon.illusion) return;
+			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
+	},
+	kris: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kris')}|ok`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kris')}|ok`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kris')}|ok`);
+		},
+	},
 	mia: {
 		noCopy: true,
 		onStart() {
@@ -123,6 +209,70 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
+		},
+	},
+	thejesucristoosama: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|In the name of the Father, the Son and the Holy Spirit. I bless you, Amen.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|Oh well, I think it's time to call my apostles.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|And that's how I've died for the third time, I'll go to host a game at eventos.`);
+		},
+	},
+	ut: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('UT')}|I just hope both teams have fun!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('UT')}|this path is reckless`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
+		},
+	},
+	// Effects needed to be overriden for things to happen
+	attract: {
+		onStart(pokemon, source, effect) {
+			if (!(pokemon.gender === 'M' && source.gender === 'F') && !(pokemon.gender === 'F' && source.gender === 'M')) {
+				if (effect.name !== 'The Love Of Christ') {
+					this.debug('incompatible gender');
+					return false;
+				}
+			}
+			if (!this.runEvent('Attract', pokemon, source)) {
+				this.debug('Attract event failed');
+				return false;
+			}
+
+			if (effect.name === 'Cute Charm') {
+				this.add('-start', pokemon, 'Attract', '[from] ability: Cute Charm', '[of] ' + source);
+			} else if (effect.name === 'Destiny Knot') {
+				this.add('-start', pokemon, 'Attract', '[from] item: Destiny Knot', '[of] ' + source);
+			} else {
+				this.add('-start', pokemon, 'Attract');
+			}
+		},
+		onUpdate(pokemon) {
+			if (this.effectState.source && !this.effectState.source.isActive && pokemon.volatiles['attract']) {
+				this.debug('Removing Attract volatile on ' + pokemon);
+				pokemon.removeVolatile('attract');
+			}
+		},
+		onBeforeMovePriority: 2,
+		onBeforeMove(pokemon, target, move) {
+			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectState.source);
+			if (this.randomChance(1, 2)) {
+				this.add('cant', pokemon, 'Attract');
+				return false;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, 'Attract', '[silent]');
 		},
 	},
 };

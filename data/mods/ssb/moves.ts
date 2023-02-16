@@ -83,14 +83,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[anim] Max Guard');
 			if (pokemon.species.name === 'Quagsire') {
 				this.attrLastMove('[anim] Protect');
+				return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
 			} else {
 				this.attrLastMove('[anim] Recover');
 			}
 		},
 		secondary: null,
+		volatileStatus: 'sireswitch',
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
-				pokemon.addVolatile('sireswitch');
+				pokemon.addVolatile('stall');
 				pokemon.formeChange('clodsire', this.effect, true);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
@@ -197,6 +199,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (boost[randomStat]) {
 					boost[randomStat] = 0;
 					this.add(`c:|${getName('Mia')}|Well. Guess that broke. Time to roll back.`);
+					return;
 				} else {
 					boost[randomStat] = -2;
 				}
@@ -290,5 +293,48 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
+	},
+	// TheJesucristoOsAma
+	theloveofchrist: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Attracts and confuses the target.",
+		name: "The Love Of Christ",
+		gen: 9,
+		pp: 1,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {protect: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Morning Sun');
+			this.attrLastMove('[anim] Lovely Kiss');
+		},
+		onHit(target, source) {
+			target.addVolatile('attract', source);
+			target.addVolatile('confusion', source);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
+
+	// UT
+	wingover: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "Damages foe and pivots out.",
+		name: "Wingover",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] U-turn');
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 };
