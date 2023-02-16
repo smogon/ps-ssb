@@ -83,8 +83,8 @@ export const ssbSets: SSBSets = {
 		moves: ['Lovely Kiss', 'Psychic', 'Toxic'],
 		signatureMove: 'Gen 1 Blizzard',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
-  },
-  Scotteh: {
+	},
+	Scotteh: {
 		species: 'Suicune', ability: 'Water Absorb', item: 'Leftovers', gender: '',
 		moves: ['Calm Mind', 'Scald', 'Ice Beam'],
 		signatureMove: 'Purification',
