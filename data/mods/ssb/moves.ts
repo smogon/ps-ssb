@@ -334,9 +334,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(pokemon) {
 			pokemon.addVolatile('stall');
 			this.actions.useMove('Substitute', pokemon);
-			this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1, accuracy: 1, evasion: 1}, pokemon);
-			this.add(`c:|${getName('Mad Monty')}|Ope! Wrong button, sorry.`);
-			this.boost({atk: -1, def: -1, spa: -1, spd: -1, spe: -1, accuracy: -1, evasion: -1}, pokemon);
+			if (!Object.values(pokemon.boosts).some(x => x >= 6)) {
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1, accuracy: 1, evasion: 1}, pokemon);
+				this.add(`c:|${getName('Mad Monty')}|Ope! Wrong button, sorry.`);
+				this.boost({atk: -1, def: -1, spa: -1, spd: -1, spe: -1, accuracy: -1, evasion: -1}, pokemon);
+			}
 		},
 		secondary: null,
 		target: "self",
