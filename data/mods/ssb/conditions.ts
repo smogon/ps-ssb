@@ -259,7 +259,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
 		},
 	},
-
 	ut: {
 		noCopy: true,
 		onStart() {
