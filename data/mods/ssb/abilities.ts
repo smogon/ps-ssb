@@ -278,12 +278,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			const plates = [
-				'Draco Plate', 'Dread Plate', 'Earth Plate', 'Fist Plate', 'Flame Plate',
-				'Icicle Plate', 'Insect Plate', 'Iron Plate', 'Meadow Plate', 'Mind Plate',
-				'Pixie Plate', 'Sky Plate', 'Splash Plate', 'Spooky Plate', 'Stone Plate',
-				'Toxic Plate', 'Zap Plate',
-			];
+			const plates = this.dex.items.all().filter(item => item.isPlate);
 			const item = this.sample(plates.filter(plate => this.toID(plate) !== this.toID(pokemon.item)));
 			pokemon.item = '';
 			this.add('-item', pokemon, this.dex.items.get(item), '[from] ability: The Grace Of Jesus Christ');
