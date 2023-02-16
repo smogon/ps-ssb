@@ -197,6 +197,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kris')}|ok`);
 		},
 	},
+	madmonty: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Mad Monty')}|I'm here to make sure you don't get eaten by llamas!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Mad Monty')}|Ope! The Library's on fire. Gotta tend to that for a sec...`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Mad Monty')}|Well great. Now the llamas are gonna come back. Is that what you wanted?`);
+		},
+	},
 	mia: {
 		noCopy: true,
 		onStart() {
@@ -207,6 +219,42 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Mia')}|git checkout --detach HEAD && git commit -m "war crimes"`);
+		},
+	},
+	phoopes: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There It Is)`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There He Goes)`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
+		},
+	},
+	scotteh: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Compilation completed successfully. Executing...\`\``);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Execution temporarily paused.\`\``);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Segmentation fault (core dumped)\`\``);
+		},
+	},
+	thejesucristoosama: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|In the name of the Father, the Son and the Holy Spirit. I bless you, Amen.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|Oh well, I think it's time to call my apostles.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|And that's how I've died for the third time, I'll go to host a game at eventos.`);
 		},
 	},
 	traceuser: {
@@ -221,16 +269,16 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
 		},
 	},
-	thejesucristoosama: {
+	ut: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('TheJesucristoOsAma')}|In the name of the Father, the Son and the Holy Spirit. I bless you, Amen.`);
+			this.add(`c:|${getName('UT')}|I just hope both teams have fun!`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('TheJesucristoOsAma')}|Oh well, I think it's time to call my apostles.`);
+			this.add(`c:|${getName('UT')}|this path is reckless`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('TheJesucristoOsAma')}|And that's how I've died for the third time, I'll go to host a game at eventos.`);
+			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
 		},
 	},
 	// Effects needed to be overriden for things to happen
