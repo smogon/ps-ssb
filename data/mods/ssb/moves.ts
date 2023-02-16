@@ -278,7 +278,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			pokemon.addVolatile('stall');
 			if (this.random(100) > 20) {
 				if (!pokemon.boosts['spa'] || pokemon.boosts['spa'] < 0) return null;
-				let spaBoosts = pokemon.boosts['spa'];
+				const spaBoosts = pokemon.boosts['spa'];
 				let modifiableSpaBoosts = spaBoosts;
 				const randomStat: SparseBoostsTable = {};
 				while (modifiableSpaBoosts > 0) {
@@ -454,8 +454,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
-   //UT
-   wingover: {
+	// UT
+	wingover: {
 		accuracy: 100,
 		basePower: 70,
 		category: "Physical",

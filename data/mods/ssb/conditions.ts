@@ -211,7 +211,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('TheJesucristoOsAma')}|And that's how I've died for the third time, I'll go to host a game at eventos.`);
 		},
 	},
-   ut: {
+	ut: {
 		noCopy: true,
 		onStart() {
 			this.add(`c:|${getName('ut')}|I just hope both teams have fun!`);

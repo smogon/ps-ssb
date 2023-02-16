@@ -285,9 +285,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			pokemon.setItem(item);
 		},
 	},
-   //UT
+	// UT
 	galeguard: {
-      shortDesc: "Only damaged by direct attacks; Flying moves +1 priority.",
+		shortDesc: "Only damaged by direct attacks; Flying moves +1 priority.",
 		name: "Gale Guard",
 		onDamage(damage, target, source, effect) {
 			if (effect.effectType !== 'Move') {
