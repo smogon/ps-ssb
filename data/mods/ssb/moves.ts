@@ -278,12 +278,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (this.random(100) > 20) {
 				if (!pokemon.boosts['spa'] || pokemon.boosts['spa'] < 0) return null;
 				let spaBoosts = pokemon.boosts['spa'];
+				let modifiableSpaBoosts = spaBoosts;
 				const randomStat: SparseBoostsTable = {};
-				while (spaBoosts > 0) {
+				while (modifiableSpaBoosts > 0) {
 					const randomStatID: BoostID = this.sample(['atk', 'def', 'spd', 'spe']);
 					if (!randomStat[randomStatID]) randomStat[randomStatID] = 0;
 					randomStat[randomStatID]! += 1;
-					spaBoosts -= 1;
+					modifiableSpaBoosts -= 1;
 				}
 				this.boost({spa: -spaBoosts, ...randomStat}, pokemon, pokemon, this.effect);
 			} else {
