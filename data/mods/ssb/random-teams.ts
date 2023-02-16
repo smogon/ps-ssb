@@ -60,6 +60,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: "Baker's Douze Off",
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Impish', teraType: 'Fairy',
 	},
+	'Mad Monty': {
+		species: 'Castform', ability: 'Climate Change', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Weather Ball', 'Defog', ['Solar Beam', 'Thunder', 'Aurora Veil']],
+		signatureMove: 'Storm Shelter',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Rock',
+	},
 	Mia: {
 		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
 		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
@@ -78,17 +84,45 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'ok',
 		evs: {hp: 252, def: 4, spa: 252}, nature: 'Quiet', teraType: 'Normal',
 	},
-	trace: {
-		species: 'Delphox', ability: 'Eyes of Eternity', item: 'Life Orb', gender: 'F',
-		moves: ['Calm Mind', 'Inferno', 'Recover'],
-		signatureMove: 'Chronostasis',
-		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
+	phoopes: {
+		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
+		moves: ['Lovely Kiss', 'Psychic', 'Toxic'],
+		signatureMove: 'Gen 1 Blizzard',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
+	},
+	Scotteh: {
+		species: 'Suicune', ability: 'Water Absorb', item: 'Leftovers', gender: '',
+		moves: ['Calm Mind', 'Scald', 'Ice Beam'],
+		signatureMove: 'Purification',
+		evs: {hp: 252, def: 252, spd: 4}, nature: 'Bold', teraType: 'Water',
 	},
 	'snake_rattler': {
 		species: 'Fidgit', ability: 'Persistent', item: ['Mental Herb', 'Covert Cloak'], gender: 'M',
 		moves: ['Tailwind', 'Healing Wish', 'Taunt'],
 		signatureMove: 'Concept Relevant',
 		evs: {hp: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Water',
+	},
+	TheJesucristoOsAma: {
+		species: 'Arceus', ability: 'The Grace Of Jesus Christ', gender: 'N',
+		item: [
+			'Draco Plate', 'Dread Plate', 'Earth Plate', 'Fist Plate', 'Flame Plate', 'Icicle Plate', 'Insect Plate', 'Iron Plate', 'Meadow Plate',
+			'Mind Plate', 'Pixie Plate', 'Sky Plate', 'Splash Plate', 'Spooky Plate', 'Stone Plate', 'Toxic Plate', 'Zap Plate',
+		],
+		moves: ['Earthquake', 'Surf', 'Judgment'],
+		signatureMove: 'The Love Of Christ',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+	},
+	trace: {
+		species: 'Delphox', ability: 'Eyes of Eternity', item: 'Life Orb', gender: 'F',
+		moves: ['Calm Mind', 'Inferno', 'Recover'],
+		signatureMove: 'Chronostasis',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
+	},
+	UT: {
+		species: 'Talonflame', ability: 'Gale Guard', item: 'Life Orb', gender: 'M',
+		moves: ['Brave Bird', 'Roost', ['Swords Dance', 'Flare Blitz', 'Will-O-Wisp']],
+		signatureMove: 'Wingover',
+		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant', teraType: 'Flying',
 	},
 };
 

@@ -175,6 +175,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kris')}|ok`);
 		},
 	},
+	madmonty: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Mad Monty')}|I'm here to make sure you don't get eaten by llamas!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Mad Monty')}|Ope! The Library's on fire. Gotta tend to that for a sec...`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Mad Monty')}|Well great. Now the llamas are gonna come back. Is that what you wanted?`);
+		},
+	},
 	mia: {
 		noCopy: true,
 		onStart() {
@@ -185,6 +197,54 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Mia')}|git checkout --detach HEAD && git commit -m "war crimes"`);
+		},
+	},
+	phoopes: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There It Is)`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There He Goes)`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
+		},
+	},
+	scotteh: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Compilation completed successfully. Executing...\`\``);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Execution temporarily paused.\`\``);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Scotteh')}|\`\`Segmentation fault (core dumped)\`\``);
+		},
+	},
+	snakerattler: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('snake_rattler')}|CAP Concept: Pure Utility Pokemon`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('snake_rattler')}|CAP is a community focused project that creates singular Pokemon through structured Smogon based discussion threads. We define a concept to build around and proceed through various stages to determine typing, ability, stats, and movepool to complement that concept. We also run stages to determine a CAP's art, name, Pokedex entry, and sprite, so even if you're not a competitive Pokemon person you can get involved. At the end of each process we implement each CAP here on Pokemon Showdown!, where they are made available with the rest of our creations in the CAP metagame, found under 'S/V Singles'.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('snake_rattler')}|CAP does not accept personal creations. This refers to any idea for a Pokemon that already has predefined typing, stats, abilities, movepool, name, art, pokedex entries, weight, height, or even generic themes such as "rabbit" or "angry". These facets of a Pokemon are all decided through community discussion in CAP during the CAP process. If you think you have an idea for a Pokemon that does not define these features, you may have a concept. CAP bases our Pokemon around concepts that look to explore the mechanics behind Pokemon and we take open submissions whenever we start a new project. Examples of past concepts include Perfect Sketch User, Momentum, Trapping mechanics, delayed move user, and weather enabler.`);
+		},
+	},
+	thejesucristoosama: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|In the name of the Father, the Son and the Holy Spirit. I bless you, Amen.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|Oh well, I think it's time to call my apostles.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('TheJesucristoOsAma')}|And that's how I've died for the third time, I'll go to host a game at eventos.`);
 		},
 	},
 	traceuser: {
@@ -199,16 +259,57 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('trace')}|How disappointingly short a dream lasts.`);
 		},
 	},
-	snakerattler: {
+
+	ut: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('snake_rattler')}|CAP Concept: Pure Utility Pokemon`);
+			this.add(`c:|${getName('UT')}|I just hope both teams have fun!`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('snake_rattler')}|CAP is a community focused project that creates singular Pokemon through structured Smogon based discussion threads. We define a concept to build around and proceed through various stages to determine typing, ability, stats, and movepool to complement that concept. We also run stages to determine a CAP's art, name, Pokedex entry, and sprite, so even if you're not a competitive Pokemon person you can get involved. At the end of each process we implement each CAP here on Pokemon Showdown!, where they are made available with the rest of our creations in the CAP metagame, found under 'S/V Singles'.`);
+			this.add(`c:|${getName('UT')}|this path is reckless`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('snake_rattler')}|CAP does not accept personal creations. This refers to any idea for a Pokemon that already has predefined typing, stats, abilities, movepool, name, art, pokedex entries, weight, height, or even generic themes such as "rabbit" or "angry". These facets of a Pokemon are all decided through community discussion in CAP during the CAP process. If you think you have an idea for a Pokemon that does not define these features, you may have a concept. CAP bases our Pokemon around concepts that look to explore the mechanics behind Pokemon and we take open submissions whenever we start a new project. Examples of past concepts include Perfect Sketch User, Momentum, Trapping mechanics, delayed move user, and weather enabler.`);
+			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
+		},
+	},
+	// Effects needed to be overriden for things to happen
+	attract: {
+		onStart(pokemon, source, effect) {
+			if (!(pokemon.gender === 'M' && source.gender === 'F') && !(pokemon.gender === 'F' && source.gender === 'M')) {
+				if (effect.name !== 'The Love Of Christ') {
+					this.debug('incompatible gender');
+					return false;
+				}
+			}
+			if (!this.runEvent('Attract', pokemon, source)) {
+				this.debug('Attract event failed');
+				return false;
+			}
+
+			if (effect.name === 'Cute Charm') {
+				this.add('-start', pokemon, 'Attract', '[from] ability: Cute Charm', '[of] ' + source);
+			} else if (effect.name === 'Destiny Knot') {
+				this.add('-start', pokemon, 'Attract', '[from] item: Destiny Knot', '[of] ' + source);
+			} else {
+				this.add('-start', pokemon, 'Attract');
+			}
+		},
+		onUpdate(pokemon) {
+			if (this.effectState.source && !this.effectState.source.isActive && pokemon.volatiles['attract']) {
+				this.debug('Removing Attract volatile on ' + pokemon);
+				pokemon.removeVolatile('attract');
+			}
+		},
+		onBeforeMovePriority: 2,
+		onBeforeMove(pokemon, target, move) {
+			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectState.source);
+			if (this.randomChance(1, 2)) {
+				this.add('cant', pokemon, 'Attract');
+				return false;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, 'Attract', '[silent]');
 		},
 	},
 };

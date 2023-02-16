@@ -97,7 +97,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
 				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
-				pokemon.formeChange('quagsire', this.effect, true);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past'], true);
 			}
 		},
@@ -278,7 +277,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			pokemon.addVolatile('stall');
 			if (this.random(100) > 20) {
 				if (!pokemon.boosts['spa'] || pokemon.boosts['spa'] < 0) return null;
-				let spaBoosts = pokemon.boosts['spa'];
+				const spaBoosts = pokemon.boosts['spa'];
 				let modifiableSpaBoosts = spaBoosts;
 				const randomStat: SparseBoostsTable = {};
 				while (modifiableSpaBoosts > 0) {
@@ -314,6 +313,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Fairy",
+	},
+
+	// Mad Monty
+	stormshelter: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Storm Shelter",
+		shortDesc: "User protects and sets up a substitute.",
+		pp: 5,
+		priority: 4,
+		flags: {},
+		stallingMove: true,
+		volatileStatus: 'protect',
+		onPrepareHit(pokemon) {
+			this.attrLastMove('[anim] Protect');
+			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit(pokemon) {
+			pokemon.addVolatile('stall');
+			this.actions.useMove('Substitute', pokemon);
+			if (!Object.values(pokemon.boosts).some(x => x >= 6)) {
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1, accuracy: 1, evasion: 1}, pokemon);
+				this.add(`c:|${getName('Mad Monty')}|Ope! Wrong button, sorry.`);
+				this.boost({atk: -1, def: -1, spa: -1, spd: -1, spe: -1, accuracy: -1, evasion: -1}, pokemon);
+			}
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
 	},
 
 	// Mia
@@ -396,39 +425,71 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
-	// trace
-	chronostasis: {
+	// phoopes
+	gen1blizzard: {
 		accuracy: 90,
-		basePower: 80,
+		basePower: 120,
 		category: "Special",
-		shortDesc: "If target is KOed, user boosts a random stat by 2.",
-		name: "Chronostasis",
-		gen: 9,
-		pp: 10,
+		name: "Gen 1 Blizzard",
+		desc: "Has a 10% chance to freeze the target.",
+		shortDesc: "10% chance to freeze the target.",
+		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit() {
-			this.attrLastMove('[anim] Future Sight');
+			this.attrLastMove('[anim] Blizzard');
 		},
-		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (!target || target.fainted || target.hp <= 0) {
-				const stats: BoostID[] = [];
-				let stat: BoostID;
-				for (stat in target.boosts) {
-					if (stat === 'accuracy' || stat === 'evasion') continue;
-					if (target.boosts[stat] < 6) {
-						stats.push(stat);
-					}
-				}
-				if (stats.length) {
-					const randomStat = this.sample(stats);
-					this.boost({[randomStat]: 2}, pokemon, pokemon, move);
-				}
-			}
+		secondary: {
+			chance: 10,
+			status: 'frz',
+		},
+		target: "normal",
+		type: "Ice",
+	},
+
+	// Scotteh
+	purification: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Purification",
+		pp: 5,
+		priority: 0,
+		flags: {heal: 1, bypasssub: 1, allyanim: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Moonlight');
+		},
+		onHit(pokemon) {
+			const success = !!this.heal(this.modify(pokemon.maxhp, 0.5));
+			return pokemon.cureStatus() || success;
+		},
+		secondary: null,
+		target: "self",
+		type: "Water",
+	},
+	// TheJesucristoOsAma
+	theloveofchrist: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Attracts and confuses the target.",
+		name: "The Love Of Christ",
+		gen: 9,
+		pp: 1,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {protect: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Morning Sun');
+			this.attrLastMove('[anim] Lovely Kiss');
+		},
+		onHit(target, source) {
+			target.addVolatile('attract', source);
+			target.addVolatile('confusion', source);
 		},
 		secondary: null,
 		target: "normal",
-		type: "Psychic",
+		type: "Normal",
 	},
 
 	// snake_rattler
@@ -487,5 +548,59 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		selfSwitch: true,
 		target: "normal",
 		type: "Bug",
+	},
+
+	// trace
+	chronostasis: {
+		accuracy: 90,
+		basePower: 80,
+		category: "Special",
+		shortDesc: "If target is KOed, user boosts a random stat by 2.",
+		name: "Chronostasis",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Future Sight');
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (!target || target.fainted || target.hp <= 0) {
+				const stats: BoostID[] = [];
+				let stat: BoostID;
+				for (stat in target.boosts) {
+					if (stat === 'accuracy' || stat === 'evasion') continue;
+					if (target.boosts[stat] < 6) {
+						stats.push(stat);
+					}
+				}
+				if (stats.length) {
+					const randomStat = this.sample(stats);
+					this.boost({[randomStat]: 2}, pokemon, pokemon, move);
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
+
+	// UT
+	wingover: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "Damages foe and pivots out.",
+		name: "Wingover",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] U-turn');
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 };
