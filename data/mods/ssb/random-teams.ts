@@ -60,6 +60,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: "Baker's Douze Off",
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Impish', teraType: 'Fairy',
 	},
+	"Irpachuza!": {
+		species: 'Mr. Mime', ability: 'Mime knows best', item: 'Irpatuzinium Z', gender: 'M',
+		moves: [['Destiny Bond', 'Lunar Dance'], 'Parting Shot', 'Taunt'],
+		signatureMove: 'Fleur Cannon',
+		evs: {hp: 252, spa: 4, spd: 252}, ivs: {atk: 0}, nature: 'Modest',
+	},
 	Mia: {
 		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
 		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],

@@ -99,6 +99,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Irpachuza
+	mimeknowsbest: {
+		desc: "Uses a random screen/protect move on switch in.",
+		name: "Mime knows best",
+		onStart(target) {
+			const randomMove = [
+				"Light Screen", "Reflect", "Protect", "Detect", "Barrier", "Spiky Shield", "Baneful Bunker",
+				"Safeguard", "Mist", "King's Shield", "Magic Coat",
+			];
+			this.actions.useMove(this.sample(randomMove), target);
+		},
+	},
+
 	// Mia
 	hacking: {
 		name: "Hacking",
