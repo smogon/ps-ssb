@@ -454,6 +454,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
+
 	// UT
 	wingover: {
 		accuracy: 100,
