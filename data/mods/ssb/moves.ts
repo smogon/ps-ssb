@@ -396,6 +396,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	// phoopes
 	gen1blizzard: {
 		accuracy: 90,
 		basePower: 120,
