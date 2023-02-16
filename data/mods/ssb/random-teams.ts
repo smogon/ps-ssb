@@ -94,7 +94,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Chronostasis',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Psychic',
 	},
-	ut: {
+	UT: {
 		species: 'Talonflame', ability: 'Gale Guard', item: 'Life Orb', gender: 'M',
 		moves: ['Brave Bird', 'Roost', ['Swords Dance', 'Flare Blitz', 'Will-O-Wisp']],
 		signatureMove: 'Wingover',
