@@ -101,6 +101,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Mia')}|git checkout --detach HEAD && git commit -m "war crimes"`);
 		},
 	},
+	phoopes: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There It Is)`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('phoopes')}|phoopes! (There He Goes)`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
+		},
+	},
 	traceuser: {
 		noCopy: true,
 		onStart() {

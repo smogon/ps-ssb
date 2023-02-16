@@ -236,6 +236,27 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	gen1blizzard: {
+		accuracy: 90,
+		basePower: 120,
+		category: "Special",
+		name: "Gen 1 Blizzard",
+		desc: "Has a 10% chance to freeze the target.",
+		shortDesc: "10% chance to freeze the target.",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Blizzard');
+		},
+		secondary: {
+			chance: 10,
+			status: 'frz',
+		},
+		target: "normal",
+		type: "Ice",
+	},
+
 	// trace
 	chronostasis: {
 		accuracy: 90,

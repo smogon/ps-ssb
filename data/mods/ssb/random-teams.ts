@@ -66,6 +66,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Testing in Production',
 		evs: {atk: 252, spe: 252, spa: 4}, nature: 'Jolly',
 	},
+	phoopes: {
+		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
+		moves: ['Lovely Kiss', 'Psychic', 'Toxic'],
+		signatureMove: 'Gen 1 Blizzard',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
+	},
 	trace: {
 		species: 'Delphox', ability: 'Eyes of Eternity', item: 'Life Orb', gender: 'F',
 		moves: ['Calm Mind', 'Inferno', 'Recover'],

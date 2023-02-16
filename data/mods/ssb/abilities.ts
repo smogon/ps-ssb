@@ -145,6 +145,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// phoopes
+	ididitagain: {
+		shortDesc: "Bypasses Sleep Clause Mod once per battle.",
+		name: "I Did It Again",
+		// implemented in rulesets.ts
+	},
+
 	// trace
 	eyesofeternity: {
 		shortDesc: "Moves used by/against this Pokemon always hit; only damaged by attacks.",
