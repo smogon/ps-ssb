@@ -395,7 +395,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Electric",
 	},
-	//phoopes
+	// phoopes
 	gen1blizzard: {
 		accuracy: 90,
 		basePower: 120,
@@ -416,7 +416,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
-	//Scotteh
+	// Scotteh
 	purification: {
 		accuracy: true,
 		basePower: 0,
