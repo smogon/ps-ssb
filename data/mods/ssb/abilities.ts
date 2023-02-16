@@ -278,7 +278,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			const plates = this.dex.items.all().filter(item => item.isPlate);
+			const plates = this.dex.items.all().filter(item => item.onPlate && !item.zMove);
 			const item = this.sample(plates.filter(plate => this.toID(plate) !== this.toID(pokemon.item)));
 			pokemon.item = '';
 			this.add('-item', pokemon, this.dex.items.get(item), '[from] ability: The Grace Of Jesus Christ');
