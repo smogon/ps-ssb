@@ -266,6 +266,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
 		},
 	},
+	rumia: {
+		noCopy: true,
+		onStart(source) {
+			if (source && source.name === 'Kolohe') {
+				this.add(`c:|${getName('Rumia')}|OMG who could that be (⁠●⁠♡⁠∀⁠♡⁠)`);
+			} else this.add(`c:|${getName('Rumia')}|is the mon in front of me the edible kind?`);
+		},
+		onSwitchOut(source) {
+			if (source && source.name === 'Kolohe') {
+				this.add(`c:|${getName('Rumia')}|i cant bring myself to do this...`);
+			} else this.add(`c:|${getName('Rumia')}|brb ^_^`);
+		},
+		onFaint(source) {
+			if (source && source.name === 'Kolohe') {
+				this.add(`c:|${getName('Rumia')}|this is the best way to go out...`);
+			} else this.add(`c:|${getName('Rumia')}|is that sooooo...`);
+		},
+	},
 	scotteh: {
 		noCopy: true,
 		onStart() {
