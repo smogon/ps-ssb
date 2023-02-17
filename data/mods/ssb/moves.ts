@@ -163,7 +163,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 120,
 		category: "Physical",
-		shortDesc: "Deals damage and traps foe.",
+		shortDesc: "Prevents the target from switching out.",
 		name: "Jirachi Ban Hammer",
 		pp: 5,
 		priority: 0,
