@@ -197,6 +197,26 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
 		},
 	},
+	kolohe: {
+		noCopy: true,
+		onStart(source) {
+			if (source && source.name === 'Rumia') {
+				this.add(`c:|${getName('kolochu ✮彡')}|You come around here often?`);
+			} else if (source && source.name === 'spoo') {
+				this.add(`c:|${getName('kolochu ✮彡')}|Big bald head spotted...`);
+			} else if (source && source.name === 'ausma') {
+				this.add(`c:|${getName('kolochu ✮彡')}|The weekly Smogon furry convention starts NOW`);
+			} else if (source && source.name === 'Peary') {
+				this.add(`c:|${getName('kolochu ✮彡')}|Any arters or culturers?`);
+			} else this.add(`c:|${getName('kolochu ✮彡')}|Hey, howzit!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('kolochu ✮彡')}|`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('kolochu ✮彡')}|Tell.. My wife... She STINKS!!`);
+		},
+	},
 	kris: {
 		noCopy: true,
 		onStart() {
