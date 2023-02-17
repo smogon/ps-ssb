@@ -199,16 +199,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	kolohe: {
 		noCopy: true,
-		onStart(source) {
-			if (source && source.name === 'Rumia') {
+		onStart(pokemon) {
+			const foe = pokemon.foes()[0];
+			if (foe && foe.name === 'Rumia') {
 				this.add(`c:|${getName('kolochu ✮彡')}|You come around here often?`);
-			} else if (source && source.name === 'spoo') {
+			} else if (foe && foe.name === 'spoo') {
 				this.add(`c:|${getName('kolochu ✮彡')}|Big bald head spotted...`);
-			} else if (source && source.name === 'ausma') {
+			} else if (foe && foe.name === 'ausma') {
 				this.add(`c:|${getName('kolochu ✮彡')}|The weekly Smogon furry convention starts NOW`);
-			} else if (source && source.name === 'Peary') {
+			} else if (foe && foe.name === 'Peary') {
 				this.add(`c:|${getName('kolochu ✮彡')}|Any arters or culturers?`);
-			} else this.add(`c:|${getName('kolochu ✮彡')}|Hey, howzit!`);
+			} else {
+				this.add(`c:|${getName('kolochu ✮彡')}|Hey, howzit!`);
+			}
 		},
 		onSwitchOut() {
 			const message = this.add('raw|<img src="https://cdn.discordapp.com/emojis/659987060794327051.gif?size=160&quality=lossless" width="50" height="50">');
