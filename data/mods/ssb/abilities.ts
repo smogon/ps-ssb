@@ -202,10 +202,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Soul Surfer",
 		shortDesc: "Rain on entry; Speed: x2 in Electric Terrain.",
 		onStart(source) {
-			for (const action of this.queue) {
-				if (action.choice === 'runPrimal' && action.pokemon === source && source.species.id === 'kyogre') return;
-				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
-			}
 			this.field.setWeather('raindance');
 		},
 		onModifySpe(spe) {
