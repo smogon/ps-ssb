@@ -97,8 +97,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onSwitchOut() {
 			this.add(`c:|${getName('ironwater')}|Let me grab a bigger hammer`);
 		},
-		onFaint(source) {
-			const enemy = source.side.foe;
+		onFaint() {
 			this.add(`c:|${getName('ironwater')}|I'll ban you in the next game...`);
 		},
 	},
