@@ -211,7 +211,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			} else this.add(`c:|${getName('kolochu ✮彡')}|Hey, howzit!`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('kolochu ✮彡')}|`);
+			const message = this.add('raw|<img src="https://cdn.discordapp.com/emojis/659987060794327051.gif?size=160&quality=lossless" width="50" height="50">');
+			this.add(`c:|${getName('kolochu ✮彡')}|${message}`);
 		},
 		onFaint() {
 			this.add(`c:|${getName('kolochu ✮彡')}|Tell.. My wife... She STINKS!!`);
