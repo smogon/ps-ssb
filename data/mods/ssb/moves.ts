@@ -334,7 +334,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		volatileStatus: 'protect',
 		onPrepareHit(pokemon) {
 			this.add('-anim', source, 'Stoked Sparksurfer', target);
 			this.add('-anim', source, 'Surf', target);
