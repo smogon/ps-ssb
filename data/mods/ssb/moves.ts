@@ -157,7 +157,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Normal",
 	},
-	
+
 	// ironwater
 	jirachibanhammer: {
 		accuracy: 100,
