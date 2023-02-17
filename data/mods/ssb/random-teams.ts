@@ -90,7 +90,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Hat-Trick',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Any',
 	},
-	Kolohe: {
+	kolochu: {
 		species: 'Pikachu', ability: 'Soul Surfer', item: 'Light Ball', gender: '',
 		moves: ['Thunder', 'Volt Switch', 'Bouncy Bubble'],
 		signatureMove: 'Hang Ten',
