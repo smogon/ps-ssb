@@ -372,13 +372,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	roughandtumble: {
 		shortDesc: "Restores 1/3 HP and changes forme on switch out.",
 		name: "Rough and Tumble",
+		onSwitchOutPriority: -1,
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 			if (pokemon.species.name === 'Sneasel') {
-				this.add(`c:|${getName('sharp_claw')}|brb, getting my brother :3`);
 				changeSet(this, pokemon, ssbSets['sharp_claw-Rough']);
 			} else {
-				this.add(`c:|${getName('sharp_claw')}|brb, getting my sister C:`);
 				changeSet(this, pokemon, ssbSets['sharp_claw']);
 			}
 		},

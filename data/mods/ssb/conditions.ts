@@ -254,7 +254,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.add(`c:|${getName('sharp_claw')}|Hi, I'm Rough! gl >:)`);
 			}
 		},
-		// onSwitchOut implemented in ability instead
+		onSwitchOut(pokemon) {
+			if (pokemon.species.name === 'Sneasel') {
+				this.add(`c:|${getName('sharp_claw')}|brb, getting my brother :3`);
+			} else {
+				this.add(`c:|${getName('sharp_claw')}|brb, getting my sister C:`);
+			}
+		},
 		onFaint(pokemon) {
 			if (pokemon.species.name === 'Sneasel') {
 				this.add(`c:|${getName('sharp_claw')}|ur no fun ;~;`);
