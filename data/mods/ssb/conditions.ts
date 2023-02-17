@@ -271,20 +271,29 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	rumia: {
 		noCopy: true,
-		onStart(source) {
-			if (source && source.name === 'Kolohe') {
+		onStart(pokemon) {
+			const foe = pokemon.foes()[0];
+			if (foe && foe.name === 'Kolohe') {
 				this.add(`c:|${getName('Rumia')}|OMG who could that be (⁠●⁠♡⁠∀⁠♡⁠)`);
-			} else this.add(`c:|${getName('Rumia')}|is the mon in front of me the edible kind?`);
+			} else {
+				this.add(`c:|${getName('Rumia')}|is the mon in front of me the edible kind?`);
+			}
 		},
-		onSwitchOut(source) {
-			if (source && source.name === 'Kolohe') {
+		onSwitchOut(pokemon) {
+			const foe = pokemon.foes()[0];
+			if (foe && foe.name === 'Kolohe') {
 				this.add(`c:|${getName('Rumia')}|i cant bring myself to do this...`);
-			} else this.add(`c:|${getName('Rumia')}|brb ^_^`);
+			} else {
+				this.add(`c:|${getName('Rumia')}|brb ^_^`);
+			}
 		},
-		onFaint(source) {
-			if (source && source.name === 'Kolohe') {
+		onFaint(pokemon) {
+			const foe = pokemon.foes()[0];
+			if (foe && foe.name === 'Kolohe') {
 				this.add(`c:|${getName('Rumia')}|this is the best way to go out...`);
-			} else this.add(`c:|${getName('Rumia')}|is that sooooo...`);
+			} else {
+				this.add(`c:|${getName('Rumia')}|is that sooooo...`);
+			}
 		},
 	},
 	scotteh: {
