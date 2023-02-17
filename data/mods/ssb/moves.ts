@@ -94,7 +94,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
 				pokemon.addVolatile('stall');
-				pokemon.formeChange('clodsire', this.effect, true);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
 				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
