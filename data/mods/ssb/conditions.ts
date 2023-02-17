@@ -197,7 +197,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
 		},
 	},
-	kolohe: {
+	kolochu: {
 		noCopy: true,
 		onStart(pokemon) {
 			const foe = pokemon.foes()[0];
