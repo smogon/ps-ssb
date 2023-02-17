@@ -197,7 +197,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		isPermanent: true,
 	},
-
+	// Kolohe
+	soulsurfer: {
+		name: "Soul Surfer",
+		shortDesc: "Rain on entry; Speed: x2 in Electric Terrain.",
+		onStart(source) {
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === source && source.species.id === 'kyogre') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.field.setWeather('raindance');
+		},
+		onModifySpe(spe) {
+			if (this.field.isTerrain('electricterrain')) {
+				return this.chainModify(2);
+			}
+		},
+	},
 	// Kris
 	cacophony: {
 		name: "Cacophony",
