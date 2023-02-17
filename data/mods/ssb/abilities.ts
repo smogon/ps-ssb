@@ -106,9 +106,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(target) {
 			const randomMove = [
 				"Light Screen", "Reflect", "Protect", "Detect", "Barrier", "Spiky Shield", "Baneful Bunker",
-				"Safeguard", "Mist", "King's Shield", "Magic Coat",
+				"Safeguard", "Mist", "King's Shield", "Magic Coat", "Aurora Veil",
 			];
-			this.actions.useMove(this.sample(randomMove), target);
+			const move = this.dex.deepClone(this.dex.moves.get(this.sample(randomMove)));
+			// allows use of Aurora Veil without hail
+			if (move.name === "Aurora Veil") delete move.onTry;
+			this.actions.useMove(move, target);
 		},
 	},
 
