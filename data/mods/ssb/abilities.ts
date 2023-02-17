@@ -383,7 +383,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "I Did It Again",
 		// implemented in rulesets.ts
 	},
-
+	
+	// Rumia
+	youkaiofthedusk: {
+		shortDesc: "Defense: x2. Status moves: +1 Priority.",
+		name: "Youkai of the Dusk",
+		onModifyDefPriority: 6,
+		onModifyDef(def) {
+			return this.chainModify(2);
+		},
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				return priority + 1;
+			}
+		},
+	},
+	
 	// sharp_claw
 	roughandtumble: {
 		shortDesc: "Restores 1/3 HP and changes forme on switch out.",
