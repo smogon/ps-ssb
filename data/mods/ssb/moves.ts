@@ -569,7 +569,33 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Water",
 	},
-
+	
+	// Rumia
+	midnightbird: {
+		accuracy: 100,
+		basePower: 85,
+		category: "Special",
+		name: "Midnight Bird",
+		shortDesc: "+1 Special Attack on hit.",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Memento', target);
+			this.attrLastMove('[anim] Brutal Swing');
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Dark",
+	},
+	
 	// sharp_claw
 	treacheroustraversal: {
 		accuracy: 100,
