@@ -36,7 +36,14 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "You'll Never Walk Alone"},
 		weightkg: 103,
 	},
-
+	
+	// Kolohe
+	pikachu: {
+		inherit: true,
+		baseStats: {hp: 45, atk: 80, def: 50, spa: 75, spd: 60, spe: 120},
+		abilities: {0: "Soul Surfer"},
+	},
+	
 	// Kris
 	nymble: {
 		inherit: true,
