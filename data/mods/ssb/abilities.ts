@@ -211,6 +211,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+
 	// Kris
 	cacophony: {
 		name: "Cacophony",
