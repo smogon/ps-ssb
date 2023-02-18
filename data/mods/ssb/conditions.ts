@@ -400,9 +400,9 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				if (source?.m.phaseChange) {
-					this.add(`c:|${getName('Vio͜͡let')}|I am Malenia, Blade of Miquella.`);
-				} else {
 					this.add(`c:|${getName('Vio͜͡let')}|Let your flesh be consumed. By the scarlet rot.`);
+				} else {
+					this.add(`c:|${getName('Vio͜͡let')}|I am Malenia, Blade of Miquella.`);
 				}
 			}
 		},
