@@ -323,8 +323,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "all",
 		type: "Psychic",
 	},
-	
-	// Kolohe
+
+	// Kolochu
 	hangten: {
 		accuracy: 100,
 		basePower: 75,
@@ -337,7 +337,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(pokemon) {
+		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Stoked Sparksurfer', target);
 			this.add('-anim', source, 'Surf', target);
 		},
@@ -352,7 +352,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Water",
 	},
-	
+
 	// Kris
 	ok: {
 		accuracy: true,
@@ -571,7 +571,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Water",
 	},
-	
+
 	// Rumia
 	midnightbird: {
 		accuracy: 100,
@@ -600,7 +600,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Dark",
 	},
-	
+
 	// sharp_claw
 	treacheroustraversal: {
 		accuracy: 100,
