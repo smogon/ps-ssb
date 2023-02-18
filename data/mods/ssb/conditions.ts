@@ -89,6 +89,17 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	coolcodename: {
+		onStart() {
+			this.add(`c:|${getName('deftinwolf')}|LFGI (Player 1)`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('deftinwolf')}|right, i forgot i have a skill issue`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('deftinwolf')}|mb LOL`);
+		},
+	},
 	deftinwolf: {
 		noCopy: true,
 		onStart() {
