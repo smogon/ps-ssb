@@ -56,8 +56,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.attrLastMove('[anim] Light That Burns The Sky');
-			this.attrLastMove('[anim] Rock Wrecker');
+			this.add('-anim', source, 'Light That Burns The Sky', target);
+			this.add('-anim', source, 'Rock Wrecker', target);
 		},
 		secondary: null,
 		target: "normal",
@@ -80,13 +80,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
 		onPrepareHit(pokemon) {
-			this.attrLastMove('[anim] Max Guard');
+			this.add('-anim', pokemon, 'Max Guard', pokemon);
 			if (pokemon.species.name === 'Quagsire') {
-				this.attrLastMove('[anim] Protect');
+				this.add('-anim', pokemon, 'Protect', pokemon);
 				return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
 			} else {
-				this.attrLastMove('[anim] Recover');
+				this.add('-anim', pokemon, 'Recover', pokemon);
 			}
 		},
 		secondary: null,
@@ -660,7 +663,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Memento', target);
-			this.attrLastMove('[anim] Brutal Swing');
+			this.add('-anim', source, 'Brutal Swing', target);
 		},
 		secondary: {
 			chance: 100,
@@ -721,9 +724,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		noPPBoosts: true,
 		priority: 0,
 		flags: {protect: 1},
-		onPrepareHit() {
-			this.attrLastMove('[anim] Morning Sun');
-			this.attrLastMove('[anim] Lovely Kiss');
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Morning Sun', source);
+			this.add('-anim', source, 'Lovely Kiss', target);
 		},
 		onHit(target, source) {
 			target.addVolatile('attract', source);
@@ -749,9 +755,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.attrLastMove('[anim] Mortal Spin');
-			this.attrLastMove('[anim] Spikes');
-			this.attrLastMove('[anim] U-turn');
+			this.add('-anim', source, 'Mortal Spin', target);
+			this.add('-anim', source, 'Spikes', target);
+			this.add('-anim', source, 'U-turn', target);
 		},
 		onAfterHit(target, pokemon) {
 			if (pokemon.hp && pokemon.removeVolatile('leechseed')) {
@@ -858,10 +864,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, heal: 1, dance: 1},
 		drain: [1, 1],
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
+		onPrepareHit() {
 			this.attrLastMove('[anim] Sacred Sword');
 		},
 		multihit: 10,
