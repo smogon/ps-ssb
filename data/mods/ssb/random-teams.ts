@@ -64,7 +64,7 @@ export const ssbSets: SSBSets = {
 		species: 'Victini', ability: 'Firewall', item: 'Heavy-Duty Boots', gender: 'M',
 		moves: ['Searing Shot', 'Psychic', 'Dazzling Gleam'],
 		signatureMove: "Haxer's Will",
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Fairy',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Fairy', shiny: 1024,
 	},
 	deftinwolf: {
 		species: 'Yveltal', ability: 'Sharpness', item: 'Dread Plate', gender: '',
