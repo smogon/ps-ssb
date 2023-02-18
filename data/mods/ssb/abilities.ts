@@ -107,7 +107,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onTryHit(target, source, move) {
 			if (move.category === 'Status' && target !== source) {
 				if (!source.trySetStatus('brn', target)) {
-					this.add('-immune', target, '[from] ability: Good as Gold');
+					this.add('-immune', target, '[from] ability: Firewall');
 				}
 				return null;
 			}

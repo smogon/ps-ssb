@@ -90,14 +90,14 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 	},
 	coolcodename: {
-		onStart() {
-			this.add(`c:|${getName('deftinwolf')}|LFGI (Player 1)`);
+		onStart(pokemon) {
+			this.add(`c:|${getName('Coolcodename')}|LFGI ${pokemon.side.name}`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('deftinwolf')}|right, i forgot i have a skill issue`);
+			this.add(`c:|${getName('Coolcodename')}|right, i forgot i have a skill issue`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('deftinwolf')}|mb LOL`);
+			this.add(`c:|${getName('Coolcodename')}|mb LOL`);
 		},
 	},
 	deftinwolf: {
