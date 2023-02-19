@@ -544,7 +544,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					}
 				}
 				// 9 turn addition so the +1 from nextTurn totals to 10 turns
-				this.turn = this.turn + 9;
+				this.turn += 9;
 			},
 		},
 		secondary: null,
