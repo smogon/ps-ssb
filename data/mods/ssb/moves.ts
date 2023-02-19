@@ -582,7 +582,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (!target || target.fainted || target.hp <= 0 || target.beingCalledBack || target.switchFlag) this.boost({atk: 2}, pokemon, pokemon, move);
+			if (!target || target.fainted || target.hp <= 0 ||
+				target.beingCalledBack || target.switchFlag) {
+				this.boost({atk: 2}, pokemon, pokemon, move);
+			}
 		},
 		secondary: null,
 		target: "normal",
