@@ -347,11 +347,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Focus Energy', source);
 			this.add('-anim', source, 'High Jump Kick', target);
-			this.add('-anim', target, 'Boomburst', source);
+			this.add('-anim', source, 'Boomburst', target);
 			this.add('-anim', source, 'Aqua Step', target);
 			this.add('-anim', source, 'Aqua Step', target);
 		},
-		onHit(target, source, move) {
+		onTryHit(target, source, move) {
 			if (move.hit === 3) {
 				move.willCrit = true;
 			}
