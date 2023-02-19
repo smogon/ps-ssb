@@ -516,7 +516,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Fairy",
 	},
-	
 	// Krytocon
 	attackofopportunity: {
 		accuracy: 100,
