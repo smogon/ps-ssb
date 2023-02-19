@@ -80,26 +80,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		flags: {},
-		onPrepareHit(pokemon) {
-			this.attrLastMove('[anim] Max Guard');
-			if (pokemon.species.name === 'Quagsire') {
-				this.attrLastMove('[anim] Protect');
-				return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Max Guard', source);
+			if (source.species.name === 'Quagsire') {
+				this.add('-anim', source, 'Protect', source);
+				return !!this.queue.willAct() && this.runEvent('StallMove', source);
 			} else {
-				this.attrLastMove('[anim] Recover');
+				this.add('-anim', source, 'Recover', source);
 			}
 		},
-		secondary: null,
+		volatileStatus: 'protect',
+		onModifyMove(move, pokemon) {
+			if (pokemon.species.name === 'Clodsire') {
+				move.heal = [1, 2];
+				delete move.volatileStatus;
+			}
+		},
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
-				pokemon.addVolatile('protect');
 				pokemon.addVolatile('stall');
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
-				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past'], true);
 			}
 		},
+		secondary: null,
 		target: "self",
 		type: "Ground",
 	},
