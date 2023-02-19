@@ -55,6 +55,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: 'Hacking'},
 	},
+
 	// Rumia
 	duskull: {
 		inherit: true,
