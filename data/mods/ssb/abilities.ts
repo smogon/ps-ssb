@@ -344,6 +344,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Krytocon
+	curseofdexit: {
+		name: "Curse of Dexit",
+		shortDesc: "User sets Curse against foe on entry; 25% of max HP lost.",
+		onStart(pokemon) {
+			this.directDamage(pokemon.maxhp / 4, pokemon, pokemon);
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Curse of Dexit');
+					activated = true;
+				}
+				target.addVolatile('curse');
+			}
+		},
+	},
+	
 	// Mia
 	hacking: {
 		name: "Hacking",
