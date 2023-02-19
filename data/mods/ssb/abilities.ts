@@ -359,7 +359,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
-	
 	// Mia
 	hacking: {
 		name: "Hacking",
