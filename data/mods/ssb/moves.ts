@@ -90,44 +90,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		secondary: null,
-		volatileStatus: 'sireswitch',
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
+				pokemon.addVolatile('protect');
 				pokemon.addVolatile('stall');
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
 				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past'], true);
 			}
-		},
-		condition: {
-			duration: 1,
-			onStart(target) {
-				if (target.species.name !== 'Quagsire') return;
-				this.add('-singleturn', target, 'Protect');
-			},
-			onTryHitPriority: 3,
-			onTryHit(target, source, move) {
-				if (target.species.name !== 'Quagsire') return;
-				if (!move.flags['protect']) {
-					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
-					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
-					return;
-				}
-				if (move.smartTarget) {
-					move.smartTarget = false;
-				} else {
-					this.add('-activate', target, 'move: Protect');
-				}
-				const lockedmove = source.getVolatile('lockedmove');
-				if (lockedmove) {
-					// Outrage counter is reset
-					if (source.volatiles['lockedmove'].duration === 2) {
-						delete source.volatiles['lockedmove'];
-					}
-				}
-				return this.NOT_FAIL;
-			},
 		},
 		target: "self",
 		type: "Ground",
