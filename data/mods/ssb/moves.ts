@@ -83,55 +83,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(pokemon) {
-			this.add('-anim', pokemon, 'Max Guard', pokemon);
-			if (pokemon.species.name === 'Quagsire') {
-				this.add('-anim', pokemon, 'Protect', pokemon);
-				return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
+    onPrepareHit(target, source) {
+			this.add('-anim', source, 'Max Guard', source);
+			if (source.species.name === 'Quagsire') {
+				this.add('-anim', source, 'Protect', source);
+				return !!this.queue.willAct() && this.runEvent('StallMove', source);
 			} else {
-				this.add('-anim', pokemon, 'Recover', pokemon);
+				this.add('-anim', source, 'Recover', source);
 			}
 		},
-		secondary: null,
-		volatileStatus: 'sireswitch',
+		volatileStatus: 'protect',
+		onModifyMove(move, pokemon) {
+			if (pokemon.species.name === 'Clodsire') {
+				move.heal = [1, 2];
+				delete move.volatileStatus;
+			}
+    },
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
 				pokemon.addVolatile('stall');
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
-				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past'], true);
 			}
 		},
-		condition: {
-			duration: 1,
-			onStart(target) {
-				if (target.species.name !== 'Quagsire') return;
-				this.add('-singleturn', target, 'Protect');
-			},
-			onTryHitPriority: 3,
-			onTryHit(target, source, move) {
-				if (target.species.name !== 'Quagsire') return;
-				if (!move.flags['protect']) {
-					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
-					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
-					return;
-				}
-				if (move.smartTarget) {
-					move.smartTarget = false;
-				} else {
-					this.add('-activate', target, 'move: Protect');
-				}
-				const lockedmove = source.getVolatile('lockedmove');
-				if (lockedmove) {
-					// Outrage counter is reset
-					if (source.volatiles['lockedmove'].duration === 2) {
-						delete source.volatiles['lockedmove'];
-					}
-				}
-				return this.NOT_FAIL;
-			},
-		},
+		secondary: null,
 		target: "self",
 		type: "Ground",
 	},
@@ -157,6 +133,37 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		selfSwitch: true,
 		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
+
+	// Coolcodename
+	haxerswill: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "70% boost Spa/Spe by 1 & Focus Energy, else lose boosts.",
+		name: "Haxer's Will",
+		gen: 9,
+		pp: 15,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Clangorous Soul', source);
+			this.add('-anim', source, 'Focus Energy', source);
+		},
+		onHit(pokemon) {
+			if (this.randomChance(7, 10)) {
+				this.boost({spa: 1, spe: 1});
+				pokemon.addVolatile('focusenergy');
+			} else {
+				pokemon.clearBoosts();
+				this.add('-clearboost', pokemon);
+			}
+		},
 		target: "self",
 		type: "Normal",
 	},
@@ -323,7 +330,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Aqua Step', target);
 			this.add('-anim', source, 'Aqua Step', target);
 		},
-		onHit(target, source, move) {
+		onTryHit(target, source, move) {
 			if (move.hit === 3) {
 				move.willCrit = true;
 			}
@@ -368,8 +375,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return false;
 			},
 			onSetStatus(status, target, source, effect) {
+				if (effect.id === 'anfieldatmosphere') return;
 				if (status.id === 'slp' && !target.isSemiInvulnerable()) {
-					this.add('-activate', target, 'move: Anfield Terrain');
+					this.add('-activate', target, 'move: Anfield Atmosphere');
 					return false;
 				}
 				for (const pokemon of this.getAllActive()) {
@@ -380,7 +388,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onTryAddVolatile(status, target) {
 				if (target.isSemiInvulnerable()) return;
 				if (status.id === 'yawn') {
-					this.add('-activate', target, 'move: Anfield Terrain');
+					this.add('-activate', target, 'move: Anfield Atmosphere');
 					return null;
 				}
 			},
