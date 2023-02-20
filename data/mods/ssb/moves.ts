@@ -83,7 +83,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-    onPrepareHit(target, source) {
+		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Max Guard', source);
 			if (source.species.name === 'Quagsire') {
 				this.add('-anim', source, 'Protect', source);
