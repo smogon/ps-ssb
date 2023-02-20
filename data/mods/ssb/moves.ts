@@ -98,7 +98,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				move.heal = [1, 2];
 				delete move.volatileStatus;
 			}
-    },
+		},
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
 				pokemon.addVolatile('stall');
