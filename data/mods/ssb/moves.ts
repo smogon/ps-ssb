@@ -255,10 +255,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[anim] Spirit Shackle');
 		},
 		selfSwitch: true,
-		secondary: {
-			chance: 100,
-			volatileStatus: 'disable',
-		},
+		volatileStatus: 'disable',
 		target: "normal",
 		type: "Ghost",
 	},
