@@ -280,10 +280,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Curse of Dexit",
 		shortDesc: "User sets Curse against foe on entry; 25% of max HP lost.",
 		onStart(pokemon) {
-			this.directDamage(pokemon.maxhp / 4, pokemon, pokemon);
+			let activated = false;
 			for (const target of pokemon.adjacentFoes()) {
 				if (!activated) {
 					this.add('-ability', pokemon, 'Curse of Dexit');
+					this.directDamage(pokemon.maxhp / 4, pokemon, pokemon);
 					activated = true;
 				}
 				target.addVolatile('curse');
