@@ -392,7 +392,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Mathy
 	dynamictyping: {
-		desc: "Moves used by all Pokemon are ??? type.",
+		shortDesc: "Moves used by all Pokemon are ??? type.",
 		name: "Dynamic Typing",
 		onStart(pokemon) {
 			this.add('-ability', pokemon, "Dynamic Typing");
