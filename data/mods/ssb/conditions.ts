@@ -112,6 +112,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('deftinwolf')}|Death is only the beginning.`);
 		},
 	},
+	havi: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('havi')}|kos, or some say kosm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('havi')}|grant us eyes, grant us eyes`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('havi')}|the nightmare swirls and churns unending n_n`);
+		},
+	},
 	ironwater: {
 		noCopy: true,
 		onStart() {
@@ -132,9 +144,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onSwitchOut() {
 			this.add(`c:|${getName('Irpachuza!')}|bye and HOOP HOOP n.n`);
 		},
-		onFaint(source) {
-			const enemy = source.side.foe;
-			this.add(`c:|${getName('Irpachuza!')}|how DARE YOU ${enemy} ;-; n.n`);
+		onFaint(pokemon) {
+			this.add(`c:|${getName('Irpachuza!')}|how DARE YOU ${pokemon.side.foe.name} ;-; n.n`);
 		},
 		innateName: "Prankster",
 		desc: "This Pokemon's non-damaging moves have their priority increased by 1. Opposing Dark-type Pokemon are immune to these moves, and any move called by these moves, if the resulting user of the move has this Ability.",
@@ -280,6 +291,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Mad Monty')}|Well great. Now the llamas are gonna come back. Is that what you wanted?`);
 		},
 	},
+	mex: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Mex')}|Time to make the donuts.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Mex')}|Brb, there's a Dialga raid.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Mex')}|pain.`);
+		},
+	},
 	mia: {
 		noCopy: true,
 		onStart() {
@@ -413,6 +436,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
+		},
+	},
+	violet: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Vio͜͡let')}|...Heed my words. I am Malenia, Blade of Miquella. And I have never known defeat.`);
+		},
+		onSourceAfterFaint(length, target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				if (source?.m.phaseChange) {
+					this.add(`c:|${getName('Vio͜͡let')}|Let your flesh be consumed. By the scarlet rot.`);
+				} else {
+					this.add(`c:|${getName('Vio͜͡let')}|I am Malenia, Blade of Miquella.`);
+				}
+			}
+		},
+		onFaint() {
+			this.add(`c:|${getName('Vio͜͡let')}|Your strength, extraordinary… The mark... of a true Lord…`);
 		},
 	},
 	zee: {

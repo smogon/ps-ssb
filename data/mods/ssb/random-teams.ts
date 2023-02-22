@@ -72,6 +72,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: "Trivial Pursuit",
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Poison',
 	},
+	havi: {
+		species: 'Gastly', ability: 'Mensis Cage', item: 'Leftovers', gender: 'F',
+		moves: ['Astral Barrage', 'Moonblast', 'Substitute'],
+		signatureMove: 'Augur of Ebrietas',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost',
+	},
 	ironwater: {
 		species: 'Jirachi', ability: 'Good as Gold', item: 'Leftovers', gender: 'N',
 		moves: ['Swords Dance', 'Zen Headbutt', 'Hammer Arm'],
@@ -83,18 +89,6 @@ export const ssbSets: SSBSets = {
 		moves: [['Destiny Bond', 'Lunar Dance'], 'Parting Shot', 'Taunt'],
 		signatureMove: 'Fleur Cannon',
 		evs: {hp: 252, spa: 4, spd: 252}, ivs: {atk: 0}, nature: 'Modest',
-	},
-	'Mad Monty': {
-		species: 'Castform', ability: 'Climate Change', item: 'Heavy-Duty Boots', gender: 'M',
-		moves: ['Weather Ball', 'Defog', ['Solar Beam', 'Thunder', 'Aurora Veil']],
-		signatureMove: 'Storm Shelter',
-		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Rock',
-	},
-	Mia: {
-		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
-		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
-		signatureMove: 'Testing in Production',
-		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Jolly',
 	},
 	Kennedy: {
 		species: 'Cinderace', ability: 'Anfield', item: 'Berserk Gene', gender: 'M',
@@ -119,6 +113,24 @@ export const ssbSets: SSBSets = {
 		moves: ['Sucker Punch', 'Fire Lash', 'Play Rough'],
 		signatureMove: 'Attack of Opportunity',
 		evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant', teraType: 'Any', shiny: 1024,
+	},
+	'Mad Monty': {
+		species: 'Castform', ability: 'Climate Change', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Weather Ball', 'Defog', ['Solar Beam', 'Thunder', 'Aurora Veil']],
+		signatureMove: 'Storm Shelter',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Rock',
+	},
+	Mex: {
+		species: 'Dialga', ability: 'Time Dilation', item: 'Adamant Orb', gender: 'N',
+		moves: ['Dragon Pulse', 'Flash Cannon', ['Aura Sphere', 'Volt Switch', 'Meteor Beam']],
+		signatureMove: 'Time Skip',
+		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Steel', shiny: true,
+	},
+	Mia: {
+		species: 'Mewtwo', ability: 'Hacking', item: 'Mewtwonite X', gender: 'F',
+		moves: ['Photon Geyser', 'Drain Punch', 'Iron Head'],
+		signatureMove: 'Testing in Production',
+		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Jolly',
 	},
 	phoopes: {
 		species: 'Jynx', ability: 'I Did It Again', item: 'Red Card', gender: 'F',
@@ -177,6 +189,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Brave Bird', 'Roost', ['Swords Dance', 'Flare Blitz', 'Will-O-Wisp']],
 		signatureMove: 'Wingover',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant', teraType: 'Flying',
+	},
+	'Vio͜͡let': {
+		species: 'Iron Valiant', ability: 'Scarlet Aeonia', item: 'Auspicious Armor', gender: 'F',
+		moves: ['Bitter Blade', 'Cross Poison', 'No Retreat'],
+		signatureMove: 'Waterfowl Dance',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Fairy', shiny: true,
 	},
 	zee: {
 		species: 'Lilligant-Hisui', ability: 'Chlorophyll', item: 'Heat Rock', gender: 'F',

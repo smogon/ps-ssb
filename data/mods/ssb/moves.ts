@@ -56,8 +56,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.attrLastMove('[anim] Light That Burns The Sky');
-			this.attrLastMove('[anim] Rock Wrecker');
+			this.add('-anim', source, 'Light That Burns The Sky', target);
+			this.add('-anim', source, 'Rock Wrecker', target);
 		},
 		secondary: null,
 		target: "normal",
@@ -80,55 +80,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		flags: {},
-		onPrepareHit(pokemon) {
-			this.attrLastMove('[anim] Max Guard');
-			if (pokemon.species.name === 'Quagsire') {
-				this.attrLastMove('[anim] Protect');
-				return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Max Guard', source);
+			if (source.species.name === 'Quagsire') {
+				this.add('-anim', source, 'Protect', source);
+				return !!this.queue.willAct() && this.runEvent('StallMove', source);
 			} else {
-				this.attrLastMove('[anim] Recover');
+				this.add('-anim', source, 'Recover', source);
 			}
 		},
-		secondary: null,
-		volatileStatus: 'sireswitch',
+		volatileStatus: 'protect',
+		onModifyMove(move, pokemon) {
+			if (pokemon.species.name === 'Clodsire') {
+				move.heal = [1, 2];
+				delete move.volatileStatus;
+			}
+		},
 		onHit(pokemon) {
 			if (pokemon.species.name === 'Quagsire') {
 				pokemon.addVolatile('stall');
 				changeSet(this, pokemon, ssbSets['A Quag To The Past-Clodsire'], true);
 			} else {
-				this.heal(pokemon.maxhp / 2, pokemon, pokemon, this.effect);
 				changeSet(this, pokemon, ssbSets['A Quag To The Past'], true);
 			}
 		},
-		condition: {
-			duration: 1,
-			onStart(target) {
-				if (target.species.name !== 'Quagsire') return;
-				this.add('-singleturn', target, 'Protect');
-			},
-			onTryHitPriority: 3,
-			onTryHit(target, source, move) {
-				if (target.species.name !== 'Quagsire') return;
-				if (!move.flags['protect']) {
-					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
-					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
-					return;
-				}
-				if (move.smartTarget) {
-					move.smartTarget = false;
-				} else {
-					this.add('-activate', target, 'move: Protect');
-				}
-				const lockedmove = source.getVolatile('lockedmove');
-				if (lockedmove) {
-					// Outrage counter is reset
-					if (source.volatiles['lockedmove'].duration === 2) {
-						delete source.volatiles['lockedmove'];
-					}
-				}
-				return this.NOT_FAIL;
-			},
-		},
+		secondary: null,
 		target: "self",
 		type: "Ground",
 	},
@@ -262,6 +241,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Dark",
 	},
 
+	// havi
+	augurofebrietas: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		shortDesc: "Disables the target's last move and pivots out.",
+		name: "Augur of Ebrietas",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Spirit Shackle');
+		},
+		selfSwitch: true,
+		volatileStatus: 'disable',
+		target: "normal",
+		type: "Ghost",
+	},
+
 	// ironwater
 	jirachibanhammer: {
 		accuracy: 100,
@@ -351,7 +349,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Aqua Step', target);
 			this.add('-anim', source, 'Aqua Step', target);
 		},
-		onHit(target, source, move) {
+		onTryHit(target, source, move) {
 			if (move.hit === 3) {
 				move.willCrit = true;
 			}
@@ -630,6 +628,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Mex
+	timeskip: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Time Skip",
+		shortDesc: "Clears hazards. +10 turns.",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Trick Room');
+		},
+		self: {
+			onHit(pokemon) {
+				const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+				for (const condition of sideConditions) {
+					if (pokemon.side.removeSideCondition(condition)) {
+						this.add('-sideend', pokemon.side, this.dex.conditions.get(condition).name, '[from] move: Time Skip', '[of] ' + pokemon);
+					}
+				}
+				// 9 turn addition so the +1 from nextTurn totals to 10 turns
+				this.turn += 9;
+			},
+		},
+		secondary: null,
+		target: "all",
+		type: "Dragon",
+	},
+
 	// Mia
 	testinginproduction: {
 		accuracy: true,
@@ -768,7 +796,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Memento', target);
-			this.attrLastMove('[anim] Brutal Swing');
+			this.add('-anim', source, 'Brutal Swing', target);
 		},
 		secondary: {
 			chance: 100,
@@ -829,9 +857,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		noPPBoosts: true,
 		priority: 0,
 		flags: {protect: 1},
-		onPrepareHit() {
-			this.attrLastMove('[anim] Morning Sun');
-			this.attrLastMove('[anim] Lovely Kiss');
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Morning Sun', source);
+			this.add('-anim', source, 'Lovely Kiss', target);
 		},
 		onHit(target, source) {
 			target.addVolatile('attract', source);
@@ -857,9 +888,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.attrLastMove('[anim] Mortal Spin');
-			this.attrLastMove('[anim] Spikes');
-			this.attrLastMove('[anim] U-turn');
+			this.add('-anim', source, 'Mortal Spin', target);
+			this.add('-anim', source, 'Spikes', target);
+			this.add('-anim', source, 'U-turn', target);
 		},
 		onAfterHit(target, pokemon) {
 			if (pokemon.hp && pokemon.removeVolatile('leechseed')) {
@@ -954,6 +985,74 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
+	// Violet
+	waterfowldance: {
+		accuracy: 95,
+		basePower: 7,
+		category: "Physical",
+		shortDesc: "Hits 10 times. Heals 100% of damage dealt.",
+		name: "Waterfowl Dance",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, heal: 1, dance: 1},
+		drain: [1, 1],
+		onPrepareHit() {
+			this.attrLastMove('[anim] Sacred Sword');
+		},
+		multihit: 10,
+		multiaccuracy: true,
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
+	scarletaeoniaterrain: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Scarlet Aeonia Terrain",
+		shortDesc: "5 turns: Contact moves have 25% to badly psn vs grounded.",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		pseudoWeather: 'scarletaeoniaterrain',
+		condition: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source?.hasItem('terrainextender')) {
+					return 8;
+				}
+				return 5;
+			},
+			onFieldStart(field, source, effect) {
+				if (effect?.effectType === 'Ability') {
+					this.add('-fieldstart', 'move: Scarlet Aeonia Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
+				} else {
+					this.add('-fieldstart', 'move: Scarlet Aeonia Terrain');
+				}
+			},
+			onModifyMove(move, source, target) {
+				if (!target?.isGrounded()) return;
+				if (!move?.flags['contact'] || move.target === 'self') return;
+				if (!move.secondaries) {
+					move.secondaries = [];
+				}
+				move.secondaries.push({
+					chance: 25,
+					status: 'tox',
+				});
+			},
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 1,
+			onFieldEnd() {
+				this.add('-fieldend', 'move: Scarlet Aeonia Terrain');
+			},
+		},
+		secondary: null,
+		target: "all",
+		type: "Poison",
+	},
+
 	// zee
 	solarsummon: {
 		accuracy: 100,
@@ -985,5 +1084,83 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Fire",
+	},
+
+	// Modified various moves to support havi's ability
+	dreameater: {
+		inherit: true,
+		onTryImmunity(target) {
+			return target.status === 'slp' || target.hasAbility(['comatose', 'mensiscage']);
+		},
+	},
+	hex: {
+		inherit: true,
+		basePowerCallback(pokemon, target, move) {
+			if (target.status || target.hasAbility(['comatose', 'mensiscage'])) {
+				this.debug('BP doubled from status condition');
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
+	},
+	infernalparade: {
+		inherit: true,
+		basePowerCallback(pokemon, target, move) {
+			if (target.status || target.hasAbility(['comatose', 'mensiscage'])) return move.basePower * 2;
+			return move.basePower;
+		},
+	},
+	nightmare: {
+		inherit: true,
+		condition: {
+			noCopy: true,
+			onStart(pokemon) {
+				if (pokemon.status !== 'slp' && !pokemon.hasAbility(['comatose', 'mensiscage'])) {
+					return false;
+				}
+				this.add('-start', pokemon, 'Nightmare');
+			},
+			onResidualOrder: 11,
+			onResidual(pokemon) {
+				this.damage(pokemon.baseMaxhp / 4);
+			},
+		},
+	},
+	rest: {
+		inherit: true,
+		onTry(source) {
+			if (source.status === 'slp' || source.hasAbility(['comatose', 'mensiscage'])) return false;
+
+			if (source.hp === source.maxhp) {
+				this.add('-fail', source, 'heal');
+				return null;
+			}
+			if (source.hasAbility(['insomnia', 'vitalspirit'])) {
+				this.add('-fail', source, '[from] ability: ' + source.getAbility().name, '[of] ' + source);
+				return null;
+			}
+		},
+	},
+	sleeptalk: {
+		inherit: true,
+		onTry(source) {
+			return source.status === 'slp' || source.hasAbility(['comatose', 'mensiscage']);
+		},
+	},
+	snore: {
+		inherit: true,
+		onTry(source) {
+			return source.status === 'slp' || source.hasAbility(['comatose', 'mensiscage']);
+		},
+	},
+	wakeupslap: {
+		inherit: true,
+		basePowerCallback(pokemon, target, move) {
+			if (target.status === 'slp' || target.hasAbility(['comatose', 'mensiscage'])) {
+				this.debug('BP doubled on sleeping target');
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
 	},
 };

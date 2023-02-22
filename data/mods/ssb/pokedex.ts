@@ -24,6 +24,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Clod of Ruin"},
 	},
 
+	// havi
+	gastly: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 65, def: 60, spa: 130, spd: 75, spe: 110},
+	},
+
 	// Kennedy
 	cinderace: {
 		inherit: true,
@@ -59,6 +65,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	mewtwomegax: {
 		inherit: true,
 		abilities: {0: 'Hacking'},
+	},
+
+	// Rumia
+	duskull: {
+		inherit: true,
+		baseStats: {hp: 50, atk: 55, def: 90, spa: 90, spd: 55, spe: 55},
+		abilities: {0: 'Youkai of the Dusk'},
 	},
 
 	// sharp_claw

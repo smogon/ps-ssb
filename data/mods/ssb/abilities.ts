@@ -115,6 +115,31 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		isBreakable: true,
 	},
 
+	// havi
+	mensiscage: {
+		shortDesc: "Immune to status and is considered to be asleep. 30% chance to disable when hit.",
+		name: "Mensis Cage",
+		onDamagingHit(damage, target, source, move) {
+			if (source.volatiles['disable']) return;
+			if (!move.isMax && !move.isFutureMove && move.id !== 'struggle') {
+				if (this.randomChance(3, 10)) {
+					source.addVolatile('disable', this.effectState.target);
+				}
+			}
+		},
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Mensis Cage');
+		},
+		onSetStatus(status, target, source, effect) {
+			if ((effect as Move)?.status) {
+				this.add('-immune', target, '[from] ability: Mensis Cage');
+			}
+			return false;
+		},
+		// Permanent sleep "status" implemented in the relevant sleep-checking effects
+		isPermanent: true,
+	},
+
 	// Irpachuza
 	mimeknowsbest: {
 		desc: "Uses a random screen/protect move on switch in.",
@@ -238,8 +263,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify([6144, 4096]);
 			}
 		},
-		onAnyTryMove(source, target, move) {
-			if (source !== target && move.flags['sound']) {
+		onTryHit(target, source, move) {
+			if (target !== source && move.flags['sound']) {
 				this.add('-immune', target, '[from] ability: Cacophony');
 				return null;
 			}
@@ -247,6 +272,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyMovePriority: -5,
 		onModifyMove(move) {
 			move.ignoreImmunity = true;
+		},
+	},
+
+	// Krytocon
+	curseofdexit: {
+		name: "Curse of Dexit",
+		shortDesc: "User sets Curse against foe on entry; 25% of max HP lost.",
+		onStart(pokemon) {
+			this.directDamage(pokemon.maxhp / 4, pokemon, pokemon);
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Curse of Dexit');
+					activated = true;
+				}
+				target.addVolatile('curse');
+			}
 		},
 	},
 
@@ -344,21 +385,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-	// Krytocon
-	curseofdexit: {
-		name: "Curse of Dexit",
-		shortDesc: "User sets Curse against foe on entry; 25% of max HP lost.",
-		onStart(pokemon) {
-			this.directDamage(pokemon.maxhp / 4, pokemon, pokemon);
-			for (const target of pokemon.adjacentFoes()) {
-				if (!activated) {
-					this.add('-ability', pokemon, 'Curse of Dexit');
-					activated = true;
-				}
-				target.addVolatile('curse');
-			}
+	// Mex
+	timedilation: {
+		shortDesc: "+10% BP for every 10 turns passed in battle, max 200%.",
+		name: "Time Dilation",
+		onBasePowerPriority: 21,
+		onBasePower(basePower, attacker, defender, move) {
+			const turnMultiplier = Math.floor(this.turn / 10);
+			let bpMod = 1 + (0.1 * turnMultiplier);
+			if (bpMod > 2) bpMod = 2;
+			return this.chainModify(bpMod);
 		},
 	},
+
 	// Mia
 	hacking: {
 		name: "Hacking",
@@ -492,6 +531,46 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onModifyPriority(priority, pokemon, target, move) {
 			if (move?.type === 'Flying') return priority + 1;
+		},
+	},
+
+	// Violet
+	scarletaeonia: {
+		shortDesc: "50% HP: +Flying-type, summons Scarlet Aeonia Terrain, loses item.",
+		name: "Scarlet Aeonia",
+		onStart(pokemon) {
+			if (pokemon.m.phaseChange) {
+				if (pokemon.addType('Flying')) {
+					this.add('-start', pokemon, 'typeadd', 'Flying', '[from] ability: Scarlet Aeonia');
+				}
+				this.field.setTerrain('scarletaeoniaterrain');
+			}
+		},
+		onResidualOrder: 29,
+		onResidual(pokemon) {
+			if (!pokemon.hp) return;
+			if (pokemon.hp > pokemon.maxhp / 2) return;
+			this.add('-activate', pokemon, 'ability: Scarlet Aeonia');
+			this.add(`c:|${getName('Vio͜͡let')}|The scarlet bloom flowers once more. You will witness true horror. Now, rot!`);
+			pokemon.m.phaseChange = true;
+			if (pokemon.addType('Flying')) {
+				this.add('-start', pokemon, 'typeadd', 'Flying', '[from] ability: Scarlet Aeonia');
+			}
+			pokemon.takeItem();
+			this.field.setTerrain('scarletaeoniaterrain');
+		},
+	},
+
+	// Modified Bad Dreams to support havi's ability
+	baddreams: {
+		inherit: true,
+		onResidual(pokemon) {
+			if (!pokemon.hp) return;
+			for (const target of pokemon.foes()) {
+				if (target.status === 'slp' || target.hasAbility(['comatose', 'mensiscage'])) {
+					this.damage(target.baseMaxhp / 8, target, pokemon);
+				}
+			}
 		},
 	},
 };
