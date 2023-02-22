@@ -645,8 +645,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(target) {
 			if (target.getAbility().isPermanent) return;
 			if (!target.addVolatile('gastroacid')) return;
-			this.add(`c:`, getName('Mathy'),
-				"Sorry i tried to fix smth but accidentally broke your ability :( will fix it next week");
+			// eslint-disable-next-line max-len
+			this.add(`c:|${getName('Mathy')}|Sorry i tried to fix smth but accidentally broke your ability :( will fix it next week`);
 		},
 		ignoreAbility: true,
 		secondary: null,
