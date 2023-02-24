@@ -181,7 +181,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return move.basePower;
 		},
 		category: "Physical",
-		shortDesc: "The person who coded this didn't write one.",
+		shortDesc: "If foe is switching out, 2x power. Doesn't KO.",
 		name: "Trivial Pursuit",
 		pp: 5,
 		priority: 0,
