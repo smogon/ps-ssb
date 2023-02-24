@@ -157,7 +157,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('hsy')}|LEMME SCRAP COWARD`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('hsy')}|meow`); // Placeholder
+			this.add(`c:|${getName('hsy')}|https://www.youtube.com/watch?v=g104OJIh9hs`);
 		},
 	},
 	ironwater: {
