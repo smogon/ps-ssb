@@ -128,7 +128,7 @@ export const ssbSets: SSBSets = {
 	},
 	Lumari: {
 		species: 'Ponyta-Galar', ability: 'Pyrotechnic', item: 'Eviolite', gender: 'F',
-		moves: ['Substitute', ['Sappy Seed', 'Sizzly Slide'], 'Magical Torque']
+		moves: ['Substitute', ['Sappy Seed', 'Sizzly Slide'], 'Magical Torque'],
 		signatureMove: 'Mystical Bonfire',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Fairy',
 	},
