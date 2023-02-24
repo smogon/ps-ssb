@@ -132,7 +132,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Eli')}|ok bye`);
 		},
 		onFaint(pokemon) {
-			const foePokemon = (pokemon.side.foe.active[0].illusion || pokemon.side.foe.active[0]).name;
+			const foePokemon = (pokemon.foes()[0].illusion || pokemon.foes()[0]).name;
 			this.add(`c:|${getName('Eli')}|that wasn't very nice, ${foePokemon}.`);
 		},
 	},
