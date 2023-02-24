@@ -672,9 +672,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		onPrepareHit(pokemon) {
-			this.attrLastMove('[anim] Infernal Parade');
-			this.attrLastMove('[anim] Fury Attack');
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Infernal Parade', target);
+			this.add('-anim', source, 'Fury Attack', target);
 		},
 		secondary: {
 			chance: 30,
