@@ -1035,7 +1035,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return move.basePower;
 		},
 		category: "Special",
-		shortDesc: "Changes Forme. Mumbao: Fairy, 90BP, Clears boosts.",
+		shortDesc: "Changes Form. Mumbao: Fairy, 90BP, Clears boosts.",
 		name: "spoo",
 		gen: 9,
 		pp: 10,
