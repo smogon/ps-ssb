@@ -658,6 +658,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 		contestType: "Clever",
 	},
+	
+	// Lumari
+	mysticalbonfire: {
+		accuracy: 100,
+		basePower: 60,
+		basePowerCallback(pokemon, target, move) {
+			if (target.status || target.hasAbility('comatose')) return move.basePower * 2;
+			return move.basePower;
+		},
+		category: "Physical",
+		name: "Mystical Bonfire",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 30,
+			status: 'brn',
+		},
+		onPrepareHit() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Infernal Parade', target);
+			this.add('-anim', source, 'Fury Attack', target);
+		},
+		target: "normal",
+		type: "Psychic",
+	},
 
 	// Mad Monty
 	stormshelter: {
