@@ -104,6 +104,21 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Cake
+	notenoughremoval: {
+		shortDesc: "Sets hazards at the end of every turn.",
+		name: "Not Enough Removal",
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			const hazard = this.sample(['stealthrock', 'spikes', 'toxicspikes', 'stickyweb', 'gmaxsteelsurge']);
+			this.add('-activate', pokemon, 'ability: Not Enough Removal');
+			for (const side of this.sides) {
+				side.addSideCondition(hazard);
+			}
+		},
+	},
+
 	// Coolcodename
 	firewall: {
 		shortDesc: "Burns opponents that attempt to use status moves on this Pokemon; Status move immunity.",

@@ -137,6 +137,42 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Cake
+	shawn: {
+		accuracy: 97,
+		basePower: 71,
+		category: "Physical",
+		shortDesc: "Force switch if newly switched. 2x BP vs Magic Guard and HDB.",
+		name: "Shawn",
+		gen: 9,
+		pp: 10,
+		priority: -6,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[anim] Circle Throw');
+		},
+		basePowerCallback(pokemon, target, move) {
+			if (target.hasAbility('magicguard') || target.hasItem('heavydutyboots')) {
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
+		onModifyMove(move, source, target) {
+			if (target?.newlySwitched || !!target?.positiveBoosts()) move.forceSwitch = true;
+		},
+		onModifyTypePriority: 999,
+		onModifyType(move) {
+			this.debug('THIS THING MUST NOT CRASH');
+			move.type = '???';
+		},
+		onMoveFail(target, source, move) {
+			source.forceSwitchFlag = true;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Bird",
+	},
+
 	// Coolcodename
 	haxerswill: {
 		accuracy: 100,
