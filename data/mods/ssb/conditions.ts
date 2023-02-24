@@ -315,6 +315,23 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Krytocon')}|D:`);
 		},
 	},
+	lumari: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Lumari')}|pending`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lumari')}|pending`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lumari')}|pending`);
+		},
+		innateName: "Regenerator",
+		shortDesc: "User will heal 33% of their max HP on switch-out.",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+	},
 	madmonty: {
 		noCopy: true,
 		onStart() {
