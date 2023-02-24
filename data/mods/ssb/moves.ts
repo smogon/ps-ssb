@@ -286,7 +286,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 90,
 		basePower: 150,
 		category: "Physical",
-		shortDesc: "No dmg rest of turn. Next turn all moves -1 prio.",
+		shortDesc: "No dmg rest of turn. Next turn user moves -1 prio.",
 		name: "Wonder Wing",
 		pp: 5,
 		priority: -1,
