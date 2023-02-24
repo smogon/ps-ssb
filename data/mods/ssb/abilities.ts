@@ -304,6 +304,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	
+	// Lumari
+	pyrotechnic: {
+		shortDesc: "Critical hits are guaranteed when foe is burned.",
+		name: "Pyrotechnic",
+		onModifyCritRatio(critRatio, source, target) {
+			if (target && ['brn'].includes(target.status)) return 5;
+		},
+	},
 
 	// Mad Monty
 	climatechange: {
