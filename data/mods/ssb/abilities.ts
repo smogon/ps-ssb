@@ -310,7 +310,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Critical hits are guaranteed when foe is burned.",
 		name: "Pyrotechnic",
 		onModifyCritRatio(critRatio, source, target) {
-			if (target && ['brn'].includes(target.status)) return 5;
+			if (target?.status === 'brn') return 5;
 		},
 	},
 
