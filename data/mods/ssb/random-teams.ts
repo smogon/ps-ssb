@@ -62,7 +62,14 @@ export const ssbSets: SSBSets = {
 	},
 	Cake: {
 		species: 'Dudunsparce-Three-Segment', ability: 'Not Enough Removal', item: 'Leftovers', gender: 'N',
-		moves: [['Silk Trap', 'Obstruct', 'Max Guard', 'Spiky Shield', 'King\'s Shield', 'Protect', 'Detect', 'Baneful Bunker'], ['Rapid Spin', 'Mortal Spin'], ['Rest', 'Lunar Blessing', 'Healing Wish', 'Aromatherapy', 'Heal Bell', 'Copycat', 'Grass Whistle', 'Tearful Look', 'Transform']],
+		moves: [
+			['Silk Trap', 'Obstruct', 'Max Guard', 'Spiky Shield', 'King\'s Shield', 'Protect', 'Detect', 'Baneful Bunker'],
+			['Rapid Spin', 'Mortal Spin'],
+			[
+				'Rest', 'Lunar Blessing', 'Healing Wish', 'Aromatherapy',
+				'Heal Bell', 'Copycat', 'Grass Whistle', 'Tearful Look', 'Transform',
+			],
+		],
 		signatureMove: 'Shawn',
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Impish', teraType: 'Ghost', shiny: 957,
 	},
