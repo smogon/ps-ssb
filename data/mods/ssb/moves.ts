@@ -297,7 +297,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Electric Terrain', source);
-			this.add('-anim', source, 'Focus Energy', target);
+			this.add('-anim', source, 'Giga Impact', target);
 		},
 		self: {
 			volatileStatus: 'wonderwing',
