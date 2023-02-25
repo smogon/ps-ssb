@@ -304,7 +304,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
-	
+
 	// Lumari
 	pyrotechnic: {
 		shortDesc: "Critical hits are guaranteed when foe is burned.",
