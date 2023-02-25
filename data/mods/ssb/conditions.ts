@@ -525,6 +525,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Vio͜͡let')}|Your strength, extraordinary… The mark... of a true Lord…`);
 		},
 	},
+	yellowpaint: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Yellow Paint')}|cheers`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Yellow Paint')}|luckynbad`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Yellow Paint')}|The canvas is filled with different screams.`);
+		},
+	},
 	zalm: {
 		noCopy: true,
 		onStart() {
