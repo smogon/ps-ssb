@@ -612,7 +612,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					didSomething = !!this.boost({spa: 1}, target, target);
 					break;
 				case 2:
-					didSomething = !!this.boost({spa: 1}, target, target);
+					didSomething = !!this.boost({spe: 1}, target, target);
 					break;
 				case 3:
 					if (!target.volatiles['charge']) {
