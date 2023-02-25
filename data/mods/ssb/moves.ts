@@ -658,7 +658,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 		contestType: "Clever",
 	},
-	
+
 	// Lumari
 	mysticalbonfire: {
 		accuracy: 100,
