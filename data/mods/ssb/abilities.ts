@@ -112,8 +112,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
 			const hazard = this.sample(['stealthrock', 'spikes', 'toxicspikes', 'stickyweb', 'gmaxsteelsurge']);
-			this.add('-activate', pokemon, 'ability: Not Enough Removal');
+			let willDoSomething = false;
+			let hasActivated = false;
 			for (const side of this.sides) {
+				if (!side.sideConditions[hazard]) {
+					willDoSomething = true;
+				} else {
+					if (hazard === 'spikes') {
+						willDoSomething = side.sideConditions[hazard].layers < 3;
+					} else if (hazard === 'toxicspikes') {
+						willDoSomething = side.sideConditions[hazard].layers < 2;
+					}
+				}
+				if (willDoSomething && !hasActivated) {
+					this.add('-activate', pokemon, 'ability: Not Enough Removal');
+					hasActivated = true;
+				}
 				side.addSideCondition(hazard);
 			}
 		},
