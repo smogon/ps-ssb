@@ -233,7 +233,7 @@ export const ssbSets: SSBSets = {
 		species: 'Litwick', ability: 'Power Abuse', item: 'Eviolite', gender: 'F',
 		moves: ['Shadow Ball', 'Flamethrower', 'Giga Drain'],
 		signatureMove: 'Body Count',
-		evs: {hp: 252, spa: 252, spd: 4}, nature: 'Modest', teraType: 'Ghost',
+		evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0}, nature: 'Modest', teraType: 'Ghost',
 	},
 	TheJesucristoOsAma: {
 		species: 'Arceus', ability: 'The Grace Of Jesus Christ', gender: 'N',
