@@ -1184,6 +1184,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Core Enforcer');
+		},
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
