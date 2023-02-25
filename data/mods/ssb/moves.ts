@@ -986,9 +986,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Block', target);
 		},
 		onHit(target, source, move) {
-			if (!target.addVolatile('curse')) return false;
-			this.directDamage(source.maxhp / 2, source, source);
-			target.addVolatile('trapped', source, move, 'trapper');
+			let success = false;
+			if (!target.volatiles['curse']) {
+				this.directDamage(source.maxhp / 2, source, source);
+				target.addVolatile('curse');
+				success = true;
+			}
+			return target.addVolatile('trapped', source, move, 'trapper') || success;
 		},
 		zMove: {effect: 'heal'},
 		secondary: null,
