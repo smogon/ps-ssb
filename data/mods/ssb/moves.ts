@@ -1245,7 +1245,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target) {
 			this.field.setWeather('snow');
-			target.setAbility('Normalize');
+			if (target.setAbility('normalize')) {
+				this.add('-ability', target, 'Normalize', '[from] move: Whiteout');
+			}
 			this.add(`c:|${getName('Yellow Paint')}|A blank canvas.`);
 		},
 		secondary: null,
