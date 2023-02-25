@@ -160,12 +160,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onModifyMove(move, source, target) {
 			if (target?.newlySwitched || !!target?.positiveBoosts()) move.forceSwitch = true;
 		},
-		onModifyTypePriority: 999,
 		onModifyType(move) {
 			this.debug('THIS THING MUST NOT CRASH');
 			move.type = '???';
 		},
-		onMoveFail(target, source, move) {
+		onMoveFail(target, source) {
 			source.forceSwitchFlag = true;
 		},
 		secondary: null,
