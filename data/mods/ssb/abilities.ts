@@ -562,7 +562,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
 				this.boost({atk: 1, spe: 1});
-				const img = "https://www.smogon.com/forums/attachments/alcremie-png.494778/";
+				const img = "https://media.discordapp.net/attachments/764667730468536320/1079168557553831947/alcremie.png";
 				this.add(`c:|${getName('smely socks')}|/html <img src=${img} style="width:32px" />`);
 			}
 		},

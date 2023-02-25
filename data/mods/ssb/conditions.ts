@@ -450,7 +450,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	smelysocks: {
 		noCopy: true,
 		onStart() {
-			const img = "https://www.smogon.com/forums/attachments/meow_gm-png.494777/";
+			const img = "https://media.discordapp.net/attachments/764667730468536320/1079168714513064008/meow_gm.png";
 			this.add(`c:|${getName('smely socks')}|/html <img src=${img} style="width:32px" />`);
 		},
 		onSwitchOut() {
