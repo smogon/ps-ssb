@@ -447,6 +447,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	smelysocks: {
+		noCopy: true,
+		onStart() {
+			const img = "https://www.smogon.com/forums/attachments/meow_gm-png.494777/";
+			this.add(`c:|${getName('smely socks')}|/html <img src=${img} style="width:32px" />`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('smely socks')}|gn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('smely socks')}|unfort`);
+		},
+	},
 	snakerattler: {
 		noCopy: true,
 		onStart() {
