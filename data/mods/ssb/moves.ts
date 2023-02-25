@@ -668,6 +668,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return move.basePower;
 		},
 		category: "Physical",
+		shortDesc: "30% burn. 2x power if target is already statused.",
 		name: "Mystical Bonfire",
 		pp: 15,
 		priority: 0,
@@ -784,6 +785,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
+		shortDesc: "A description has not been added yet",
 		name: "Testing in Production",
 		gen: 9,
 		pp: 5,
