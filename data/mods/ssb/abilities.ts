@@ -184,7 +184,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// in the hills
 	illiterit: {
-		desc: "Immune to moves with 12 or more alphanumerics.",
+		shortDesc: "Immune to moves with 12 or more alphanumeric characters.",
 		name: "Illiterit",
 		onTryHit(target, source, move) {
 			if (target !== source && move.id.length >= 12) {
