@@ -212,7 +212,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-ability', pokemon, 'Anchor Arms');
 				pokemon.removeVolatile('powertrick');
 			}
-		}
+		},
 	},
 
 	// Kennedy
