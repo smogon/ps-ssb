@@ -95,10 +95,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-message', `${pokemon.name}'s Blitz of Ruin lowered the Speed of all surrounding Pokémon!`);
 		},
 		onAnyModifySpe(spe, pokemon) {
-            if (!pokemon.hasAbility('Blitz of Ruin')) {
-            	return this.chainModify(0.75);
+			if (!pokemon.hasAbility('Blitz of Ruin')) {
+				return this.chainModify(0.75);
 			}
-        },
+		},
 	},
 
 	// BreadLoeuf
