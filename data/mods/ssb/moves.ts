@@ -117,7 +117,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 95,
 		basePower: 100,
 		category: "Special",
-		shortDesc: "Combines Fire in its type effectiveness.",
+		shortDesc: "Combines Fire in its type effectiveness; Ignores weather.",
 		name: "Geyser Blast",
 		gen: 9,
 		pp: 10,
