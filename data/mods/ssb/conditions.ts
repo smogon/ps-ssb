@@ -82,7 +82,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Blitz')}|Splashyyy!`);
 		},
 		onFaint() {
-			const img = "https://discord.com/assets/2d827842d29f3408d9eb56fcdd96e589.svg"
+			const img = "https://discord.com/assets/2d827842d29f3408d9eb56fcdd96e589.svg";
 			this.add(`c:|${getName('Blitz')}|/html <img src="${img}" width="32" height="32" />`);
 		},
 	},
