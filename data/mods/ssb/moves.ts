@@ -1254,12 +1254,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
-	iondeluge: {
-		inherit: true,
-		onHit() {
-			this.add(`c:|${getName('Yellow Paint')}|Paint it Yellow!`);
-		},
-	},
 
 	// Zalm
 	dudurafish: {

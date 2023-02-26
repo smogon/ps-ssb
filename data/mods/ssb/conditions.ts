@@ -536,6 +536,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('Yellow Paint')}|The canvas is filled with different screams.`);
 		},
+		onModifyMove(move) {
+			if (move.id === 'iondeluge') {
+				move.onHitField = function () {
+					this.add(`c:|${getName('Yellow Paint')}|Paint it Yellow!`);
+				};
+			}
+		},
 	},
 	zalm: {
 		noCopy: true,
