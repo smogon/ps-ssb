@@ -96,6 +96,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onAnyModifySpe(spe, pokemon) {
 			if (!pokemon.hasAbility('Blitz of Ruin')) {
+				this.debug('Blitz of Ruin Spe drop');
 				return this.chainModify(0.75);
 			}
 		},
