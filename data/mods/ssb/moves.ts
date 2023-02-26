@@ -917,8 +917,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.heal(pokemon.maxhp, pokemon, pokemon, move);
 			pokemon.cureStatus();
 			this.boost({def: 1, spd: 1});
-			// @ts-ignore level increase
-			pokemon.level += 5;
+			(pokemon as any).level += 5;
 			pokemon.details = pokemon.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
 				(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 			this.add('-anim', pokemon, 'Geomancy', pokemon);
