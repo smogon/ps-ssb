@@ -196,7 +196,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify([3277, 4096]);
 			}
 		},
-		// Misspelling implemented in scripts.ts in hitStepAccuracy
+		// Misspelling implemented in scripts.ts#hitStepAccuracy
 	},
 
 	// in the hills
