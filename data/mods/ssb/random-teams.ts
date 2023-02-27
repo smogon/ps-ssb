@@ -97,7 +97,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Augur of Ebrietas',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost',
 	},
-	hoeenhero: {
+	HoeenHero: {
 		species: 'Ludicolo', ability: 'Misspelled', item: 'Life Orb', gender: 'M',
 		moves: [['Hydro Pump', 'Surf'], 'Giga Drain', 'Ice Beam'],
 		signatureMove: 'Re-Program',
