@@ -184,7 +184,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// HoeenHero
 	misspelled: {
-		shortDesc: "SpA 1.5x, Accuracy 0.8x, Never misses- only misspells moves.",
+		shortDesc: "SpA 1.5x, Accuracy 0.8x, Never misses, only misspells moves.",
 		name: "Misspelled",
 		onModifySpAPriority: 5,
 		onModifySpA(spa) {
