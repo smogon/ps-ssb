@@ -389,7 +389,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (move.smartTarget) {
 						move.smartTarget = false;
 					} else {
-						if (!move.spreadHit) this.battle.attrLastMove('[miss]');
 						if (pokemon.hasAbility('misspelled')) {
 							// Custom miss for HoeenHero
 							// Typo the move
@@ -400,8 +399,10 @@ export const Scripts: ModdedBattleScriptsData = {
 							logEntries[3] = typoedMove;
 							this.battle.log[this.battle.lastMoveLine] = logEntries.join('|');
 
+							this.battle.attrLastMove('[still]');
 							this.battle.add('-message', `But it was misspelled!`);
 						} else {
+							if (!move.spreadHit) this.battle.attrLastMove('[miss]');
 							this.battle.add('-miss', pokemon, target);
 						}
 					}
