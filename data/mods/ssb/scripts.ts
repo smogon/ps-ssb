@@ -396,7 +396,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							const typoedMove = move.name.charAt(0) + move.name.charAt(2) + move.name.charAt(1) + move.name.slice(3);
 
 							// Modify the used move to be typoed.
-							let logEntries = this.battle.log[this.battle.lastMoveLine].split('|');
+							const logEntries = this.battle.log[this.battle.lastMoveLine].split('|');
 							logEntries[3] = typoedMove;
 							this.battle.log[this.battle.lastMoveLine] = logEntries.join('|');
 
