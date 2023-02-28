@@ -95,7 +95,7 @@ export const ssbSets: SSBSets = {
 		species: 'Necrozma-Ultra', ability: 'Form Change', item: 'Expert Belt', gender: 'F',
 		moves: ['Swords Dance', 'Photon Geyser', 'Outrage'],
 		signatureMove: 'Magical Focus',
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', teraType: 'Dragon', skip: 'Dawn of Ares',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', teraType: 'Dragon', skip: 'Dawn of Artemis',
 	},
 	deftinwolf: {
 		species: 'Yveltal', ability: 'Sharpness', item: 'Dread Plate', gender: '',
