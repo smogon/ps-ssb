@@ -237,18 +237,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {protect: 1, mirror: 1},
 		onTryMove(target, source, move) {
 			switch (move.type) {
-				case 'Fire':
-					this.attrLastMove('[anim] Flamethrower');
-					break;
-				case 'Electric':
-					this.attrLastMove('[anim] Thunderbolt');
-					break;
-				case 'Ice':
-					this.attrLastMove('[anim] Ice Beam');
-					break;
-				default:
-					this.attrLastMove('[anim] Hyper Beam');
-					break;
+			case 'Fire':
+				this.attrLastMove('[anim] Flamethrower');
+				break;
+			case 'Electric':
+				this.attrLastMove('[anim] Thunderbolt');
+				break;
+			case 'Ice':
+				this.attrLastMove('[anim] Ice Beam');
+				break;
+			default:
+				this.attrLastMove('[anim] Hyper Beam');
+				break;
 			}
 		},
 		onModifyType(move) {
