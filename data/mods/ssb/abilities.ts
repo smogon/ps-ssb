@@ -247,6 +247,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	youllneverwalkalone: {
 		shortDesc: "Boosts Atk, Def, SpD, and Spe by 25% under Anfield Atmosphere.",
 		name: "You'll Never Walk Alone",
+		onStart(pokemon) {
+			if (this.field.getPseudoWeather('anfieldatmosphere')) {
+				this.add('-ability', pokemon, 'You\'ll Never Walk Alone');
+			}
+		},
 		onModifyAtkPriority: 5,
 		onModifyAtk(atk, source, target, move) {
 			if (this.field.getPseudoWeather('anfieldatmosphere')) {
