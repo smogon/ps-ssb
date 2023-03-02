@@ -194,10 +194,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 			this.add('-activate', pokemon, 'ability: Form Change');
 			changeSet(this, pokemon, ssbSets[newSet]);
-			const sourceBoosts: SparseBoostsTable = {};
-			sourceBoosts['atk'] = pokemon.boosts['spa'];
-			sourceBoosts['spa'] = pokemon.boosts['atk'];
-			pokemon.setBoost(sourceBoosts);
+			[pokemon.boosts['atk'], pokemon.boosts['spa']] = [pokemon.boosts['spa'], pokemon.boosts['atk']];
 			this.add('-setboost', pokemon, 'spa', pokemon.boosts['spa'], '[silent]');
 			this.add('-setboost', pokemon, 'atk', pokemon.boosts['atk'], '[silent]');
 			this.add('-message', `${pokemon.name} swapped its Attack and Special Attack boosts!`);
