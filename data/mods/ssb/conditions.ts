@@ -391,6 +391,27 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Krytocon')}|D:`);
 		},
 	},
+	lalaya: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Lalaya')}|Time to mix drinks and end lives.`);
+			this.add('-start', pokemon, 'typechange', 'Dark/Fairy', '[silent]');
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lalaya')}|coffee break, brb`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lalaya')}|alright this job sucks I'm heading home byeeeee`);
+		},
+		innateName: "Sniper",
+		shortDesc: "If this Pokemon strikes with a critical hit, the damage is multiplied by 1.5.",
+		onModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).crit) {
+				this.debug('Sniper boost');
+				return this.chainModify(1.5);
+			}
+		},
+	},
 	lumari: {
 		noCopy: true,
 		// quotes added later
@@ -872,6 +893,22 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.debug('Sunny Day water suppress');
 				return this.chainModify(0.5);
 			}
+		},
+	},
+	focusenergy: {
+		onStart(target, source, effect) {
+			if (effect?.id === 'zpower') {
+				this.add('-start', target, 'move: Focus Energy', '[zeffect]');
+			} else if (effect?.id === 'workaholic') {
+				this.add('-start', target, 'move: Focus Energy', '[from] ability: Workaholic');
+			} else if (effect && (['costar', 'imposter', 'psychup', 'transform'].includes(effect.id))) {
+				this.add('-start', target, 'move: Focus Energy', '[silent]');
+			} else {
+				this.add('-start', target, 'move: Focus Energy');
+			}
+		},
+		onModifyCritRatio(critRatio) {
+			return critRatio + 2;
 		},
 	},
 };
