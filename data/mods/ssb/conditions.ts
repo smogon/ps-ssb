@@ -679,7 +679,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Venous')}|dw watch this`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Venous')}|!lastfm Venous`);
+			this.add(`c:|${getName('Venous')}|teachin bitches how to swim`);
 		},
 	},
 	violet: {
