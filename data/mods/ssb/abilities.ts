@@ -426,6 +426,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Focus Energy on switch-in. Super Luck.",
 		name: "Workaholic",
 		onStart(pokemon) {
+			this.add('-activate', pokemon, 'ability: Workaholic');
 			pokemon.addVolatile('Focus Energy');
 		},
 		onModifyCritRatio(critRatio) {

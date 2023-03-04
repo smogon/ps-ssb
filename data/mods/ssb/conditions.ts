@@ -895,20 +895,4 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
-	focusenergy: {
-		onStart(target, source, effect) {
-			if (effect?.id === 'zpower') {
-				this.add('-start', target, 'move: Focus Energy', '[zeffect]');
-			} else if (effect?.id === 'workaholic') {
-				this.add('-start', target, 'move: Focus Energy', '[from] ability: Workaholic');
-			} else if (effect && (['costar', 'imposter', 'psychup', 'transform'].includes(effect.id))) {
-				this.add('-start', target, 'move: Focus Energy', '[silent]');
-			} else {
-				this.add('-start', target, 'move: Focus Energy');
-			}
-		},
-		onModifyCritRatio(critRatio) {
-			return critRatio + 2;
-		},
-	},
 };
