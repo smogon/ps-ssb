@@ -406,6 +406,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		innateName: "Sniper",
 		shortDesc: "If this Pokemon strikes with a critical hit, the damage is multiplied by 1.5.",
 		onModifyDamage(damage, source, target, move) {
+			if (source.illusion) return;
 			if (target.getMoveHitData(move).crit) {
 				this.debug('Sniper boost');
 				return this.chainModify(1.5);
