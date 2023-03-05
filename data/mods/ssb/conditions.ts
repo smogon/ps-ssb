@@ -249,6 +249,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		desc: "This Pokemon's non-damaging moves have their priority increased by 1. Opposing Dark-type Pokemon are immune to these moves, and any move called by these moves, if the resulting user of the move has this Ability.",
 		shortDesc: "This Pokemon's Status moves have priority raised by 1, but Dark types are immune.",
 		onModifyPriority(priority, pokemon, target, move) {
+			if (pokemon.illusion) return;
 			if (move?.category === 'Status') {
 				move.pranksterBoosted = true;
 				return priority + 1;
@@ -394,6 +395,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		// quotes added later
 		onSwitchOut(pokemon) {
+			if (pokemon.illusion) return;
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		innateName: "Regenerator",
