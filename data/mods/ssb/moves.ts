@@ -1,5 +1,5 @@
 import {ssbSets} from "./random-teams";
-import {changeSet, getName, enemyStaff} from "./scripts";
+import {changeSet, getName} from "./scripts";
 import {Teams} from '../../../sim/teams';
 
 export const Moves: {[k: string]: ModdedMoveData} = {
