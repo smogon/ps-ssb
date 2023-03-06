@@ -572,7 +572,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.add(`c:|${getName('sharp_claw')}|ur no fun T_T`);
 			}
 		},
-		innateName: "Rought and Tumble",
+		innateName: "Rough and Tumble",
 		shortDesc: "Changes Sneasel forme on switch out.",
 	},
 	smelysocks: {
