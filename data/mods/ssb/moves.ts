@@ -1616,6 +1616,57 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Poison",
 	},
 
+	// WigglyTree
+	perfectmimic: {
+		num: 382,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		isNonstandard: "Past",
+		name: "Perfect Mimic",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, bypasssub: 1},
+		volatileStatus: 'perfectmimic',
+		onDisableMove(pokemon) {
+			if (pokemon.lastMove?.id === 'perfectmimic') pokemon.disableMove('perfectmimic');
+		},
+		condition: {
+			duration: 1,
+			onStart(target) {
+				this.add('-singleturn', target, 'move: Perfect Mimic');
+			},
+			onDamagePriority: -10,
+			onDamage(damage, target, source, effect) {
+				if (effect?.effectType === 'Move' && damage >= target.hp) {
+					this.add('-activate', target, 'move: Endure');
+					this.effectState.move = effect;
+					return target.hp - 1;
+				}
+			},
+			onSourceAfterMove(target, source) {
+				if (!source.hp || !this.effectState.move) return;
+				const move = this.effectState.move;
+				const noPerfectMimic = [
+					'beakblast', 'chatter', 'counter', 'covet', 'focuspunch', 'mefirst', 'metalburst', 'mirrorcoat', 'shelltrap', 'struggle', 'thief',
+				];
+				if (move.isZ || move.isMax || move.category === 'Status' || noPerfectMimic.includes(move.id)) return;
+				this.add('-message', '')
+				this.actions.useMove(move, source, target);
+				delete this.effectState.move;
+			},
+			onBasePowerPriority: 12,
+			onBasePower() {
+				return this.chainModify(1.5);
+			},
+		},
+		secondary: null,
+		target: "adjacentFoe",
+		type: "Normal",
+		zMove: {boost: {spe: 2}},
+		contestType: "Clever",
+	},
+
 	// Yellow Paint
 	whiteout: {
 		accuracy: 85,
