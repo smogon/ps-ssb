@@ -1651,7 +1651,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (!source.hp || !this.effectState.move) return;
 				const move = this.dex.moves.get(this.effectState.move);
 				if (move.isZ || move.isMax || move.category === 'Status') return;
-				this.add('-message', target.name + ' tried to copy the move!')
+				this.add('-message', target.name + ' tried to copy the move!');
 				this.actions.useMove(move, target, source);
 				delete this.effectState.move;
 			},
