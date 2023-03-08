@@ -1618,12 +1618,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 
 	// WigglyTree
 	perfectmimic: {
-		num: 382,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		isNonstandard: "Past",
+		shortDesc: "Endures hit and hits opponent with 1.5x power.",
 		name: "Perfect Mimic",
+		gen: 9,
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, bypasssub: 1},
@@ -1661,10 +1661,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		secondary: null,
-		target: "adjacentFoe",
+		target: "self",
 		type: "Normal",
-		zMove: {boost: {spe: 2}},
-		contestType: "Clever",
 	},
 
 	// Yellow Paint
