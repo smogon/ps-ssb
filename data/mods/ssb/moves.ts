@@ -1628,6 +1628,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 4,
 		flags: {},
 		volatileStatus: 'perfectmimic',
+		onTryMove() {
+			this.attrLastMove('[anim] Endure');
+		},
 		onDisableMove(pokemon) {
 			if (pokemon.lastMove?.id === 'perfectmimic') pokemon.disableMove('perfectmimic');
 		},
@@ -1652,6 +1655,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				const move = this.dex.moves.get(this.effectState.move);
 				if (move.isZ || move.isMax || move.category === 'Status') return;
 				this.add('-message', target.name + ' tried to copy the move!');
+				this.add('-anim', target, "Me First", source);
 				this.actions.useMove(move, target, source);
 				delete this.effectState.move;
 			},
