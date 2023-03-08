@@ -904,11 +904,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(0.75);
 			}
 		},
-		onDamagingHit(damage, target, source, move) {
-			if (move.type === 'Water') {
-				this.boost({spe: 2});
-			}
-		},
 		isBreakable: true,
 	},
 
