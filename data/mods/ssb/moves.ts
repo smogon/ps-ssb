@@ -1625,7 +1625,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Perfect Mimic",
 		gen: 9,
 		pp: 10,
-		priority: 0,
+		priority: 4,
 		flags: {protect: 1, bypasssub: 1},
 		volatileStatus: 'perfectmimic',
 		onDisableMove(pokemon) {
@@ -1634,25 +1634,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		condition: {
 			duration: 1,
 			onStart(target) {
-				this.add('-singleturn', target, 'move: Perfect Mimic');
+				this.add('-singleturn', target, 'move: Endure');
 			},
 			onDamagePriority: -10,
 			onDamage(damage, target, source, effect) {
-				if (effect?.effectType === 'Move' && damage >= target.hp) {
-					this.add('-activate', target, 'move: Endure');
-					this.effectState.move = effect;
-					return target.hp - 1;
+				if (effect?.effectType === 'Move') {
+					this.effectState.move = effect.id;
+					if (damage >= target.hp) {
+						this.add('-activate', target, 'move: Endure');
+						return target.hp - 1;
+					}
 				}
 			},
-			onSourceAfterMove(target, source) {
+			onSourceAfterMove(source, target) {
+				if (source === this.effectState.target || target !== this.effectState.target) return;
 				if (!source.hp || !this.effectState.move) return;
-				const move = this.effectState.move;
-				const noPerfectMimic = [
-					'beakblast', 'chatter', 'counter', 'covet', 'focuspunch', 'mefirst', 'metalburst', 'mirrorcoat', 'shelltrap', 'struggle', 'thief',
-				];
-				if (move.isZ || move.isMax || move.category === 'Status' || noPerfectMimic.includes(move.id)) return;
-				this.add('-message', '')
-				this.actions.useMove(move, source, target);
+				const move = this.dex.moves.get(this.effectState.move);
+				if (move.isZ || move.isMax || move.category === 'Status') return;
+				this.add('-message', target.name + ' tried to copy the move!')
+				this.actions.useMove(move, target, source);
 				delete this.effectState.move;
 			},
 			onBasePowerPriority: 12,
