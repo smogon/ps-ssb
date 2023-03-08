@@ -1626,7 +1626,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 10,
 		priority: 4,
-		flags: {protect: 1, bypasssub: 1},
+		flags: {},
 		volatileStatus: 'perfectmimic',
 		onDisableMove(pokemon) {
 			if (pokemon.lastMove?.id === 'perfectmimic') pokemon.disableMove('perfectmimic');

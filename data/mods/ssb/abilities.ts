@@ -890,7 +890,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// WigglyTree
 	treestance: {
-		shortDesc: "No recoil; 3/4 damage from supereffective attacks; +2 Spe when damaged by Water move.",
+		shortDesc: "No recoil; 3/4 damage from supereffective attacks.",
 		name: "Tree Stance",
 		onDamage(damage, target, source, effect) {
 			if (effect.id === 'recoil') {
