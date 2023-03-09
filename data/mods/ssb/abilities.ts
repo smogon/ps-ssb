@@ -234,7 +234,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Ganjafin
 	gamblingaddiction: {
-		shortDesc: "When under 1/4 max HP, +1 Spe, heal to full HP, and all moves become Final Gambit.",
+		shortDesc: "When under 1/4 max HP: +1 Spe, heal to full HP, and all moves become Final Gambit.",
 		name: "Gambling Addiction",
 		onResidualOrder: 29,
 		onResidual(pokemon) {
