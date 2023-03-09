@@ -238,8 +238,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Gambling Addiction",
 		onResidualOrder: 29,
 		onResidual(pokemon) {
-			if (!pokemon.hp) return;
-			if (pokemon.hp < pokemon.maxhp / 4) {
+			if (pokemon.hp && pokemon.hp < pokemon.maxhp / 4) {
 				this.boost({spe: 1});
 				this.heal(pokemon.maxhp);
 				const move = this.dex.moves.get('finalgambit');
