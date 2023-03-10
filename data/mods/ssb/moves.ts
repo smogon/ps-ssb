@@ -920,7 +920,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		onModifyMove(move, source, target) {
-			if (target?.beingCalledBack || target?.switchFlag) move.accuracy = true;
+			if (target?.beingCalledBack || target?.switchFlag) {
+				move.accuracy = true;
+				move.onAfterMoveSecondarySelf = function (pokemon, target, move) {
+					if (!target || target.fainted || target.hp <= 0) {
+						this.boost({atk: 2}, pokemon, pokemon, move);
+					}
+				};
+			}
 		},
 		onTryHit(target, pokemon) {
 			target.side.removeSideCondition('attackofopportunity');
@@ -934,7 +941,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				for (const source of this.effectState.sources) {
 					if (!source.isAdjacent(pokemon) || !this.queue.cancelMove(source) || !source.hp) continue;
 					if (!alreadyAdded) {
-						this.add('-activate', pokemon, 'move: Attack of Opportunity');
+						this.add('-activate', pokemon, 'move: Pursuit');
 						alreadyAdded = true;
 					}
 					if (source.canMegaEvo) {
@@ -949,12 +956,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					this.actions.runMove('attackofopportunity', source, source.getLocOf(pokemon));
 				}
 			},
-		},
-		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (!target || target.fainted || target.hp <= 0 ||
-				target.beingCalledBack || target.switchFlag) {
-				this.boost({atk: 2}, pokemon, pokemon, move);
-			}
 		},
 		secondary: null,
 		target: "normal",
