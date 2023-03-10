@@ -86,6 +86,24 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		isBreakable: true,
 	},
 
+	// Archas
+	saintlybullet: {
+		shortDesc: "Snipe Shot has 1.5x power and heals the user by 1/8 (or 1/6 on a crit) of its max HP.",
+		name: "Saintly Bullet",
+		onBasePowerPriority: 19,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.id === 'snipeshot') {
+				return this.chainModify(1.5);
+			}
+		},
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (move.id === 'snipeshot') {
+				const ratio = source.getMoveHitData(move).crit ? 6 : 8;
+				this.heal(source.maxhp / ratio, source);
+			}
+		},
+	},
+
 	// Blitz
 	blitzofruin: {
 		shortDesc: "Active Pokemon without this Ability have their Speed multiplied by 0.75. Also Dazzling.",
