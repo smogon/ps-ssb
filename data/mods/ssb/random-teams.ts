@@ -217,6 +217,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Testing in Production',
 		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Jolly',
 	},
+	neycwang: {
+		species: 'Banette', ability: 'Insomnia', item: 'Banettite', gender: 'M',
+		moves: ['Destiny Bond', 'Will-O-Wisp', 'Parting Shot'],
+		signatureMove: 'Shadow Dance',
+		evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave',
+	},
 	Peary: {
 		species: 'Klinklang', ability: 'Levitate', item: 'Pearyum Z', gender: '',
 		moves: ['Lock On', 'Sheer Cold', 'Substitute'],
