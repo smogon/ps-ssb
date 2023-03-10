@@ -88,12 +88,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Archas
 	saintlybullet: {
-		shortDesc: "Snipe Shot has 1.5x power and heals the user by 1/8 (or 1/6 on a crit) of its max HP.",
+		shortDesc: "Snipe Shot always has STAB and heals the user by 1/8 (or 1/6 on a crit) of its max HP.",
 		name: "Saintly Bullet",
-		onBasePowerPriority: 19,
-		onBasePower(basePower, attacker, defender, move) {
+		onModifyMove(move) {
 			if (move.id === 'snipeshot') {
-				return this.chainModify(1.5);
+				move.forceSTAB = true;
 			}
 		},
 		onAfterMoveSecondarySelf(source, target, move) {
