@@ -117,7 +117,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Cures status conditions and heals 25% HP for entire party except Lilligant.",
+		shortDesc: "Cures status conditions and heals 25% HP for entire party except the user.",
 		name: "Aura Rain",
 		pp: 1,
 		priority: 0,
