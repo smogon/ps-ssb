@@ -922,9 +922,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onModifyMove(move, source, target) {
 			if (target?.beingCalledBack || target?.switchFlag) {
 				move.accuracy = true;
-				move.onAfterMoveSecondarySelf = function (pokemon, target, move) {
-					if (!target || target.fainted || target.hp <= 0) {
-						this.boost({atk: 2}, pokemon, pokemon, move);
+				move.onAfterMoveSecondarySelf = function (s, t, m) {
+					if (!t || t.fainted || t.hp <= 0) {
+						this.boost({atk: 2}, s, s, m);
 					}
 				};
 			}
