@@ -36,4 +36,26 @@ export const Items: {[k: string]: ModdedItemData} = {
 		itemUser: ["Klinklang"],
 		desc: "If held by a Klinklang with Gear Grind, it can use 1000 Gears.",
 	},
+
+	// modified for Bidoof Princess' ability
+	focusband: {
+		inherit: true,
+		onDamage(damage, target, source, effect) {
+			const chance = target.hasAbility('adorablegrace') ? 2 : 1;
+			if (this.randomChance(chance, 10) && damage >= target.hp && effect && effect.effectType === 'Move') {
+				this.add("-activate", target, "item: Focus Band");
+				return target.hp - 1;
+			}
+		},
+	},
+	quickclaw: {
+		inherit: true,
+		onFractionalPriority(priority, pokemon) {
+			const chance = pokemon.hasAbility('adorablegrace') ? 2 : 1;
+			if (priority <= 0 && this.randomChance(chance, 5)) {
+				this.add('-activate', pokemon, 'item: Quick Claw');
+				return 0.1;
+			}
+		},
+	},
 };

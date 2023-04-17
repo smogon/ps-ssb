@@ -97,6 +97,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Archas')}|What would Grandfather... think of me now...`);
 		},
 	},
+	bidoofprincess: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Bidoof ❤ Princess')}|:3`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Bidoof ❤ Princess')}|nya~`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Bidoof ❤ Princess')}|>~<`);
+		},
+	},
 	blitzuser: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -933,7 +945,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	attract: {
 		onStart(pokemon, source, effect) {
 			if (!(pokemon.gender === 'M' && source.gender === 'F') && !(pokemon.gender === 'F' && source.gender === 'M')) {
-				if (effect.name !== 'The Love Of Christ') {
+				if (!['The Love Of Christ', ':3'].includes(effect.name)) {
 					this.debug('incompatible gender');
 					return false;
 				}
