@@ -271,6 +271,15 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('hsy')}|https://www.youtube.com/watch?v=g104OJIh9hs`);
 		},
 	},
+	hydro: {
+		noCopy: true,
+		onFaint(pokemon) {
+			if (pokemon.side.pokemon.some(mon => mon.name === 'PartMan')) {
+				// Custom message for PartMan
+				this.add(`c:|${getName('PartMan')}|Hydro here have a tiara`);
+			}
+		},
+	},
 	inthehills: {
 		noCopy: true,
 		onStart() {
@@ -541,6 +550,111 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('neycwang')}|How long am I banned for?`);
+		},
+	},
+	partman: {
+		noCopy: true,
+		onStart(pokemon) {
+			let message;
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'partman':
+				message = 'Hii Q - oh, it\'s just me.';
+				break;
+			case 'hydro':
+				message = 'Here to bully Hydro';
+				break;
+			case 'softflex':
+				message = '/me softly flexes';
+				break;
+			case 'computerwizard8800':
+				message = 'CWIZ SLEEP';
+				break;
+			case 'krytocon':
+				this.add(`c:|${getName('PartMan')}|%r 14 // @Krytocon`);
+				this.add(`c:|${getName('Ice Kyubs')}|Roll: 14`);
+				message = null;
+				break;
+			case 'kennedy':
+				message = 'Down the reds!';
+				break;
+			case 'mex':
+				message = 'Probopass moment';
+				break;
+			case 'monkey':
+				message = 'Remember to smile!';
+				break;
+			case 'pissog':
+				message = 'Ma ciaomi queste noci';
+				break;
+			case 'sulo':
+				message = '...Sulo\'s AFK again, aren\'t they?';
+				break;
+			case 'warriorgallade':
+				message = 'Berry nice to meet you!';
+				break;
+			case 'breadloeuf':
+				message = 'BREADBOWL';
+				break;
+			case 'pyro':
+				message = 'Fight me you boiled potato';
+				break;
+			case 'rsb':
+				message = '/me hugs';
+				break;
+			case 'zalm':
+				message = '<(:O)00000>';
+				break;
+			case 'trace':
+				this.add('-message', `PartMan's Neutralizing Gas filled the area! (but not really)`);
+				message = null;
+				break;
+			case 'za':
+				message = '/me shitposts';
+				break;
+			case 'arsenal':
+				message = 'Do I count as a gunner?';
+				break;
+			case 'notater517':
+				message = 'E-excuse me s-senpai >///<';
+				break;
+			case 'siegfried':
+				message = 'Is Sieg baked or boiled?';
+				break;
+			case 'smelysocks':
+				message = 'SMELY HIIII';
+				break;
+			case 'beowulf':
+				message = 'BEE';
+				break;
+			default:
+				message = 'Hiii QT :3';
+			}
+			if (message) this.add(`c:|${getName('PartMan')}|${message}`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('PartMan')}|Deez nuts`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('PartMan')}|Okay weeb`);
+		},
+		onFoeSwitchIn(pokemon) {
+			if (pokemon.name === 'Hydro') {
+				this.add(`c:|${getName('PartMan')}|LUAAAAA!`);
+				this.add(`c:|${getName('PartMan')}|/me pats`);
+			}
+		},
+		onFoeFaint(target, source, effect) {
+			if (target.name === 'Hydro') {
+				// Message happens when PartMan is on the enemy team
+				// Handled in Hydro's conditions
+			} else {
+				this.add(`c:|${getName('PartMan')}|Skill issue`);
+			}
+		},
+		onHit(target, source, move) {
+			if (!move.num) {
+				this.add(`c:|${getName('PartMan')}|That's what she said!`);
+			}
 		},
 	},
 	peary: {
