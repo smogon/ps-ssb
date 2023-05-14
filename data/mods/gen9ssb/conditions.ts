@@ -97,18 +97,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Archas')}|What would Grandfather... think of me now...`);
 		},
 	},
-	bidoofprincess: {
-		noCopy: true,
-		onStart() {
-			this.add(`c:|${getName('Bidoof ❤ Princess')}|:3`);
-		},
-		onSwitchOut() {
-			this.add(`c:|${getName('Bidoof ❤ Princess')}|nya~`);
-		},
-		onFaint() {
-			this.add(`c:|${getName('Bidoof ❤ Princess')}|>~<`);
-		},
-	},
 	blitzuser: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -553,6 +541,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('neycwang')}|How long am I banned for?`);
+		},
+	},
+	nya: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('nya~ ❤')}|:3`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('nya~ ❤')}|nya~`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('nya~ ❤')}|>~<`);
 		},
 	},
 	peary: {

@@ -37,7 +37,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		desc: "If held by a Klinklang with Gear Grind, it can use 1000 Gears.",
 	},
 
-	// modified for Bidoof Princess' ability
+	// modified for nya's ability
 	focusband: {
 		inherit: true,
 		onDamage(damage, target, source, effect) {

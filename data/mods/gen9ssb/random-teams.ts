@@ -66,12 +66,6 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Quiver Dance',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
-	'Bidoof ❤ Princess': {
-		species: 'Delcatty', ability: 'Adorable Grace', item: 'Focus Band', gender: 'F',
-		moves: ['Frost Breath', 'Tri Attack', 'Volt Switch'],
-		signatureMove: ':3',
-		evs: {hp: 252, spa: 4, spe: 252}, nature: 'Naive', teraType: 'Ice',
-	},
 	Blitz: {
 		species: 'Chi-Yu', ability: 'Blitz of Ruin', item: 'Life Orb', gender: 'N',
 		moves: ['Fiery Wrath', 'Lava Plume', 'Nasty Plot'],
@@ -252,6 +246,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Destiny Bond', 'Will-O-Wisp', 'Parting Shot'],
 		signatureMove: 'Shadow Dance',
 		evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave', shiny: true,
+	},
+	'nya~ ❤': {
+		species: 'Delcatty', ability: 'Adorable Grace', item: 'Focus Band', gender: 'F',
+		moves: ['Frost Breath', 'Tri Attack', 'Volt Switch'],
+		signatureMove: ':3',
+		evs: {hp: 252, spa: 4, spe: 252}, nature: 'Naive', teraType: 'Ice',
 	},
 	Peary: {
 		species: 'Klinklang', ability: 'Levitate', item: 'Pearyum Z', gender: '',
