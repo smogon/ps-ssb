@@ -1412,7 +1412,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		target: "normal",
-		type: "Normal"
+		type: "Normal",
 	},
 
 	// ReturnToMonkey
