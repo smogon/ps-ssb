@@ -52,6 +52,14 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 60, atk: 65, def: 60, spa: 130, spd: 75, spe: 110},
 	},
 
+	// Hydrostatics
+	pichuspikyeared: {
+		inherit: true,
+		baseStats: {hp: 35, atk: 55, def: 40, spa: 50, spd: 50, spe: 90},
+		abilities: {0: 'Hydrostatic Positivity'},
+		evos: ['Chandelure'], // Added for Eviolite compatibility
+	},
+
 	// Isaiah
 	stakataka: {
 		inherit: true,

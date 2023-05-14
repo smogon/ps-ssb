@@ -271,6 +271,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('hsy')}|https://www.youtube.com/watch?v=g104OJIh9hs`);
 		},
 	},
+	hydrostaticsuser: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Hydrostatics')}|Straighten your backs and get some hydration :]`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Hydrostatics')}|Brb getting some water :d`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Hydrostatics')}|Seems like you were more hydrated than me :c`);
+		},
+	},
 	inthehills: {
 		noCopy: true,
 		onStart() {
