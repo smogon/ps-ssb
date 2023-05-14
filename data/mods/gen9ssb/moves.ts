@@ -940,6 +940,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Fairy",
 	},
+
 	// Krytocon
 	attackofopportunity: {
 		accuracy: 100,
@@ -1048,6 +1049,50 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
+	},
+
+	// Links
+	ancienttoolkit: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "Clears user-side hazards; knocks off item",
+		name: "Ancient Toolkit",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Knock Off', target);
+			this.add('-anim', source, 'Rapid Spin', target);
+		},
+		onAfterHit(target, pokemon) {
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			for (const condition of sideConditions) {
+				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
+					this.add('-sideend', pokemon.side, this.dex.conditions.get(condition).name, '[from] move: Ancient Toolkit', '[of] ' + pokemon);
+				}
+			}
+			if (source.hp) {
+				const item = target.takeItem();
+				if (item) {
+					this.add('-enditem', target, item.name, '[from] move: Ancient Toolkit', '[of] ' + source);
+				}
+			}
+		},
+		onAfterSubDamage(damage, target, pokemon) {
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			for (const condition of sideConditions) {
+				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
+					this.add('-sideend', pokemon.side, this.dex.conditions.get(condition).name, '[from] move: Ancient Toolkit', '[of] ' + pokemon);
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Dark",
 	},
 
 	// Lumari

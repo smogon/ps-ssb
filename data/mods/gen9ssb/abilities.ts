@@ -541,6 +541,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Links
+	primordialsands: {
+		shortDesc: "Sand Stream + Sand Rush",
+		name: "Primordial Sands",
+		onStart(source) {
+			this.field.setWeather('sandstorm');
+		},
+		onModifySpe(spe, pokemon) {
+			if (this.field.isWeather('sandstorm')) {
+				return this.chainModify(2);
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+	},
+
 	// Lumari
 	pyrotechnic: {
 		shortDesc: "Critical hits are guaranteed when foe is burned.",
