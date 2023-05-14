@@ -149,6 +149,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: 'Drought'},
 	},
 
+	// Sulo
+	reuniclus: {
+		inherit: true,
+		abilities: {0: 'Protection of the Gelatin'},
+	},
+
 	// Swiffix
 	piplup: {
 		inherit: true,
