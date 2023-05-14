@@ -271,7 +271,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('hsy')}|https://www.youtube.com/watch?v=g104OJIh9hs`);
 		},
 	},
-	hydro: {
+	hydrostatics: {
 		noCopy: true,
 		onFaint(pokemon) {
 			if (pokemon.side.pokemon.some(mon => mon.name === 'PartMan')) {
@@ -560,7 +560,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'partman':
 				message = 'Hii Q - oh, it\'s just me.';
 				break;
-			case 'hydro':
+			case 'hydrostatics':
 				message = 'Here to bully Hydro';
 				break;
 			case 'softflex':
@@ -638,13 +638,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('PartMan')}|Okay weeb`);
 		},
 		onFoeSwitchIn(pokemon) {
-			if (pokemon.name === 'Hydro') {
+			if (pokemon.name === 'Hydrostatics') {
 				this.add(`c:|${getName('PartMan')}|LUAAAAA!`);
 				this.add(`c:|${getName('PartMan')}|/me pats`);
 			}
 		},
 		onFoeFaint(target, source, effect) {
-			if (target.name === 'Hydro') {
+			if (target.name === 'Hydrostatics') {
 				// Message happens when PartMan is on the enemy team
 				// Handled in Hydro's conditions
 			} else {
