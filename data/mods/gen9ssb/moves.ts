@@ -1075,10 +1075,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					this.add('-sideend', pokemon.side, this.dex.conditions.get(condition).name, '[from] move: Ancient Toolkit', '[of] ' + pokemon);
 				}
 			}
-			if (source.hp) {
+			if (pokemon.hp) {
 				const item = target.takeItem();
 				if (item) {
-					this.add('-enditem', target, item.name, '[from] move: Ancient Toolkit', '[of] ' + source);
+					this.add('-enditem', target, item.name, '[from] move: Ancient Toolkit', '[of] ' + pokemon);
 				}
 			}
 		},
