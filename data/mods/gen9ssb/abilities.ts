@@ -543,7 +543,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Links
 	primordialsands: {
-		shortDesc: "Sand Stream + Sand Rush",
+		shortDesc: "On switch-in, summons Sandstorm. If Sandstorm is active, its Speed is doubled.",
 		name: "Primordial Sands",
 		onStart(source) {
 			this.field.setWeather('sandstorm');
