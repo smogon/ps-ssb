@@ -885,7 +885,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Sulo
 	protectionofthegelatin: {
-		shortDesc: "Magic Guard + Stamina",
+		shortDesc: "Immune to all non-attack damage; raises Defense by 1 when damaged by an attack.",
 		name: "Protection of the Gelatin",
 		onDamage(damage, target, source, effect) {
 			if (effect.effectType !== 'Move') {
