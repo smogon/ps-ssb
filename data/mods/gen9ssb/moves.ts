@@ -1056,7 +1056,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
-		shortDesc: "Clears user-side hazards; knocks off item",
+		shortDesc: "Clears hazards on user's side; removes target's item.",
 		name: "Ancient Toolkit",
 		pp: 10,
 		priority: 0,
