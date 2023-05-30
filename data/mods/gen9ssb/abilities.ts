@@ -769,7 +769,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Quite Quiet
 	fancyscarf: {
-		shortDesc: "Shield Dust + Magic Guard",
+		shortDesc: "Immune to all non-attack damage; not affected by other Pokémon's secondary effects.",
 		name: "Fancy Scarf",
 		onDamage(damage, target, source, effect) {
 			if (effect.effectType !== 'Move') {
