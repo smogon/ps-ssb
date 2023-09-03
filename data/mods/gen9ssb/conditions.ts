@@ -603,6 +603,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('ReturnToMonkey')}|Reject the humanity...if you dare...`);
 		},
 	},
+	rsb: {
+		noCopy: true,
+		onStart() {
+			// TODO: list all dogs and give a special switch msg
+			this.add(`c:|${getName('RSB')}|Time to take a bite out of crime!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('RSB')}|Requesting backup!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('RSB')}|Officer down.`);
+		},
+	},
 	rumia: {
 		noCopy: true,
 		onStart(pokemon) {
