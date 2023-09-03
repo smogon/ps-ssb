@@ -1779,6 +1779,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return false;
 			}
 		},
+		onTryMove() {
+			this.attrLastMove('[anim] Fake Out');
+		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			let boost;
 			const typeMod = target.getMoveHitData(move).typeMod;
