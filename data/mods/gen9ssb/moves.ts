@@ -196,6 +196,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Fell Stinger', source);
+			this.add('-anim', source, 'Fell Stinger', source);
+			this.add('-anim', source, 'Fell Stinger', source);
+		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (!target || target.fainted || target.hp <= 0) this.boost({atk: 3}, pokemon, pokemon, move);
 		},
