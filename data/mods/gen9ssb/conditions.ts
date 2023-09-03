@@ -97,6 +97,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Archas')}|What would Grandfather... think of me now...`);
 		},
 	},
+	beowulf: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Beowulf')}|Fear the bee`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Beowulf')}|/me buzzes`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Beowulf')}|/me buzzes`);
+		},
+	},
 	blitzuser: {
 		noCopy: true,
 		onStart(pokemon) {

@@ -66,6 +66,14 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Quiver Dance',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
+	Beowulf: {
+		species: 'Beedrill', ability: 'Intrepid Sword', item: 'Beedrillite', gender: 'M',
+		moves: ['Poison Jab', 'Attack Order', [
+			'Sacred Fire', 'Earthquake', 'Volt Tackle', 'Glacial Lance',
+		]],
+		signatureMove: 'Buzzer Stinger Counter',
+		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly', shiny: 2,
+	},
 	Blitz: {
 		species: 'Chi-Yu', ability: 'Blitz of Ruin', item: 'Life Orb', gender: 'N',
 		moves: ['Fiery Wrath', 'Lava Plume', 'Nasty Plot'],
