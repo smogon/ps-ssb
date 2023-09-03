@@ -406,6 +406,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Kaede
+	ghostlyhallow: {
+		shortDesc: "This Pokémon can hit Normal types with Ghost-type moves.",
+		name: "Ghostly Hallow",
+		onModifyMovePriority: -5,
+		onModifyMove(move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Ghost'] = true;
+			}
+		},
+	},
+
 	// Kennedy
 	anfield: {
 		shortDesc: "Clears terrain/hazards/pseudo weathers. Summons Anfield Atmosphere.",

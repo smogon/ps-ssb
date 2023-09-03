@@ -330,6 +330,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Isaiah')}|I hope Super Weenie Hut Jr is still open for business...`);
 		},
 	},
+	kaede: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kaede')}|BOO`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kaede')}|Into the shadows I go`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kaede')}|I'm dead but not really (lol ghost)`);
+		},
+	},
 	kennedy: {
 		noCopy: true,
 		innateName: "Battle Bond",

@@ -181,6 +181,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Anchor Toss',
 		evs: {hp: 252, atk: 252, def: 4}, ivs: {atk: 0}, nature: 'Brave', teraType: 'Water', shiny: true,
 	},
+	Kaede: {
+		species: 'Kitsunoh', ability: 'Ghostly Hallow', item: 'Choice Band', gender: '',
+		moves: ['Meteor Mash', 'Shadow Strike', 'U-Turn'],
+		signatureMove: 'Phantom Weapon',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', teraType: ['Steel', 'Ghost'], shiny: 2,
+	},
 	Kennedy: {
 		species: 'Cinderace', ability: 'Anfield', item: 'Berserk Gene', gender: 'M',
 		moves: ['Blaze Kick', ['Triple Kick', 'Trop Kick'], 'U-turn'],
