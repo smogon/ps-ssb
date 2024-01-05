@@ -15,6 +15,22 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "Inner Focus", 1: "Keen Eye", H: "Poison Touch"},
 	},
+	shiftry: {
+		inherit: true,
+		abilities: {0: "Chlorophyll", 1: "Early Bird", H: "Pickpocket"},
+	},
+	piplup: {
+		inherit: true,
+		abilities: {0: "Torrent", H: "Defiant"},
+	},
+	prinplup: {
+		inherit: true,
+		abilities: {0: "Torrent", H: "Defiant"},
+	},
+	empoleon: {
+		inherit: true,
+		abilities: {0: "Torrent", H: "Defiant"},
+	},
 	gallade: {
 		inherit: true,
 		abilities: {0: "Steadfast", H: "Justified"},
@@ -45,6 +61,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		prevo: undefined,
 		evoLevel: undefined,
 	},
+	vivillonpokeball: {
+		inherit: true,
+		abilities: {0: "Shield Dust", 1: "Compound Eyes"},
+	},
 	sliggoohisui: {
 		inherit: true,
 		abilities: {0: "Sap Sipper", 1: "Overcoat", H: "Gooey"},
@@ -73,13 +93,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 92, atk: 130, def: 145, spa: 80, spd: 145, spe: 128},
 	},
-	kubfu: {
-		inherit: true,
-		abilities: {0: "Inner Focus"},
-	},
 	kleavor: {
 		inherit: true,
-		baseStats: {hp: 70, atk: 135, def: 95, spa: 45, spd: 70, spe: 85},
 		abilities: {0: "Swarm", 1: "Sheer Force", H: "Steadfast"},
 	},
 	basculegion: {

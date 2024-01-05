@@ -615,20 +615,17 @@ export abstract class Searcher {
 			buf += LogViewer.error(`Logs for month '${month}' do not exist on room ${roomid}.`);
 			return buf;
 		} else if (user) {
-			let total = 0;
-			for (const day in results) {
-				if (isNaN(results[day][user])) continue;
-				total += results[day][user];
-			}
-			buf += `<br />Total linecount: ${total}<hr />`;
-			buf += '<ol>';
+			buf += '<hr /><ol>';
 			const sortedDays = Utils.sortBy(Object.keys(results), day => ({reverse: day}));
+			let total = 0;
 			for (const day of sortedDays) {
 				const dayResults = results[day][user];
 				if (isNaN(dayResults)) continue;
+				total += dayResults;
 				buf += `<li>[<a roomid="view-chatlog-${roomid}--${day}">${day}</a>]: `;
 				buf += `${Chat.count(dayResults, 'lines')}</li>`;
 			}
+			buf = buf.replace('{total}', `${total}`);
 		} else {
 			buf += '<hr /><ol>';
 			// squish the results together
@@ -755,7 +752,11 @@ export abstract class Searcher {
 	async activityStats(room: RoomID, month: string) {
 		const days = (await FS(`logs/chat/${room}/${month}`).readdir()).map(f => f.slice(0, -4));
 		const stats: RoomStats[] = [];
+		const today = Chat.toTimestamp(new Date()).split(' ')[0];
 		for (const day of days) {
+			if (day === today) { // if the day is not over: do not count it, it'll skew the numbers
+				continue;
+			}
 			const curStats = await this.dayStats(room, day);
 			if (!curStats) continue;
 			stats.push(curStats);
@@ -793,7 +794,7 @@ export abstract class Searcher {
 		return {average: collected, days: stats};
 	}
 	async dayStats(room: RoomID, day: string) {
-		const cached = this.roomstatsCache.get(day);
+		const cached = this.roomstatsCache.get(room + '-' + day);
 		if (cached) return cached;
 		const results: RoomStats & {day: string} = {
 			deadTime: 0,
@@ -854,7 +855,7 @@ export abstract class Searcher {
 
 		// we don't cache the current day's stats because that could be inaccurate, whereas old days will always be the same
 		if (day !== LogReader.today()) {
-			this.roomstatsCache.set(day, results);
+			this.roomstatsCache.set(room + '-' + day, results);
 		}
 		return results;
 	}
@@ -1412,6 +1413,7 @@ export const pages: Chat.PageTable = {
 
 		if (date && search) {
 			Searcher.checkEnabled();
+			this.checkCan('bypassall');
 			return LogSearcher.runSearch(this, search, roomid, isAll ? null : date, limit);
 		} else if (date) {
 			if (date === 'today') {
@@ -1508,11 +1510,14 @@ export const pages: Chat.PageTable = {
 export const commands: Chat.ChatCommands = {
 	chatlogs: 'chatlog',
 	cl: 'chatlog',
+	roomlog: 'chatlog',
+	rl: 'chatlog',
+	roomlogs: 'chatlog',
 	chatlog(target, room, user) {
 		const [tarRoom, ...opts] = target.split(',');
 		const targetRoom = tarRoom ? Rooms.search(tarRoom) : room;
 		const roomid = targetRoom ? targetRoom.roomid : target;
-		return this.parse(`/join view-chatlog-${roomid}--today${opts ? `--${opts.join('--')}` : ''}`);
+		return this.parse(`/join view-chatlog-${roomid}--today${opts ? `--${opts.map(toID).join('--')}` : ''}`);
 	},
 
 	chatloghelp() {
@@ -1570,7 +1575,7 @@ export const commands: Chat.ChatCommands = {
 			`If you provide a user argument in the form <code>user=username</code>, it will search for messages (that match the other arguments) only from that user.<br />` +
 			`All other arguments will be considered part of the search ` +
 			`(if more than one argument is specified, it searches for lines containing all terms).<br />` +
-			"Requires: % @ # &</div>";
+			"Requires: &</div>";
 		return this.sendReplyBox(buffer);
 	},
 	topusers: 'linecount',
@@ -1636,7 +1641,7 @@ export const commands: Chat.ChatCommands = {
 			`<code>/linecount OR /roomstats OR /topusers</code> [<code>key=value</code> formatted parameters] - ` +
 			`Searches linecounts with the given parameters.<br />` +
 			`<details class="readmore"><summary><strong>Parameters:</strong></summary>` +
-			`- <code>room</code> (aliases: <code>roomid</code>) - Select a room to search. If no room is given, defaults to current room.</br />` +
+			`- <code>room</code> (aliases: <code>roomid</code>) - Select a room to search. If no room is given, defaults to current room.<br />` +
 			`- <code>date</code> (aliases: <code>month</code>, <code>time</code>) - ` +
 			`Select a month to search linecounts on (requires YYYY-MM format). Defaults to current month.<br />` +
 			`- <code>user</code> (aliases: <code>id</code>, <code>userid</code>) - ` +
@@ -1793,7 +1798,7 @@ export const commands: Chat.ChatCommands = {
 		return this.parse(`/join view-roominfo-${room}${date ? `--${date}` : ''}`);
 	},
 	roomactivityhelp: [
-		`/roomactibity [room][, date] - View room activity logs for the given room.`,
+		`/roomactivity [room][, date] - View room activity logs for the given room.`,
 		`If a date is provided, it searches for logs from that date. Otherwise, it searches the current month.`,
 		`Requires: &`,
 	],

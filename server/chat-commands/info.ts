@@ -665,6 +665,9 @@ export const commands: Chat.ChatCommands = {
 							}
 						}
 					}
+					if (pokemon.prevo) {
+						details["Pre-Evolution"] = pokemon.prevo;
+					}
 					if (!evos.length) {
 						details[`<font color="#686868">Does Not Evolve</font>`] = "";
 					} else {
@@ -817,8 +820,8 @@ export const commands: Chat.ChatCommands = {
 					details = {
 						Gen: String(ability.gen) || 'CAP',
 					};
-					if (ability.isPermanent) details["&#10003; Not affected by Gastro Acid"] = "";
-					if (ability.isBreakable) details["&#10003; Ignored by Mold Breaker"] = "";
+					if (ability.flags['cantsuppress']) details["&#10003; Not affected by Gastro Acid"] = "";
+					if (ability.flags['breakable']) details["&#10003; Ignored by Mold Breaker"] = "";
 				}
 				break;
 			default:
@@ -1504,7 +1507,7 @@ export const commands: Chat.ChatCommands = {
 	statcalchelp: [
 		`/statcalc [level] [base stat] [IVs] [nature] [EVs] [modifier] (only base stat is required) - Calculates what the actual stat of a Pokémon is with the given parameters. For example, '/statcalc lv50 100 30iv positive 252ev scarf' calculates the speed of a base 100 scarfer with HP Ice in Battle Spot, and '/statcalc uninvested 90 neutral' calculates the attack of an uninvested Crobat.`,
 		`!statcalc [level] [base stat] [IVs] [nature] [EVs] [modifier] (only base stat is required) - Shows this information to everyone.`,
-		`Inputing 'hp' as an argument makes it use the formula for HP. Instead of giving nature, '+' and '-' can be appended to the EV amount (e.g. 252+ev) to signify a boosting or inhibiting nature.`,
+		`Inputting 'hp' as an argument makes it use the formula for HP. Instead of giving nature, '+' and '-' can be appended to the EV amount (e.g. 252+ev) to signify a boosting or inhibiting nature.`,
 		`An actual stat can be given in place of a base stat or EVs. In this case, the minumum base stat or EVs necessary to have that real stat with the given parameters will be determined. For example, '/statcalc 502real 252+ +1' calculates the minimum base speed necessary for a positive natured fully invested scarfer to outspeed`,
 	],
 
@@ -1629,7 +1632,8 @@ export const commands: Chat.ChatCommands = {
 			`- <a href="https://github.com/smogon/pokemon-showdown/commits/master">What's new?</a><br />` +
 			`- <a href="https://github.com/smogon/pokemon-showdown">Server source code</a><br />` +
 			`- <a href="https://github.com/smogon/pokemon-showdown-client">Client source code</a><br />` +
-			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Dex">Dex source code</a>`
+			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Dex">Dex source code</a><br />` +
+			`- <a href="https://github.com/smogon/pokemon-showdown-loginserver">Login server source code</a>`
 		);
 	},
 	opensourcehelp: [
@@ -1673,12 +1677,12 @@ export const commands: Chat.ChatCommands = {
 	bugs(target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (room?.battle) {
-			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="https://www.smogon.com/forums/threads/3663703/">Bug Reports</a></center>`);
+			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="https://www.smogon.com/forums/ps-bug-report-form/">Bug Reports</a></center>`);
 		} else {
 			this.sendReplyBox(
 				`Have a replay showcasing a bug on Pok&eacute;mon Showdown?<br />` +
 				`- <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a><br />` +
-				`- <a href="https://www.smogon.com/forums/threads/3663703/">Bug Reports</a> (ask in <a href="/help">Help</a> before posting in the thread if you're unsure)`
+				`- <a href="https://www.smogon.com/forums/ps-bug-report-form/">Bug Reports</a> (ask in <a href="/help">Help</a> before posting in the thread if you're unsure)`
 			);
 		}
 	},
@@ -1745,13 +1749,10 @@ export const commands: Chat.ChatCommands = {
 		const DEFAULT_CALC_COMMANDS = ['honkalculator', 'honkocalc'];
 		const RANDOMS_CALC_COMMANDS = ['randomscalc', 'randbatscalc', 'rcalc'];
 		const BATTLESPOT_CALC_COMMANDS = ['bsscalc', 'cantsaycalc'];
-		const SUPPORTED_RANDOM_FORMATS = [
-			'gen8randombattle', 'gen8unratedrandombattle', 'gen7randombattle', 'gen6randombattle', 'gen5randombattle', 'gen4randombattle', 'gen3randombattle', 'gen2randombattle', 'gen1randombattle',
-		];
 		const SUPPORTED_BATTLESPOT_FORMATS = [
 			'gen5gbusingles', 'gen5gbudoubles', 'gen6battlespotsingles', 'gen6battlespotdoubles', 'gen6battlespottriples', 'gen7battlespotsingles', 'gen7battlespotdoubles', 'gen7bssfactory',
 		];
-		const isRandomBattle = (room?.battle && SUPPORTED_RANDOM_FORMATS.includes(room.battle.format));
+		const isRandomBattle = room?.battle?.format.endsWith('randombattle');
 		const isBattleSpotBattle = (room?.battle && (SUPPORTED_BATTLESPOT_FORMATS.includes(room.battle.format) ||
 			room.battle.format.includes("battlespotspecial")));
 		if (RANDOMS_CALC_COMMANDS.includes(cmd) ||
@@ -1788,7 +1789,7 @@ export const commands: Chat.ChatCommands = {
 			`- <a href="https://www.smogon.com/forums/forums/66/">CAP project discussion forum</a><br />` +
 			`- <a href="https://www.smogon.com/forums/threads/48782/">What Pok&eacute;mon have been made?</a><br />` +
 			`- <a href="https://www.smogon.com/forums/forums/477">Talk about the metagame here</a><br />` +
-			`- <a href="https://www.smogon.com/forums/threads/3671157/">Sample SS CAP teams</a>`
+			`- <a href="https://www.smogon.com/forums/threads/3718107/">Sample SV CAP teams</a>`
 		);
 	},
 	caphelp: [
@@ -2076,7 +2077,7 @@ export const commands: Chat.ChatCommands = {
 			buffer.push(`<a href="https://pokemonshowdown.com/${this.tr`pages/proxyhelp`}">${this.tr`Proxy lock help`}</a>`);
 		}
 		if (showAll || ['ca', 'customavatar', 'customavatars'].includes(target)) {
-			buffer.push(this.tr`Custom avatars are given to Global Staff members, contributors (coders and spriters) to Pokemon Showdown, and Smogon badgeholders at the discretion of Zarel. They are also sometimes given out as prizes for major room events or Smogon tournaments.`);
+			buffer.push(this.tr`Custom avatars are given to Global Staff members, contributors (coders and spriters) to Pokemon Showdown, and Smogon badgeholders at the discretion of the PS! Administrators. They are also sometimes given out as rewards for major events such as PSPL (Pokemon Showdown Premier League). If you're curious, you can view the entire list of <a href="https://www.smogon.com/smeargle/customs/">custom avatars</a>.`);
 		}
 		if (showAll || ['privacy', 'private'].includes(target)) {
 			buffer.push(`<a href="https://pokemonshowdown.com/${this.tr`pages/privacy`}">${this.tr`Pokémon Showdown privacy policy`}</a>`);
@@ -2142,7 +2143,7 @@ export const commands: Chat.ChatCommands = {
 			generation = 'rb';
 			genNumber = 1;
 		} else {
-			generation = 'ss';
+			generation = 'sv';
 		}
 
 		// Pokemon
@@ -2516,11 +2517,11 @@ export const commands: Chat.ChatCommands = {
 		if (!room.settings.requestShowEnabled) {
 			return this.errorReply(`Media approvals are disabled in this room.`);
 		}
-		if (user.can('showmedia', null, room, '/show')) return this.errorReply(`Use !show instead.`);
+		if (user.can('showmedia', null, room, 'show')) return this.errorReply(`Use !show instead.`);
 		if (room.pendingApprovals?.has(user.id)) return this.errorReply('You have a request pending already.');
 		if (!toID(target)) return this.parse(`/help requestshow`);
 
-		let [link, comment] = target.split(',');
+		let [link, comment] = this.splitOne(target);
 		if (!/^https?:\/\//.test(link)) link = `https://${link}`;
 		link = encodeURI(link);
 		let dimensions;
@@ -2580,7 +2581,7 @@ export const commands: Chat.ChatCommands = {
 			buf = Utils.html`<img src="${request.link}" width="${width}" height="${height}" />`;
 			if (resized) buf += Utils.html`<br /><a href="${request.link}" target="_blank">full-size image</a>`;
 		} else {
-			buf = await YouTube.generateVideoDisplay(request.link);
+			buf = await YouTube.generateVideoDisplay(request.link, false, true);
 			if (!buf) return this.errorReply('Could not get YouTube video');
 		}
 		buf += Utils.html`<br /><div class="infobox"><small>(Requested by ${request.name})</small>`;
@@ -2643,10 +2644,19 @@ export const commands: Chat.ChatCommands = {
 		}
 
 		const [link, comment] = Utils.splitFirst(target, ',').map(f => f.trim());
+		this.checkBroadcast();
+		if (this.broadcastMessage) {
+			if (room) {
+				this.checkCan('show', null, room);
+			} else {
+				this.checkCan('altsself');
+			}
+		}
 
+		this.runBroadcast();
 		let buf;
 		if (YouTube.linkRegex.test(link)) {
-			buf = await YouTube.generateVideoDisplay(link);
+			buf = await YouTube.generateVideoDisplay(link, false, this.broadcasting);
 			this.message = this.message.replace(/&ab_channel=(.*)(&|)/ig, '').replace(/https:\/\/www\./ig, '');
 		} else if (Twitch.linkRegex.test(link)) {
 			const channelId = Twitch.linkRegex.exec(link)?.[2]?.trim();
@@ -2656,15 +2666,25 @@ export const commands: Chat.ChatCommands = {
 			buf = `Watching <b><a class="subtle" href="https://twitch.tv/${info.url}">${info.display_name}</a></b>...<br />`;
 			buf += `<twitch src="${link}" />`;
 		} else {
+			if (Chat.linkRegex.test(link)) {
+				if (/^https?:\/\/(.*)\.(mp4|mov)\b(\?|$)/i.test(link)) { // video
+					// can't fitImage video, so we're just gonna have to guess to keep it small
+					buf = Utils.html`<video src="${link}" controls="" width="300px" height="300px"></video>`;
+				} else if (/^https?:\/\/(.*)\.(mp3|wav)\b(\?|$)/i.test(link)) { // audio
+					buf = Utils.html`<audio src="${link}" controls=""></audio>`;
+				}
+			}
 			if (link.includes('data:image/png;base64')) {
 				throw new Chat.ErrorMessage('Please provide an actual link (you probably copied it wrong?).');
 			}
-			try {
-				const [width, height, resized] = await Chat.fitImage(link);
-				buf = Utils.html`<img src="${link}" width="${width}" height="${height}" />`;
-				if (resized) buf += Utils.html`<br /><a href="${link}" target="_blank">full-size image</a>`;
-			} catch {
-				return this.errorReply('Invalid image');
+			if (!buf) { // fall back on image
+				try {
+					const [width, height, resized] = await Chat.fitImage(link);
+					buf = Utils.html`<img src="${link}" width="${width}" height="${height}" />`;
+					if (resized) buf += Utils.html`<br /><a href="${link}" target="_blank">full-size image</a>`;
+				} catch {
+					return this.errorReply('Invalid image, audio, or video URL.');
+				}
 			}
 		}
 		if (comment) {
@@ -2674,20 +2694,11 @@ export const commands: Chat.ChatCommands = {
 			buf += Utils.html`<br />(${comment})</div>`;
 		}
 
-		this.checkBroadcast();
-		if (this.broadcastMessage) {
-			if (room) {
-				this.checkCan('show', null, room);
-			} else {
-				this.checkCan('altsself');
-			}
-		}
-		this.runBroadcast();
 		this.sendReplyBox(buf);
 	},
 	showhelp: [
-		`/show [url] - Shows you an image or YouTube video.`,
-		`!show [url] - Shows an image or YouTube to everyone in a chatroom. Requires: whitelist % @ # &`,
+		`/show [url] - Shows you an image, audio clip, video file, or YouTube video.`,
+		`!show [url] - Shows an image, audio clip, video file, or YouTube video to everyone in a chatroom. Requires: whitelist % @ # &`,
 	],
 
 	rebroadcast(target, room, user, connection) {
@@ -2907,7 +2918,7 @@ export const commands: Chat.ChatCommands = {
 					const text = Array.isArray(help) ?
 						help.join(' | ') : typeof help === 'function' ?
 							`<button class="button" name="send" value="/${cmdList[0] + 'help'}">Get help</button>` : '';
-					buf += text ? ` (<code><small>${text}</small></code>)` : `(no help found)`;
+					buf += text ? ` (<code><small>${text}</small></code>)` : ` (no help found)`;
 				}
 			}
 			buf += `<br />`;
@@ -3072,7 +3083,7 @@ export const pages: Chat.PageTable = {
 				buf += `<div class="message-error">The format '${formatId}' does not exist.</div><br />`;
 			}
 			buf += `<form data-submitsend="/buildformat {format}">`;
-			buf += `Choose your format: <input name="format" /><br />`;
+			buf += `Choose your format: <formatselect name="format">[Gen ${Dex.gen}] Random Battle</formatselect><br />`;
 			buf += `<button type="submit" class="button notifying">Continue</button>`;
 			buf += `</form>`;
 			return buf;

@@ -95,10 +95,8 @@ export interface EventMethods {
 		this: Battle, status: Condition, target: Pokemon, source: Pokemon, sourceEffect: Effect
 	) => boolean | null | void;
 	onTryEatItem?: boolean | ((this: Battle, item: Item, pokemon: Pokemon) => boolean | void);
-	/* FIXME: onTryHeal() is run with two different sets of arguments */
 	onTryHeal?: (
-		((this: Battle, relayVar: number, target: Pokemon, source: Pokemon, effect: Effect) => number | boolean | void) |
-		((this: Battle, pokemon: Pokemon) => boolean | void) | boolean
+		((this: Battle, relayVar: number, target: Pokemon, source: Pokemon, effect: Effect) => number | boolean | void)
 	);
 	onTryHit?: MoveEventMethods['onTryHit'];
 	onTryHitField?: MoveEventMethods['onTryHitField'];
@@ -659,6 +657,9 @@ export class DexConditions {
 			condition = {...ability, id: 'ability:' + ability.id as ID} as any as Condition;
 		} else if (this.dex.data.Rulesets.hasOwnProperty(id)) {
 			condition = this.dex.formats.get(id) as any as Condition;
+			// formats can't be frozen if they don't have a ruleTable
+			this.conditionCache.set(id, condition);
+			return condition;
 		} else if (this.dex.data.Conditions.hasOwnProperty(id)) {
 			condition = new Condition({name: id, ...this.dex.data.Conditions[id]});
 		} else if (
@@ -675,7 +676,7 @@ export class DexConditions {
 			condition = new Condition({name: id, exists: false});
 		}
 
-		this.conditionCache.set(id, condition);
+		this.conditionCache.set(id, this.dex.deepFreeze(condition));
 		return condition;
 	}
 }
