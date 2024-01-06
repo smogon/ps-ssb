@@ -201,7 +201,7 @@ export const ssbSets: SSBSets = {
 	},
 	Loethalion: {
 		species: 'Ralts', ability: 'Psychic Surge', item: 'Gardevoirite', gender: '',
-		moves: [['Esper Wing', 'Lumina Crash', 'Psystrike'], ['Agility', 'Calm Mind'], 'Draining Kiss'],
+		moves: [['Esper Wing', 'Lumina Crash', 'Psychic Noise'], ['Agility', 'Calm Mind'], ['Draining Kiss'. 'Matcha Gotcha']],
 		signatureMove: 'Darkmoon Cackle',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 	},
