@@ -139,6 +139,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Augur of Ebrietas',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost',
 	},
+	HiZo: {
+		species: 'Zoroark-Hisui', ability: 'Martyr Complex', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Last Respects', 'Revival Blessing', 'Spirit Break'],
+		signatureMove: 'Scapegoat',
+		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Naive', teraType: 'Fairy',
+	},
 	HoeenHero: {
 		species: 'Ludicolo', ability: 'Misspelled', item: 'Life Orb', gender: 'M',
 		moves: [['Hydro Pump', 'Surf'], 'Giga Drain', 'Ice Beam'],
@@ -390,7 +396,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 		this.enforceNoDirectCustomBanlistChanges();
 
 		const team: PokemonSet[] = [];
-		const debug: string[] = []; // Set this to a list of SSB sets to override the normal pool for debugging.
+		const debug: string[] = ['HiZo']; // Set this to a list of SSB sets to override the normal pool for debugging.
 		const ruleTable = this.dex.formats.getRuleTable(this.format);
 		const monotype = ruleTable.has('sametypeclause') ? this.sample([...this.dex.types.names()]) : false;
 

@@ -343,7 +343,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	superegoinflation: {
 		accuracy: true,
 		basePower: 0,
-		category: "Special",
+		category: "Status",
 		shortDesc: "User heals 25% HP; Target +2 Atk/SpA + Taunt.",
 		name: "Super Ego Inflation",
 		gen: 9,
@@ -511,6 +511,45 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		volatileStatus: 'disable',
 		target: "normal",
 		type: "Ghost",
+	},
+
+	// HiZo
+	scapegoat: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "User heals 25% HP; Target +2 Atk/SpA + Taunt.",
+		name: "Scapegoat",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {},
+		onTryHit(source) {
+			if (!this.canSwitch(source.side)) {
+				this.add('-message', `You have noone to blame but yourself.`);
+				this.faint(source);
+				return this.NOT_FAIL;
+			}
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Swords Dance', source);
+		},
+		onHit(target, source) {
+			this.add('message', `A decision must be made.`);
+		},
+		slotCondition: 'scapegoat',
+		// fake switch a la revival blessing
+		selfSwitch: true,
+		condition: {
+			duration: 1,
+			// reviving implemented in side.ts, kind of
+		},
+		secondary: null,
+		target: "self",
+		type: "Dark",
 	},
 
 	// HoeenHero

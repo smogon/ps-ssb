@@ -235,6 +235,32 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('havi')}|the nightmare swirls and churns unending n_n`);
 		},
 	},
+	hizo: {
+		noCopy: true,
+		onStart() {
+			// TODO: Confirm nicks later
+			let friends;
+			const tier = this.sample(['pic', 'sketch', 'ggsp']);
+			switch (tier) {
+				  case 'pic':
+						friends = ['chromate', 'yuki', 'YoBuddyTheBaker', 'zoe', 'jasprose'];
+						break;
+					case 'sketch':
+						friends = ['Eggs', 'career ended', 'ponchlake'];
+						break;
+					default:
+						friends = ['roonie217', 'chromate', 'tkhanh', 'lilyhii'];
+						break;
+			}
+			this.add(`c:|${getName('HiZo')}|/pm ${this.sample(friends)}, ${tier}?`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('HiZo')}|maybe later then`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('HiZo')}|can i try that matchup again?`);
+		},
+	},
 	hoeenhero: {
 		noCopy: true,
 		onStart() {
