@@ -332,7 +332,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// HiZo
 	martyrcomplex: {
-		shortDesc: "Immune to status and is considered to be asleep. 30% chance to disable when hit.",
+		desc: "If this Pokemon is knocked out, next Pokemon gets +1 Speed and +1 Attack/Special Attack, whichever is higher.",
+		shortDesc: "If this Pokemon is KOed, next Pokemon gets +1 Spe and +1 Atk or SpA.",
 		name: "Martyr Complex",
 		onDamagingHitOrder: 1,
 		onDamagingHit(damage, target, source, move) {
