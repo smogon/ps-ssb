@@ -242,7 +242,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			let friends;
 			const tier = this.sample(['pic', 'sketch', 'ggsp']);
 			switch (tier) {
-				  case 'pic':
+			case 'pic':
 				friends = ['chromate', 'yuki', 'YoBuddyTheBaker', 'zoe', 'jasprose'];
 				break;
 			case 'sketch':
