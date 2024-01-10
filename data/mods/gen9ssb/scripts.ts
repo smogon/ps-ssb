@@ -429,7 +429,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			let reviveSwitch = false; // Used to ignore the fake switch for Revival Blessing
 			if (switches[i] && !this.canSwitch(this.sides[i])) {
 				for (const pokemon of this.sides[i].active) {
-					if (this.sides[i].slotConditions[pokemon.position]['revivalblessing'] || this.sides[i].slotConditions[pokemon.position]['scapegoat']) {
+					if (this.sides[i].slotConditions[pokemon.position]['revivalblessing'] ||
+							this.sides[i].slotConditions[pokemon.position]['scapegoat']) {
 						reviveSwitch = true;
 						continue;
 					}
@@ -987,7 +988,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				case 'switch':
 				case 'instaswitch':
 				case 'revivalblessing':
-				// @ts-ignore custom status
+				// @ts-ignore custom status falls through
 				case 'scapegoat':
 					return `switch ${action.target!.position + 1}`;
 				case 'team':

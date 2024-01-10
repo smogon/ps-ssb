@@ -243,14 +243,14 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			const tier = this.sample(['pic', 'sketch', 'ggsp']);
 			switch (tier) {
 				  case 'pic':
-						friends = ['chromate', 'yuki', 'YoBuddyTheBaker', 'zoe', 'jasprose'];
-						break;
-					case 'sketch':
-						friends = ['Eggs', 'career ended', 'ponchlake'];
-						break;
-					default:
-						friends = ['roonie217', 'chromate', 'tkhanh', 'lilyhii'];
-						break;
+				friends = ['chromate', 'yuki', 'YoBuddyTheBaker', 'zoe', 'jasprose'];
+				break;
+			case 'sketch':
+				friends = ['Eggs', 'career ended', 'ponchlake'];
+				break;
+			default:
+				friends = ['roonie217', 'chromate', 'tkhanh', 'lilyhii'];
+				break;
 			}
 			this.add(`c:|${getName('HiZo')}|/pm ${this.sample(friends)}, ${tier}?`);
 		},
