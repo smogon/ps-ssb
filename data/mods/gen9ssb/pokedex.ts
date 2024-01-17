@@ -33,14 +33,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	// Blitz
 	chiyu: {
 		inherit: true,
-		types: ['Water', 'Dark'],
+		types: ["Water", "Dark"],
 		abilities: {0: "Blitz of Ruin"},
-	},
-
-	// BreadLeouf
-	dachsbun: {
-		inherit: true,
-		abilities: {0: "Painful Exit"},
 	},
 
 	// Cake
@@ -55,10 +49,26 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Acetosa"},
 	},
 
+	// clerica
+	mimikyu: {
+		inherit: true,
+		abilities: {0: "Masquerade"},
+	},
+	mimikyubusted: {
+		inherit: true,
+		abilities: {0: "Masquerade"},
+	},
+
 	// Coolcodename
 	victini: {
 		inherit: true,
 		abilities: {0: "Firewall"},
+	},
+
+	// Cor"Jon
+	dachsbun: {
+		inherit: true,
+		abilities: {0: "Painful Exit"},
 	},
 
 	// Dawn of Artemis
@@ -83,7 +93,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Sharpness"},
 	},
 
-	// Eli
+	// Elly
 	thundurus: {
 		inherit: true,
 		abilities: {0: "Storm Surge"},
@@ -154,13 +164,6 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 103,
 	},
 
-	// Kolochu
-	pikachu: {
-		inherit: true,
-		baseStats: {hp: 45, atk: 80, def: 50, spa: 75, spd: 60, spe: 120},
-		abilities: {0: "Soul Surfer"},
-	},
-
 	// Kris
 	nymble: {
 		inherit: true,
@@ -193,6 +196,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Dynamic Typing"},
 	},
 
+	// Meteordash
+	tatsugiri: {
+		inherit: true,
+		abilities: {0: "Shadow Shield"},
+	},
+
 	// Mex
 	dialga: {
 		inherit: true,
@@ -206,13 +215,19 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	mewtwomegax: {
 		inherit: true,
-		abilities: {0: 'Hacking'},
+		abilities: {0: "Hacking"},
 	},
 
-	// neycwang
+	// Ney
 	banettemega: {
 		inherit: true,
-		abilities: {0: 'Prankster Plus'},
+		abilities: {0: "Prankster Plus"},
+	},
+
+	// Notater517
+	incineroar: {
+		inherit: true,
+		abilities: {0: "Vent Crosser"},
 	},
 
 	// Peary
@@ -243,7 +258,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	duskull: {
 		inherit: true,
 		baseStats: {hp: 50, atk: 55, def: 90, spa: 90, spd: 55, spe: 55},
-		abilities: {0: 'Youkai of the Dusk'},
+		abilities: {0: "Youkai of the Dusk"},
 	},
 
 	// Scotteh
@@ -256,33 +271,23 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	sneasel: {
 		inherit: true,
 		baseStats: {hp: 55, atk: 105, def: 95, spa: 35, spd: 95, spe: 135},
-		abilities: {0: 'Rough and Tumble'},
+		abilities: {0: "Rough and Tumble"},
 	},
 	sneaselhisui: {
 		inherit: true,
 		baseStats: {hp: 55, atk: 135, def: 75, spa: 35, spd: 85, spe: 135},
-		abilities: {0: 'Rough and Tumble'},
-	},
-
-	// smely socks
-	mimikyu: {
-		inherit: true,
-		abilities: {0: "Masquerade"},
-	},
-	mimikyubusted: {
-		inherit: true,
-		abilities: {0: 'Masquerade'},
+		abilities: {0: "Rough and Tumble"},
 	},
 
 	// spoo
 	mumbao: {
 		inherit: true,
 		baseStats: {hp: 92, atk: 63, def: 96, spa: 104, spd: 97, spe: 124},
-		abilities: {0: 'Dazzling'},
+		abilities: {0: "Dazzling"},
 	},
 	jumbao: {
 		inherit: true,
-		abilities: {0: 'Drought'},
+		abilities: {0: "Drought"},
 	},
 
 	// Swiffix
@@ -384,6 +389,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Gale Guard"},
 	},
 
+	// umowu
+	pikachu: {
+		inherit: true,
+		baseStats: {hp: 45, atk: 80, def: 50, spa: 75, spd: 60, spe: 120},
+		abilities: {0: "Soul Surfer"},
+	},
+
 	// Venous
 	mantine: {
 		inherit: true,
@@ -394,6 +406,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ironvaliant: {
 		inherit: true,
 		abilities: {0: "Scarlet Aeonia"},
+	},
+
+	// WarriorGallade
+	tropius: {
+		inherit: true,
+		abilities: {0: "Primeval Harvest"},
 	},
 
 	// WigglyTree

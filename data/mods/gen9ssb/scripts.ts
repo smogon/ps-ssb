@@ -104,8 +104,8 @@ export function changeSet(context: Battle, pokemon: Pokemon, newSet: SSBSet, cha
 	if (!pokemon.m.datacorrupt) {
 		const newMoves = changeMoves(context, pokemon, newSet.moves.concat(newSet.signatureMove));
 		pokemon.moveSlots = newMoves;
-		// @ts-ignore Necessary so pokemon doesn't get 8 moves
-		pokemon.baseMoveSlots = newMoves;
+		// Necessary so pokemon doesn't get 8 moves
+		(pokemon as any).baseMoveSlots = newMoves;
 	}
 	pokemon.canMegaEvo = context.actions.canMegaEvo(pokemon);
 	pokemon.canUltraBurst = context.actions.canUltraBurst(pokemon);
@@ -968,6 +968,81 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 			return hitResults;
+		},
+	},
+	pokemon: {
+		getMoveTargets(move, target) {
+			let targets: Pokemon[] = [];
+
+			switch (move.target) {
+			case 'all':
+			case 'foeSide':
+			case 'allySide':
+			case 'allyTeam':
+				if (!move.target.startsWith('foe')) {
+					targets.push(...this.alliesAndSelf());
+				}
+				if (!move.target.startsWith('ally')) {
+					targets.push(...this.foes(true));
+				}
+				if (targets.length && !targets.includes(target)) {
+					this.battle.retargetLastMove(targets[targets.length - 1]);
+				}
+				break;
+			case 'allAdjacent':
+				targets.push(...this.adjacentAllies());
+				// falls through
+			case 'allAdjacentFoes':
+				targets.push(...this.adjacentFoes());
+				if (targets.length && !targets.includes(target)) {
+					this.battle.retargetLastMove(targets[targets.length - 1]);
+				}
+				break;
+			case 'allies':
+				targets = this.alliesAndSelf();
+				break;
+			default:
+				const selectedTarget = target;
+				if (!target || (target.fainted && !target.isAlly(this)) && this.battle.gameType !== 'freeforall') {
+					// If a targeted foe faints, the move is retargeted
+					const possibleTarget = this.battle.getRandomTarget(this, move);
+					if (!possibleTarget) return {targets: [], pressureTargets: []};
+					target = possibleTarget;
+				}
+				if (this.battle.activePerHalf > 1 && !move.tracksTarget) {
+					const isCharging = move.flags['charge'] && !this.volatiles['twoturnmove'] &&
+						!(move.id.startsWith('solarb') && ['sunnyday', 'desolateland'].includes(this.effectiveWeather())) &&
+						!(move.id === 'fruitfullongbow' && ['sunnyday', 'desolateland'].includes(this.effectiveWeather())) &&
+						!(move.id === 'electroshot' && ['raindance', 'primordialsea'].includes(this.effectiveWeather())) &&
+						!(this.hasItem('powerherb') && move.id !== 'skydrop');
+					if (!isCharging) {
+						target = this.battle.priorityEvent('RedirectTarget', this, this, move, target);
+					}
+				}
+				if (move.smartTarget) {
+					targets = this.getSmartTargets(target, move);
+					target = targets[0];
+				} else {
+					targets.push(target);
+				}
+				if (target.fainted && !move.flags['futuremove']) {
+					return {targets: [], pressureTargets: []};
+				}
+				if (selectedTarget !== target) {
+					this.battle.retargetLastMove(target);
+				}
+			}
+
+			// Resolve apparent targets for Pressure.
+			let pressureTargets = targets;
+			if (move.target === 'foeSide') {
+				pressureTargets = [];
+			}
+			if (move.flags['mustpressure']) {
+				pressureTargets = this.foes();
+			}
+
+			return {targets, pressureTargets};
 		},
 	},
 	side: {

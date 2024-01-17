@@ -84,7 +84,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return -6;
 			}
 		},
-		flags: {},
+		flags: {failcopycat: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -237,6 +237,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Bird",
 	},
 
+	// Chloe
 	detodaslasflores: {
 		accuracy: 90,
 		basePower: 90,
@@ -261,6 +262,38 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Grass",
+	},
+
+	// clerica
+	stockholmsyndrome: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Curses and traps foe. User loses 1/2 HP.",
+		name: "Stockholm Syndrome",
+		pp: 5,
+		priority: 0,
+		flags: {bypasssub: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Curse', target);
+			this.add('-anim', source, 'Block', target);
+		},
+		onHit(target, source, move) {
+			let success = false;
+			if (!target.volatiles['curse']) {
+				this.directDamage(source.maxhp / 2, source, source);
+				target.addVolatile('curse');
+				success = true;
+			}
+			return target.addVolatile('trapped', source, move, 'trapper') || success;
+		},
+		zMove: {effect: 'heal'},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
 	},
 
 	// Coolcodename
@@ -441,7 +474,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Dark",
 	},
 
-	// Eli
+	// Elly
 	sustainedwinds: {
 		accuracy: 90,
 		basePower: 20,
@@ -870,35 +903,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
-	// Kolochu
-	hangten: {
-		accuracy: 100,
-		basePower: 75,
-		category: "Special",
-		name: "Hang Ten",
-		shortDesc: "User sets Electric Terrain on hit.",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Stoked Sparksurfer', target);
-			this.add('-anim', source, 'Surf', target);
-		},
-		secondary: {
-			chance: 100,
-			self: {
-				onHit() {
-					this.field.setTerrain('electricterrain');
-				},
-			},
-		},
-		target: "normal",
-		type: "Water",
-	},
-
 	// Kris
 	ok: {
 		accuracy: true,
@@ -1163,6 +1167,52 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Meteordash
+	plagiarism: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		name: "Plagiarism",
+		shortDesc: "Steals and uses the foe's sig move, imprisons.",
+		pp: 1,
+		priority: 1,
+		flags: {failencore: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1, failmimic: 1},
+		onPrepareHit() {
+			this.attrLastMove('[anim] Mimic');
+			this.attrLastMove('[anim] Imprison');
+		},
+		onHit(target, source) {
+			const sigMoveName = ssbSets[target.name].signatureMove;
+			const move = this.dex.getActiveMove(sigMoveName);
+			if (move.flags['failcopycat'] || move.noSketch) {
+				return false;
+			}
+			const plagiarismIndex = source.moves.indexOf('plagiarism');
+			if (plagiarismIndex < 0) return false;
+			this.add(`c:|${getName('Meteordash')}|yoink`);
+			const plagiarisedMove = {
+				move: move.name,
+				id: move.id,
+				pp: move.pp,
+				maxpp: move.pp,
+				target: move.target,
+				disabled: false,
+				used: false,
+			};
+			source.moveSlots[plagiarismIndex] = plagiarisedMove;
+			source.baseMoveSlots[plagiarismIndex] = plagiarisedMove;
+			this.add('-activate', source, 'move: Plagiarism', move.name);
+			this.add('-message', `${source.name} plagiarised ${target.name}'s ${move.name}!`);
+			this.actions.useMove(move.id, source, target);
+			delete target.volatiles['imprison'];
+			source.addVolatile('imprison', source);
+		},
+		noSketch: true,
+		secondary: null,
+		target: "normal",
+		type: "Dark",
+	},
+
 	// Mex
 	timeskip: {
 		accuracy: true,
@@ -1274,7 +1324,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
-	// neycwang
+	// Ney
 	shadowdance: {
 		accuracy: 100,
 		basePower: 80,
@@ -1302,6 +1352,49 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		target: "normal",
 		type: "Ghost",
+	},
+
+	// Notater517
+	nyaa: {
+		accuracy: true,
+		basePower: 0,
+		category: "Physical",
+		shortDesc: "100% chance to raise the user's Attack by 1.",
+		name: "~nyaa",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {bypasssub: 1},
+		onPrepareHit(target, source) {
+			this.attrLastMove('[anim] Haze');
+			this.attrLastMove('[anim] Sweet Kiss');
+			this.attrLastMove('[anim] Baton Pass');
+		},
+		onHitField() {
+			this.add('-clearallboost');
+			for (const pokemon of this.getAllActive()) {
+				pokemon.clearBoosts();
+			}
+		},
+		self: {
+			boosts: {
+				atk: 1,
+				def: 1,
+			},
+		},
+		slotCondition: 'nyaa',
+		condition: {
+			onSwap(target, source) {
+				if (!target.fainted) {
+					this.add(`c:|${getName('Notater517')}|~nyaa ${target.name}`);
+					this.add(`c:|${getName('Jeopard-E')}|**It is now ${target.name}'s turn to ask a question.**`);
+					target.side.removeSlotCondition(target, 'nyaa');
+				}
+			},
+		},
+		secondary: null,
+		target: "all",
+		type: "Steel",
 	},
 
 	// Peary
@@ -1514,38 +1607,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: {}, // allows sheer force to trigger
 		target: "normal",
 		type: "Rock",
-	},
-
-	// smely socks
-	stockholmsyndrome: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		shortDesc: "Curses and traps foe. User loses 1/2 HP.",
-		name: "Stockholm Syndrome",
-		pp: 5,
-		priority: 0,
-		flags: {bypasssub: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Curse', target);
-			this.add('-anim', source, 'Block', target);
-		},
-		onHit(target, source, move) {
-			let success = false;
-			if (!target.volatiles['curse']) {
-				this.directDamage(source.maxhp / 2, source, source);
-				target.addVolatile('curse');
-				success = true;
-			}
-			return target.addVolatile('trapped', source, move, 'trapper') || success;
-		},
-		zMove: {effect: 'heal'},
-		secondary: null,
-		target: "normal",
-		type: "Ghost",
 	},
 
 	// snake_rattler
@@ -1785,6 +1846,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
+	// umowu
+	hangten: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Special",
+		name: "Hang Ten",
+		shortDesc: "User sets Electric Terrain on hit.",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Stoked Sparksurfer', target);
+			this.add('-anim', source, 'Surf', target);
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				onHit() {
+					this.field.setTerrain('electricterrain');
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
+	},
+
 	// Venous
 	yourcripplinginterest: {
 		accuracy: true,
@@ -1899,6 +1989,58 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "all",
 		type: "Poison",
+	},
+
+	// WarriorGallade - TODO: Fix animations
+	fruitfullongbow: {
+		accuracy: 90,
+		basePower: 160,
+		category: "Special",
+		shortDesc: "Hit off higher atk, eats berry, Dragon/Fly eff.",
+		name: "Fruitful Longbow",
+		gen: 9,
+		pp: 15,
+		priority: 0,
+		flags: {charge: 1, protect: 1, mirror: 1, slicing: 1, wind: 1},
+		critRatio: 2,
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Dragon', type);
+		},
+		onModifyMove(move, pokemon, target) {
+			if (pokemon.getStat('atk') > pokemon.getStat('spa')) {
+				move.overrideOffensiveStat = 'atk';
+			}
+		},
+		onTryMove(attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				this.attrLastMove('[anim] Signal Beam');
+				this.attrLastMove('[anim] Twister');
+				this.attrLastMove('[anim] Psycho Cut');
+				return;
+			}
+			this.add('-prepare', attacker, move.name);
+			this.attrLastMove('[anim] Tailwind');
+			this.add('-message', `${attacker.name} whipped up an intense whirlwind and began to glow a vivid green!`);
+			if (attacker.getItem().isBerry) {
+				attacker.eatItem(true);
+				this.heal(attacker.maxhp / 4, attacker);
+			}
+			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather())) {
+				this.attrLastMove('[still]');
+				this.attrLastMove('[anim] Signal Beam');
+				this.attrLastMove('[anim] Twister');
+				this.attrLastMove('[anim] Psycho Cut');
+				return;
+			}
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 
 	// WigglyTree

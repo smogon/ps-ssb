@@ -99,31 +99,31 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Blitz')}|/html <img src="${img}" width="32" height="32" />`);
 		},
 	},
-	breadloeuf: {
+	corjon: {
 		noCopy: true,
 		onStart(pokemon) {
 			if (enemyStaff(pokemon) === "Mad Monty") {
-				this.add(`c:|${getName('BreadLoeuf')}|Ope, sorry`);
+				this.add(`c:|${getName('Cor\'Jon')}|Ope, sorry`);
 			} else {
-				this.add(`c:|${getName('BreadLoeuf')}|I loeuf you <3`);
+				this.add(`c:|${getName('Cor\'Jon')}|I loeuf you <3`);
 			}
 		},
 		// onSwitchOut implemented in ability instead
 		onFoeSwitchIn(pokemon) {
 			if (pokemon.name === "Mad Monty") {
-				this.add(`c:|${getName('BreadLoeuf')}|Ope, sorry`);
+				this.add(`c:|${getName('Cor\'Jon')}|Ope, sorry`);
 			}
 		},
 		onFaint() {
-			this.add(`c:|${getName('BreadLoeuf')}|Oh, ma vie... c'est 'pitable'...`);
+			this.add(`c:|${getName('Cor\'Jon')}|Oh, ma vie... c'est 'pitable'...`);
 		},
 		onFoeFaint(target, source, effect) {
 			if (source === this.effectState.target && effect?.name === 'Painful Exit') {
-				this.add(`c:|${getName('BreadLoeuf')}|Ashes to ashes, crust to crust.`);
+				this.add(`c:|${getName('Cor\'Jon')}|Ashes to ashes, crust to crust.`);
 			} else if (target.name === "Mad Monty") {
-				this.add(`c:|${getName('BreadLoeuf')}|G.G, weather you like it or not`);
+				this.add(`c:|${getName('Cor\'Jon')}|G.G, weather you like it or not`);
 			} else {
-				this.add(`c:|${getName('BreadLoeuf')}|Ope, someone's swallowing fishes.`);
+				this.add(`c:|${getName('Cor\'Jon')}|Ope, someone's swallowing fishes.`);
 			}
 		},
 	},
@@ -149,6 +149,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Chloe')}|ouch :(`);
+		},
+	},
+	clerica: {
+		noCopy: true,
+		onStart() {
+			const img = "https://media.discordapp.net/attachments/764667730468536320/1079168714513064008/meow_gm.png";
+			this.add(`c:|${getName('clerica')}|/html <img src=${img} style="width:32px" />`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('clerica')}|gn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('clerica')}|unfort`);
 		},
 	},
 	coolcodename: {
@@ -199,16 +212,16 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('deftinwolf')}|Death is only the beginning.`);
 		},
 	},
-	eli: {
+	elly: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Eli')}|any`);
+			this.add(`c:|${getName('Elly')}|any`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Eli')}|ok bye`);
+			this.add(`c:|${getName('Elly')}|ok bye`);
 		},
 		onFaint(pokemon) {
-			this.add(`c:|${getName('Eli')}|that wasn't very nice, ${enemyStaff(pokemon)}.`);
+			this.add(`c:|${getName('Elly')}|that wasn't very nice, ${enemyStaff(pokemon)}.`);
 		},
 	},
 	ganjafin: {
@@ -417,30 +430,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
 		},
 	},
-	kolochu: {
-		noCopy: true,
-		onStart(pokemon) {
-			const foe = enemyStaff(pokemon);
-			if (foe === 'Rumia') {
-				this.add(`c:|${getName('kolochu ✮彡')}|You come around here often?`);
-			} else if (foe === 'spoo') {
-				this.add(`c:|${getName('kolochu ✮彡')}|Big bald head spotted...`);
-			} else if (foe === 'ausma') {
-				this.add(`c:|${getName('kolochu ✮彡')}|The weekly Smogon furry convention starts NOW`);
-			} else if (foe === 'Peary') {
-				this.add(`c:|${getName('kolochu ✮彡')}|Any arters or culturers?`);
-			} else {
-				this.add(`c:|${getName('kolochu ✮彡')}|Hey, howzit!`);
-			}
-		},
-		onSwitchOut() {
-			const gif = "https://cdn.discordapp.com/emojis/659987060794327051.gif?size=160&quality=lossless";
-			this.add(`c:|${getName('kolochu ✮彡')}|/html <img src="${gif}" width="50" height="50" />`);
-		},
-		onFaint() {
-			this.add(`c:|${getName('kolochu ✮彡')}|Tell.. My wife... She STINKS!!`);
-		},
-	},
 	kris: {
 		noCopy: true,
 		onStart() {
@@ -533,6 +522,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Mathy')}|thanks for making my job harder :/`);
 		},
 	},
+	meteordash: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Meteordash')}|hi`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Meteordash')}|oh`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Meteordash')}|man.`);
+		},
+	},
 	mex: {
 		noCopy: true,
 		onStart() {
@@ -557,17 +558,21 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Mia')}|git checkout --detach HEAD && git commit -m "war crimes"`);
 		},
 	},
-	neycwang: {
+	ney: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('neycwang')}|Hi I'm Ney. I love mischiefs.`);
+			this.add(`c:|${getName('Ney')}|Hi I'm Ney. I love mischiefs.`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('neycwang')}|Unloading more tricks.`);
+			this.add(`c:|${getName('Ney')}|Unloading more tricks.`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('neycwang')}|How long am I banned for?`);
+			this.add(`c:|${getName('Ney')}|How long am I banned for?`);
 		},
+	},
+	notater517: {
+		noCopy: true,
+		// phrases TBD
 	},
 	peary: {
 		noCopy: true,
@@ -605,7 +610,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('PYRO')}|Just remember ALL CAPS when you spell the man name...`);
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
+			if (effect?.effectType === 'Move') {
 				if (effect.id === 'meatgrinder') {
 					this.add(`c:|${getName('PYRO')}|Tripping off the beat kinda, dripping off the meat grinder`);
 					return;
@@ -632,21 +637,21 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	rumia: {
 		noCopy: true,
 		onStart(pokemon) {
-			if (enemyStaff(pokemon) === 'Kolochu') {
+			if (enemyStaff(pokemon) === 'umowu') {
 				this.add(`c:|${getName('Rumia')}|OMG who could that be (⁠●⁠♡⁠∀⁠♡⁠)`);
 			} else {
 				this.add(`c:|${getName('Rumia')}|is the mon in front of me the edible kind?`);
 			}
 		},
 		onSwitchOut(pokemon) {
-			if (enemyStaff(pokemon) === 'Kolochu') {
+			if (enemyStaff(pokemon) === 'umowu') {
 				this.add(`c:|${getName('Rumia')}|i cant bring myself to do this...`);
 			} else {
 				this.add(`c:|${getName('Rumia')}|brb ^_^`);
 			}
 		},
 		onFaint(pokemon) {
-			if (enemyStaff(pokemon) === 'Kolochu') {
+			if (enemyStaff(pokemon) === 'umowu') {
 				this.add(`c:|${getName('Rumia')}|this is the best way to go out...`);
 			} else {
 				this.add(`c:|${getName('Rumia')}|is that sooooo...`);
@@ -694,19 +699,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		innateName: "Rough and Tumble",
 		shortDesc: "Changes Sneasel forme on switch out.",
-	},
-	smelysocks: {
-		noCopy: true,
-		onStart() {
-			const img = "https://media.discordapp.net/attachments/764667730468536320/1079168714513064008/meow_gm.png";
-			this.add(`c:|${getName('smely socks')}|/html <img src=${img} style="width:32px" />`);
-		},
-		onSwitchOut() {
-			this.add(`c:|${getName('smely socks')}|gn`);
-		},
-		onFaint() {
-			this.add(`c:|${getName('smely socks')}|unfort`);
-		},
 	},
 	snakerattler: {
 		noCopy: true,
@@ -793,6 +785,30 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
 		},
 	},
+	umowu: {
+		noCopy: true,
+		onStart(pokemon) {
+			const foe = enemyStaff(pokemon);
+			if (foe === 'Rumia') {
+				this.add(`c:|${getName('umowu ✮彡')}|You come around here often?`);
+			} else if (foe === 'spoo') {
+				this.add(`c:|${getName('umowu ✮彡')}|Big bald head spotted...`);
+			} else if (foe === 'ausma') {
+				this.add(`c:|${getName('umowu ✮彡')}|The weekly Smogon furry convention starts NOW`);
+			} else if (foe === 'Peary') {
+				this.add(`c:|${getName('umowu ✮彡')}|Any arters or culturers?`);
+			} else {
+				this.add(`c:|${getName('umowu ✮彡')}|Hey, howzit!`);
+			}
+		},
+		onSwitchOut() {
+			const gif = "https://cdn.discordapp.com/emojis/659987060794327051.gif?size=160&quality=lossless";
+			this.add(`c:|${getName('umowu ✮彡')}|/html <img src="${gif}" width="50" height="50" />`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('umowu ✮彡')}|Tell.. My wife... She STINKS!!`);
+		},
+	},
 	venous: {
 		noCopy: true,
 		onStart() {
@@ -812,7 +828,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Vio͜͡let')}|...Heed my words. I am Malenia, Blade of Miquella. And I have never known defeat.`);
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
+			if (effect?.effectType === 'Move') {
 				if (source?.m.phaseChange) {
 					this.add(`c:|${getName('Vio͜͡let')}|Let your flesh be consumed. By the scarlet rot.`);
 				} else {
@@ -822,6 +838,54 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Vio͜͡let')}|Your strength, extraordinary… The mark... of a true Lord…`);
+		},
+	},
+	warriorgallade: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('WarriorGallade')}|i wanted to proc berries, but it seems that i was better at proc rastinating instead. nom nom nom.`);
+			// innate
+			if (pokemon.illusion) return;
+			pokemon.abilityState.gluttony = true;
+			this.add('-activate', pokemon, 'ability: TBA');
+			this.boost({def: 1, spd: 1}, pokemon);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('WarriorGallade')}|amidst this tactical retreat, you didn't think i forgot about the pokeradar, did you? you can bet that my return with even more questions will be __eventful__ :3`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('WarriorGallade')}|a wig flew, and now i must bid you adieu. farewell my berries accrued, for this is the end of my etude.`);
+		},
+		onSourceAfterFaint() {
+			this.add(`c:|${getName('WarriorGallade')}|Triumphant through trouncing tough, tenacious threats today, though testing 212 takeovers tarry. Theorizing these techniques tends to torrid, terribly tiresome tabulations, therefore torrential tactics traverse thorough thoughts.`);
+		},
+		innateName: "TBA",
+		shortDesc: "Gluttony + Thick Fat + Neuroforce + +1 Def/Sp. Def boost.",
+		onDamage(item, pokemon) {
+			if (pokemon.illusion) return;
+			pokemon.abilityState.gluttony = true;
+		},
+		onSourceModifyAtkPriority: 6,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if (defender.illusion) return;
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Thick Fat weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onSourceModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if (defender.illusion) return;
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Thick Fat weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onModifyDamage(damage, source, target, move) {
+			if (source.illusion) return;
+			if (move && target.getMoveHitData(move).typeMod > 0) {
+				return this.chainModify([5120, 4096]);
+			}
 		},
 	},
 	wigglytree: {
