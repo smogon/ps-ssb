@@ -1610,7 +1610,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 
-	// snake_rattler
+	// snake
 	conceptrelevant: {
 		accuracy: 100,
 		basePower: 70,
