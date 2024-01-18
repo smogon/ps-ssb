@@ -1175,6 +1175,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Plagiarism",
 		shortDesc: "Steals and uses the foe's sig move, imprisons.",
 		pp: 1,
+		noPPBoosts: true,
 		priority: 1,
 		flags: {failencore: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1, failmimic: 1},
 		onPrepareHit() {

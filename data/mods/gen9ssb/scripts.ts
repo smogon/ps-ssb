@@ -40,12 +40,12 @@ export function getName(name: string): string {
 }
 
 export function enemyStaff(pokemon: Pokemon): string {
-	const foePokemon = pokemon.foes()[0];
+	const foePokemon = pokemon.side.foe.active[0];
 	if (foePokemon.illusion) return foePokemon.illusion.name;
 	return foePokemon.name;
 }
 
-/**
+/** TODO: What happened to make this work weird?
  * Assigns a new set to a Pokémon
  * @param pokemon the Pokemon to assign the set to
  * @param newSet the SSBSet to assign
