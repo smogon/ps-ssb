@@ -69,29 +69,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 	},
 
-	// Aeonic
-	memesthatburnthesky: {
-		accuracy: 100,
-		basePower: 140,
-		category: "Special",
-		shortDesc: "No additional effect.",
-		name: "Memes That Burn The Sky",
-		gen: 9,
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, recharge: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Light That Burns The Sky', target);
-			this.add('-anim', source, 'Rock Wrecker', target);
-		},
-		secondary: null,
-		target: "normal",
-		type: "Rock",
-	},
-
 	// aQrator
 	torisstori: {
 		accuracy: 100,

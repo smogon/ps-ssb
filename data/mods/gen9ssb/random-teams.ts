@@ -42,12 +42,6 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Smelt',
 		evs: {hp: 252, atk: 4, spd: 252}, nature: 'Careful', teraType: 'Steel', shiny: true,
 	},
-	Aeonic: {
-		species: 'Nosepass', ability: 'Change Tempo', item: 'Fossilized Fish', gender: 'M',
-		moves: ['Ice Burn', 'Electro Drift', 'Milk Drink'],
-		signatureMove: 'Memes That Burn The Sky',
-		evs: {hp: 252, spa: 252, spd: 4}, ivs: {spe: 0}, nature: 'Quiet', teraType: 'Rock',
-	},
 	aQrator: {
 		species: 'Totodile', ability: 'Neverending fHunt', item: 'Eviolite', gender: 'F',
 		moves: ['Whirlpool', 'Noble Roar', 'Slack Off'],
