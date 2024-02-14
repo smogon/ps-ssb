@@ -32,6 +32,30 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Aelita')}|Well, I hope the Lyoko Warriors are at least well equipped.`);
 		},
 	},
+	aeonic: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kris')}|aeo you need to submit your switch in and out messages`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kris')}|aeo forgot to fill out his switch messages so I'm here instead.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Aeonic')}|i guess they never miss huh`);
+		},
+	},
+	aqrator: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('aQrator')}|Let me tell you my sTori.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('aQrator')}|A few Water Guns and Force Palms later, Tori and Riolu- Wait where are you going?`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('aQrator')}|But I only got to part 3...`);
+		},
+	},
 	aquagtothepast: {
 		noCopy: true,
 		onStart() {
@@ -980,6 +1004,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 
 	// Custom effects
+	// aQrator
+	nhunt: {
+		name: "N. Hunt",
+		duration: 5,
+		durationCallback(target, source) {
+			if (source?.hasItem('gripclaw')) return 8;
+			return this.random(5, 6);
+		},
+		onStart(pokemon, source) {
+			this.add('-activate', pokemon, 'move: ' + this.effectState.sourceEffect, '[of] ' + source);
+			this.effectState.boundDivisor = source.hasItem('bindingband') ? 5 : 6;
+		},
+		onResidualOrder: 13,
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / this.effectState.boundDivisor);
+		},
+	},
+
 	// Elly
 	stormsurge: {
 		name: 'StormSurge',

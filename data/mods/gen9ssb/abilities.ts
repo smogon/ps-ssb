@@ -33,6 +33,17 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// aQrator
+	neverendingfhunt: {
+		shortDesc: "This Pokemon's Status moves have priority raised by 1. Dark types are not immune.",
+		name: "Neverending fHunt",
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				return priority + 1;
+			}
+		},
+	},
+
 	// A Quag To The Past
 	quagofruin: {
 		shortDesc: "Active Pokemon without this Ability have their Def multiplied by 0.85. Ignores abilities.",
