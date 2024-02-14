@@ -80,15 +80,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Water Spout', target);
 			this.add('-anim', source, 'Confuse Ray', target);
+		},		
+		volatileStatus: 'torisstori',
+		condition: {
+			duration: 5,
+			durationCallback(target, source) {
+				if (source?.hasItem('gripclaw')) return 8;
+					return this.random(5, 6);
+			},
+			onStart(target) {
+				this.add('-start', target, 'Neverending fHunt');
+			},
+			onResidualOrder: 6,
+			onResidual(pokemon) {
+				this.damage(pokemon.baseMaxhp / 6);
+			},
+			onEnd(target) {
+				this.add('-end', target, 'Neverending fHunt');
+			},
 		},
-		volatileStatus: 'nhunt',		
 		secondary: {
-				chance: 100,
-				volatileStatus: 'confusion',
-			},		
+			chance: 100,
+			volatileStatus: 'confusion',
+		},
 		target: "normal",
 		type: "Water",
 	},

@@ -992,24 +992,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 
 	// Custom effects
-	// aQrator
-	nhunt: {
-		name: "N. Hunt",
-		duration: 5,
-		durationCallback(target, source) {
-			if (source?.hasItem('gripclaw')) return 8;
-			return this.random(5, 6);
-		},
-		onStart(pokemon, source) {
-			this.add('-activate', pokemon, 'move: ' + this.effectState.sourceEffect, '[of] ' + source);
-			this.effectState.boundDivisor = source.hasItem('bindingband') ? 5 : 6;
-		},
-		onResidualOrder: 13,
-		onResidual(pokemon) {
-			this.damage(pokemon.baseMaxhp / this.effectState.boundDivisor);
-		},
-	},
-
 	// Elly
 	stormsurge: {
 		name: 'StormSurge',

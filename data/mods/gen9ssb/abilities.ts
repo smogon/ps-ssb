@@ -42,6 +42,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return priority + 1;
 			}
 		},
+		flags: {},
 	},
 
 	// A Quag To The Past
