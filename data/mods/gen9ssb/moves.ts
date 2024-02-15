@@ -95,14 +95,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					return this.random(5, 6);
 			},
 			onStart(target) {
-				this.add('-start', target, 'Neverending fHunt');
+				this.add('-start', target, 'Tori\'s Stori');
 			},
 			onResidualOrder: 6,
 			onResidual(pokemon) {
 				this.damage(pokemon.baseMaxhp / 6);
 			},
 			onEnd(target) {
-				this.add('-end', target, 'Neverending fHunt');
+				this.add('-end', target, 'Tori\'s Stori');
 			},
 		},
 		secondary: {
