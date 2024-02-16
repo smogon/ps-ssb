@@ -86,13 +86,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Water Spout', target);
 			this.add('-anim', source, 'Confuse Ray', target);
-		},		
+		},
 		volatileStatus: 'torisstori',
 		condition: {
 			duration: 5,
 			durationCallback(target, source) {
 				if (source?.hasItem('gripclaw')) return 8;
-					return this.random(5, 6);
+				return this.random(5, 6);
 			},
 			onStart(target) {
 				this.add('-start', target, 'Tori\'s Stori');
