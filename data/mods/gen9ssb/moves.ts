@@ -1893,8 +1893,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onHit(target, source, effect) {
-			this.boost({atk: 1, spe: 1});
+		onHit(pokemon) {
+			const success = !!this.boost({atk: 1, spe: 1});
+			return pokemon.addVolatile('risingsword') || success;
 		},
 		condition: {
 			onModifyCritRatio(critRatio, source) {
