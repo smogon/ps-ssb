@@ -1890,7 +1890,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Rising Sword",
 		pp: 5,
 		priority: 0,
-		volatileStatus: 'risingsword',
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
