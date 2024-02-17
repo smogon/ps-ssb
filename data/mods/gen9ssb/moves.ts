@@ -1898,6 +1898,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return pokemon.addVolatile('risingsword') || success;
 		},
 		condition: {
+			onStart(pokemon, source) {
+				this.add('-start', pokemon, 'move: Rising Sword');
+			},
 			onModifyCritRatio(critRatio, source) {
 				return critRatio + 1;
 			},
