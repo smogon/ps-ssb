@@ -705,7 +705,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Low Tide, High Tide",
 		onStart(source) {
 			this.field.addPseudoWeather('gravity', source);
-		},		
+		},
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Water') {
 				this.add('-immune', target, '[from] ability: Low Tide, High Tide');

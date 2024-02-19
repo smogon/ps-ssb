@@ -588,7 +588,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		shortDesc: "User will heal 33% of their max HP on switch-out.",
 	},
 	lunell: {
-		noCopy: true,		
+		noCopy: true,
 		onStart() {
 			this.add(`c:|${getName('Lunell')}|vapowo`);
 		},
@@ -597,7 +597,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Lunell')}|*sad vaporeon noises*`);
-		},		
+		},
 	},
 	madmonty: {
 		noCopy: true,
@@ -1310,7 +1310,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		onFieldResidualOrder: 27,
-		onFieldResidualSubOrder: 2,		
+		onFieldResidualSubOrder: 2,
 		onFieldEnd() {
 			this.add('-fieldend', 'move: Gravity');
 			const activePokemon = this.getAllActive();
@@ -1320,9 +1320,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 					break;
 				}
 			}
-		},	
+		},
 	},
-	
 	raindance: {
 		inherit: true,
 		onWeatherModifyDamage(damage, attacker, defender, move) {

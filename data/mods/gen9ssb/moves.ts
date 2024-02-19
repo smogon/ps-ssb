@@ -1376,7 +1376,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		secondary: null,
 		hasSheerForce: true,
-		
 		onPrepareHit(target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Lunar Dance', target);
