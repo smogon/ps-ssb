@@ -1314,7 +1314,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFieldEnd() {
 			this.add('-fieldend', 'move: Gravity');
 			const activePokemon = this.getAllActive();
-			for (let a of activePokemon) {
+			for (const a of activePokemon) {
 				if (a.name === "Lunell") {
 					this.add(`c:|${getName('Lunell')}|ope there goes gravity`);
 					break;
