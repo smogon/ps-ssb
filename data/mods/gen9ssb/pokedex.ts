@@ -280,6 +280,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Monke See Monke Do"},
 	},
 
+	// PartMan
+	chandelure: {
+		inherit: true,
+		abilities: {0: 'C- Tier Shitposter'},
+	},
+
 	// Rumia
 	duskull: {
 		inherit: true,
