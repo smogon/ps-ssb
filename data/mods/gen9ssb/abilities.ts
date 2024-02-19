@@ -704,7 +704,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Switch-in sets Gravity, water immune, traps water type foes.",
 		name: "Low Tide, High Tide",
 		onStart(source) {
-			this.field.setWeather('gravity');
+			this.field.addPseudoWeather('gravity', source);
 		},		
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Water') {

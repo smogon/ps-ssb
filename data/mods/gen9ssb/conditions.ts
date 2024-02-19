@@ -1313,13 +1313,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFieldResidualSubOrder: 2,		
 		onFieldEnd() {
 			this.add('-fieldend', 'move: Gravity');
-			const leftstate = this.p1.active[0];
-			const rightstate = this.p2.active[0];
-			const lunellonleft = (leftstate && leftstate.isActive && leftstate.name == "Lunell");
-			const lunellonright = (rightstate && rightstate.isActive && rightstate.name == "Lunell");
-			if (lunellonleft || lunellonright) {
-				this.add(`c:|${getName('Lunell')}|ope there goes gravity`);
-			}			
+			const activePokemon = this.getAllActive();
+			for (let a of activePokemon) {
+				if (a.name === "Lunell") {
+					this.add(`c:|${getName('Lunell')}|ope there goes gravity`);
+					break;
+				}
+			}
 		},	
 	},
 	
