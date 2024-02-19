@@ -1241,7 +1241,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 
 	gravity: {
-		inherit: true,
 		duration: 5,
 		durationCallback(source, effect) {
 			if (source?.hasAbility('persistent')) {
