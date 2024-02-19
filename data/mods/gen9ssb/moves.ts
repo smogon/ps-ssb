@@ -1347,7 +1347,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	// Lunell
-
 	praisethemoon: {
 		accuracy: 90,
 		basePower: 120,
