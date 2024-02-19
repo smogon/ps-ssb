@@ -948,7 +948,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.debug('Fancy Scarf prevent secondary');
 			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 		},
-		isBreakable: true,
 	},
 
 	// ReturnToMonkey
