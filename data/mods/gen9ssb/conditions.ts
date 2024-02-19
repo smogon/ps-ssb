@@ -577,6 +577,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Loethalion')}|__Wheezing laugh__`);
 		},
 	},
+	links: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Links')}|:armaldocash:`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Links')}|Hold on, I've gotta go grab my bug gems`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Links')}|Can't believe you matchup fished me....`);
+		},
+	},
 	lumari: {
 		noCopy: true,
 		// quotes added later

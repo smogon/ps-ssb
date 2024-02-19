@@ -253,6 +253,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Darkmoon Cackle',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 	},
+	Links: {
+		species: 'Armaldo', ability: 'Primordial Sands', item: 'Assault Vest', gender: '',
+		moves: ['Wave Crash', 'Diamond Storm', 'First Impression'],
+		signatureMove: 'Ancient Toolkit',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Water',
+	},
 	Lumari: {
 		species: 'Ponyta-Galar', ability: 'Pyrotechnic', item: 'Eviolite', gender: 'F',
 		moves: ['Substitute', ['Sappy Seed', 'Sizzly Slide'], 'Magical Torque'],

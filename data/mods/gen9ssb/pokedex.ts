@@ -215,6 +215,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Climate Change"},
 	},
 
+	// Links
+	armaldo: {
+		inherit: true,
+		abilities: {0: 'Primordial Sands'},
+	},
+
 	// Mathy
 	furret: {
 		inherit: true,
