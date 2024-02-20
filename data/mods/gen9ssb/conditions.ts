@@ -703,7 +703,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'warriorgallade':
 				message = 'Berry nice to meet you!';
 				break;
-			case 'breadloeuf':
+			case 'corjon':
 				message = 'BREADBOWL';
 				break;
 			case 'pyro':
