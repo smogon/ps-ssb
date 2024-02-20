@@ -352,15 +352,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('hsy')}|https://www.youtube.com/watch?v=g104OJIh9hs`);
 		},
 	},
-	hydrostaticsuser: {
-		noCopy: true,
-		onFaint(pokemon) {
-			if (pokemon.side.pokemon.some(mon => mon.name === 'PartMan')) {
-				// Custom message for PartMan
-				this.add(`c:|${getName('PartMan')}|Hydro here have a tiara`);
-			}
-		},
-	},
 	inthehills: {
 		noCopy: true,
 		onStart() {
