@@ -755,12 +755,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		onFoeFaint(target, source, effect) {
-			if (target.name === 'Hydrostatics') {
-				// Message happens when PartMan is on the enemy team
-				// Handled in Hydro's conditions
-			} else {
-				this.add(`c:|${getName('PartMan')}|Skill issue`);
-			}
+			// Message happens when PartMan is on the enemy team
+			// Handled in Hydro's conditions
+			if (target.name === 'Hydrostatics') return;
+			this.add(`c:|${getName('PartMan')}|Skill issue`);
 		},
 		onHit(target, source, move) {
 			if (!move.num) {
