@@ -850,7 +850,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onEffectiveness(typeMod, target, type, move) {
 			if (move.type === 'Electric') return typeMod + this.dex.getEffectiveness('Water', type);
-			else if (type === 'Water') return 1;
+			else if (type === 'Water' && move.type === 'Water') return 1;
 		},
 		secondary: {
 			chance: 100,
