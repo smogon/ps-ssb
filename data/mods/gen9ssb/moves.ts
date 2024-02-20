@@ -2254,6 +2254,61 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// Two of Roses
+	dillydally: {
+		accuracy: 90,
+		basePower: 40,
+		category: "Physical",
+		shortDesc: "Hits twice, each hit raises a random stat by 1. User's secondary type determines type.",
+		name: "Dilly Dally",
+		pp: 20,
+		priority: 0,
+		multihit: 2,
+		volatileStatus: 'dillydally',
+		flags: {contact: 1},
+		type: "???",
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onModifyType(move, pokemon) {
+			let type = "???";
+			for (let i = 2; i >= 0; i--) {
+				type = pokemon.getTypes()[i];
+				if (!type || type === undefined) {
+					continue;
+				} else {
+					break;
+				}
+			}
+			if (type === "Bird") type = "???";
+			if (type === "Stellar") type = pokemon.getTypes(false, true)[1];
+			move.type = type;
+		},
+		condition: {
+			onHit(target, source, move) {
+				const stats: BoostID[] = [];
+				const boost: SparseBoostsTable = {};
+				let statPlus: BoostID;
+				for (statPlus in source.boosts) {
+					if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
+					if (source.boosts[statPlus] < 6) {
+						stats.push(statPlus);
+					}
+				}
+				const randomStat: BoostID | undefined = stats.length ? this.sample(stats) : undefined;
+				if (randomStat) boost[randomStat] = 1;
+				this.boost(boost, source, source);
+			},
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Volt Tackle', source);
+			this.add('-anim', source, 'Extreme Speed', target);
+		},
+		secondary: null,
+		target: "normal",
+	},
+
+
 	// UT
 	wingover: {
 		accuracy: 100,
