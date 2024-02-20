@@ -354,7 +354,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	hydrostaticsuser: {
 		noCopy: true,
-		onStart() {
+		onStart(pokemon) {
 			this.add(`c:|${getName('Hydrostatics')}|Straighten your backs and get some hydration :]`);
 			this.add('-start', pokemon, 'typechange', 'Electric/Water', '[silent]');
 		},
