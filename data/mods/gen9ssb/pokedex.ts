@@ -256,6 +256,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Vent Crosser"},
 	},
 
+	// PartMan
+	chandelure: {
+		inherit: true,
+		abilities: {0: 'C- Tier Shitposter'},
+  },
+
 	// Peary
 	klinklang: {
 		inherit: true,
@@ -280,10 +286,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Monke See Monke Do"},
 	},
 
-	// PartMan
-	chandelure: {
+	// Quite Quiet
+	ribombee: {
 		inherit: true,
-		abilities: {0: 'C- Tier Shitposter'},
+		abilities: {0: 'Fancy Scarf'},
 	},
 
 	// Rumia
@@ -320,6 +326,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	jumbao: {
 		inherit: true,
 		abilities: {0: "Drought"},
+	},
+
+	// Sulo
+	reuniclus: {
+		inherit: true,
+		abilities: {0: 'Protection of the Gelatin'},
 	},
 
 	// Swiffix

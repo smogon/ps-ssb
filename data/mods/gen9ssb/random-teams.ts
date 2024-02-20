@@ -325,6 +325,13 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Meat Grinder',
 		evs: {hp: 252, atk: 252, def: 4}, nature: 'Adamant', teraType: 'Flying',
 	},
+	'Quite Quiet': {
+		species: 'Ribombee', ability: 'Fancy Scarf', item: ['Life Orb', 'Leftovers'], gender: 'F',
+		moves: ['Roost', 'Moonblast', ['Aura Sphere', 'U-turn']],
+		signatureMove: '*Worried Noises*',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Flying',
+		// The nature not being Quiet is a crime
+	},
 	ReturnToMonkey: {
 		species: 'Oranguru', ability: 'Monke See Monke Do', item: 'Twisted Spoon', gender: 'M',
 		moves: ['Hyper Voice', 'Psyshock', 'Focus Blast'],
@@ -372,6 +379,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Moonblast', 'Giga Drain', 'Fiery Dance'],
 		signatureMove: 'spoo',
 		evs: {hp: 252, spa: 252, spd: 4}, nature: 'Modest', teraType: 'Fire', skip: 'spoo',
+	},
+	Sulo: {
+		species: 'Reuniclus', ability: 'Protection of the Gelatin', item: 'Life Orb', gender: 'M',
+		moves: ['Calm Mind', 'Draining Kiss', 'Stored Power'],
+		signatureMove: 'Vengeful Mood',
+		evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0}, nature: 'Bold', teraType: 'Fairy', shiny: true,
 	},
 	Swiffix: {
 		species: 'Piplup', ability: 'Stinky', item: 'Loaded Dice', gender: 'M',

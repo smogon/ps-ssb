@@ -970,6 +970,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Quite Quiet
+	fancyscarf: {
+		shortDesc: "Shield Dust + Magic Guard",
+		name: "Fancy Scarf",
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onModifySecondaries(secondaries) {
+			this.debug('Fancy Scarf prevent secondary');
+			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+		},
+	},
+
 	// ReturnToMonkey
 	monkeseemonkedo: {
 		shortDesc: "Boosts Atk or SpA by 1 based on foe's defenses, then copies foe's Ability.",
@@ -1030,6 +1046,21 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// Sulo
+	protectionofthegelatin: {
+		shortDesc: "Magic Guard + Stamina",
+		name: "Protection of the Gelatin",
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onDamagingHit(damage, target, source, effect) {
+			this.boost({def: 1});
+		},
 	},
 
 	// Swiffix

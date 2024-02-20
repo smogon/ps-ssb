@@ -1806,6 +1806,40 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 	},
 
+	// Quite Quiet
+	worriednoises: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		name: "*Worried Noises*",
+		shortDesc: "+1 SpA. Type varies based on user's primary type.",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, bypasssub: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Tidy Up', source);
+			this.add('-anim', source, 'Bug Buzz', target);
+		},
+		onModifyType(move, pokemon) {
+			let type = pokemon.getTypes()[0];
+			if (type === "Bird") type = "???";
+			move.type = type;
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Normal",
+	},
+
 	// ReturnToMonkey
 	monkemagic: {
 		accuracy: true,
@@ -2025,6 +2059,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Grass",
+	},
+
+	// Sulo
+	vengefulmood: {
+		accuracy: 100,
+		basePower: 60,
+		basePowerCallback(pokemon) {
+			return Math.min(140, 60 + 20 * pokemon.timesAttacked);
+		},
+		category: "Special",
+		desc: "Power is equal to 60+(X*20), where X is the total number of times the user has been hit by a damaging attack during the battle, even if the user did not lose HP from the attack. X cannot be greater than 4 and does not reset upon switching out or fainting. Each hit of a multi-hit attack is counted, but confusion damage is not counted.",
+		shortDesc: "+20 power for each time user was hit. Max 4 hits.",
+		name: "Vengeful Mood",
+		gen: 9,
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Aura Sphere', source);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
 	},
 
 	// Swiffix

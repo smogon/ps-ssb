@@ -816,6 +816,15 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	quitequiet: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Quite Quiet')}|what are we even doing here`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Quite Quiet')}|hm`);
+		},
+	},
 	returntomonkey: {
 		noCopy: true,
 		onStart() {
@@ -916,6 +925,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('spoo')}|dies`);
+		},
+	},
+	sulo: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Sulo')}|everybody is so damn dramatic. me included.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Sulo')}|afk sorry guys brb`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Sulo')}|Charon, take me home...`);
 		},
 	},
 	swiffix: {
