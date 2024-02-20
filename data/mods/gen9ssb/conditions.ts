@@ -731,7 +731,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'siegfried':
 				message = 'Is Sieg baked or boiled?';
 				break;
-			case 'smelysocks':
+			case 'clerica':
 				message = 'SMELY HIIII';
 				break;
 			case 'beowulf':
