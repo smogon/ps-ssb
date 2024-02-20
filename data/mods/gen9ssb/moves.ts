@@ -2554,6 +2554,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// YveltalNL
+	highground: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "If user is taller than the opponent, boosts Sp. Atk by 1 stage.",
+		name: "High Ground",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		volatileStatus: "highground",
+		condition: {
+			onStart(target, source, sourceEffect) {
+				if (source.getHeight() > target.getHeight()) {
+					this.boost({spa: 1}, source);
+				}
+			},
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Dragon Ascent", target);
+			this.add('-anim', source, "Scorching Sands", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ground",
+	},
+
 	// Zalm
 	dudurafish: {
 		accuracy: true,
