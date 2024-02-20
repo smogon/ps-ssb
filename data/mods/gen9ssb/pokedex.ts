@@ -168,7 +168,6 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 35, atk: 55, def: 40, spa: 50, spd: 50, spe: 90},
 		abilities: {0: 'Hydrostatic Positivity'},
-		evos: ['Chandelure'], // Added for Eviolite compatibility
 	},
 
 	// Isaiah
