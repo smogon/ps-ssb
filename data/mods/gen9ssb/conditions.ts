@@ -362,9 +362,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint(pokemon) {
 			this.add(`c:|${getName('Hydrostatics')}|Seems like you were more hydrated than me :c`);
-			if (pokemon.side.pokemon.some(mon => mon.name === 'PartMan')) {
-				// Custom message for PartMan
-				// Yes, this reveals that the enemy has PartMan
+			if (enemyStaff(pokemon) === 'PartMan') {
 				this.add(`c:|${getName('PartMan')}|Hydro here have a tiara`);
 			}
 		},
