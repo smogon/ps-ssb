@@ -358,7 +358,7 @@ export const ssbSets: SSBSets = {
 	},
 	Siegfried: {
 		species: 'Ampharos', ability: 'Static', item: 'Ampharosite', gender: 'M',
-		moves: ['Calm Mind', 'Thunderclap', 'Ice Beam'],
+		moves: ['Calm Mind', 'Thunderclap', 'Draco Meteor'],
 		signatureMove: 'BoltBeam',
 		evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0}, nature: 'Modest', shiny: 64,
 	},
