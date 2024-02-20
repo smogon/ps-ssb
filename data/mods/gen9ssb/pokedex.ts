@@ -260,7 +260,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	chandelure: {
 		inherit: true,
 		abilities: {0: 'C- Tier Shitposter'},
-  },
+	},
 
 	// Peary
 	klinklang: {
