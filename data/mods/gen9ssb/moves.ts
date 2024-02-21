@@ -2565,6 +2565,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		secondary: {
+			chance: 100,	
 			onHit(target, source, move) {
 				if (this.dex.species.get(source.species).heightm > this.dex.species.get(target.species).heightm) {
 					this.boost({spa: 1}, source);
