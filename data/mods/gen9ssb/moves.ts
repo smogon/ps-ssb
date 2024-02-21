@@ -642,6 +642,30 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
+	// Emboar02
+	insertboarpunhere: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "After attacking, can switch out to a different Pokemon. Does 1/3 recoil. Contact move.",
+		name: "Insert boar pun here",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Collision Course', target);
+			this.add('-anim', source, 'U-turn', target);
+		},
+		selfSwitch: true,
+		recoil: [33, 100],
+		secondary: null,
+		target: 'normal',
+		type: "Fighting",
+	},
+
 	// Ganjafin
 	wigglingstrike: {
 		accuracy: 95,

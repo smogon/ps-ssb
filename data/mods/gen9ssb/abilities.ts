@@ -392,6 +392,30 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Emboar02
+	hogwash: {
+		shortDesc: "Reckless; on STAB moves, also add Rock Head. On non-STAB moves, recoil is recovery.",
+		name: "Hogwash",
+		onBasePowerPriority: 23,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.recoil || move.hasCrashDamage) {
+				this.debug('Hogwash boost');
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.id === 'recoil' && (this.activeMove?.type && source.hasType(this.activeMove?.type))) {
+				if (!this.activeMove) throw new Error("Battle.activeMove is null");
+				if (this.activeMove.id !== 'struggle') return null;
+			}
+			if (effect.id === 'recoil' && !(this.activeMove?.type && source.hasType(this.activeMove?.type))) {
+				if (!this.activeMove) throw new Error("Battle.activeMove is null");
+				this.heal(damage);
+				if (this.activeMove.id !== 'struggle') return null;
+			}
+		},
+	},
+
 	// Ganjafin
 	gamblingaddiction: {
 		shortDesc: "When under 1/4 max HP: +1 Spe, heal to full HP, and all moves become Final Gambit.",

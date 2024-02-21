@@ -157,6 +157,13 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Sustained Winds',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: 'Ground',
 	},
+	Emboar02: {
+		species: 'Emboar', ability: 'Hogwash', item: 'Choice Band', gender: 'F',
+		moves: ['Flare Blitz', 'Wave Crash', 'Volt Tackle'],
+		signatureMove: 'Insert boar pun here',
+		// eslint-disable-next-line max-len
+		evs: {hp: 252, atk: 252, def: 4}, nature: 'Adamant', teraType: ['Fire', 'Water', 'Fighting', 'Electric'], shiny: 50 / 49,
+	},
 	Ganjafin: {
 		species: 'Wiglett', ability: 'Gambling Addiction', item: 'Eviolite', gender: 'M',
 		moves: ['Wrap', 'Cosmic Power', 'Strength Sap'],
