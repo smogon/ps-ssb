@@ -2264,27 +2264,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 20,
 		priority: 0,
 		multihit: 2,
-		volatileStatus: 'dillydally',
 		flags: {contact: 1},
 		type: "???",
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onModifyType(move, pokemon) {
-			let type = "???";
-			for (let i = 2; i >= 0; i--) {
-				type = pokemon.getTypes()[i];
-				if (!type || type === undefined) {
-					continue;
-				} else {
-					break;
-				}
-			}
-			if (type === "Bird") type = "???";
-			if (type === "Stellar") type = pokemon.getTypes(false, true)[1];
+			let type = pokemon.getTypes()[pokemon.getTypes().length - 1];
+			if (type === "Bird" || type === undefined) type = "???";
+			if (type === "Stellar") type = pokemon.getTypes()[pokemon.getTypes(false, true).length - 1];
 			move.type = type;
 		},
-		condition: {
+		secondary: {
 			onHit(target, source, move) {
 				const stats: BoostID[] = [];
 				const boost: SparseBoostsTable = {};
@@ -2304,7 +2295,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Volt Tackle', source);
 			this.add('-anim', source, 'Extreme Speed', target);
 		},
-		secondary: null,
 		target: "normal",
 	},
 
