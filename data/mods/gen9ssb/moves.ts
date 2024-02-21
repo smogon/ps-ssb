@@ -162,43 +162,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Recycle', target);
 		},
 		flags: {snatch: 1},
-		secondaries: [
-			{
-				chance: 100,
-				onHit(pokemon) {
-					if (pokemon.item || !pokemon.lastItem) return false;
-					const item = pokemon.lastItem;
-					pokemon.lastItem = '';
-					this.add('-item', pokemon, this.dex.items.get(item), '[from] move: Extra Course');
-					pokemon.setItem(item);
-				},
-			}, {
-				chance: 100,
-				onHit(pokemon) {
-					let stats: BoostID[] = [];
-					const boost: SparseBoostsTable = {};
-					let statPlus: BoostID;
-					for (statPlus in pokemon.boosts) {
-						if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
-						if (pokemon.boosts[statPlus] < 6) {
-							stats.push(statPlus);
-						}
-					}
-					let randomStat: BoostID | undefined = stats.length ? this.sample(stats) : undefined;
-					if (randomStat) boost[randomStat] = 1;
-					stats = [];
-					for (statPlus in pokemon.boosts) {
-						if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
-						if (pokemon.boosts[statPlus] < 6 && statPlus !== randomStat) {
-							stats.push(statPlus);
-						}
-					}
-					randomStat = stats.length ? this.sample(stats) : undefined;
-					if (randomStat) boost[randomStat] = 1;
-					this.boost(boost, pokemon, pokemon);
-				},
-			},
-		],
+		onHit(pokemon) {
+			if (pokemon.item || !pokemon.lastItem) return false;
+			const item = pokemon.lastItem;
+			pokemon.lastItem = '';
+			this.add('-item', pokemon, this.dex.items.get(item), '[from] move: Extra Course');
+			pokemon.setItem(item);
+			let stats: BoostID[] = [];
+			const boost: SparseBoostsTable = {};
+			let statPlus: BoostID;
+			for (statPlus in pokemon.boosts) {
+				if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
+				if (pokemon.boosts[statPlus] < 6) {
+					stats.push(statPlus);
+				}
+			}
+			let randomStat: BoostID | undefined = stats.length ? this.sample(stats) : undefined;
+			if (randomStat) boost[randomStat] = 1;
+			stats = [];
+			for (statPlus in pokemon.boosts) {
+				if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
+				if (pokemon.boosts[statPlus] < 6 && statPlus !== randomStat) {
+					stats.push(statPlus);
+				}
+			}
+			randomStat = stats.length ? this.sample(stats) : undefined;
+			if (randomStat) boost[randomStat] = 1;
+			this.boost(boost, pokemon, pokemon);
+		},
 		target: "self",
 		type: "Normal",
 	},

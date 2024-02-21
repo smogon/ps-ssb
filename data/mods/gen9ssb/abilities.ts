@@ -90,7 +90,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
-		flags: {},
+		flags: {breakable: 1},
 	},
 
 	// aQrator
