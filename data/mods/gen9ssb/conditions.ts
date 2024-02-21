@@ -1254,6 +1254,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('zee')}|Hey everyone it's been a great time working with you all in this Super Staff Bros battle but I think it's the right time for me to step down. Thank you all and see you around.`);
 		},
 	},
+	zoro: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Zoro')}|gmeow`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Zoro')}|brb I want to chase some yarn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Zoro')}|time to take a cat nap`);
+		},
+	},
 
 	// Custom effects
 	// Elly
