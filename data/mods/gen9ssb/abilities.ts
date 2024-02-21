@@ -392,6 +392,28 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Frozoid
+	snowballer: {
+		shortDesc: "This Pokemon's Attack is raised 1 stage if hit by an Ice move; Ice immunity.",
+		name: "Snowballer",
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (target !== source && move.type === 'Ice') {
+				if (!this.boost({atk: 1})) {
+					this.add('-immune', target, '[from] ability: Snowballer');
+				}
+				return null;
+			}
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (source === this.effectState.target || !target.isAlly(source)) return;
+			if (move.type === 'Ice') {
+				this.boost({atk: 1}, this.effectState.target);
+			}
+		},
+		flags: {breakable: 1},
+	},
+
 	// Ganjafin
 	gamblingaddiction: {
 		shortDesc: "When under 1/4 max HP: +1 Spe, heal to full HP, and all moves become Final Gambit.",
