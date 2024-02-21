@@ -36,7 +36,7 @@ export const ssbSets: SSBSets = {
 	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
-	/*aegii: {
+	aegii: {
 		species: 'Scizor', ability: 'Unburden', item: 'Lansat Berry', gender: 'M',
 		moves: ['Acrobatics', 'Attack Order', ['Cross Chop', 'Night Slash']],
 		signatureMove: 'Equip Aegislash',
@@ -474,7 +474,7 @@ export const ssbSets: SSBSets = {
 		moves: ['Water Spout', 'Hurricane', 'Thunder'],
 		signatureMove: 'Torrential Drain',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest', ivs: {atk: 0}, teraType: 'Water', shiny: false,
-	},*/
+	},
 	WigglyTree: {
 		species: 'Sudowoodo', ability: 'Tree Stance', item: 'Liechi Berry', gender: 'M',
 		moves: ['Victory Dance', 'Wood Hammer', 'Head Smash'],
@@ -509,7 +509,7 @@ export const ssbSets: SSBSets = {
 		species: 'Umbreon', ability: 'Nine Lives', item: 'Leftovers', gender: 'M',
 		moves: ['Wish', 'Protect', 'Toxic'],
 		signatureMove: 'Darkest Night',
-		evs: {hp: 252, def: 240, spd: 16}, nature: 'Calm', teraType: 'Steel', shiny: true, 
+		evs: {hp: 252, def: 240, spd: 16}, nature: 'Calm', teraType: 'Steel', shiny: true,
 	},
 };
 
