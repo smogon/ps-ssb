@@ -2564,10 +2564,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		volatileStatus: "highground",
-		condition: {
-			onStart(target, source, sourceEffect) {
-				if (source.getHeight() > target.getHeight()) {
+		secondary: {
+			onHit(target, source, move) {
+				if (this.dex.species.get(source.species).heightm > this.dex.species.get(target.species).heightm) {
 					this.boost({spa: 1}, source);
 				}
 			},
@@ -2579,7 +2578,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Dragon Ascent", target);
 			this.add('-anim', source, "Scorching Sands", target);
 		},
-		secondary: null,
 		target: "normal",
 		type: "Ground",
 	},

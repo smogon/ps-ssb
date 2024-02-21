@@ -1374,7 +1374,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (target.volatiles['substitute']) {
 					this.add('-immune', target);
 				} else {
-					if (pokemon.getHeight() > target.getHeight()) {
+					if (this.dex.species.get(pokemon.species).heightm > this.dex.species.get(target.species).heightm) {
 						this.boost({atk: -1, spa: -1}, target, pokemon, null, true);
 					}
 				}

@@ -249,7 +249,6 @@ export class Pokemon {
 	duringMove: boolean;
 
 	weighthg: number;
-	heightm: number;
 	speed: number;
 	abilityOrder: number;
 
@@ -460,7 +459,6 @@ export class Pokemon {
 		this.duringMove = false;
 
 		this.weighthg = 1;
-		this.heightm = 0.1;
 		this.speed = 0;
 		/**
 		 * Determines the order in which redirect abilities like Lightning Rod
@@ -650,11 +648,6 @@ export class Pokemon {
 	getWeight() {
 		const weighthg = this.battle.runEvent('ModifyWeight', this, null, null, this.weighthg);
 		return Math.max(1, weighthg);
-	}
-
-	getHeight() {
-		const heightm = this.battle.runEvent('ModifyHeight', this, null, null, this.heightm);
-		return Math.max(0.1, heightm);
 	}
 
 	getMoveData(move: string | Move) {
@@ -1226,7 +1219,6 @@ export class Pokemon {
 
 		this.transformed = true;
 		this.weighthg = pokemon.weighthg;
-		this.heightm = pokemon.heightm;
 
 		const types = pokemon.getTypes(true, true);
 		this.setType(pokemon.volatiles['roost'] ? pokemon.volatiles['roost'].typeWas : types, true);
@@ -1329,7 +1321,6 @@ export class Pokemon {
 		this.addedType = species.addedType || '';
 		this.knownType = true;
 		this.weighthg = species.weighthg;
-		this.heightm = species.heightm;
 
 		const stats = this.battle.spreadModify(this.species.baseStats, this.set);
 		if (this.species.maxHP) stats.hp = this.species.maxHP;
