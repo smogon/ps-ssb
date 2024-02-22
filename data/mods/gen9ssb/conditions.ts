@@ -927,8 +927,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	twoofroses: {
 		noCopy: true,
-		onStart() {
+		onStart(pokemon) {
 			this.add(`c:|${getName('Two of Roses')}|I'm here! I'm uhh- Yes! Also hi! Happy to be here.`);
+			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
+			this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('Two of Roses')}|Pfft! I prefer lurking anyway.`);

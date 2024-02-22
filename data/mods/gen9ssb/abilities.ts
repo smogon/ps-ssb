@@ -1212,10 +1212,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				}
 				if (Object.keys(positiveBoosts).length < 1) return;
 				this.boost(positiveBoosts, pokemon);
+				this.effectState.oncePerTurn = 0;
 			}
 		},
 		onResidual(target, source, effect) {
-			if (this.randomChance(15, 100)) {
+			if (this.randomChance(15, 100) && this.effectState.oncePerTurn === 0) {
 				const stats: BoostID[] = [];
 				const boost: SparseBoostsTable = {};
 				let statPlus: BoostID;
@@ -1229,6 +1230,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (randomStat) boost[randomStat] = 1;
 				this.boost(boost, target, target);
 			}
+			this.effectState.oncePerTurn = undefined;
 		},
 		flags: {},
 	},
