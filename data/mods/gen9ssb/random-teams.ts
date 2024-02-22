@@ -161,8 +161,7 @@ export const ssbSets: SSBSets = {
 		species: 'Gible', ability: 'Snowballer', item: 'Eviolite', gender: 'M',
 		moves: ['Dragon Dance', 'Dragon Rush', 'Precipice Blades'],
 		signatureMove: 'Flat out falling',
-		// eslint-disable-next-line max-len
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: ['Bug', 'Dark', 'Dragon', 'Electric', 'Fairy', 'Fighting', 'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice', 'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Stellar', 'Water'], shiny: true,
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Any', shiny: true,
 	},
 	Ganjafin: {
 		species: 'Wiglett', ability: 'Gambling Addiction', item: 'Eviolite', gender: 'M',
