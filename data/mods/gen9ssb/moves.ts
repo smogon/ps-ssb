@@ -2264,7 +2264,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 20,
 		priority: 0,
 		multihit: 2,
-		flags: {contact: 1},
+		flags: {protect: 1, contact: 1},
 		type: "???",
 		onTryMove() {
 			this.attrLastMove('[still]');
