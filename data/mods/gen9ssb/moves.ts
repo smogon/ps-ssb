@@ -163,11 +163,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		flags: {snatch: 1},
 		onHit(pokemon) {
-			if (pokemon.item || !pokemon.lastItem) return false;
-			const item = pokemon.lastItem;
-			pokemon.lastItem = '';
-			this.add('-item', pokemon, this.dex.items.get(item), '[from] move: Extra Course');
-			pokemon.setItem(item);
+			if (!pokemon.item && pokemon.lastItem) {
+				const item = pokemon.lastItem;
+				pokemon.lastItem = '';
+				this.add('-item', pokemon, this.dex.items.get(item), '[from] move: Extra Course');
+				pokemon.setItem(item);
+			}
 			let stats: BoostID[] = [];
 			const boost: SparseBoostsTable = {};
 			let statPlus: BoostID;
