@@ -651,7 +651,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Insert boar pun here",
 		pp: 20,
 		priority: 0,
-		flags: {contact: 1},
+		flags: {protect: 1, contact: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
