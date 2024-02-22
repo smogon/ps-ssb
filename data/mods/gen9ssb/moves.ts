@@ -651,7 +651,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Flat out falling",
 		pp: 5,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -659,8 +659,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Head Smash', target);
 			this.add('-anim', source, 'Gravity', target);
 		},
-		onHit(source) {
-			this.field.addPseudoWeather('gravity', source);
+		self: {
+			onHit(source) {
+				this.field.addPseudoWeather('gravity', source);
+			},
 		},
 		secondary: null,
 		target: 'normal',

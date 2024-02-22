@@ -405,12 +405,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
-		onAllyTryHitSide(target, source, move) {
-			if (source === this.effectState.target || !target.isAlly(source)) return;
-			if (move.type === 'Ice') {
-				this.boost({atk: 1}, this.effectState.target);
-			}
-		},
 		flags: {breakable: 1},
 	},
 
