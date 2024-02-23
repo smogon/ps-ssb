@@ -145,6 +145,53 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Alexander489
+	scumhunt: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Uses a random damaging, non-resisted move.",
+		name: "Scumhunt",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source, m) {
+			const nresTypes = [];
+			for (const i of this.dex.types.names()) {
+				if (target) {
+					const effect = this.dex.getEffectiveness(i, target.types);
+					const immune = this.dex.getImmunity(i, target.types);
+					if (effect >= 0 && immune && i !== "Stellar") {
+						nresTypes.push(i);
+					}
+				}
+			}
+			if (nresTypes.length <= 0) return;
+			const netType = this.sample(nresTypes);
+			const moves = this.dex.moves.all().filter(move => (
+				(![2, 4].includes(this.gen) || !source.moves.includes(move.id)) &&
+				(!move.isNonstandard || move.isNonstandard === 'Unobtainable') &&
+				move.flags['metronome'] && move.type === netType && move.category !== "Status"
+			));
+			let randomMove = '';
+			if (moves.length) {
+				moves.sort((a, b) => a.num - b.num);
+				randomMove = this.sample(moves).id;
+			}
+			if (!randomMove) return false;
+			source.side.lastSelectedMove = this.toID(randomMove);
+			this.add('-anim', source, 'Spite', target);
+			this.add('-anim', source, 'Grudge', target);
+			this.add('-anim', source, 'Metronome', source);
+			this.actions.useMove(randomMove, source);
+		},
+		target: "normal",
+		type: "???",
+	},
+
 	// Appletun a la Mode
 	extracourse: {
 		accuracy: true,
