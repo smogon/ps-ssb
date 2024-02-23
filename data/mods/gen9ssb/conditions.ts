@@ -1154,6 +1154,22 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Teclis')}|This was my last dance.`);
 		},
 	},
+	tico: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Tico')}|oie`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Tico')}|t+`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Tico')}|It's been 3,000 years…`);
+		},
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+		},
+		innateName: "Mold Breaker",
+	},
 	theia: {
 		noCopy: true,
 		onStart(pokemon) {
