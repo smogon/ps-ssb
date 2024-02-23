@@ -80,7 +80,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Alexander489
 	confirmedtown: {
-		shortDesc: "This Pokemon's Defense is raised 2 stages if hit by an Ice move; Ice immunity.",
+		shortDesc: "Technician + Protean.",
 		name: "Confirmed Town",
 		onBasePowerPriority: 30,
 		onBasePower(basePower, attacker, defender, move) {
