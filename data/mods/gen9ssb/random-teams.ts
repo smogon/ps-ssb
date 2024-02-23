@@ -380,6 +380,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Gen 1 Blizzard',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Ice',
 	},
+	pokemonvortex: {
+		species: 'Pokestar Smeargle', ability: 'Prankster', item: 'Focus Sash', gender: 'N',
+		moves: ['Spore', 'Extreme Evoboost', 'Substitute'],
+		signatureMove: 'Roulette',
+		evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost', shiny: false,
+	},
 	ptoad: {
 		species: 'Politoed', ability: 'Drizzle', item: 'Leftovers', gender: 'M',
 		moves: ['Jet Punch', 'Ice Punch', 'Earthquake'],

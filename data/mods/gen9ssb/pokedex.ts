@@ -297,6 +297,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "I Did It Again"},
 	},
 
+	// pokemonvortex
+	pokestarsmeargle: {
+		inherit: true,
+		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100},
+		abilities: {0: "Prankster"},
+	},
+
 	// PYRO
 	kingambit: {
 		inherit: true,

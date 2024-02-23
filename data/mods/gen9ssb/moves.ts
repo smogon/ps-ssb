@@ -2139,6 +2139,66 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// pokemonvortex
+	roulette: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Roulette",
+		desc: "A random move is selected for use, and then the user's other three moves are replaced with random moves. Aura Wheel, Dark Void, Explosion, Final Gambit, Healing Wish, Hyperspace Fury, Lunar Dance, Memento, Misty Explosion, Revival Blessing, and Self-Destruct cannot be selected.",
+		shortDesc: "Replace other the user's 3 moves with random moves.",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Nasty Plot', source);
+			this.add('-anim', source, 'Metronome', target);
+			this.add('-anim', source, 'Explosion', target);
+		},
+		onHit(target, source, m) {
+			const bannedList = ['Aura Wheel', 'Dark Void', 'Explosion', 'Final Gambit', 'Healing Wish', 'Hyperspace Fury',
+			 'Lunar Dance', 'Memento', 'Misty Explosion', 'Revival Blessing', 'Self-Destruct'];
+			const moves = this.dex.moves.all().filter(move => (
+				(!source.moves.includes(move.id)) &&
+				(!move.isNonstandard || move.isNonstandard === 'Unobtainable')
+			));
+			for (let i = 0; i < 4; i++) {
+				let randomMove;
+				if (moves.length) {
+					moves.sort((a, b) => a.num - b.num);
+					randomMove = this.sample(moves);
+				}
+				if (randomMove) {
+					if (bannedList.includes(randomMove.id)) {
+						i -= 1;
+						continue;
+					}
+					if (i === 3) {
+						this.actions.useMove(randomMove, source);
+						break;
+					}
+					bannedList.push(randomMove.id);
+					const sketchedMove = {
+						move: randomMove.name,
+						id: randomMove.id,
+						pp: randomMove.pp,
+						maxpp: randomMove.pp,
+						target: randomMove.target,
+						disabled: false,
+						used: false,
+					};
+					source.moveSlots[i] = sketchedMove;
+					source.baseMoveSlots[i] = sketchedMove;
+				}
+			}
+		},
+		target: "normal",
+		type: "Normal",
+	},
+
 	// ptoad
 	pleek: {
 		accuracy: true,
