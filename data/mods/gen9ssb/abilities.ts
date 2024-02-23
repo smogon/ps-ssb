@@ -404,14 +404,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onDamage(damage, target, source, effect) {
-			if (effect.id === 'recoil' && (this.activeMove?.type && source.hasType(this.activeMove?.type))) {
+			if (effect.id === 'recoil') {
 				if (!this.activeMove) throw new Error("Battle.activeMove is null");
-				if (this.activeMove.id !== 'struggle') return null;
-			}
-			if (effect.id === 'recoil' && !(this.activeMove?.type && source.hasType(this.activeMove?.type))) {
-				if (!this.activeMove) throw new Error("Battle.activeMove is null");
-				this.heal(damage);
-				if (this.activeMove.id !== 'struggle') return null;
+				if (this.activeMove.id !== 'struggle') {
+					if (!source.hasType(this.activeMove.type)) this.heal(damage);
+					return null;
+				}
 			}
 		},
 	},
