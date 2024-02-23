@@ -941,20 +941,20 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		innateName: "Wonderer",
 		shortDesc: "This Pokemon's secondary type changes based on the active weather or terrain, monotype if neither.",
 		onWeatherChange(target, source, sourceEffect) {
-			const currentWeather = this.field.weather;
-			const currentTerrain = this.field.terrain;
-			const types = target.getTypes();
+			const currentWeather = this.field.getWeather().id;
+			const currentTerrain = this.field.getTerrain().id;
+			const types = target.hasType;
 			let type = 'Dark';
-			if (!currentWeather && !currentTerrain && !types.includes('Dark')) {
+			if (!currentWeather && !currentTerrain && !types('Dark')) {
 				type = 'Dark';
 			} else if (currentWeather) {
-				if (['raindance', 'primordialsea'].includes(currentWeather) && !types.includes('Water')) {
+				if (['raindance', 'primordialsea'].includes(currentWeather) && !types('Water')) {
 					type = 'Water';
-				} else if (['sunnyday', 'desolateland'].includes(currentWeather) && !types.includes('Fire')) {
+				} else if (['sunnyday', 'desolateland'].includes(currentWeather) && !types('Fire')) {
 					type = 'Fire';
-				} else if (['sandstorm', 'deserteddunes'].includes(currentWeather) && !types.includes('Rock')) {
+				} else if (['sandstorm', 'deserteddunes'].includes(currentWeather) && !types('Rock')) {
 					type = 'Rock';
-				} else if (['hail', 'snow'].includes(currentWeather) && !types.includes('Ice')) {
+				} else if (['hail', 'snow'].includes(currentWeather) && !types('Ice')) {
 					type = 'Ice';
 				} else {
 					// do nothing if it's not the 4 primary weathers...unless there are more?
@@ -964,23 +964,23 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add('-start', target, 'typeadd', type, '[from] ability: Wonderer');
 		},
 		onTerrainChange(target, source, sourceEffect) {
-			const currentWeather = this.field.weather;
-			const currentTerrain = this.field.terrain;
+			const currentWeather = this.field.getWeather().id;
+			const currentTerrain = this.field.getTerrain().id;
 			let type = 'Dark';
-			const types = target.getTypes();
-			if (!currentWeather && !currentTerrain && !types.includes('Dark')) {
+			const types = target.hasType;
+			if (!currentWeather && !currentTerrain && !types('Dark')) {
 				type = 'Dark';
 			} else if (currentTerrain) {
 				if (currentTerrain === 'electricterrain') {
 					target.setType('Electric');
 					type = '';
-				} else if (currentTerrain === 'psychicterrain' && !types.includes('Psychic')) {
+				} else if (currentTerrain === 'psychicterrain' && !types('Psychic')) {
 					type = 'Psychic';
-				} else if (currentTerrain === 'grassyterrain' && !types.includes('Grass')) {
+				} else if (currentTerrain === 'grassyterrain' && !types('Grass')) {
 					type = 'Grass';
-				} else if (currentTerrain === 'mistyterrain' && !types.includes('Fairy')) {
+				} else if (currentTerrain === 'mistyterrain' && !types('Fairy')) {
 					type = 'Fairy';
-				} else if (!types.includes('Ghost')) { // custom terrains
+				} else if (!types('Ghost')) { // custom terrains
 					type = 'Ghost';
 				}
 			}
