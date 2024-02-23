@@ -165,6 +165,46 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// Artemis
+	supervisedlearning: {
+		shortDesc: "Mold Breaker + Unaware + Clear Body.",
+		name: "Supervised Learning",
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+		},
+		onAnyModifyBoost(boosts, pokemon) {
+			const unawareUser = this.effectState.target;
+			if (unawareUser === pokemon) return;
+			if (unawareUser === this.activePokemon && pokemon === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (pokemon === this.activePokemon && unawareUser === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['def'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		onTryBoost(boost, target, source, effect) {
+			if (source && target === source) return;
+			let showMsg = false;
+			let i: BoostID;
+			for (i in boost) {
+				if (boost[i]! < 0) {
+					delete boost[i];
+					showMsg = true;
+				}
+			}
+			if (showMsg && !(effect as ActiveMove).secondaries && effect.id !== 'octolock') {
+				this.add("-fail", target, "unboost", "[from] ability: Supervised Learning", "[of] " + target);
+			}
+		},
+		flags: {},
+		gen: 9,
+	},
+
 	// Blitz
 	blitzofruin: {
 		shortDesc: "Active Pokemon without this Ability have their Speed multiplied by 0.75. Also Dazzling.",
@@ -414,6 +454,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Frozoid
+	snowballer: {
+		shortDesc: "This Pokemon's Attack is raised 1 stage if hit by an Ice move; Ice immunity.",
+		name: "Snowballer",
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (target !== source && move.type === 'Ice') {
+				if (!this.boost({atk: 1})) {
+					this.add('-immune', target, '[from] ability: Snowballer');
+				}
+				return null;
+			}
+		},
+		flags: {breakable: 1},
+	},
+
 	// Ganjafin
 	gamblingaddiction: {
 		shortDesc: "When under 1/4 max HP: +1 Spe, heal to full HP, and all moves become Final Gambit.",
@@ -602,6 +658,24 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// J0rdy004
+	fortifyingfrost: {
+		name: "Fortifying Frost",
+		shortDesc: "If Snow is active, this Pokemon's Sp. Atk and Sp. Def are 1.5x.",
+		onModifySpAPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (['hail', 'snow'].includes(pokemon.effectiveWeather())) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpD(spd, pokemon) {
+			if (['hail', 'snow'].includes(pokemon.effectiveWeather())) {
+				return this.chainModify(1.5);
+			}
+		},
+		flags: {},
+	},
+
 	// kenn
 	deserteddunes: {
 		onStart(source) {
@@ -693,6 +767,32 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
+	},
+
+	// Kiwi
+	surehitsorcery: {
+		name: "Sure Hit Sorcery",
+		shortDesc: "No Guard + Prankster + Grassy Surge.",
+		onAnyInvulnerabilityPriority: 1,
+		onAnyInvulnerability(target, source, move) {
+			if (move && (source === this.effectState.target || target === this.effectState.target)) return 0;
+		},
+		onAnyAccuracy(accuracy, target, source, move) {
+			if (move && (source === this.effectState.target || target === this.effectState.target)) {
+				return true;
+			}
+			return accuracy;
+		},
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
+			}
+		},
+		onStart(source) {
+			this.field.setTerrain('grassyterrain');
+		},
+		flags: {},
 	},
 
 	// Kris
@@ -1431,6 +1531,57 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
+		flags: {breakable: 1},
+	},
+
+	// YveltalNL
+	heightadvantage: {
+		shortDesc: "If this Pokemon's height is more than that of the opponent, lowers the opponent’s Atk and Sp. Atk by 1..",
+		name: "Height Advantage",
+		onStart(pokemon) {
+			let activated = false;
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Height Advantage', 'boost');
+					activated = true;
+				}
+				if (target.volatiles['substitute']) {
+					this.add('-immune', target);
+				} else {
+					if (this.dex.species.get(pokemon.species).heightm > this.dex.species.get(target.species).heightm) {
+						this.boost({atk: -1, spa: -1}, target, pokemon, null, true);
+					}
+				}
+			}
+		},
+		flags: {},
+	},
+
+	// zoro
+	ninelives: {
+		shortDesc: "Twice per battle, Umbreon will survive a lethal hit with 1 HP remaining, regardless of the HP it was at.",
+		name: "Nine Lives",
+		onTryHit(pokemon, target, move) {
+			if (move.ohko) {
+				this.add('-immune', pokemon, '[from] ability: Nine Lives');
+				return null;
+			}
+		},
+		onDamagePriority: -30,
+		onDamage(damage, target, source, effect) {
+			if (damage >= target.hp && effect?.effectType === 'Move' && !this.effectState.busted) {
+				this.add('-ability', target, 'Nine Lives');
+				if (this.effectState.busted === 0) {
+					this.effectState.busted = 1;
+				} else {
+					this.effectState.busted = 0;
+				}
+				return target.hp - 1;
+			}
+		},
+		// Yes, this looks very patchwork-y. declaring new persistent global variables seems to be a no-go here
+		// so i repurposed one which should likely not affect anything else - have tested with clerica/zoro on both sides
+		// and their disguise/sturdy state is unaffected by modifying anything here. but let wg know if this breaks stuff.
 		flags: {breakable: 1},
 	},
 

@@ -78,6 +78,18 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Quiver Dance',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
+	Arya: {
+		species: 'Flygon', ability: 'Tinted Lens', item: 'Flygonite', gender: 'F',
+		moves: ['Clanging Scales', 'Roost', 'Bug Buzz'],
+		signatureMove: 'Anyone can be killed',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', shiny: false,
+	},
+	Artemis: {
+		species: 'Genesect', ability: 'Supervised Learning', item: 'Choice Specs', gender: 'N',
+		moves: [],
+		signatureMove: 'Automated Response​',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Serious', shiny: true,
+	},
 	berry: {
 		species: 'Regirock', ability: 'Sturdy', item: 'Maranga Berry', gender: 'F',
 		moves: ['Curse', 'Salt Cure', 'Stone Axe'],
@@ -164,6 +176,12 @@ export const ssbSets: SSBSets = {
 		// eslint-disable-next-line max-len
 		evs: {hp: 252, atk: 252, def: 4}, nature: 'Adamant', teraType: ['Fire', 'Water', 'Fighting', 'Electric'], shiny: 50 / 49,
 	},
+	Frozoid: {
+		species: 'Gible', ability: 'Snowballer', item: 'Eviolite', gender: 'M',
+		moves: ['Dragon Dance', 'Dragon Rush', 'Precipice Blades'],
+		signatureMove: 'Flat out falling',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Any', shiny: true,
+	},
 	Ganjafin: {
 		species: 'Wiglett', ability: 'Gambling Addiction', item: 'Eviolite', gender: 'M',
 		moves: ['Wrap', 'Cosmic Power', 'Strength Sap'],
@@ -224,6 +242,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Simple Gameplan',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
 	},
+	'J0rdy004 ♫': {
+		species: 'Vulpix-Alola', ability: 'Fortifying Frost', item: 'Never-Melt Ice', gender: 'N',
+		moves: ['Blizzard', 'Focus Blast', 'Recover'],
+		signatureMove: 'Snowy Samba',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', shiny: 4,
+	},
 	kenn: {
 		species: 'Larvitar', ability: 'Deserted Dunes', item: 'Eviolite', gender: 'M',
 		moves: ['Salt Cure', 'Shore Up', ['Precipice Blades', 'Headlong Rush']],
@@ -235,6 +259,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Blaze Kick', ['Triple Kick', 'Trop Kick'], 'U-turn'],
 		signatureMove: 'Hat-Trick',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Any',
+	},
+	Kiwi: {
+		species: 'Minccino', ability: 'Sure Hit Sorcery', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Dynamic Punch', 'Substitute', 'Noble Roar'],
+		signatureMove: 'Mad Manifest',
+		evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adamant', teraType: 'Fighting', shiny: true,
 	},
 	Kris: {
 		species: 'Nymble', ability: 'Cacophony', item: 'Heavy-Duty Boots', gender: 'N',
@@ -500,6 +530,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Whiteout',
 		evs: {hp: 252, spa: 252, spe: 4}, nature: 'Modest', teraType: 'Steel', shiny: 2,
 	},
+	YveltalNL: {
+		species: 'Farigiraf', ability: 'Height Advantage', item: 'Leftovers', gender: 'M',
+		moves: ['Freezing Glare', 'Ice Beam', 'Slack Off'],
+		signatureMove: 'High Ground',
+		evs: {hp: 248, spa: 252, spe: 8}, nature: 'Modest', teraType: 'Ground', shiny: false,
+	},
 	Zalm: {
 		species: 'Weedle', ability: 'Water Bubble', item: 'Clear Amulet', gender: '',
 		moves: ['Surging Strikes', 'Attack Order', 'Dire Claw'],
@@ -511,6 +547,12 @@ export const ssbSets: SSBSets = {
 		moves: [['Close Combat', 'Axe Kick'], ['Solar Blade', 'Seed Bomb'], 'Victory Dance'],
 		signatureMove: 'Solar Summon',
 		evs: {hp: 80, atk: 176, spe: 252}, nature: 'Adamant', teraType: 'Fire',
+	},
+	zoro: {
+		species: 'Umbreon', ability: 'Nine Lives', item: 'Leftovers', gender: 'M',
+		moves: ['Wish', 'Protect', 'Toxic'],
+		signatureMove: 'Darkest Night',
+		evs: {hp: 252, def: 240, spd: 16}, nature: 'Calm', teraType: 'Steel', shiny: true,
 	},
 };
 

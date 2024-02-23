@@ -275,6 +275,88 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Arya
+	anyonecanbekilled: {
+		accuracy: 95,
+		basePower: 80,
+		category: "Status",
+		shortDesc: "Raises the user's Sp. Atk by 2 stages for the next 2 turns, -2 Sp. Atk afterwards.",
+		name: "Anyone can be killed",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, sound: 1, bypasssub: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		self: {
+			volatileStatus: 'anyonecanbekilled',
+		},
+		condition: {
+			duration: 3,
+			onResidualOrder: 3,
+			onStart(target, source, sourceEffect) {
+				this.boost({spa: 2}, source);
+			},
+			onEnd(target) {
+				this.boost({spa: -2}, target);
+			},
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dragon Dance', target);
+			this.add('-anim', source, 'Earth Power', target);
+		},
+		target: "normal",
+		type: "Ground",
+	},
+
+	// Artemis
+	automatedresponse: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "Changes the move's and user's type to deal super effective damage. 10% false positive rate.",
+		name: "Automated Response",
+		pp: 20,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source, move) {
+			const seTypes = [];
+			const nveTypes = [];
+			let netType = "";
+			for (const i of this.dex.types.names()) {
+				if (target) {
+					const effect = this.dex.getEffectiveness(i, target.types);
+					const immune = this.dex.getImmunity(i, target.types);
+					if (effect > 0 && immune) {
+						seTypes.push(i);
+					} else if (effect < 0 && immune) {
+						nveTypes.push(i);
+					}
+				}
+			}
+			if (this.randomChance(90, 100)) {
+				netType = this.sample(seTypes);
+			} else { // false positive
+				netType = this.sample(nveTypes);
+			}
+			if (netType === "") {
+				netType = "Electric";
+			}
+			// TODO add messages for false positive etc
+			source.setType(netType);
+			this.add('-start', source, 'typechange', netType);
+			if (move) {
+				move.type = netType;
+			}
+			this.add('-anim', source, 'Techno Blast', target);
+		},
+		target: "normal",
+		type: "Electric",
+	},
+
 	// berry
 	whatkind: {
 		accuracy: true,
@@ -666,6 +748,33 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Fighting",
 	},
 
+	// Frozoid
+	flatoutfalling: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Physical",
+		shortDesc: "Typeless. Sets Gravity.",
+		name: "Flat out falling",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Head Smash', target);
+			this.add('-anim', source, 'Gravity', target);
+		},
+		self: {
+			onHit(source) {
+				this.field.addPseudoWeather('gravity', source);
+			},
+		},
+		secondary: null,
+		target: 'normal',
+		type: "???",
+	},
+
 	// Ganjafin
 	wigglingstrike: {
 		accuracy: 95,
@@ -1020,6 +1129,33 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// J0rdy004
+	snowysamba: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Snowy Samba",
+		shortDesc: "Sets Snow, raises user's Sp. Atk by 1 stage and Speed by 2 stages.",
+		pp: 15,
+		priority: 0,
+		flags: {snatch: 1, metronome: 1},
+		boosts: {
+			spe: 2,
+			spa: 1,
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Agility', target);
+			this.add('-anim', source, 'Snowscape', target);
+		},
+		weather: 'snow',
+		secondary: null,
+		target: "self",
+		type: "Ice",
+	},
+
 	// kenn
 	stonefaced: {
 		accuracy: true,
@@ -1141,6 +1277,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "all",
 		type: "Psychic",
+	},
+
+	// Kiwi
+	madmanifest: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Curses foe without self-damage, 50% chance for brn/par/psn. Raises Speed by 1 stage.",
+		name: "Mad Manifest",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		volatileStatus: 'curse',
+		onHit(target, source) {
+			const result = this.random(3);
+			if (result === 0) {
+				target.trySetStatus('psn', target);
+			} else if (result === 1) {
+				target.trySetStatus('par', target);
+			} else {
+				target.trySetStatus('brn', target);
+			}
+			this.boost({spe: 1}, source);
+		},
+		onPrepareHit(target, source) {
+			this.attrLastMove('[anim] Dark Void');
+		},
+		target: "normal",
+		type: "Fairy",
+
 	},
 
 	// Kris
@@ -2700,6 +2866,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// YveltalNL
+	highground: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "If user is taller than the opponent, boosts Sp. Atk by 1 stage.",
+		name: "High Ground",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 100,
+			onHit(target, source, move) {
+				if (this.dex.species.get(source.species).heightm > this.dex.species.get(target.species).heightm) {
+					this.boost({spa: 1}, source);
+				}
+			},
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Dragon Ascent", target);
+			this.add('-anim', source, "Scorching Sands", target);
+		},
+		target: "normal",
+		type: "Ground",
+	},
+
 	// Zalm
 	dudurafish: {
 		accuracy: true,
@@ -2764,6 +2959,27 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Fire",
+	},
+
+	// zoro
+	darkestnight: {
+		accuracy: 100,
+		basePower: 95,
+		category: "Physical",
+		name: "Darkest Night",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, metronome: 1},
+		overrideOffensivePokemon: 'target',
+		secondary: null,
+		target: "normal",
+		type: "Dark",
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Foul Play", target);
+		},
 	},
 
 	// Modified moves

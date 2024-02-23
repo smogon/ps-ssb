@@ -44,6 +44,14 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Saintly Bullet"},
 	},
 
+	// Arya
+	trapinch: {
+		inherit: true,
+		types: ["Ground", "Dragon"],
+		baseStats: {hp: 80, atk: 100, def: 90, spa: 120, spd: 100, spe: 130},
+		abilities: {0: "Punk Rock"},
+	},
+
 	// berry
 	regirock: {
 		inherit: true,
@@ -117,6 +125,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	thundurus: {
 		inherit: true,
 		abilities: {0: "Storm Surge"},
+	},
+
+	// Frozoid
+	gible: {
+		inherit: true,
+		baseStats: {hp: 65, atk: 110, def: 55, spa: 50, spd: 55, spe: 108},
+		abilities: {0: "Snowballer"},
 	},
 
 	// Ganjafin

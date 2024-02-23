@@ -127,6 +127,28 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Archas')}|What would Grandfather... think of me now...`);
 		},
 	},
+	arya: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Arya')}|NORMAL SUMMON DEEP SEA DIVA`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Arya')}|Oleeeee too good for this fight!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Arya')}|Nevermind, happy tuesday and let's pray for the 33.`);
+		},
+		onAfterMega() {
+			this.add(`c:|${getName('Arya')}|Oh yeaaaaah!!!!! Finally??!! I can finally Mega-Evolve!!! Vamossss`);
+			this.add(`c:|${getName('Arya')}|W-whats this? Oh, come on...!!!`);
+		}, // Is a message before going mega supported(unlikely)? if so, the first message in onAfterMega goes there.
+	},
+	artemis: {
+		noCopy: true,
+		onFoeAfterFaint(target, source, effect) {
+			this.add('message', `${source.name} was banned from Pok\u00e9mon Showdown!`);
+		},
+	},
 	berry: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -290,6 +312,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Emboar02')}|Too much recoil D:`);
 		},
 	},
+	frozoid: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Frozoid')}|Let's do this`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Frozoid')}|Wait let me finish what i was doi-`);
+		},
+		onFaint(pokemon) {
+			this.add(`c:|${getName('Frozoid')}|Man.`);
+		},
+	},
 	ganjafin: {
 		noCopy: true,
 		onStart() {
@@ -440,6 +474,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Isaiah')}|Bruh, nice cteam`);
 		},
 	},
+	j0rdy004: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('J0rdy004 ♫')}|Get-get-get-get, got-got-got-got`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('J0rdy004 ♫')}|I've seen footage, I stay noided`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('J0rdy004 ♫')}|So softly a supergod dies...`);
+		},
+	},
 	kenn: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -523,6 +569,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFlinch(pokemon) {
 			if (pokemon.illusion) return;
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
+	},
+	kiwi: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kiwi')}|Hey, are you a goldfish or a shark? I guess it depends on how quickly you get flushed down`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kiwi')}|You're lively, but I'm not done peeling off your scales`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kiwi')}|Too late, the manifestation has completed. You'll be reduced to a fillet one day unexpectedly...`);
 		},
 	},
 	kris: {
@@ -1242,6 +1300,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 	},
+	yveltalnl: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('YveltalNL')}|It's over ${pokemon.side.name}, I have the high ground!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('YveltalNL')}|brb playing a draft game rq`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('YveltalNL')}|whatever i'll go watch football`);
+		},
+	},
 	zalm: {
 		noCopy: true,
 		onStart() {
@@ -1264,6 +1334,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('zee')}|Hey everyone it's been a great time working with you all in this Super Staff Bros battle but I think it's the right time for me to step down. Thank you all and see you around.`);
+		},
+	},
+	zoro: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('zoro')}|gmeow`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('zoro')}|brb I want to chase some yarn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('zoro')}|time to take a cat nap`);
 		},
 	},
 
