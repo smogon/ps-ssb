@@ -1221,6 +1221,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		selfdestruct: "ifHit",
 		category: "Physical",
 		name: "Salvaged Sacrifice",
+		shortDesc: "Heals 25% HP, then uses Final Gambit.",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, metronome: 1, noparentalbond: 1},
