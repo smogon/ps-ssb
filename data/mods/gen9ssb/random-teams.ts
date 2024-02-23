@@ -123,7 +123,7 @@ export const ssbSets: SSBSets = {
 	},
 	chaos: {
 		species: 'Iron Jugulis', ability: 'Transistor', item: 'Heavy-Duty Boots', gender: 'N',
-		moves: [['Oblivion Wing', 'Hurricane'], ['Thunderclap', 'Volt Switch'],  ['Defog', 'Roost']],
+		moves: [['Oblivion Wing', 'Hurricane'], ['Thunderclap', 'Volt Switch'], ['Defog', 'Roost']],
 		signatureMove: 'Outage',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: ['Steel', 'Flying', 'Electric', 'Dark'], shiny: false,
 	},
