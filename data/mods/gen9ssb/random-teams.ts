@@ -78,6 +78,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Quiver Dance',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
+	Arya: {
+		species: 'Flygon', ability: 'Tinted Lens', item: 'Flygonite', gender: 'F',
+		moves: ['Clanging Scales', 'Roost', 'Bug Buzz'],
+		signatureMove: 'Anyone can be killed',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', shiny: false,
+	},
 	berry: {
 		species: 'Regirock', ability: 'Sturdy', item: 'Maranga Berry', gender: 'F',
 		moves: ['Curse', 'Salt Cure', 'Stone Axe'],
@@ -228,6 +234,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Blaze Kick', ['Triple Kick', 'Trop Kick'], 'U-turn'],
 		signatureMove: 'Hat-Trick',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Any',
+	},
+	Kiwi: {
+		species: 'Minccino', ability: 'Sure Hit Sorcery', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Dynamic Punch', 'Substitute', 'Noble Roar'],
+		signatureMove: 'Mad Manifest',
+		evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adamant', teraType: 'Fighting', shiny: true,
 	},
 	Kris: {
 		species: 'Nymble', ability: 'Cacophony', item: 'Heavy-Duty Boots', gender: 'N',
@@ -492,6 +504,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Thunderbolt', 'Blizzard', 'Ion Deluge'],
 		signatureMove: 'Whiteout',
 		evs: {hp: 252, spa: 252, spe: 4}, nature: 'Modest', teraType: 'Steel', shiny: 2,
+	},
+	YveltalNL: {
+		species: 'Farigiraf', ability: 'Height Advantage', item: 'Leftovers', gender: 'M',
+		moves: ['Freezing Glare', 'Ice Beam', 'Slack Off'],
+		signatureMove: 'High Ground',
+		evs: {hp: 248, spa: 252, spe: 8}, nature: 'Modest', teraType: 'Ground', shiny: false,
 	},
 	Zalm: {
 		species: 'Weedle', ability: 'Water Bubble', item: 'Clear Amulet', gender: '',

@@ -275,6 +275,41 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Arya
+	anyonecanbekilled: {
+		accuracy: 95,
+		basePower: 80,
+		category: "Status",
+		shortDesc: "Raises the user's Sp. Atk by 2 stages for the next 2 turns, -2 Sp. Atk afterwards.",
+		name: "Anyone can be killed",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, sound: 1, bypasssub: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		self: {
+			volatileStatus: 'anyonecanbekilled',
+		},
+		condition: {
+			duration: 3,
+			onResidualOrder: 3,
+			onStart(target, source, sourceEffect) {
+				this.boost({spa: 2}, source);
+			},
+			onEnd(target) {
+				this.boost({spa: -2}, target);
+			},
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dragon Dance', target);
+			this.add('-anim', source, 'Earth Power', target);
+		},
+		target: "normal",
+		type: "Ground",
+	},
+
+
 	// berry
 	whatkind: {
 		accuracy: true,
@@ -1117,6 +1152,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "all",
 		type: "Psychic",
+	},
+
+	// Kiwi
+	madmanifest: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Curses foe without self-damage, 50% chance for brn/par/psn. Raises Speed by 1 stage.",
+		name: "Mad Manifest",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		volatileStatus: 'curse',
+		onHit(target, source) {
+			const result = this.random(3);
+			if (result === 0) {
+				target.trySetStatus('psn', target);
+			} else if (result === 1) {
+				target.trySetStatus('par', target);
+			} else {
+				target.trySetStatus('brn', target);
+			}
+			this.boost({spe: 1}, source);
+		},
+		onPrepareHit(target, source) {
+			this.attrLastMove('[anim] Dark Void');
+		},
+		target: "normal",
+		type: "Fairy",
+
 	},
 
 	// Kris
@@ -2674,6 +2739,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Ice",
+	},
+
+	// YveltalNL
+	highground: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "If user is taller than the opponent, boosts Sp. Atk by 1 stage.",
+		name: "High Ground",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 100,
+			onHit(target, source, move) {
+				if (this.dex.species.get(source.species).heightm > this.dex.species.get(target.species).heightm) {
+					this.boost({spa: 1}, source);
+				}
+			},
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Dragon Ascent", target);
+			this.add('-anim', source, "Scorching Sands", target);
+		},
+		target: "normal",
+		type: "Ground",
 	},
 
 	// Zalm

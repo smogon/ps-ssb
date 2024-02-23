@@ -127,6 +127,22 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Archas')}|What would Grandfather... think of me now...`);
 		},
 	},
+	arya: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Arya')}|NORMAL SUMMON DEEP SEA DIVA`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Arya')}|Oleeeee too good for this fight!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Arya')}|Nevermind, happy tuesday and let's pray for the 33.`);
+		},
+		onAfterMega() {
+			this.add(`c:|${getName('Arya')}|Oh yeaaaaah!!!!! Finally??!! I can finally Mega-Evolve!!! Vamossss`);
+			this.add(`c:|${getName('Arya')}|W-whats this? Oh, come on...!!!`);
+		}, // Is a message before going mega supported(unlikely)? if so, the first message in onAfterMega goes there.
+	},
 	berry: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -511,6 +527,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFlinch(pokemon) {
 			if (pokemon.illusion) return;
 			this.add(`c:|${getName('Kennedy')}|LOOOOOOL ffs`);
+		},
+	},
+	kiwi: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Kiwi')}|Hey, are you a goldfish or a shark? I guess it depends on how quickly you get flushed down`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Kiwi')}|You're lively, but I'm not done peeling off your scales`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kiwi')}|Too late, the manifestation has completed. You'll be reduced to a fillet one day unexpectedly...`);
 		},
 	},
 	kris: {
@@ -1228,6 +1256,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 					this.add(`c:|${getName('Yellow Paint')}|Paint it Yellow!`);
 				};
 			}
+		},
+	},
+	yveltalnl: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('YveltalNL')}|It's over ${pokemon.side.name}, I have the high ground!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('YveltalNL')}|brb playing a draft game rq`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('YveltalNL')}|whatever i'll go watch football`);
 		},
 	},
 	zalm: {
