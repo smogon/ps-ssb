@@ -534,17 +534,20 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dark Pulse', target);
 		},
-		onHit(target) {
-			target.clearBoosts();
-			this.add('-clearboost', target);
-		},
 		secondaries: [
 			{
 				chance: 100,
-				volatileStatus: "taunt",
+				volatileStatus: 'taunt',
 			}, {
 				chance: 100,
-				volatileStatus: "embargo",
+				volatileStatus: 'embargo',
+			},
+			{
+				chance: 100,
+				onHit(target) {
+					target.clearBoosts();
+					this.add('-clearboost', target);
+				},
 			},
 		],
 		target: "normal",

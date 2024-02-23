@@ -125,7 +125,7 @@ export const ssbSets: SSBSets = {
 		species: 'Iron Jugulis', ability: 'Transistor', item: 'Heavy-Duty Boots', gender: 'N',
 		moves: [['Oblivion Wing', 'Hurricane'], ['Thunderclap', 'Volt Switch'], ['Defog', 'Roost']],
 		signatureMove: 'Outage',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: ['Steel', 'Flying', 'Electric', 'Dark'], shiny: false,
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: ['Steel', 'Flying', 'Electric', 'Dark'],
 	},
 	Chloe: {
 		species: 'Tsareena', ability: 'Acetosa', item: 'Assault Vest', gender: 'F',
