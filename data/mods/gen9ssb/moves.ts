@@ -647,7 +647,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
-		shortDesc: "After attacking, can switch out to a different Pokemon. Does 1/3 recoil. Contact move.",
+		shortDesc: "Has 33% recoil. Switch after using.",
 		name: "Insert boar pun here",
 		pp: 20,
 		priority: 0,
