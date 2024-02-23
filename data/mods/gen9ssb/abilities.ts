@@ -1640,7 +1640,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			} else {
 				changeSet(this, pokemon, ssbSets['Zarel'], true);
 			}
-			pokemon.stellarBoostedTypes.pop();
 		},
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1},
 		name: "Tempo Change",

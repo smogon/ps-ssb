@@ -570,13 +570,13 @@ export const ssbSets: SSBSets = {
 		species: 'Meloetta', ability: 'Tempo Change', item: 'Leftovers', gender: 'M',
 		moves: ['Psystrike', 'Armor Cannon', 'Obstruct'],
 		signatureMove: '@ts-ignore',
-		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Stellar', shiny: false,
+		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Stellar',
 	},
 	'Zarel-Pirouette': {
 		species: 'Meloetta-Pirouette', ability: 'Tempo Change', item: 'Leftovers', gender: 'M',
 		moves: ['Close Combat', 'Knock Off', 'Silk Trap'],
 		signatureMove: '@ts-ignore',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Stellar', skip: 'Zarel', shiny: false,
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Stellar', skip: 'Zarel',
 	},
 	zee: {
 		species: 'Lilligant-Hisui', ability: 'Chlorophyll', item: 'Heat Rock', gender: 'F',

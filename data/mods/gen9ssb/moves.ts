@@ -3105,7 +3105,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 100,
 		category: "Special",
-		shortDesc: "Bypasses everything (tba). Uses Higher Atk. ",
+		shortDesc: "Bypasses everything. Uses Higher Atk. ",
 		name: "@ts-ignore",
 		gen: 9,
 		pp: 5,
