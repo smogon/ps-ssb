@@ -1424,11 +1424,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onDamagePriority: -30,
 		onDamage(damage, target, source, effect) {
-			if (damage >= target.hp && effect && effect.effectType === 'Move' &&
-			(this.effectState.busted === undefined || this.effectState.busted === 0)) {
+			if (damage >= target.hp && effect?.effectType === 'Move' && !this.effectState.busted) {
 				this.add('-ability', target, 'Nine Lives');
-				if (this.effectState.busted === 0) this.effectState.busted = 1;
-				else this.effectState.busted = 0;
+				if (this.effectState.busted === 0) {
+					this.effectState.busted = 1;
+				} else {
+					this.effectState.busted = 0;
+				}
 				return target.hp - 1;
 			}
 		},
