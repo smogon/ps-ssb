@@ -1662,7 +1662,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Randomly raises two stats by 1 stage, then uses one of Laser Focus, Lock-On or Charge.",
+		shortDesc: "2 random stats +1; Lock-On/Laser Focus/Charge.",
 		name: "Banana Breakfast",
 		gen: 9,
 		pp: 10,
