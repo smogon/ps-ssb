@@ -345,6 +345,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (netType === "") {
 				netType = "Electric";
 			}
+			// TODO add messages for false positive etc
 			source.setType(netType);
 			this.add('-start', source, 'typechange', netType);
 			if (move) {
