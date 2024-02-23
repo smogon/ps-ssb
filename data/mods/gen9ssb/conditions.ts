@@ -146,7 +146,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	artemis: {
 		noCopy: true,
 		onFoeAfterFaint(target, source, effect) {
-			this.add('message', `${source.name} was banned from Pokemon Showdown!`);
+			this.add('message', `${source.name} was banned from Pok\u00e9mon Showdown!`);
 		},
 	},
 	berry: {

@@ -322,14 +322,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(target, source) {
+		onPrepareHit(target, source, move) {
 			const seTypes = [];
 			const nveTypes = [];
 			let netType = "";
 			for (const i of this.dex.types.names()) {
 				if (target) {
-					const effect = Dex.getEffectiveness(i, target.types);
-					const immune = Dex.getImmunity(i, target.types);
+					const effect = this.dex.getEffectiveness(i, target.types);
+					const immune = this.dex.getImmunity(i, target.types);
 					if (effect > 0 && immune) {
 						seTypes.push(i);
 					} else if (effect < 0 && immune) {
@@ -347,8 +347,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			source.setType(netType);
 			this.add('-start', source, 'typechange', netType);
-			if (this.activeMove) {
-				this.activeMove.type = netType;
+			if (move) {
+				move.type = netType;
 			}
 			this.add('-anim', source, 'Techno Blast', target);
 		},
