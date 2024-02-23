@@ -1574,6 +1574,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	// Lionyx
+	superrollout: {
+		accuracy: 90,
+		basePower: 30,
+		basePowerCallback(pokemon, target, move) {
+			if (!pokemon.volatiles['furycutter'] || move.hit === 1) {
+				pokemon.addVolatile('furycutter');
+			}
+			let bp = move.basePower * pokemon.volatiles['furycutter'].multiplier;
+			if (pokemon.volatiles['defensecurl']) {
+				bp *= 2;
+			}
+			this.debug('BP: ' + bp);
+			return bp;
+		},
+		category: "Physical",
+		name: "Super Rollout",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, metronome: 1, noparentalbond: 1},
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+	},
+
 	// Loethalion
 	darkmooncackle: {
 		accuracy: 100,
