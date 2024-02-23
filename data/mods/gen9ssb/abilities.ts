@@ -1196,12 +1196,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Two of Roses
 	aswesee: {
-		shortDesc: "Once per turn, when any active Pokemon has a stat boosted, this Pokemon has a 50%" +
-		" chance of copying it and a 15% chance to raise another random stat.",
 		name: "As We See",
+		desc: "Once per turn, when any active Pokemon has a stat boosted, this Pokemon has a 50% chance of copying it and a 15% chance to raise another random stat.",
+		shortDesc: "1x per turn: Stat gets boosted -> 50% chance to copy, 15% to raise another.",
 		onFoeAfterBoost(boost, target, source, effect) { // Opportunist
 			if (this.randomChance(1, 2)) {
-				if (effect?.name === 'As We See' || effect?.name === 'Mirror Herb' || effect?.name === 'Opportunist') return;
+				if (effect && ['As We See', 'Mirror Herb', 'Opportunist'].includes(effect.name)) return;
 				const pokemon = this.effectState.target;
 				const positiveBoosts: Partial<BoostsTable> = {};
 				let i: BoostID;
@@ -1212,11 +1212,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				}
 				if (Object.keys(positiveBoosts).length < 1) return;
 				this.boost(positiveBoosts, pokemon);
-				this.effectState.oncePerTurn = 0;
+				this.effectState.triggered = true;
 			}
 		},
 		onResidual(target, source, effect) {
-			if (this.randomChance(15, 100) && this.effectState.oncePerTurn === 0) {
+			if (this.randomChance(15, 100) && this.effectState.triggered) {
 				const stats: BoostID[] = [];
 				const boost: SparseBoostsTable = {};
 				let statPlus: BoostID;
@@ -1230,7 +1230,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (randomStat) boost[randomStat] = 1;
 				this.boost(boost, target, target);
 			}
-			this.effectState.oncePerTurn = undefined;
+			this.effectState.triggered = false;
 		},
 		flags: {},
 	},

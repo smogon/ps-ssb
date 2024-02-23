@@ -943,50 +943,50 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onWeatherChange(target, source, sourceEffect) {
 			const currentWeather = this.field.weather;
 			const currentTerrain = this.field.terrain;
-			if (!currentWeather && !currentTerrain && !target.getTypes().includes('Dark')) {
-				target.addType('Dark');
-				this.add('-start', target, 'typeadd', 'Dark', '[from] ability: Wonderer');
+			const types = target.getTypes();
+			let type = 'Dark';
+			if (!currentWeather && !currentTerrain && !types.includes('Dark')) {
+				type = 'Dark';
 			} else if (currentWeather) {
-				if (['raindance', 'primordialsea'].includes(currentWeather) && !target.getTypes().includes('Water')) {
-					target.addType('Water');
-					this.add('-start', target, 'typeadd', 'Water', '[from] ability: Wonderer');
-				} else if (['sunnyday', 'desolateland'].includes(currentWeather) && !target.getTypes().includes('Fire')) {
-					target.addType('Fire');
-					this.add('-start', target, 'typeadd', 'Fire', '[from] ability: Wonderer');
-				} else if (['sandstorm', 'deserteddunes'].includes(currentWeather) && !target.getTypes().includes('Rock')) {
-					target.addType('Rock');
-					this.add('-start', target, 'typeadd', 'Rock', '[from] ability: Wonderer');
-				} else if (['hail', 'snow'].includes(currentWeather) && !target.getTypes().includes('Ice')) {
-					target.addType('Ice');
-					this.add('-start', target, 'typeadd', 'Ice', '[from] ability: Wonderer');
+				if (['raindance', 'primordialsea'].includes(currentWeather) && !types.includes('Water')) {
+					type = 'Water';
+				} else if (['sunnyday', 'desolateland'].includes(currentWeather) && !types.includes('Fire')) {
+					type = 'Fire';
+				} else if (['sandstorm', 'deserteddunes'].includes(currentWeather) && !types.includes('Rock')) {
+					type = 'Rock';
+				} else if (['hail', 'snow'].includes(currentWeather) && !types.includes('Ice')) {
+					type = 'Ice';
 				} else {
 					// do nothing if it's not the 4 primary weathers...unless there are more?
 				}
 			}
+			target.addType(type);
+			this.add('-start', target, 'typeadd', type, '[from] ability: Wonderer');
 		},
-
 		onTerrainChange(target, source, sourceEffect) {
 			const currentWeather = this.field.weather;
 			const currentTerrain = this.field.terrain;
-			if (!currentWeather && !currentTerrain && !target.getTypes().includes('Dark')) {
-				target.addType('Dark');
-				this.add('-start', target, 'typeadd', 'Dark', '[from] ability: Wonderer');
+			let type = 'Dark';
+			const types = target.getTypes();
+			if (!currentWeather && !currentTerrain && !types.includes('Dark')) {
+				type = 'Dark';
 			} else if (currentTerrain) {
 				if (currentTerrain === 'electricterrain') {
 					target.setType('Electric');
-				} else if (currentTerrain === 'psychicterrain' && !target.getTypes().includes('Psychic')) {
-					target.addType('Psychic');
-					this.add('-start', target, 'typeadd', 'Psychic', '[from] ability: Wonderer');
-				} else if (currentTerrain === 'grassyterrain' && !target.getTypes().includes('Grass')) {
-					target.addType('Grass');
-					this.add('-start', target, 'typeadd', 'Grass', '[from] ability: Wonderer');
-				} else if (currentTerrain === 'mistyterrain' && !target.getTypes().includes('Fairy')) {
-					target.addType('Fairy');
-					this.add('-start', target, 'typeadd', 'Fairy', '[from] ability: Wonderer');
-				} else if (!target.getTypes().includes('Ghost')) { // custom terrains
-					target.addType('Ghost');
-					this.add('-start', target, 'typeadd', 'Ghost', '[from] ability: Wonderer');
+					type = '';
+				} else if (currentTerrain === 'psychicterrain' && !types.includes('Psychic')) {
+					type = 'Psychic';
+				} else if (currentTerrain === 'grassyterrain' && !types.includes('Grass')) {
+					type = 'Grass';
+				} else if (currentTerrain === 'mistyterrain' && !types.includes('Fairy')) {
+					type = 'Fairy';
+				} else if (!types.includes('Ghost')) { // custom terrains
+					type = 'Ghost';
 				}
+			}
+			if (type) {
+				target.addType(type);
+				this.add('-start', target, 'typeadd', type, '[from] ability: Wonderer');
 			}
 		},
 	},

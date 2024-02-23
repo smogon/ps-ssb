@@ -2259,7 +2259,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 90,
 		basePower: 40,
 		category: "Physical",
-		shortDesc: "Hits twice, each hit raises a random stat by 1. User's secondary type determines type.",
+		shortDesc: "2 hits, +1 random stat/hit. Type = User 2nd type.",
 		name: "Dilly Dally",
 		pp: 20,
 		priority: 0,
@@ -2276,6 +2276,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			move.type = type;
 		},
 		secondary: {
+			chance: 100,
 			onHit(target, source, move) {
 				const stats: BoostID[] = [];
 				const boost: SparseBoostsTable = {};
