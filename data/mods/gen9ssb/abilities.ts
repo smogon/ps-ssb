@@ -676,7 +676,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Kiwi
 	surehitsorcery: {
 		name: "Sure Hit Sorcery",
-		shortDesc: "No Guard + Prankster + Grassy Surge",
+		shortDesc: "No Guard + Prankster + Grassy Surge.",
 		onAnyInvulnerabilityPriority: 1,
 		onAnyInvulnerability(target, source, move) {
 			if (move && (source === this.effectState.target || target === this.effectState.target)) return 0;
