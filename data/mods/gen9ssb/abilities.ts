@@ -1231,7 +1231,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Ultra Mystik",
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.getMoveHitData(move).typeMod > 0) {
-				this.effectState.superHit = 1;
+				this.effectState.superHit = true;
 			}
 		},
 		onModifyAtkPriority: 5,

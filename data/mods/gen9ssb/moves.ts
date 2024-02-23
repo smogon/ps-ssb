@@ -2256,18 +2256,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		shortDesc: "Sets Psychic Terrain.",
 		pp: 5,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1},
+		terrain: 'psychicterrain',
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Photon Geyser', target);
 		},
-		self: {
-			onHit(source) {
-				this.field.setTerrain('psychicterrain', source);
-			},
-		},
+		secondary: null,
 		target: "normal",
 		type: "Psychic",
 	},
