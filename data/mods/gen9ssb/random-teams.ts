@@ -441,6 +441,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Concept Relevant',
 		evs: {hp: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Water',
 	},
+	'Soft Flex': {
+		species: 'Magnezone', ability: 'Adaptive Engineering', item: 'Leftovers', gender: 'N',
+		moves: ['Thunderbolt', 'Substitute', 'Parabolic Charge'],
+		signatureMove: 'Resonance2',
+		evs: {hp: 248, def: 8, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Flying',
+	},
 	spoo: {
 		species: 'Mumbao', ability: 'Dazzling', item: 'Heavy-Duty Boots', gender: 'M',
 		moves: ['Will-O-Wisp', 'Strength Sap', 'Parting Shot'],
