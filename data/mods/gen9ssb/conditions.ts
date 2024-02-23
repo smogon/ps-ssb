@@ -1297,13 +1297,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	zoro: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Zoro')}|gmeow`);
+			this.add(`c:|${getName('zoro')}|gmeow`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Zoro')}|brb I want to chase some yarn`);
+			this.add(`c:|${getName('zoro')}|brb I want to chase some yarn`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Zoro')}|time to take a cat nap`);
+			this.add(`c:|${getName('zoro')}|time to take a cat nap`);
 		},
 	},
 

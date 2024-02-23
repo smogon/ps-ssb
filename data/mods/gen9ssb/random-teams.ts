@@ -523,7 +523,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Solar Summon',
 		evs: {hp: 80, atk: 176, spe: 252}, nature: 'Adamant', teraType: 'Fire',
 	},
-	Zoro: {
+	zoro: {
 		species: 'Umbreon', ability: 'Nine Lives', item: 'Leftovers', gender: 'M',
 		moves: ['Wish', 'Protect', 'Toxic'],
 		signatureMove: 'Darkest Night',

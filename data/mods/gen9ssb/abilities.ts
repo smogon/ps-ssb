@@ -1461,7 +1461,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
-	// Zoro
+	// zoro
 	ninelives: {
 		shortDesc: "Twice per battle, Umbreon will survive a lethal hit with 1 HP remaining, regardless of the HP it was at.",
 		name: "Nine Lives",

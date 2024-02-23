@@ -2836,7 +2836,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 
-	// Zoro
+	// zoro
 	darkestnight: {
 		accuracy: 100,
 		basePower: 95,
