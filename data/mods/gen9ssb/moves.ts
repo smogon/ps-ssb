@@ -466,8 +466,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {snatch: 1, metronome: 1},
 		boosts: {
-			spe: 1,
 			spa: 2,
+			spe: 1,
 		},
 		secondary: null,
 		onTryMove() {
