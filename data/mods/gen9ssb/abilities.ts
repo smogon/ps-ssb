@@ -78,6 +78,30 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
+	// Alexander489
+	confirmedtown: {
+		shortDesc: "Technician + Protean.",
+		name: "Confirmed Town",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, attacker, defender, move) {
+			const basePowerAfterMultiplier = this.modify(basePower, this.event.modifier);
+			this.debug('Base Power: ' + basePowerAfterMultiplier);
+			if (basePowerAfterMultiplier <= 60) {
+				this.debug('Confirmed Town boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] ability: Confirmed Town');
+			}
+		},
+		flags: {},
+	},
+
 	// Appletun a la Mode
 	servedcold: {
 		shortDesc: "This Pokemon's Defense is raised 2 stages if hit by an Ice move; Ice immunity.",
@@ -388,6 +412,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Corthius
+	grassyemperor: {
+		shortDesc: "On switch-in, summons Grassy Terrain. During Grassy Terrain, Attack is 1.33x.",
+		name: "Grassy Emperor",
+		onStart(pokemon) {
+			if (this.field.setTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'Grassy Emperor', '[source]');
+			} else if (this.field.isTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'ability: Grassy Emperor');
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Grassy Emperor boost');
+				return this.chainModify([5461, 4096]);
+			}
+		},
+		flags: {},
+	},
+
 	// Dawn of Artemis
 	formchange: {
 		shortDesc: ">50% HP Necrozma, else Necrozma-Ultra. SpA boosts become Atk boosts and vice versa.",
@@ -483,6 +528,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+	},
+
+	// Fame
+	socialjumpluffwarrior: {
+		shortDesc: "Serene Grace + Mold Breaker.",
+		name: "Social Jumpluff Warrior",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Social Jumpluff Warrior');
+		},
+		onModifyMovePriority: -2,
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+			if (move.secondaries) {
+				this.debug('doubling secondary chance');
+				for (const secondary of move.secondaries) {
+					if (secondary.chance) secondary.chance *= 2;
+				}
+			}
+			if (move.self?.chance) move.self.chance *= 2;
+		},
+		flags: {},
 	},
 
 	// Ganjafin
@@ -810,6 +876,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Klmondo
+	superskilled: {
+		name: "Super Skilled",
+		shortDesc: "Skill Link + Multiscale.",
+		onModifyMove(move) {
+			if (move.multihit && Array.isArray(move.multihit) && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.hp >= target.maxhp) {
+				this.debug('Multiscale weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		flags: {breakable: 1},
+	},
+
 	// Kris
 	cacophony: {
 		name: "Cacophony",
@@ -878,6 +965,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-clearallboost');
 			for (const poke of this.getAllActive()) {
 				poke.clearBoosts();
+			}
+		},
+		flags: {},
+	},
+
+	// Lionyx
+	enormoos: {
+		name: "EnorMOOs",
+		shortDesc: "This Pokemon's Defense is used in damage calculation instead of Attack or Sp. Atk.",
+		onModifyMove(move, pokemon, target) {
+			if (move.category !== "Status") {
+				move.overrideOffensiveStat = 'def';
 			}
 		},
 		flags: {},
@@ -1225,6 +1324,50 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Ransei
+	ultramystik: {
+		shortDesc: "Stats 1.5x until hit super effectively + Magic Guard + Leftovers.",
+		name: "Ultra Mystik",
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).typeMod > 0) {
+				this.effectState.superHit = true;
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifyDefPriority: 6,
+		onModifyDef(def, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpDPriority: 6,
+		onModifySpD(spd, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpe(spe, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon, pokemon.getAbility());
+		},
+	},
+
 	// ReturnToMonkey
 	monkeseemonkedo: {
 		shortDesc: "Boosts Atk or SpA by 1 based on foe's defenses, then copies foe's Ability.",
@@ -1299,6 +1442,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (this.field.isTerrain('electricterrain')) {
 				return this.chainModify(1.5);
 			}
+		},
+		flags: {},
+	},
+
+	// skies
+	spikesofwrath: {
+		shortDesc: "Stamina + Cheek Pouch + sets Spikes and Toxic Spikes upon KO.",
+		name: "Spikes of Wrath",
+		onDamagingHit(damage, target, source, effect) {
+			if (target.hp) {
+				this.boost({def: 1});
+			} else {
+				const side = source.isAlly(target) ? source.side.foe : source.side;
+				const spikes = side.sideConditions['spikes'];
+				const toxicSpikes = side.sideConditions['toxicspikes'];
+				if ((!spikes || spikes.layers < 3)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('spikes', target);
+				}
+				if ((!toxicSpikes || toxicSpikes.layers < 2)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('toxicspikes', target);
+				}
+			}
+		},
+		onEatItem(item, pokemon) {
+			this.heal(pokemon.baseMaxhp / 3);
 		},
 		flags: {},
 	},
@@ -1381,6 +1551,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.category === "Physical" && this.randomChance(1, 5)) {
 				source.trySetStatus('brn', target);
 			}
+		},
+		flags: {breakable: 1},
+	},
+
+	// Tico
+	eternalgenerator: {
+		shortDesc: "Regenerator + Hazard immune.",
+		name: "Eternal Generator",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		flags: {breakable: 1},
 	},
@@ -1496,6 +1676,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Valerian
+	fullbloom: {
+		shortDesc: "This Pokémon's priority moves have double power.",
+		name: "Full Bloom",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.priority > 0) {
+				return this.chainModify(2);
+			}
+		},
+	},
+
 	// Venous
 	concreteoverwater: {
 		shortDesc: "+1 Def/Spd before getting hit by a Super Effective move",
@@ -1594,6 +1786,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
+	// xy01
+	panic: {
+		shortDesc: "Lowers the opponent's Atk and Sp. Atk by 1 upon switch-in.",
+		name: "Panic",
+		onStart(pokemon) {
+			let activated = false;
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Panic', 'boost');
+					activated = true;
+				}
+				if (target.volatiles['substitute']) {
+					this.add('-immune', target);
+				} else {
+					this.boost({atk: -1, spa: -1}, target, pokemon, null, true);
+				}
+			}
+		},
+		flags: {},
+	},
+
 	// Yellow Paint
 	yellowmagic: {
 		shortDesc: "+25% HP, +1 SpA, +1 Spe, Charge, or Paralyzes attacker when hit by an Electric move; Electric immunity.",
@@ -1652,6 +1865,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// Zarel
+	tempochange: {
+		shortDesc: "Switches Meloetta's forme between Aria and Pirouette at the end of each turn.",
+		name: "Tempo Change",
+		onResidualOrder: 29,
+		onResidual(pokemon) {
+			if (pokemon.species.baseSpecies !== 'Meloetta') return;
+			if (pokemon.species.name === 'Meloetta') {
+				changeSet(this, pokemon, ssbSets['Zarel-Pirouette'], true);
+			} else {
+				changeSet(this, pokemon, ssbSets['Zarel'], true);
+			}
+		},
+		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1},
 	},
 
 	// zoro

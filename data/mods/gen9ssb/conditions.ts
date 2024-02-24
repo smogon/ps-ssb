@@ -68,6 +68,30 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Alex')}|:3`);
 		},
 	},
+	alexander489: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Alexander489')}|gm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Alexander489')}|gn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Alexander489')}|kek`);
+		},
+	},
+	alpha: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Alpha')}|mhlelo`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Alpha')}|VA BENE LO STESSO`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Alpha')}|aight i'll quit`);
+		},
+	},
 	appletunalamode: {
 		noCopy: true,
 		onStart() {
@@ -295,6 +319,17 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Coolcodename')}|mb LOL`);
 		},
 	},
+	corthius: {
+		onStart(pokemon) {
+			this.add(`c:|${getName('Corthius')}|*exessively drums on its chest*`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Corthius')}|I left my oven on, brb.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Corthius')}|Maurice, I can't "move it move it" anymore.`);
+		},
+	},
 	dawnofartemis: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -354,6 +389,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint(pokemon) {
 			this.add(`c:|${getName('Emboar02')}|Too much recoil D:`);
+		},
+	},
+	fame: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Fame')}|:hi:`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Fame')}|:bye:`);
+		},
+		onFaint(pokemon) {
+			this.add(`c:|${getName('Fame')}|NOOOOOOOOOOOO! I'M A STAR! PLEASE, IM A STAR!`);
 		},
 	},
 	frozoid: {
@@ -530,6 +577,21 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('J0rdy004 ♫')}|So softly a supergod dies...`);
 		},
 	},
+	karthik: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Karthik')}|>>> const staraptor = battle.player('${pokemon.side.name}').active[0]`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('Karthik')}|>>> staraptor.heal(staraptor.baseMaxhp / 3)`);
+			if (!pokemon.illusion) pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Karthik')}|>>> staraptor.faint()`);
+		},
+		innateName: "Regenerator",
+		shortDesc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out.",
+	},
 	kenn: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -627,6 +689,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kiwi')}|Too late, the manifestation has completed. You'll be reduced to a fillet one day unexpectedly...`);
 		},
 	},
+	klmondo: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Klmondo')}|Gm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Klmondo')}|I need a snack`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Klmondo')}|It's Klmondover`);
+		},
+	},
 	kris: {
 		noCopy: true,
 		onStart() {
@@ -663,6 +737,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Lasen')}|I'm out and NOT about...`);
 		},
 	},
+	letsgoshuckles: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Lets go shuckles')}|Behold the magnificence of Shuckle.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lets go shuckles')}|Wise men don't fight battles they cannot win.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lets go shuckles')}|He who lives by the Shuckle shall die by the Shuckle.`);
+		},
+	},
 	lily: {
 		noCopy: true,
 		onStart() {
@@ -673,6 +759,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Lily')}|oh dear, i am dead`);
+		},
+	},
+	lionyx: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Lionyx')}| It's Lionyx busting in once again (⌐■_■)`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lionyx')}|Wherever you go and whoever you meet, don't forget us, will you?`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lionyx')}|I don't even like milk anyway`);
 		},
 	},
 	loethalion: {
@@ -946,6 +1044,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
 		},
 	},
+	pissog: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Pissog')}|Hi I'm Pissog ^^`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Pissog')}|^^ gossiP m'I iH`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Pissog')}|Yes, there are two paths you can go by, but in the long run`);
+		},
+	},
 	ptoad: {
 		noCopy: true,
 		onStart() {
@@ -989,6 +1099,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Quite Quiet')}|hm`);
+		},
+	},
+	ransei: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Ransei')}|Heyo, I'm hosting a program known as Pokémon Lore Tutoring this generation and I was wondering if any of you guys would be interested in tutoring. Every generation of Pokémon lore is available for tutoring, however we are in need of tutors to start off with. If you are interested let me know. Oh yeah I'm also hosting a program known as OM Tutoring.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Ransei')}|A perfect world of Pokémon has everything balanced, whether it's truth and ideals, life and death, time and space, or the organisms of nature and the organisms of whom were genetically engineered. All Pokémon are welcomed as long as they help maintain this balance. Remember this. It's what Arceus always wanted.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Ransei')}|Well, at least I tried. ripsei.`);
 		},
 	},
 	returntomonkey: {
@@ -1081,6 +1203,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Siegfried')}|Living is easy with eyes closed.`);
 		},
 	},
+	skies: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('skies')}|the baddest in the room, so tell em to make room... `);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('skies')}|u thought i was feelin u?`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('skies')}|what did i do? like?`);
+		},
+	},
 	snake: {
 		noCopy: true,
 		onStart() {
@@ -1150,6 +1284,25 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('Teclis')}|This was my last dance.`);
 		},
+	},
+	tico: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Tico')}|oie`);
+			if (pokemon.illusion) return;
+			this.add('-ability', pokemon, 'Mold Breaker');
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Tico')}|t+`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Tico')}|It's been 3,000 years…`);
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.illusion) return;
+			move.ignoreAbility = true;
+		},
+		innateName: "Mold Breaker",
 	},
 	theia: {
 		noCopy: true,
@@ -1286,6 +1439,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('umowu ✮彡')}|Tell.. My wife... She STINKS!!`);
+		},
+	},
+	valerian: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|Lucario’s shiny should’ve been red.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|As a wise man once said, “I’ll be back”.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|My name is based on a flower, NOT the movie!`);
 		},
 	},
 	venous: {
