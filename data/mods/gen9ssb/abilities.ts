@@ -1528,6 +1528,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Valerian
+	fullbloom: {
+		shortDesc: "This Pokémon's priority moves have double power.",
+		name: "Full Bloom",
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.priority > 0) this.chainModify(2);
+		},
+	},
+
 	// Venous
 	concreteoverwater: {
 		shortDesc: "+1 Def/Spd before getting hit by a Super Effective move",
