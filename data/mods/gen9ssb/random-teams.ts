@@ -497,7 +497,7 @@ export const ssbSets: SSBSets = {
 	},
 	Struchni: {
 		species: 'Aggron', ability: 'Overasked Clause', item: 'Leftovers', gender: 'M',
-		moves: ['Protect', 'Encore', 'U-Turn'],
+		moves: ['Protect', 'Encore', 'U-turn'],
 		signatureMove: '~randfact',
 		evs: {hp: 252, def: 16, spd: 240}, nature: 'Careful', teraType: 'Steel',
 	},
