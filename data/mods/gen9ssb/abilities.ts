@@ -489,6 +489,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	socialjumpluffwarrior: {
 		shortDesc: "Serene Grace + Mold Breaker.",
 		name: "Social Jumpluff Warrior",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Social Jumpluff Warrior');
+		},
 		onModifyMovePriority: -2,
 		onModifyMove(move) {
 			move.ignoreAbility = true;

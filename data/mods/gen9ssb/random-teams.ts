@@ -186,7 +186,7 @@ export const ssbSets: SSBSets = {
 		species: 'Jumpluff', ability: 'Social Jumpluff Warrior', item: 'Leftovers', gender: 'F',
 		moves: ['Air Slash', 'Thunder Wave', 'Toxic'],
 		signatureMove: 'Solidarity',
-		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Fire', shiny: false,
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Fire',
 	},
 	Frozoid: {
 		species: 'Gible', ability: 'Snowballer', item: 'Eviolite', gender: 'M',
