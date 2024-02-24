@@ -1156,8 +1156,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	tico: {
 		noCopy: true,
-		onStart() {
+		onStart(pokemon) {
 			this.add(`c:|${getName('Tico')}|oie`);
+			if (pokemon.illusion) return;
+			this.add('-ability', pokemon, 'Mold Breaker');
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('Tico')}|t+`);
@@ -1165,7 +1167,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('Tico')}|It's been 3,000 years…`);
 		},
-		onModifyMove(move) {
+		onModifyMove(move, pokemon) {
+			if (pokemon.illusion) return;
 			move.ignoreAbility = true;
 		},
 		innateName: "Mold Breaker",

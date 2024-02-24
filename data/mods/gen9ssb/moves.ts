@@ -2686,13 +2686,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.field.clearTerrain();
 			return success;
 		},
-
 		self: {
 			slotCondition: 'Wish',
 			onHit(target, source, move) {
-				this.add('-activate', source, 'move: Aromatherapy');
+				this.add('-activate', source, 'move: Eternal Wish');
 				let success = false;
-				const allies = [...target.side.pokemon, ...target.side.allySide?.pokemon || []];
+				const allies = [...source.side.pokemon, ...source.side.allySide?.pokemon || []];
 				for (const ally of allies) {
 					if (ally !== source && ((ally.hasAbility('sapsipper')) ||
 						(ally.volatiles['substitute'] && !move.infiltrates))) {
