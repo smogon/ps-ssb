@@ -1430,7 +1430,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Moves used on the previous turn will always fail.",
 		name: "Overasked Clause",
 		onFoeBeforeMove(target, source, move) {
-			if (target.lastMove && target.lastMove.id !== 'struggle') {
+			if (target.lastMove?.id !== 'struggle') {
 				if (move.id === target.lastMove.id) {
 					this.attrLastMove('[still]');
 					this.add('cant', this.effectState.target, 'ability: Overasked Clause', move, '[of] ' + target);
