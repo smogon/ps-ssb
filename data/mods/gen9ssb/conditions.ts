@@ -577,6 +577,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('J0rdy004 ♫')}|So softly a supergod dies...`);
 		},
 	},
+	kalalokki: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Kalalokki')}|FLAMIGOOOO!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kalalokki')}|Flamigoooo...`);
+		},
+		innateName: "Tinted Lens",
+		shortDesc: "Resisted moves hit with double power.",
+		onModifyDamage(damage, source, target, move) {
+			if (!source || source.illusion) return;
+			if (target.getMoveHitData(move).typeMod < 0) {
+				this.debug('Tinted Lens boost');
+				return this.chainModify(2);
+			}
+		},
+	},
 	karthik: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -1234,6 +1252,15 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('Soft Flex')}|*whrrrr*`);
+		},
+	},
+	solaroslunaris: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Solaros & Lunaris')}|Get a taste of this!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Solaros & Lunaris')}|Too hot to handle!`);
 		},
 	},
 	spoouser: {

@@ -1378,6 +1378,28 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// Kalalokki
+	knotweak: {
+		accuracy: 80,
+		basePower: 150,
+		category: "Physical",
+		name: "Knot Weak",
+		shortDesc: "Deals 50% recoil.",
+		pp: 5,
+		flags: {contact: 1, protect: 1, mirror: 1, metronome: 1},
+		recoil: [1, 2],
+		secondary: null,
+		priority: 0,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Focus Punch', target);
+		},
+		target: "normal",
+		type: "Fighting",
+	},
+
 	// Karthik
 	salvagedsacrifice: {
 		accuracy: 100,
@@ -2886,6 +2908,29 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Steel",
+	},
+
+	// Solaros & Lunaris
+	mindmelt: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		overrideDefensiveStat: 'def',
+		shortDesc: "Target's the foe's Def instead of Sp. Def.",
+		name: "Mind Melt",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Burn Up', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 
 	// spoo
