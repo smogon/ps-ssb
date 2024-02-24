@@ -282,7 +282,7 @@ export const ssbSets: SSBSets = {
 		species: 'Flamigo', ability: 'Scrappy', item: 'Choice Band', gender: 'M',
 		moves: ['Brave Bird', 'Sucker Punch', ['Drain Punch', 'Rapid Spin']],
 		signatureMove: 'Knot Weak',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: ['Fighting', 'Flying'],
 	},
 	Karthik: {
 		species: 'Staraptor', ability: 'Tough Claws', item: 'Choice Scarf', gender: 'M',
