@@ -1308,8 +1308,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Stamina + Cheek Pouch + sets Spikes and Toxic Spikes upon KO.",
 		name: "Spikes of Wrath",
 		onDamagingHit(damage, target, source, effect) {
-			this.boost({def: 1});
-			if (!target.hp) {
+			if (target.hp) {
+				this.boost({def: 1});
+			} else {
 				const side = source.isAlly(target) ? source.side.foe : source.side;
 				const spikes = side.sideConditions['spikes'];
 				const toxicSpikes = side.sideConditions['toxicspikes'];
