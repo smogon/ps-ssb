@@ -1594,8 +1594,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.damage(source.baseMaxhp / 8, source, target);
 			}
 			if (this.checkMoveMakesContact(move, source, target) && this.randomChance(3, 10)) {
-					source.trySetStatus('brn', target);
-				}
+				source.trySetStatus('brn', target);
 			}
 		},
 		onResidual(target, source, effect) {
