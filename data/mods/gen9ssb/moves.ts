@@ -214,7 +214,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Ground",
-  },
+	},
 
 	// Appletun a la Mode
 	extracourse: {
