@@ -1601,7 +1601,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.heal(target.baseMaxhp / 8);
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-				this.add(`c:|${getName('Elliot')}|Get Bovriled`);
+			this.add(`c:|${getName('Elliot')}|Get Bovriled`);
 		},
 	},
 	boiled: {
