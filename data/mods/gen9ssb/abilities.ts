@@ -35,7 +35,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Akir
 	takeitslow: {
-		shortDesc: "Regenerator + Psychic Surge",
+		shortDesc: "Regenerator + Psychic Surge.",
 		name: "Take it Slow",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
