@@ -3119,19 +3119,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Techno Blast", target);
 		},
 		onModifyMove(move, pokemon, target) {
-			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
-			move.ignoreAbility = true;
-			move.ignoreImmunity = true;
-			move.ignoreDefensive = true;
-			move.ignoreNegativeOffensive = true;
-			move.breaksProtect = true;
-			move.ignoreAccuracy = true;
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+				move.category = 'Physical';
+			}
 		},
 		onModifyType(move, pokemon) {
 			if (pokemon.species.baseSpecies === 'Meloetta' && pokemon.terastallized) {
 				move.type = 'Stellar';
 			}
 		},
+		ignoreAbility: true,
+		ignoreImmunity: true,
+		ignoreDefensive: true,
+		ignoreNegativeOffensive: true,
+		breaksProtect: true,
+		ignoreAccuracy: true,
 		secondary: null,
 		target: "normal",
 		type: "Normal",
