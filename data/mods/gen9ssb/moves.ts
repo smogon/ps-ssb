@@ -888,35 +888,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			pokemon.cureStatus();
 			let newMove = "";
 			let backupMove = "";
-			if (this.randomChance(4, 8)) { // get boiled
+			if (this.randomChance(7, 8)) { // get boiled
 				pokemon.removeVolatile('beefed');
 				pokemon.addVolatile('boiled');
-				pokemon.addType('Water');
 				pokemon.setAbility("Speed Boost");
-				newMove = "steameruption";
-				this.add('-end', pokemon, 'move: Beefed');
-				this.add('-start', pokemon, 'move: Boiled');
-				this.add('-start', pokemon, 'typeadd', 'Water', '[from] move: Tea Party');
-				backupMove = "bodypress";
-				this.add(`c:|${getName('Elliot')}|Just tea, thank you`);
+				newMove = 'steameruption';
+				backupMove = 'bodypress';
+				if (!pokemon.hasType('Water') && pokemon.addType('Water')) {
+					this.add('-start', pokemon, 'typeadd', 'Water', '[from] move: Tea Party');
+				}
+				this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|Just tea, thank you`);
 			} else { // get beefed
 				pokemon.removeVolatile('boiled');
 				pokemon.addVolatile('beefed');
-				pokemon.addType('Fighting');
 				pokemon.setAbility("Stamina");
-				newMove = "bodypress";
-				this.add('-end', pokemon, 'move: Boiled');
-				this.add('-start', pokemon, 'move: Beefed');
-				this.add('-start', pokemon, 'typeadd', 'Fighting', '[from] move: Tea Party');
-				backupMove = "steameruption";
-				this.add(`c:|${getName('Elliot')}|BOVRIL TIME`);
+				newMove = 'bodypress';
+				backupMove = 'steameruption';
+				if (!pokemon.hasType('Fighting') && pokemon.addType('Fighting')) {
+					this.add('-start', pokemon, 'typeadd', 'Fighting', '[from] move: Tea Party');
+				}
+				this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|BOVRIL TIME`);
 			}
 			// -start for beefed and boiled is not necessary, i put it in there for an indicator
 			// as to what form sinistea is currently using. backupMove also eases the form switch
 			let teaIndex = pokemon.moves.indexOf('teatime');
-			const replacer = this.dex.moves.all().filter(move2 => (
-				move2.id === newMove
-			));
+			const replacement = this.dex.moves.get(newMove);
 			if (teaIndex < 0) {
 				if (pokemon.moves.includes(backupMove)) {
 					teaIndex = pokemon.moves.indexOf(backupMove);
@@ -924,16 +920,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					return;
 				}
 			}
-			const sketchedMove = {
+			const newMove = {
 				move: replacer[0].name,
-				id: replacer[0].id,
-				pp: replacer[0].pp,
-				maxpp: replacer[0].pp,
-				target: replacer[0].target,
+				id: replacement.id,
+				pp: replacement.pp,
+				maxpp: replacement.pp,
+				target: replacement.target,
 				disabled: false,
 				used: false,
 			};
-			pokemon.moveSlots[teaIndex] = sketchedMove;
+			pokemon.moveSlots[teaIndex] = newMove;
 		},
 		secondary: null,
 		target: 'self',

@@ -367,11 +367,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.add(`c:|${getName('Elliot')}|We've ran out of teabags :(`);
 			}
 		},
-		onSourceAfterFaint(length, target, source, effect) {
-			if (target.getVolatile('beefed')) {
-				this.add(`c:|${getName('Elliot')}|Get Bovriled`);
-			}
-		},
 	},
 	elly: {
 		noCopy: true,
@@ -1605,6 +1600,9 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onResidual(target, source, effect) {
 			this.heal(target.baseMaxhp / 8);
+		},
+		onSourceAfterFaint(length, target, source, effect) {
+				this.add(`c:|${getName('Elliot')}|Get Bovriled`);
 		},
 	},
 	boiled: {
