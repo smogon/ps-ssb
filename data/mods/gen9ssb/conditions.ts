@@ -1614,8 +1614,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onModifyAtkPriority: 5,
 		onModifySpA(relayVar, source, target, move) {
-				return this.chainModify(1.5);
-			}
+			return this.chainModify(1.5);
 		},
 		onModifyMovePriority: -1,
 		onModifyMove(move, pokemon, target) {
