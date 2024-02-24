@@ -92,18 +92,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onPrepareHit(source, target, move) {
-			if (this.effectState.protean === 1) return;
 			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
 			const type = move.type;
 			if (type && type !== '???' && source.getTypes().join() !== type) {
 				if (!source.setType(type)) return;
 				this.add('-start', source, 'typechange', type, '[from] ability: Confirmed Town');
 			}
-			this.effectState.protean = 1;
-		},
-		onResidual() {
-			this.effectState.protean = 0;
-			// copy pasted gen 8 protean does not play nice with their custom move
 		},
 		flags: {},
 	},

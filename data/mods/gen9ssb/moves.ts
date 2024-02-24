@@ -158,23 +158,24 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(target, source, m) {
+		onPrepareHit(target, source, move) {
 			const nresTypes = [];
 			for (const i of this.dex.types.names()) {
+				if (i === "Stellar") continue;
 				if (target) {
 					const effect = this.dex.getEffectiveness(i, target.types);
 					const immune = this.dex.getImmunity(i, target.types);
-					if (effect >= 0 && immune && i !== "Stellar") {
+					if (effect >= 0 && immune) {
 						nresTypes.push(i);
 					}
 				}
 			}
-			if (nresTypes.length <= 0) return;
+			if (!nresTypes.length) return;
 			const netType = this.sample(nresTypes);
-			const moves = this.dex.moves.all().filter(move => (
-				(![2, 4].includes(this.gen) || !source.moves.includes(move.id)) &&
-				(!move.isNonstandard || move.isNonstandard === 'Unobtainable') &&
-				move.flags['metronome'] && move.type === netType && move.category !== "Status"
+			const moves = this.dex.moves.all().filter(m => (
+				(![2, 4].includes(this.gen) || !source.moves.includes(m.id)) &&
+				(!m.isNonstandard || m.isNonstandard === 'Unobtainable') &&
+				m.flags['metronome'] && m.type === netType && m.category !== "Status"
 			));
 			let randomMove = '';
 			if (moves.length) {
