@@ -2749,11 +2749,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source, move) {
-			let netType = 'Stellar';
-			while (netType === "Stellar") {
-				netType = this.sample(this.dex.types.names());
-			}
-			move.type = netType;
+			move.type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			this.add('-anim', source, 'Nasty Plot', source);
 			this.add('-anim', source, 'Head Smash', target);
 		},
