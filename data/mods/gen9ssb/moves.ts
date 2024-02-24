@@ -1722,6 +1722,28 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	// Lets go shuckles
+	shucklepower: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		pseudoWeather: 'trickroom',
+		volatileStatus: 'powertrick',
+		shortDesc: "Trick Room + Power Trick.",
+		name: "Shuckle Power",
+		pp: 5,
+		priority: -6,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Power Trick', source);
+		},
+		target: "self",
+		type: "Psychic",
+	},
+
 	// Lily
 	recharge: {
 		accuracy: true,
