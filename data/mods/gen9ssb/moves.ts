@@ -521,7 +521,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			spa: 2,
 			spe: 1,
 		},
-		secondary: null,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
