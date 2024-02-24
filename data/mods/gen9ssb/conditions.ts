@@ -355,6 +355,65 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('deftinwolf')}|Death is only the beginning.`);
 		},
 	},
+	elliot: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Elliot')}|Anyone fancy a brew?`);
+		},
+		onFaint(pokemon) {
+			if (pokemon.getVolatile('boiled')) {
+				this.add(`c:|${getName('Elliot')}|Also try Vimbos!`);
+			} else {
+				this.add(`c:|${getName('Elliot')}|We've ran out of teabags :(`);
+			}
+		},
+		onSourceAfterFaint(length, target, source, effect) {
+			if (target.getVolatile('beefed')) {
+				this.add(`c:|${getName('Elliot')}|Get Bovriled`);
+			}
+		},
+
+		// innates to deal with form changes
+		onModifyAtkPriority: 5,
+		onModifySpA(relayVar, source, target, move) {
+			if (source.getVolatile('boiled')) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifyMovePriority: -1,
+		onModifyMove(move, pokemon, target) {
+			if (!target) return;
+			if (pokemon.getVolatile('boiled') ||
+			(pokemon.getVolatile('beefed') && this.checkMoveMakesContact(move, pokemon, target))) {
+				if (move.category !== "Status") {
+					if (!move.secondaries) move.secondaries = [];
+					move.secondaries.push({
+						chance: 30,
+						status: 'brn',
+					});
+				}
+			}
+		},
+		onDamagingHitOrder: 1,
+		onDamagingHit(damage, target, source, move) {
+			if (target.getVolatile('beefed')) {
+				if (this.checkMoveMakesContact(move, source, target, true)) {
+					this.damage(source.baseMaxhp / 8, source, target);
+				}
+				if (this.checkMoveMakesContact(move, source, target)) {
+					if (this.randomChance(3, 10)) {
+						source.trySetStatus('brn', target);
+					}
+				}
+			}
+		},
+		onResidual(target, source, effect) {
+			if (target.getVolatile('beefed')) {
+				this.heal(target.baseMaxhp / 8);
+			}
+		},
+		innateName: "Tea",
+	},
 	elly: {
 		noCopy: true,
 		onStart() {
