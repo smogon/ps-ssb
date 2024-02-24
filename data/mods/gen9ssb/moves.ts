@@ -460,7 +460,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 90,
 		category: "Special",
-		shortDesc: "Raises Defense by 1 stage if Protosynthesis is active.",
+		shortDesc: "+1 Defense if Protosynthesis is active.",
 		name: "Season's Smite",
 		gen: 9,
 		pp: 10,
@@ -472,10 +472,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', target, 'Morning Sun', target);
 		},
-		self: {
+		secondary: {
+			chance: 100,
 			onHit(target, source, move) {
 				if (source.volatiles['protosynthesis']) {
-					this.boost({def: 1});
+					this.boost({def: 1}, source, source, move);
 				}
 			},
 		},
