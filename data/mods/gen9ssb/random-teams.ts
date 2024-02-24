@@ -105,7 +105,7 @@ export const ssbSets: SSBSets = {
 	AuzBat: {
 		species: 'Swoobat', ability: 'Magic Guard', item: 'Focus Sash', gender: 'M',
 		moves: ['Stored Power', 'Hurricane', ['Roost', 'Focus Blast']],
-		signatureMove: "Prep Time",
+		signatureMove: 'Prep Time',
 		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Psychic', shiny: 8192,
 	},
 	berry: {
