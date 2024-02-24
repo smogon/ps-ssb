@@ -1694,7 +1694,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// xy01
 	panic: {
-		shortDesc: "Lowers the opponent’s Atk and Sp. Atk by 1 upon switch-in.",
+		shortDesc: "Lowers the opponent's Atk and Sp. Atk by 1 upon switch-in.",
 		name: "Panic",
 		onStart(pokemon) {
 			let activated = false;
