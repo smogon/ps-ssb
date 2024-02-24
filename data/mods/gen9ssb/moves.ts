@@ -455,6 +455,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	// autumn
+	seasonssmite: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "Raises Defense by 1 stage if Protosynthesis is active.",
+		name: "Season's Smite",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', target, 'Morning Sun', target);
+		},
+		self: {
+			onHit(target, source, move) {
+				if (source.volatiles['protosynthesis']) {
+					this.boost({def: 1});
+				}
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+	},
+
 	// berry
 	whatkind: {
 		accuracy: true,
