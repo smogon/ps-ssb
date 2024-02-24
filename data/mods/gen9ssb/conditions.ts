@@ -576,6 +576,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		innateName: "Tinted Lens",
 		shortDesc: "Resisted moves hit with double power.",
 		onModifyDamage(damage, source, target, move) {
+			if (!source || source.illusion) return;
 			if (target.getMoveHitData(move).typeMod < 0) {
 				this.debug('Tinted Lens boost');
 				return this.chainModify(2);
