@@ -1488,9 +1488,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(2);
 			}
-    },
-    flags: {},
-  },
+		},
+		flags: {},
+	},
 
 	// Sulo
 	protectionofthegelatin: {
