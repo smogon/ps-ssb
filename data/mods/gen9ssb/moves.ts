@@ -2361,7 +2361,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		shortDesc: "Type depends on form. Switches form.",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, failcopycat: 1},
+		noSketch: true,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
