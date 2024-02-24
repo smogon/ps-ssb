@@ -1179,6 +1179,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('spoo')}|dies`);
 		},
 	},
+	struchni: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Struchni')}|~tt newgame`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Struchni')}|~tt endgame`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Struchni')}|**selfveto**`);
+		},
+	},
 	sulo: {
 		noCopy: true,
 		onStart() {

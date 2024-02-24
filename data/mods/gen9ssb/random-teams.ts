@@ -495,6 +495,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'spoo',
 		evs: {hp: 252, spa: 252, spd: 4}, nature: 'Modest', teraType: 'Fire', skip: 'spoo',
 	},
+	Struchni: {
+		species: 'Aggron', ability: 'Overasked Clause', item: 'Leftovers', gender: 'M',
+		moves: ['Protect', 'Encore', 'U-Turn'],
+		signatureMove: '~randfact',
+		evs: {hp: 252, def: 16, spd: 240}, nature: 'Careful', teraType: 'Steel',
+	},
 	Sulo: {
 		species: 'Reuniclus', ability: 'Protection of the Gelatin', item: 'Life Orb', gender: 'M',
 		moves: ['Calm Mind', 'Draining Kiss', 'Stored Power'],
