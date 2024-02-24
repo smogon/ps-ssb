@@ -297,6 +297,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "I Did It Again"},
 	},
 
+	// Pissog
+	volcarona: {
+		inherit: true,
+		abilities: {0: "Drought"},
+	},
+	frosmoth: {
+		inherit: true,
+		abilities: {0: "Snow Warning"},
+	},
+
 	// PYRO
 	kingambit: {
 		inherit: true,
@@ -344,6 +354,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ampharosmega: {
 		inherit: true,
 		abilities: {0: "Magical Mystery Charge"},
+	},
+
+	// skies
+	chespin: {
+		inherit: true,
+		baseStats: {hp: 88, atk: 117, def: 122, spa: 74, spd: 85, spe: 84},
+		abilities: {0: "Spikes of Wrath"},
 	},
 
 	// spoo

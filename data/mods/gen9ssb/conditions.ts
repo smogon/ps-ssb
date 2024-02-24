@@ -80,6 +80,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Alexander489')}|kek`);
 		},
 	},
+	alpha: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Alpha')}|mhlelo`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Alpha')}|VA BENE LO STESSO`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Alpha')}|aight i'll quit`);
+		},
+	},
 	appletunalamode: {
 		noCopy: true,
 		onStart() {
@@ -565,6 +577,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('J0rdy004 ♫')}|So softly a supergod dies...`);
 		},
 	},
+	kalalokki: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Kalalokki')}|FLAMIGOOOO!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Kalalokki')}|Flamigoooo...`);
+		},
+		innateName: "Tinted Lens",
+		shortDesc: "Resisted moves hit with double power.",
+		onModifyDamage(damage, source, target, move) {
+			if (!source || source.illusion) return;
+			if (target.getMoveHitData(move).typeMod < 0) {
+				this.debug('Tinted Lens boost');
+				return this.chainModify(2);
+			}
+		},
+	},
 	karthik: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -677,6 +707,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kiwi')}|Too late, the manifestation has completed. You'll be reduced to a fillet one day unexpectedly...`);
 		},
 	},
+	klmondo: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Klmondo')}|Gm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Klmondo')}|I need a snack`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Klmondo')}|It's Klmondover`);
+		},
+	},
 	kris: {
 		noCopy: true,
 		onStart() {
@@ -711,6 +753,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Lasen')}|I'm out and NOT about...`);
+		},
+	},
+	letsgoshuckles: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Lets go shuckles')}|Behold the magnificence of Shuckle.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lets go shuckles')}|Wise men don't fight battles they cannot win.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lets go shuckles')}|He who lives by the Shuckle shall die by the Shuckle.`);
 		},
 	},
 	lily: {
@@ -1008,6 +1062,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('phoopes')}|Jynx! Knock on wood`);
 		},
 	},
+	pissog: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Pissog')}|Hi I'm Pissog ^^`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Pissog')}|^^ gossiP m'I iH`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Pissog')}|Yes, there are two paths you can go by, but in the long run`);
+		},
+	},
 	ptoad: {
 		noCopy: true,
 		onStart() {
@@ -1155,6 +1221,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Siegfried')}|Living is easy with eyes closed.`);
 		},
 	},
+	skies: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('skies')}|the baddest in the room, so tell em to make room... `);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('skies')}|u thought i was feelin u?`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('skies')}|what did i do? like?`);
+		},
+	},
 	snake: {
 		noCopy: true,
 		onStart() {
@@ -1165,6 +1243,15 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('snake')}|CAP does not accept personal creations. This refers to any idea for a Pokemon that already has predefined typing, stats, abilities, movepool, name, art, pokedex entries, weight, height, or even generic themes such as "rabbit" or "angry". These facets of a Pokemon are all decided through community discussion in CAP during the CAP process. If you think you have an idea for a Pokemon that does not define these features, you may have a concept. CAP bases our Pokemon around concepts that look to explore the mechanics behind Pokemon and we take open submissions whenever we start a new project. Examples of past concepts include Perfect Sketch User, Momentum, Trapping mechanics, delayed move user, and weather enabler.`);
+		},
+	},
+	solaroslunaris: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Solaros & Lunaris')}|Get a taste of this!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Solaros & Lunaris')}|Too hot to handle!`);
 		},
 	},
 	spoouser: {
@@ -1227,6 +1314,25 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('Teclis')}|This was my last dance.`);
 		},
+	},
+	tico: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Tico')}|oie`);
+			if (pokemon.illusion) return;
+			this.add('-ability', pokemon, 'Mold Breaker');
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Tico')}|t+`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Tico')}|It's been 3,000 years…`);
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.illusion) return;
+			move.ignoreAbility = true;
+		},
+		innateName: "Mold Breaker",
 	},
 	theia: {
 		noCopy: true,
@@ -1363,6 +1469,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('umowu ✮彡')}|Tell.. My wife... She STINKS!!`);
+		},
+	},
+	valerian: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|Lucario’s shiny should’ve been red.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|As a wise man once said, “I’ll be back”.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|My name is based on a flower, NOT the movie!`);
 		},
 	},
 	venous: {
