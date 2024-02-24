@@ -2358,7 +2358,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 100,
 		category: "Special",
 		name: "A Song of Ice and Fire",
-		shortDesc: "Type: Frosmoth -> Fire, Volcarona -> Ice. Switches form to the other Pokemon.",
+		shortDesc: "Type depends on form. Switches form.",
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
