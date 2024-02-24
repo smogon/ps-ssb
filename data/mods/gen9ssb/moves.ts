@@ -920,7 +920,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					return;
 				}
 			}
-			const newMove = {
+			const newMoveSlot = {
 				move: replacer[0].name,
 				id: replacement.id,
 				pp: replacement.pp,
@@ -929,7 +929,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				disabled: false,
 				used: false,
 			};
-			pokemon.moveSlots[teaIndex] = newMove;
+			pokemon.moveSlots[teaIndex] = newMoveSlot;
 		},
 		secondary: null,
 		target: 'self',
