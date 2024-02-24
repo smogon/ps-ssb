@@ -90,8 +90,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Alpha')}|aight i'll quit`);
-    }
-  },
+		},
+	},
 	appletunalamode: {
 		noCopy: true,
 		onStart() {
