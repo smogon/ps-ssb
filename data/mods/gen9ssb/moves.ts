@@ -2865,7 +2865,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 25,
 		category: "Physical",
 		name: "First Strike",
-		shortDesc: "First turn only. 100% flinch. Boosts Atk based on effectiveness.",
+		shortDesc: "Turn 1: 100% flinch. +1 NVE, +2 NE, +3 SE Atk.",
 		pp: 15,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
@@ -2882,14 +2882,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
-			let boost;
+			let boost = 2;
 			const typeMod = target.getMoveHitData(move).typeMod;
 			if (typeMod > 0) {
 				boost = 3;
 			} else if (typeMod < 0) {
 				boost = 1;
-			} else {
-				boost = 2;
 			}
 			this.boost({atk: boost}, pokemon, pokemon, move);
 		},

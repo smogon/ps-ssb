@@ -1532,8 +1532,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	fullbloom: {
 		shortDesc: "This Pokémon's priority moves have double power.",
 		name: "Full Bloom",
+		onBasePowerPriority: 30,
 		onBasePower(basePower, pokemon, target, move) {
-			if (move.priority > 0) this.chainModify(2);
+			if (move.priority > 0) {
+				return this.chainModify(2);
+			}
 		},
 	},
 
