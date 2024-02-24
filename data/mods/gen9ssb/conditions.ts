@@ -229,6 +229,12 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Akir')}|oh woops`);
 		},
 	},
+	autumn: {
+		noCopy: true,
+		onFaint() {
+			this.add(`c:|${getName('autumn')}|lost ggs`);
+		},
+	},
 	auzbat: {
 		noCopy: true,
 		onStart(pokemon) {
