@@ -1727,8 +1727,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		pseudoWeather: 'trickroom',
-		volatileStatus: 'powertrick',
 		shortDesc: "Trick Room + Power Trick.",
 		name: "Shuckle Power",
 		pp: 5,
@@ -1740,6 +1738,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Power Trick', source);
 		},
+		pseudoWeather: 'trickroom',
+		volatileStatus: 'powertrick',
+		secondary: null,
 		target: "self",
 		type: "Psychic",
 	},
