@@ -68,6 +68,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Alex')}|:3`);
 		},
 	},
+	alexander489: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Alexander489')}|gm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Alexander489')}|gn`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Alexander489')}|kek`);
+		},
+	},
 	alpha: {
 		noCopy: true,
 		onStart() {
@@ -78,8 +90,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Alpha')}|aight i'll quit`);
-		},
-	},
+    }
+  },
 	appletunalamode: {
 		noCopy: true,
 		onStart() {
@@ -307,6 +319,17 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Coolcodename')}|mb LOL`);
 		},
 	},
+	corthius: {
+		onStart(pokemon) {
+			this.add(`c:|${getName('Corthius')}|*exessively drums on its chest*`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Corthius')}|I left my oven on, brb.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Corthius')}|Maurice, I can't "move it move it" anymore.`);
+		},
+	},
 	dawnofartemis: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -366,6 +389,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint(pokemon) {
 			this.add(`c:|${getName('Emboar02')}|Too much recoil D:`);
+		},
+	},
+	fame: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Fame')}|:hi:`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Fame')}|:bye:`);
+		},
+		onFaint(pokemon) {
+			this.add(`c:|${getName('Fame')}|NOOOOOOOOOOOO! I'M A STAR! PLEASE, IM A STAR!`);
 		},
 	},
 	frozoid: {
@@ -541,6 +576,21 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('J0rdy004 ♫')}|So softly a supergod dies...`);
 		},
+	},
+	karthik: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Karthik')}|>>> const staraptor = battle.player('${pokemon.side.name}').active[0]`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('Karthik')}|>>> staraptor.heal(staraptor.baseMaxhp / 3)`);
+			if (!pokemon.illusion) pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Karthik')}|>>> staraptor.faint()`);
+		},
+		innateName: "Regenerator",
+		shortDesc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out.",
 	},
 	kenn: {
 		noCopy: true,
@@ -1013,6 +1063,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Quite Quiet')}|hm`);
+		},
+	},
+	ransei: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Ransei')}|Heyo, I'm hosting a program known as Pokémon Lore Tutoring this generation and I was wondering if any of you guys would be interested in tutoring. Every generation of Pokémon lore is available for tutoring, however we are in need of tutors to start off with. If you are interested let me know. Oh yeah I'm also hosting a program known as OM Tutoring.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Ransei')}|A perfect world of Pokémon has everything balanced, whether it's truth and ideals, life and death, time and space, or the organisms of nature and the organisms of whom were genetically engineered. All Pokémon are welcomed as long as they help maintain this balance. Remember this. It's what Arceus always wanted.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Ransei')}|Well, at least I tried. ripsei.`);
 		},
 	},
 	returntomonkey: {

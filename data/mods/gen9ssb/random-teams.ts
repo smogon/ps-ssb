@@ -25,7 +25,7 @@ export const ssbSets: SSBSets = {
 		species: 'Species', ability: 'Ability', item: 'Item', gender: '',
 		moves: ['Move Name', ['Move Name', 'Move Name']],
 		signatureMove: 'Move Name',
-		evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', teraType: 'Type', level: 100, shiny: false,
+		evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', teraType: 'Type',
 	},
 	// Species, ability, and item need to be captialized properly ex: Ludicolo, Swift Swim, Life Orb
 	// Gender can be M, F, N, or left as an empty string
@@ -54,12 +54,18 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Spicier Extract',
 		evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful', teraType: 'Water',
 	},
-	Alpha: {
+	Alexander489: {
+		species: 'Charizard', ability: 'Confirmed Town', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['No Retreat', 'Bitter Blade', 'Dual Wingbeat'],
+		signatureMove: 'Scumhunt',
+		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Naughty', teraType: 'Fire', shiny: true,
+	},
+  Alpha: {
 		species: 'Ting-Lu', ability: 'Vessel of Ruin', item: 'Leftovers', gender: 'M',
 		moves: ['Stealth Rock', 'Spikes', 'Whirlwind'],
 		signatureMove: 'Vessel of CAIO',
 		evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful', teraType: 'Fairy',
-	},
+  },
 	'Appletun a la Mode': {
 		species: 'Appletun', ability: 'Served Cold', item: 'Sitrus Berry', gender: 'F',
 		moves: ['Freeze-Dry', 'Apple Acid', 'Fickle Beam'],
@@ -94,7 +100,7 @@ export const ssbSets: SSBSets = {
 		species: 'Flygon', ability: 'Tinted Lens', item: 'Flygonite', gender: 'F',
 		moves: ['Clanging Scales', 'Roost', 'Bug Buzz'],
 		signatureMove: 'Anyone can be killed',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', shiny: false,
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
 	Artemis: {
 		species: 'Genesect', ability: 'Supervised Learning', item: 'Choice Specs', gender: 'N',
@@ -127,6 +133,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Shawn',
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Impish', teraType: 'Ghost', shiny: 957,
 	},
+	chaos: {
+		species: 'Iron Jugulis', ability: 'Transistor', item: 'Heavy-Duty Boots', gender: 'N',
+		moves: [['Oblivion Wing', 'Hurricane'], ['Thunderclap', 'Volt Switch'], ['Defog', 'Roost']],
+		signatureMove: 'Outage',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', teraType: ['Steel', 'Flying', 'Electric', 'Dark'],
+	},
 	Chloe: {
 		species: 'Tsareena', ability: 'Acetosa', item: 'Assault Vest', gender: 'F',
 		moves: ['Rapid Spin', 'Fishious Rend', 'Stone Axe'],
@@ -150,6 +162,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Wish', 'Rest', 'Play Rough'],
 		signatureMove: 'Baker\'s Douze Off',
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Impish', teraType: 'Fairy',
+	},
+	Corthius: {
+		species: 'Thwackey', ability: 'Grassy Emperor', item: 'Eviolite', gender: 'M',
+		moves: ['Swords Dance', 'U-turn', 'Close Combat'],
+		signatureMove: 'Monkey Beat Up',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant', shiny: 69,
 	},
 	'Dawn of Artemis': {
 		species: 'Necrozma', ability: 'Form Change', item: 'Expert Belt', gender: 'F',
@@ -187,6 +205,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Insert boar pun here',
 		// eslint-disable-next-line max-len
 		evs: {hp: 252, atk: 252, def: 4}, nature: 'Adamant', teraType: ['Fire', 'Water', 'Fighting', 'Electric'], shiny: 50 / 49,
+	},
+	Fame: {
+		species: 'Jumpluff', ability: 'Social Jumpluff Warrior', item: 'Leftovers', gender: 'F',
+		moves: ['Air Slash', 'Thunder Wave', 'Toxic'],
+		signatureMove: 'Solidarity',
+		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Fire',
 	},
 	Frozoid: {
 		species: 'Gible', ability: 'Snowballer', item: 'Eviolite', gender: 'M',
@@ -259,6 +283,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Blizzard', 'Focus Blast', 'Recover'],
 		signatureMove: 'Snowy Samba',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid', shiny: 4,
+	},
+	Karthik: {
+		species: 'Staraptor', ability: 'Tough Claws', item: 'Choice Scarf', gender: 'M',
+		moves: ['Brave Bird', 'Head Smash', ['Flare Blitz', 'Wave Crash']],
+		signatureMove: 'Salvaged Sacrifice',
+		evs: {hp: 252, atk: 4, spe: 252}, nature: 'Adamant', teraType: 'Flying',
 	},
 	kenn: {
 		species: 'Larvitar', ability: 'Deserted Dunes', item: 'Eviolite', gender: 'M',
@@ -411,6 +441,12 @@ export const ssbSets: SSBSets = {
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Flying',
 		// The nature not being Quiet is a crime
 	},
+	Ransei: {
+		species: 'Audino-Mega', ability: 'Ultra Mystik', item: 'Safety Goggles', gender: 'M',
+		moves: ['Psystrike', 'Transform', 'Light of Ruin'],
+		signatureMove: 'Flood of Lore',
+		evs: {hp: 252, def: 4, spa: 252}, ivs: {atk: 0, spe: 0}, nature: 'Modest', shiny: 2,
+	},
 	ReturnToMonkey: {
 		species: 'Oranguru', ability: 'Monke See Monke Do', item: 'Twisted Spoon', gender: 'M',
 		moves: ['Hyper Voice', 'Psyshock', 'Focus Blast'],
@@ -546,7 +582,7 @@ export const ssbSets: SSBSets = {
 		species: 'Wailord', ability: 'Primordial Sea', item: 'Assault Vest', gender: 'M',
 		moves: ['Water Spout', 'Hurricane', 'Thunder'],
 		signatureMove: 'Torrential Drain',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest', ivs: {atk: 0}, teraType: 'Water', shiny: false,
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest', ivs: {atk: 0}, teraType: 'Water',
 	},
 	WigglyTree: {
 		species: 'Sudowoodo', ability: 'Tree Stance', item: 'Liechi Berry', gender: 'M',
@@ -570,13 +606,25 @@ export const ssbSets: SSBSets = {
 		species: 'Farigiraf', ability: 'Height Advantage', item: 'Leftovers', gender: 'M',
 		moves: ['Freezing Glare', 'Ice Beam', 'Slack Off'],
 		signatureMove: 'High Ground',
-		evs: {hp: 248, spa: 252, spe: 8}, nature: 'Modest', teraType: 'Ground', shiny: false,
+		evs: {hp: 248, spa: 252, spe: 8}, nature: 'Modest', teraType: 'Ground',
 	},
 	Zalm: {
 		species: 'Weedle', ability: 'Water Bubble', item: 'Clear Amulet', gender: '',
 		moves: ['Surging Strikes', 'Attack Order', 'Dire Claw'],
 		signatureMove: 'Dud ur a fish',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant', teraType: 'Water',
+	},
+	Zarel: {
+		species: 'Meloetta', ability: 'Tempo Change', item: 'Leftovers', gender: 'M',
+		moves: ['Psystrike', 'Armor Cannon', 'Obstruct'],
+		signatureMove: '@ts-ignore',
+		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Stellar',
+	},
+	'Zarel-Pirouette': {
+		species: 'Meloetta-Pirouette', ability: 'Tempo Change', item: 'Leftovers', gender: 'M',
+		moves: ['Close Combat', 'Knock Off', 'Silk Trap'],
+		signatureMove: '@ts-ignore',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Stellar', skip: 'Zarel',
 	},
 	zee: {
 		species: 'Lilligant-Hisui', ability: 'Chlorophyll', item: 'Heat Rock', gender: 'F',

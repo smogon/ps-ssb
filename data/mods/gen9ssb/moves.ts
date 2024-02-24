@@ -145,6 +145,54 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Alexander489
+	scumhunt: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Uses a random damaging, non-resisted move.",
+		name: "Scumhunt",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source, move) {
+			const nresTypes = [];
+			for (const i of this.dex.types.names()) {
+				if (i === "Stellar") continue;
+				if (target) {
+					const effect = this.dex.getEffectiveness(i, target.types);
+					const immune = this.dex.getImmunity(i, target.types);
+					if (effect >= 0 && immune) {
+						nresTypes.push(i);
+					}
+				}
+			}
+			if (!nresTypes.length) return;
+			const netType = this.sample(nresTypes);
+			const moves = this.dex.moves.all().filter(m => (
+				(![2, 4].includes(this.gen) || !source.moves.includes(m.id)) &&
+				(!m.isNonstandard || m.isNonstandard === 'Unobtainable') &&
+				m.flags['metronome'] && m.type === netType && m.category !== "Status"
+			));
+			let randomMove = '';
+			if (moves.length) {
+				moves.sort((a, b) => a.num - b.num);
+				randomMove = this.sample(moves).id;
+			}
+			if (!randomMove) return false;
+			source.side.lastSelectedMove = this.toID(randomMove);
+			this.add('-anim', source, 'Spite', target);
+			this.add('-anim', source, 'Grudge', target);
+			this.add('-anim', source, 'Metronome', source);
+			this.actions.useMove(randomMove, source);
+		},
+		target: "normal",
+		type: "???",
+	},
+
 	// Alpha
 	vesselofcaio: {
 		accuracy: 100,
@@ -166,7 +214,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Ground",
-	},
+  },
 
 	// Appletun a la Mode
 	extracourse: {
@@ -540,6 +588,43 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Bird",
 	},
 
+	// chaos
+	outage: {
+		accuracy: 95,
+		basePower: 110,
+		category: "Special",
+		shortDesc: "Clear Smog + Taunt + Embargo.",
+		name: "Outage",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dark Pulse', target);
+		},
+		secondaries: [
+			{
+				chance: 100,
+				volatileStatus: 'taunt',
+			}, {
+				chance: 100,
+				volatileStatus: 'embargo',
+			},
+			{
+				chance: 100,
+				onHit(target) {
+					target.clearBoosts();
+					this.add('-clearboost', target);
+				},
+			},
+		],
+		target: "normal",
+		type: "Dark",
+	},
+
 	// Chloe
 	detodaslasflores: {
 		accuracy: 90,
@@ -628,6 +713,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		target: "self",
 		type: "Normal",
+	},
+
+	// Corthius
+	monkeybeatup: {
+		accuracy: 100,
+		basePower: 20,
+		category: "Physical",
+		shortDesc: "Hits 4-5 times. +1 priority under Grassy Terrain.",
+		name: "Monkey Beat Up",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		multihit: [4, 5],
+		flags: {protect: 1, contact: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Beat Up', target);
+			this.add('-anim', source, 'Wood Hammer', target);
+		},
+		onModifyPriority(priority, source, target, move) {
+			if (this.field.isTerrain('grassyterrain') && source.isGrounded()) {
+				return priority + 1;
+			}
+		},
+		target: "normal",
+		type: "Grass",
 	},
 
 	// Dawn of Artemis
@@ -819,6 +932,42 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: 'normal',
 		type: "Fighting",
+	},
+
+	// Fame
+	solidarity: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Creates a substitute and inflicts Leech Seed on the foe.",
+		name: "Solidarity",
+		pp: 15,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Substitute');
+			this.add('-anim', source, 'Leech Seed', target);
+		},
+		onHit(target, source) {
+			if (target.hasType('Grass')) return null;
+			target.addVolatile('leechseed', source);
+		},
+		self: {
+			onHit(target, source) {
+				if (source.hp <= source.maxhp / 4 || source.maxhp === 1) { // Shedinja clause
+					this.add('-fail', source, 'move: Substitute', '[weak]');
+				} else {
+					source.addVolatile('substitute');
+					this.directDamage(source.maxhp / 4);
+				}
+			},
+		},
+		secondary: null,
+		target: 'normal',
+		type: "Grass",
 	},
 
 	// Frozoid
@@ -1227,6 +1376,33 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Ice",
+	},
+
+	// Karthik
+	salvagedsacrifice: {
+		accuracy: 100,
+		basePower: 0,
+		damageCallback(pokemon) {
+			this.add('-anim', pokemon, 'Roost', pokemon);
+			this.heal(this.modify(pokemon.maxhp, 0.25), pokemon, pokemon, this.dex.getActiveMove('Salvaged Sacrifice'));
+			const damage = pokemon.hp;
+			this.add('-anim', pokemon, 'Final Gambit', this.activeTarget);
+			pokemon.faint();
+			return damage;
+		},
+		selfdestruct: "ifHit",
+		category: "Physical",
+		name: "Salvaged Sacrifice",
+		shortDesc: "Heals 25% HP, then uses Final Gambit.",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, metronome: 1, noparentalbond: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
 	},
 
 	// kenn
@@ -2307,6 +2483,28 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Ransei
+	floodoflore: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		name: "Flood of Lore",
+		shortDesc: "Sets Psychic Terrain.",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1},
+		terrain: 'psychicterrain',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Photon Geyser', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
+
 	// ReturnToMonkey
 	monkemagic: {
 		accuracy: true,
@@ -3158,6 +3356,45 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Water",
+	},
+
+	// Zarel
+	tsignore: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		shortDesc: "Bypasses everything. Uses Higher Atk. ",
+		name: "@ts-ignore",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Conversion", source);
+			this.add('-anim', source, "Techno Blast", target);
+		},
+		onModifyMove(move, pokemon, target) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+				move.category = 'Physical';
+			}
+		},
+		onModifyType(move, pokemon) {
+			if (pokemon.species.baseSpecies === 'Meloetta' && pokemon.terastallized) {
+				move.type = 'Stellar';
+			}
+		},
+		ignoreAbility: true,
+		ignoreImmunity: true,
+		ignoreDefensive: true,
+		ignoreNegativeOffensive: true,
+		breaksProtect: true,
+		ignoreAccuracy: true,
+		secondary: null,
+		target: "normal",
+		type: "Normal",
 	},
 
 	// zee

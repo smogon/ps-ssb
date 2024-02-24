@@ -78,6 +78,30 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
+	// Alexander489
+	confirmedtown: {
+		shortDesc: "Technician + Protean.",
+		name: "Confirmed Town",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, attacker, defender, move) {
+			const basePowerAfterMultiplier = this.modify(basePower, this.event.modifier);
+			this.debug('Base Power: ' + basePowerAfterMultiplier);
+			if (basePowerAfterMultiplier <= 60) {
+				this.debug('Confirmed Town boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] ability: Confirmed Town');
+			}
+		},
+		flags: {},
+	},
+
 	// Appletun a la Mode
 	servedcold: {
 		shortDesc: "This Pokemon's Defense is raised 2 stages if hit by an Ice move; Ice immunity.",
@@ -388,6 +412,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Corthius
+	grassyemperor: {
+		shortDesc: "On switch-in, summons Grassy Terrain. During Grassy Terrain, Attack is 1.33x.",
+		name: "Grassy Emperor",
+		onStart(pokemon) {
+			if (this.field.setTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'Grassy Emperor', '[source]');
+			} else if (this.field.isTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'ability: Grassy Emperor');
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Grassy Emperor boost');
+				return this.chainModify([5461, 4096]);
+			}
+		},
+		flags: {},
+	},
+
 	// Dawn of Artemis
 	formchange: {
 		shortDesc: ">50% HP Necrozma, else Necrozma-Ultra. SpA boosts become Atk boosts and vice versa.",
@@ -483,6 +528,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+	},
+
+	// Fame
+	socialjumpluffwarrior: {
+		shortDesc: "Serene Grace + Mold Breaker.",
+		name: "Social Jumpluff Warrior",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Social Jumpluff Warrior');
+		},
+		onModifyMovePriority: -2,
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+			if (move.secondaries) {
+				this.debug('doubling secondary chance');
+				for (const secondary of move.secondaries) {
+					if (secondary.chance) secondary.chance *= 2;
+				}
+			}
+			if (move.self?.chance) move.self.chance *= 2;
+		},
+		flags: {},
 	},
 
 	// Ganjafin
@@ -1237,6 +1303,50 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Ransei
+	ultramystik: {
+		shortDesc: "Stats 1.5x until hit super effectively + Magic Guard + Leftovers.",
+		name: "Ultra Mystik",
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).typeMod > 0) {
+				this.effectState.superHit = true;
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifyDefPriority: 6,
+		onModifyDef(def, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpDPriority: 6,
+		onModifySpD(spd, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpe(spe, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon, pokemon.getAbility());
+		},
+	},
+
 	// ReturnToMonkey
 	monkeseemonkedo: {
 		shortDesc: "Boosts Atk or SpA by 1 based on foe's defenses, then copies foe's Ability.",
@@ -1640,6 +1750,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// Zarel
+	tempochange: {
+		shortDesc: "Switches Meloetta's forme between Aria and Pirouette at the end of each turn.",
+		name: "Tempo Change",
+		onResidualOrder: 29,
+		onResidual(pokemon) {
+			if (pokemon.species.baseSpecies !== 'Meloetta') return;
+			if (pokemon.species.name === 'Meloetta') {
+				changeSet(this, pokemon, ssbSets['Zarel-Pirouette'], true);
+			} else {
+				changeSet(this, pokemon, ssbSets['Zarel'], true);
+			}
+		},
+		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1},
 	},
 
 	// zoro
