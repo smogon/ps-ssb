@@ -1632,6 +1632,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Zarel
 	tempochange: {
+		shortDesc: "Switches Meloetta's forme between Aria and Pirouette at the end of each turn.",
+		name: "Tempo Change",
 		onResidualOrder: 29,
 		onResidual(pokemon) {
 			if (pokemon.species.baseSpecies !== 'Meloetta') return;
@@ -1642,7 +1644,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1},
-		name: "Tempo Change",
 	},
 
 	// zoro
