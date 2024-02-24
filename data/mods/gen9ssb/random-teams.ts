@@ -58,7 +58,7 @@ export const ssbSets: SSBSets = {
 		species: 'Ting-Lu', ability: 'Vessel of Ruin', item: 'Leftovers', gender: 'M',
 		moves: ['Stealth Rock', 'Spikes', 'Whirlwind'],
 		signatureMove: 'Vessel of CAIO',
-		evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful', teraType: 'Fairy', shiny: false,
+		evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful', teraType: 'Fairy',
 	},
 	'Appletun a la Mode': {
 		species: 'Appletun', ability: 'Served Cold', item: 'Sitrus Berry', gender: 'F',
