@@ -80,6 +80,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Alexander489')}|kek`);
 		},
 	},
+	alpha: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Alpha')}|mhlelo`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Alpha')}|VA BENE LO STESSO`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Alpha')}|aight i'll quit`);
+		},
+	},
 	appletunalamode: {
 		noCopy: true,
 		onStart() {
@@ -677,6 +689,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Kiwi')}|Too late, the manifestation has completed. You'll be reduced to a fillet one day unexpectedly...`);
 		},
 	},
+	klmondo: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Klmondo')}|Gm`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Klmondo')}|I need a snack`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Klmondo')}|It's Klmondover`);
+		},
+	},
 	kris: {
 		noCopy: true,
 		onStart() {
@@ -711,6 +735,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Lasen')}|I'm out and NOT about...`);
+		},
+	},
+	letsgoshuckles: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Lets go shuckles')}|Behold the magnificence of Shuckle.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Lets go shuckles')}|Wise men don't fight battles they cannot win.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Lets go shuckles')}|He who lives by the Shuckle shall die by the Shuckle.`);
 		},
 	},
 	lily: {
@@ -1155,6 +1191,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Siegfried')}|Living is easy with eyes closed.`);
 		},
 	},
+	skies: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('skies')}|the baddest in the room, so tell em to make room... `);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('skies')}|u thought i was feelin u?`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('skies')}|what did i do? like?`);
+		},
+	},
 	snake: {
 		noCopy: true,
 		onStart() {
@@ -1224,6 +1272,25 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('Teclis')}|This was my last dance.`);
 		},
+	},
+	tico: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Tico')}|oie`);
+			if (pokemon.illusion) return;
+			this.add('-ability', pokemon, 'Mold Breaker');
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Tico')}|t+`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Tico')}|It's been 3,000 years…`);
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.illusion) return;
+			move.ignoreAbility = true;
+		},
+		innateName: "Mold Breaker",
 	},
 	theia: {
 		noCopy: true,
@@ -1360,6 +1427,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('umowu ✮彡')}|Tell.. My wife... She STINKS!!`);
+		},
+	},
+	valerian: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|Lucario’s shiny should’ve been red.`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|As a wise man once said, “I’ll be back”.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Valerian ✿ ♡')}|My name is based on a flower, NOT the movie!`);
 		},
 	},
 	venous: {

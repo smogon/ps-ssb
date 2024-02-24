@@ -876,6 +876,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Klmondo
+	superskilled: {
+		name: "Super Skilled",
+		shortDesc: "Skill Link + Multiscale.",
+		onModifyMove(move) {
+			if (move.multihit && Array.isArray(move.multihit) && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.hp >= target.maxhp) {
+				this.debug('Multiscale weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		flags: {breakable: 1},
+	},
+
 	// Kris
 	cacophony: {
 		name: "Cacophony",
@@ -1425,6 +1446,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// skies
+	spikesofwrath: {
+		shortDesc: "Stamina + Cheek Pouch + sets Spikes and Toxic Spikes upon KO.",
+		name: "Spikes of Wrath",
+		onDamagingHit(damage, target, source, effect) {
+			if (target.hp) {
+				this.boost({def: 1});
+			} else {
+				const side = source.isAlly(target) ? source.side.foe : source.side;
+				const spikes = side.sideConditions['spikes'];
+				const toxicSpikes = side.sideConditions['toxicspikes'];
+				if ((!spikes || spikes.layers < 3)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('spikes', target);
+				}
+				if ((!toxicSpikes || toxicSpikes.layers < 2)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('toxicspikes', target);
+				}
+			}
+		},
+		onEatItem(item, pokemon) {
+			this.heal(pokemon.baseMaxhp / 3);
+		},
+		flags: {},
+	},
+
 	// Solaros & Lunaris
 	ridethesun: {
 		shortDesc: "Drought + Chlorophyll",
@@ -1440,9 +1488,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(2);
 			}
-		},
-		flags: {},
-	},
+    },
+    flags: {},
+  },
 
 	// Sulo
 	protectionofthegelatin: {
@@ -1498,6 +1546,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.category === "Physical" && this.randomChance(1, 5)) {
 				source.trySetStatus('brn', target);
 			}
+		},
+		flags: {breakable: 1},
+	},
+
+	// Tico
+	eternalgenerator: {
+		shortDesc: "Regenerator + Hazard immune.",
+		name: "Eternal Generator",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		flags: {breakable: 1},
 	},
@@ -1613,6 +1671,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Valerian
+	fullbloom: {
+		shortDesc: "This Pokémon's priority moves have double power.",
+		name: "Full Bloom",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.priority > 0) {
+				return this.chainModify(2);
+			}
+		},
+	},
+
 	// Venous
 	concreteoverwater: {
 		shortDesc: "+1 Def/Spd before getting hit by a Super Effective move",
@@ -1709,6 +1779,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+	},
+
+	// xy01
+	panic: {
+		shortDesc: "Lowers the opponent's Atk and Sp. Atk by 1 upon switch-in.",
+		name: "Panic",
+		onStart(pokemon) {
+			let activated = false;
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Panic', 'boost');
+					activated = true;
+				}
+				if (target.volatiles['substitute']) {
+					this.add('-immune', target);
+				} else {
+					this.boost({atk: -1, spa: -1}, target, pokemon, null, true);
+				}
+			}
+		},
+		flags: {},
 	},
 
 	// Yellow Paint
