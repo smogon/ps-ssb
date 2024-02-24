@@ -372,47 +372,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.add(`c:|${getName('Elliot')}|Get Bovriled`);
 			}
 		},
-
-		// innates to deal with form changes
-		onModifyAtkPriority: 5,
-		onModifySpA(relayVar, source, target, move) {
-			if (source.getVolatile('boiled')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifyMovePriority: -1,
-		onModifyMove(move, pokemon, target) {
-			if (!target) return;
-			if (pokemon.getVolatile('boiled') ||
-			(pokemon.getVolatile('beefed') && this.checkMoveMakesContact(move, pokemon, target))) {
-				if (move.category !== "Status") {
-					if (!move.secondaries) move.secondaries = [];
-					move.secondaries.push({
-						chance: 30,
-						status: 'brn',
-					});
-				}
-			}
-		},
-		onDamagingHitOrder: 1,
-		onDamagingHit(damage, target, source, move) {
-			if (target.getVolatile('beefed')) {
-				if (this.checkMoveMakesContact(move, source, target, true)) {
-					this.damage(source.baseMaxhp / 8, source, target);
-				}
-				if (this.checkMoveMakesContact(move, source, target)) {
-					if (this.randomChance(3, 10)) {
-						source.trySetStatus('brn', target);
-					}
-				}
-			}
-		},
-		onResidual(target, source, effect) {
-			if (target.getVolatile('beefed')) {
-				this.heal(target.baseMaxhp / 8);
-			}
-		},
-		innateName: "Tea",
 	},
 	elly: {
 		noCopy: true,
@@ -1616,6 +1575,64 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 
 	// Custom effects
+	// Elliot
+	beefed: {
+		name: "Beefed",
+		onStart(target) {
+			this.add('-start', target, 'beefed');
+		},
+		onEnd(target) {
+			this.add('-end', target, 'beefed');
+		},
+		onModifyMovePriority: -1,
+		onModifyMove(move, pokemon, target) {
+			if (!target || !this.checkMoveMakesContact(move, pokemon, target) || move.category === "Status") return;
+			if (!move.secondaries) move.secondaries = [];
+			move.secondaries.push({
+				chance: 30,
+				status: 'brn',
+			});
+		},
+		onDamagingHitOrder: 1,
+		onDamagingHit(damage, target, source, move) {
+			if (this.checkMoveMakesContact(move, source, target, true)) {
+				this.damage(source.baseMaxhp / 8, source, target);
+			}
+			if (this.checkMoveMakesContact(move, source, target) && this.randomChance(3, 10)) {
+					source.trySetStatus('brn', target);
+				}
+			}
+		},
+		onResidual(target, source, effect) {
+			this.heal(target.baseMaxhp / 8);
+		},
+	},
+	boiled: {
+		name: "Boiled",
+		onStart(target) {
+			this.add('-start', target, 'boiled');
+		},
+		onEnd(target) {
+			this.add('-end', target, 'boiled');
+		},
+		onModifyAtkPriority: 5,
+		onModifySpA(relayVar, source, target, move) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifyMovePriority: -1,
+		onModifyMove(move, pokemon, target) {
+			if (!target) return;
+			if (move.category !== "Status") {
+				if (!move.secondaries) move.secondaries = [];
+				move.secondaries.push({
+					chance: 30,
+					status: 'brn',
+				});
+			}
+		},
+	},
+
 	// Elly
 	stormsurge: {
 		name: 'StormSurge',
