@@ -2146,7 +2146,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Status",
 		name: "Roulette",
 		desc: "A random move is selected for use, and then the user's other three moves are replaced with random moves. Aura Wheel, Dark Void, Explosion, Final Gambit, Healing Wish, Hyperspace Fury, Lunar Dance, Memento, Misty Explosion, Revival Blessing, and Self-Destruct cannot be selected.",
-		shortDesc: "Replace other the user's 3 moves with random moves.",
+		shortDesc: "Replace other user's 3 moves with random moves.",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -2159,8 +2159,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Explosion', target);
 		},
 		onHit(target, source, m) {
-			const bannedList = ['Aura Wheel', 'Dark Void', 'Explosion', 'Final Gambit', 'Healing Wish', 'Hyperspace Fury',
-			 'Lunar Dance', 'Memento', 'Misty Explosion', 'Revival Blessing', 'Self-Destruct'];
+			const bannedList = [
+				'aurawheel', 'darkvoid', 'explosion', 'finalgambit', 'healingwish', 'hyperspacefury',
+				'lunardance', 'memento', 'mistyexplosion', 'revivalblessing', 'selfdestruct',
+			];
 			const moves = this.dex.moves.all().filter(move => (
 				(!source.moves.includes(move.id)) &&
 				(!move.isNonstandard || move.isNonstandard === 'Unobtainable')

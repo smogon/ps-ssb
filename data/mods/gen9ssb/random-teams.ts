@@ -384,7 +384,7 @@ export const ssbSets: SSBSets = {
 		species: 'Pokestar Smeargle', ability: 'Prankster', item: 'Focus Sash', gender: 'N',
 		moves: ['Spore', 'Extreme Evoboost', 'Substitute'],
 		signatureMove: 'Roulette',
-		evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost', shiny: false,
+		evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid', teraType: 'Ghost',
 	},
 	ptoad: {
 		species: 'Politoed', ability: 'Drizzle', item: 'Leftovers', gender: 'M',
