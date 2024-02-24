@@ -537,7 +537,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onSwitchOut(pokemon) {
 			this.add(`c:|${getName('Karthik')}|>>> staraptor.heal(staraptor.baseMaxhp / 3)`);
-			pokemon.heal(pokemon.baseMaxhp / 3);
+			if (!pokemon.illusion) pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		onFaint() {
 			this.add(`c:|${getName('Karthik')}|>>> staraptor.faint()`);
