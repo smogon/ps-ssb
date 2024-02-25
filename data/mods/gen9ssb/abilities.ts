@@ -325,6 +325,38 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Clefable
+	thatshacked: {
+		shortDesc: "Tries to inflict the foe with Torment at the end of each turn.",
+		name: "That's Hacked",
+		onResidual(target, source, effect) {
+			if (!target.foes()) return;
+			const abilMessages = ["All hacks and hacking methods are banned!",
+				"Can't be having that.",
+				"Naaah, miss me with that shit.",
+				"Bit bullshit that, mate.",
+				"Wait, thats illegal!",
+				"Nope.",
+				"I can't believe you've done this.",
+				"No thank you.",
+				"Seems a bit suss.",
+				"Thats probably hacked, shouldnt use it here.",
+				"Hacks will get you banned.",
+				"You silly sausage",
+				"Can you not?",
+				"Yeah, thats a no from me.",
+				"Lets not",
+				"No fun allowed"];
+			this.add(`c:|${getName('Clefable')}|${this.sample(abilMessages)}`);
+			this.add(`c:|${getName('Clefable')}|snt are ${source} n ${target} plus ${target.foes()[0]}`);
+
+			if (!target.foes()[0].getVolatile('torment')) {
+				target.foes()[0].addVolatile('torment');
+			}
+		},
+		flags: {},
+	},
+
 	// clerica
 	masquerade: {
 		shortDesc: "(Mimikyu only) The first hit is blocked: instead, takes 1/8 damage and gets +1 Atk/Spe.",

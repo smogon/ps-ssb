@@ -705,6 +705,42 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Clefable
+	giveaway: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "User switches, passing stat changes and more.",
+		name: "Giveaway!",
+		gen: 9,
+		pp: 10,
+		priority: 0,
+		flags: {metronome: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Teleport', target);
+			this.add('-anim', source, 'Baton Pass', target);
+		},
+		onHit(target) {
+			if (!this.canSwitch(target.side) || target.volatiles['commanded']) {
+				this.attrLastMove('[still]');
+				this.add('-fail', target);
+				return this.NOT_FAIL;
+			}
+		},
+		self: {
+			onHit(source) {
+				source.skipBeforeSwitchOutEventFlag = true;
+			},
+		}, // odd bug here: despite the code being copied from baton pass, the boosts are not visible
+		// on the recipient of this move. but they do exist and function. no clue why this happens.
+		selfSwitch: 'copyvolatile',
+		target: "self",
+		type: "Normal",
+	},
+
 	// clerica
 	stockholmsyndrome: {
 		accuracy: true,
