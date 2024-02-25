@@ -136,7 +136,7 @@ export const ssbSets: SSBSets = {
 		species: 'Solgaleo', ability: 'Magic Guard', item: 'Choice Scarf', gender: 'N',
 		moves: ['Wave Crash', 'Volt Tackle', 'Flare Blitz'],
 		signatureMove: 'Head Smash',
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', skip: 'Billo',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', skip: 'Billo', shiny: true,
 	},
 	'Billo-Lunala': {
 		species: 'Lunala', ability: 'Shadow Shield', item: 'Lunalium Z', gender: 'N',

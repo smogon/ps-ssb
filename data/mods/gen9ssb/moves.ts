@@ -564,22 +564,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Changes forme to Solgaleo or Lunala, grants varying boosts.",
+		shortDesc: "80%: Change into Lunala, else Solgaleo.",
 		name: "Hack Check",
 		gen: 9,
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, bypasssub: 1},
+		flags: {protect: 1, mirror: 1, bypasssub: 1, failcopycat: true},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onHit(target, source) {
-			if (this.randomChance(4, 5)) {
+		onHit(target, source, move) {
+			if (this.randomChance(1, 5)) {
 				changeSet(this, source, ssbSets['Billo-Solgaleo'], true);
-				source.addVolatile('noretreat');
+				source.addVolatile('trapped', source, move, 'trapper');
 				source.addVolatile('perishsong');
 				this.add('-start', source, 'perish3', '[silent]');
-				this.boost({atk: 1}, source);
+				this.boost({atk: 1}, source, source, move);
 				this.add(`c:|${getName('Billo')}|This is a streamer mon, you're banned from the room.`);
 			} else {
 				changeSet(this, source, ssbSets['Billo-Lunala'], true);
