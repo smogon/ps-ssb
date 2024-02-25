@@ -737,6 +737,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ghost",
 	},
 
+	// clouds
+	windsofchange: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "Starts Tailwind and lets the user switch to a chosen ally.",
+		name: "Winds of Change",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1},
+		self: {
+			sideCondition: 'tailwind',
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Tailwind', target);
+			this.add('-anim', source, 'U-turn', target);
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
+
 	// Coolcodename
 	haxerswill: {
 		accuracy: 100,
