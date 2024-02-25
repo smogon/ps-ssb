@@ -452,13 +452,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Frostyicelad')}|Why am I not lapras`);
 		},
 		onUpdate(pokemon) {
-			if (pokemon.status === 'brn') {
+			if (!pokemon.illusion && pokemon.status === 'brn') {
 				this.add('-activate', pokemon, 'ability: Water Veil');
 				pokemon.cureStatus();
 			}
 		},
 		onSetStatus(status, target, source, effect) {
-			if (status.id !== 'brn') return;
+			if (target.illusion || status.id !== 'brn') return;
 			if ((effect as Move)?.status) {
 				this.add('-immune', target, '[from] ability: Water Veil');
 			}

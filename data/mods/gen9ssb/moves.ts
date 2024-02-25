@@ -1039,10 +1039,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.hint("Puffy Spiky Destruction only works on your first turn out.");
 				return false;
 			}
-			if (this.field.getTerrain().id === 'mistyterrain' || this.field.getTerrain().id === 'psychicterrain') {
-				this.hint("The current terrain prevents the use of Puffy Spiky Destruction!");
-				return false;
-			}
 		},
 		onTryMove() {
 			this.attrLastMove('[still]');
