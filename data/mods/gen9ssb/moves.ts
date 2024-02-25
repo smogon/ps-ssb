@@ -569,7 +569,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, bypasssub: 1, failcopycat: true},
+		flags: {protect: 1, mirror: 1, bypasssub: 1, failcopycat: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
