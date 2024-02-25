@@ -1099,7 +1099,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Pain Split', target);
 		},
-		onHit(target, source, move) {	
+		onHit(target, source, move) {
 			target.clearBoosts();
 			this.add('-clearboost', target);
 			let i: BoostID;
@@ -1107,7 +1107,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (source.boosts[i] < 0) {
 					target.boosts[i] += source.boosts[i];
 					source.boosts[i] = -source.boosts[i];
-				}				
+				}
 			}
 			this.add('-copyboost', target, source, '[from] move: Hasty Revolution');
 			this.add('-invertboost', source, '[from] move: Hasty Revolution');
