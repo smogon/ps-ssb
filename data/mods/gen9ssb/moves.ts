@@ -1023,6 +1023,51 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 
+	// Frostyicelad
+	puffyspikydestruction: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "+1 Attack, +1 Speed. Protects, sets Toxic Spikes. First turn only. Loses poison type.",
+		name: "Puffy Spiky Destruction",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		sideCondition: 'toxicspikes',
+		onTry(source) {
+			if (source.activeMoveActions > 1) {
+				this.hint("Puffy Spiky Destruction only works on your first turn out.");
+				return false;
+			}
+			if (this.field.getTerrain().id === 'mistyterrain' || this.field.getTerrain().id === 'psychicterrain') {
+				this.hint("The current terrain prevents the use of Puffy Spiky Destruction!");
+				return false;
+			}
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Quiver Dance', source);
+			this.add('-anim', source, 'Spiky Shield', source);
+			this.add('-anim', source, 'Toxic Spikes', target);
+		},
+		self: {
+			volatileStatus: 'spikyshield',
+			onHit(target, source, move) {
+				source.setType(source.getTypes(true).map(type => type === "Poison" ? "???" : type));
+				this.add('-start', source, 'typechange', source.getTypes().join('/'), '[from] move: Spiky Puffy Destruction');
+			},
+			boosts: {
+				spe: 1,
+				atk: 1,
+			},
+		},
+		secondary: null,
+		target: 'normal',
+		type: "Poison",
+	},
+
 	// Frozoid
 	flatoutfalling: {
 		accuracy: 100,
