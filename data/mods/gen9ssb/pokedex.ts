@@ -279,6 +279,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Vent Crosser"},
 	},
 
+	// nyx
+	altariamega: {
+		inherit: true,
+		abilities: {0: "Last Hymn"},
+	},
+
 	// PartMan
 	chandelure: {
 		inherit: true,

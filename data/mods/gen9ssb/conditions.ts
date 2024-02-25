@@ -953,6 +953,22 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		// phrases TBD
 	},
+	nyx: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('nyx')}|good meowning, here's why you're wrong.`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('nyx')}|good nyight, I’m always right.`);
+			if (!pokemon.status) return;
+			this.add('-curestatus', pokemon, pokemon.status, '[from] ability: Natural Cure');
+			pokemon.clearStatus();
+		},
+		onFaint() {
+			this.add(`c:|${getName('nyx')}|We let TPP cook too hard...`);
+		},
+		innateName: "Natural Cure",
+	},
 	partman: {
 		noCopy: true,
 		onStart(pokemon) {
