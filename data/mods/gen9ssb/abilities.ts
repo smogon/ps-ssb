@@ -850,6 +850,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
 	},
 
+	// kingbaruk
+	peerpressure: {
+		shortDesc: "All moves used while this Pokemon is on the field consume 4 PP.",
+		name: "Peer Pressure",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Peer Pressure');
+		},
+		onAnyDeductPP(target, source) {
+			return 3;
+		},
+		flags: {breakable: 1},
+	},
+
 	// Kiwi
 	surehitsorcery: {
 		name: "Sure Hit Sorcery",

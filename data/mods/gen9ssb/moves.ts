@@ -1603,6 +1603,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// kingbaruk
+	platinumrecord: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Heals 50% HP and restores 1 PP for all other moves.",
+		name: "Platinum Record",
+		pp: 5,
+		priority: 0,
+		flags: {sound: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onHit(target, source) {
+			this.heal(source.maxhp / 2);
+			for (let i = 0; i < 3; i++) {
+				source.moveSlots[i].pp += 1;
+			}
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Sing', target);
+			this.add('-anim', source, 'Iron Defense', target);
+		},
+		target: "self",
+		type: "Normal",
+
+	},
+
 	// Kiwi
 	madmanifest: {
 		accuracy: true,
