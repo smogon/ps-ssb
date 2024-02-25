@@ -921,7 +921,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 			}
 			const newMoveSlot = {
-				move: replacer[0].name,
+				move: replacement.name,
 				id: replacement.id,
 				pp: replacement.pp,
 				maxpp: replacement.pp,
