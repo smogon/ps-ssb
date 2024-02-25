@@ -531,6 +531,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// avarice
+	yugiohreference: {
+		accuracy: 90,
+		basePower: 105,
+		category: "Special",
+		shortDesc: "40$ chance to force the opponent to switch to a random ally.",
+		name: "yu-gi-oh reference",
+		pp: 5,
+		priority: -6,
+		secondary: {
+			chance: 40,
+			onHit(target, source, move) {
+				move.forceSwitch = true;
+			},
+		},
+		flags: {protect: 1, bullet: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Never-Ending Nightmare', target);
+		},
+		target: "normal",
+		type: "Ghost",
+	},
+
 	// berry
 	whatkind: {
 		accuracy: true,
