@@ -559,6 +559,39 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Water",
 	},
 
+	// Billo
+	hackcheck: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Changes forme to Solgaleo or Lunala, grants varying boosts.",
+		name: "Hack Check",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, bypasssub: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onHit(target, source) {
+			if (this.randomChance(4, 5)) {
+				changeSet(this, source, ssbSets['Billo-Solgaleo'], true);
+				source.addVolatile('noretreat');
+				source.addVolatile('perishsong');
+				this.add('-start', source, 'perish3', '[silent]');
+				this.boost({atk: 1}, source);
+				this.add(`c:|${getName('Billo')}|This is a streamer mon, you're banned from the room.`);
+			} else {
+				changeSet(this, source, ssbSets['Billo-Lunala'], true);
+				source.addVolatile('focusenergy');
+				this.add(`c:|${getName('Billo')}|Everything checks out, remember to report any suspicious mons to staff!`);
+			}
+		},
+		target: "self",
+		type: "Normal",
+	},
+
+
 	// Blitz
 	geyserblast: {
 		accuracy: 95,
