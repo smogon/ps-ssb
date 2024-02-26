@@ -367,14 +367,32 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	cake: {
 		noCopy: true,
-		onStart() {
-			this.add(`c:|${getName('Cake')}|Hello, and welcome to the Random Battles experience. Please enjoy your hazards.`);
+		onStart(pokemon) {
+			this.add(`c:|${getName('Cake')}|randem batels`);
+			this.effectState.moves = this.dex.moves.get(pokemon.moveSlots[0].id) + "," +
+			this.dex.moves.get(pokemon.moveSlots[1].id) + "," + this.dex.moves.get(pokemon.moveSlots[2].id);
 		},
-		onSwitchOut() {
-			this.add(`c:|${getName('Cake')}|can't remove all of these randbats devs pls fix`);
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('Cake')}|hustle is a good ability`);
+			const oneMove = this.effectState.moves.split(',');
+			for (let i = 0; i < 3; i++) {
+				const replacement = this.dex.moves.get(oneMove[i]);
+				const replacementMove = {
+					move: replacement.name,
+					id: replacement.id,
+					pp: replacement.pp,
+					maxpp: replacement.pp,
+					target: replacement.target,
+					disabled: false,
+					used: false,
+				};
+				pokemon.moveSlots[i] = replacementMove;
+				pokemon.baseMoveSlots[i] = replacementMove;
+			} // very notable infinite pp problem here, especially with the set changes...
+			// consider nerfing custom move pp and removing switch-out moveset restoration.
 		},
 		onFaint() {
-			this.add(`c:|${getName('Cake')}|/wall moist`);
+			this.add(`c:|${getName('Cake')}|livid washed is a nerd`);
 		},
 	},
 	chloe: {
