@@ -749,6 +749,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Haze', target);
+		},
 		onHit(target, source, move) {
 			if (this.randomChance(1, 256)) {
 				this.add('-activate', target, 'move: Celebrate');
