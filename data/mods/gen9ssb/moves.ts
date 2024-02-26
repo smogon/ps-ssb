@@ -737,12 +737,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ghost",
 	},
 
-	// clouds
+	// Clouds
 	windsofchange: {
 		accuracy: 100,
 		basePower: 70,
 		category: "Physical",
-		shortDesc: "Starts Tailwind and lets the user switch to a chosen ally.",
+		shortDesc: "Tailwind + U-turn.",
 		name: "Winds of Change",
 		pp: 15,
 		priority: 0,

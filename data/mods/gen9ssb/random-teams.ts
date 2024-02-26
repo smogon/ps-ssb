@@ -163,7 +163,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Stockholm Syndrome',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 	},
-	clouds: {
+	Clouds: {
 		species: 'Corvisquire', ability: 'Jet Stream', item: 'Leftovers', gender: 'M',
 		moves: ['Brave Bird', 'Roost', 'Defog'],
 		signatureMove: 'Winds of Change',
