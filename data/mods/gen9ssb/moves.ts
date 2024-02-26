@@ -600,7 +600,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onHit(target, source, move) {
 				move.willCrit = false;
 				const effect = Math.floor(Math.random() * 100);
-				this.add(`c:|${getName('Krytocon')}|Well now. Your query's ${effect}`);
 				if (effect < 10) {
 					target.trySetStatus('psn', target);
 				} else if (effect < 20) {
@@ -628,7 +627,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 					this.boost(boost, recipient, recipient);
-					this.add(`c:|${getName('Krytocon')}| ${recipient.name}, you get a boost!`);
 				} else if (effect < 60) {
 					move.willCrit = true;
 				} else if (effect < 70) {
