@@ -3922,7 +3922,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 
 	// za
 	shitpost: {
-		accuracy: 25500 / 256,
+		accuracy: 100,
 		basePower: 0,
 		category: "Status",
 		name: "Shitpost",
@@ -3944,6 +3944,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onMoveFail() {
 			this.add('-message', '(In Gen 1, moves with 100% accuracy have a 1/256 chance to miss.)');
+		},
+		onModifyMove(move, pokemon, target) {
+			move.accuracy = 25500 / 256;
 		},
 	},
 
