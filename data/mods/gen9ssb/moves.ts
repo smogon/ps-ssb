@@ -2075,7 +2075,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 90,
 		basePower: 90,
 		category: "Physical",
-		shortDesc: "Sets Steelspikes on the opponent's side.",
+		shortDesc: "Sets Steelsurge Spikes on the foe's side.",
 		name: "Metal Blast",
 		gen: 9,
 		pp: 10,
@@ -2088,21 +2088,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Steel Beam', target);
 			this.add('-anim', source, 'G-max Steelsurge', target);
 		},
-		onAfterHit(target, source, move) {
-			if (!move.hasSheerForce && source.hp) {
-				for (const side of source.side.foeSidesWithConditions()) {
-					side.addSideCondition('gmaxsteelsurge');
-				}
-			}
+		secondary: {
+			chance: 100,
+			sideCondition: 'gmaxsteelsurge',
 		},
-		onAfterSubDamage(damage, target, source, move) {
-			if (!move.hasSheerForce && source.hp) {
-				for (const side of source.side.foeSidesWithConditions()) {
-					side.addSideCondition('gmaxsteelsurge');
-				}
-			}
-		},
-		secondary: null,
 		target: "normal",
 		type: "Steel",
 	},
