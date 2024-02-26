@@ -1734,97 +1734,99 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Fling', target);
 		},
-		onHit(target, source, move) {
-			let success = false;
-			while (!success) {
-				const effect = Math.floor(Math.random() * 100);
-				if (effect < 10) {
-					if (target.trySetStatus('psn', target)) {
-						success = true;
-					}
-				} else if (effect < 20) {
-					if (target.trySetStatus('par', target)) {
-						success = true;
-					}
-				} else if (effect < 30) {
-					if (target.trySetStatus('par', target)) {
-						success = true;
-					}
-				} else if (effect < 33) {
-					if (target.trySetStatus('slp', target)) {
-						success = true;
-					}
-				} else if (effect < 35) {
-					if (target.trySetStatus('frz', target)) {
-						success = true;
-					}
-				} else if (effect < 40) {
-					if (!target.getVolatile('confusion')) {
-						target.addVolatile('confusion', source);
-						success = true;
-					}
-				} else if (effect < 45) {
-					if (!target.getVolatile('attract')) {
-						target.addVolatile('attract', source);
-						success = true;
-					}
-				} else if (effect < 50) {
-					if (!target.getVolatile('taunt')) {
-						target.addVolatile('taunt', source);
-						success = true;
-					}
-				} else if (effect < 55) {
-					if (target.lastMove && !target.getVolatile('encore')) {
-						target.addVolatile('encore', source);
-						success = true;
-					}
-				} else if (effect < 60) {
-					if (!target.getVolatile('torment')) {
-						target.addVolatile('torment', source);
-						success = true;
-					}
-				} else if (effect < 65) {
-					if (!target.getVolatile('healblock')) {
-						target.addVolatile('healblock', source);
-						success = true;
-					}
-				} else if (effect < 70) {
-					if (target.side.addSideCondition('stealthrock')) {
-						success = true;
-					}
-				} else if (effect < 75) {
-					if (target.side.addSideCondition('stickyweb')) {
-						success = true;
-					}
-				} else if (effect < 80) {
-					if (target.side.addSideCondition('spikes')) {
-						success = true;
-					}
-				} else if (effect < 85) {
-					if (target.side.addSideCondition('toxicspikes')) {
-						success = true;
-					}
-				} else if (effect < 90) {
-					const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
-					for (const condition of sideConditions) {
-						if (source.side.removeSideCondition(condition)) {
+		secondary: {
+			chance: 100,
+			onHit(target, source, move) {
+				let success = false;
+				while (!success) {
+					const effect = Math.floor(Math.random() * 100);
+					if (effect < 10) {
+						if (target.trySetStatus('psn', target)) {
 							success = true;
-							this.add('-sideend', source.side, this.dex.conditions.get(condition).name, '[from] move: , (ac)', '[of] ' + source);
 						}
-					}
-				} else if (effect < 95) {
-					const bestStat = target.getBestStat(true, true);
-					this.boost({[bestStat]: -1}, target);
-					success = true;
-				} else {
-					if (this.canSwitch(source.side)) {
-						this.actions.useMove("teleport", source);
+					} else if (effect < 20) {
+						if (target.trySetStatus('par', target)) {
+							success = true;
+						}
+					} else if (effect < 30) {
+						if (target.trySetStatus('par', target)) {
+							success = true;
+						}
+					} else if (effect < 33) {
+						if (target.trySetStatus('slp', target)) {
+							success = true;
+						}
+					} else if (effect < 35) {
+						if (target.trySetStatus('frz', target)) {
+							success = true;
+						}
+					} else if (effect < 40) {
+						if (!target.getVolatile('confusion')) {
+							target.addVolatile('confusion', source);
+							success = true;
+						}
+					} else if (effect < 45) {
+						if (!target.getVolatile('attract')) {
+							target.addVolatile('attract', source);
+							success = true;
+						}
+					} else if (effect < 50) {
+						if (!target.getVolatile('taunt')) {
+							target.addVolatile('taunt', source);
+							success = true;
+						}
+					} else if (effect < 55) {
+						if (target.lastMove && !target.getVolatile('encore')) {
+							target.addVolatile('encore', source);
+							success = true;
+						}
+					} else if (effect < 60) {
+						if (!target.getVolatile('torment')) {
+							target.addVolatile('torment', source);
+							success = true;
+						}
+					} else if (effect < 65) {
+						if (!target.getVolatile('healblock')) {
+							target.addVolatile('healblock', source);
+							success = true;
+						}
+					} else if (effect < 70) {
+						if (target.side.addSideCondition('stealthrock')) {
+							success = true;
+						}
+					} else if (effect < 75) {
+						if (target.side.addSideCondition('stickyweb')) {
+							success = true;
+						}
+					} else if (effect < 80) {
+						if (target.side.addSideCondition('spikes')) {
+							success = true;
+						}
+					} else if (effect < 85) {
+						if (target.side.addSideCondition('toxicspikes')) {
+							success = true;
+						}
+					} else if (effect < 90) {
+						const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+						for (const condition of sideConditions) {
+							if (source.side.removeSideCondition(condition)) {
+								success = true;
+								this.add('-sideend', source.side, this.dex.conditions.get(condition).name, '[from] move: , (ac)', '[of] ' + source);
+							}
+						}
+					} else if (effect < 95) {
+						const bestStat = target.getBestStat(true, true);
+						this.boost({[bestStat]: -1}, target);
 						success = true;
+					} else {
+						if (this.canSwitch(source.side)) {
+							this.actions.useMove("teleport", source);
+							success = true;
+						}
 					}
 				}
 			}
 		},
-		secondary: null,
 		target: "normal",
 		type: "Psychic",
 	},
