@@ -251,6 +251,20 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		onStart(pokemon) {
 			this.add(`c:|${getName('ausma')}|what it Do what it Be`);
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'kolohe':
+				this.add(`c:|${getName('ausma')}|it's.... chu......`);
+				break;
+			case 'spoo':
+				this.add(`c:|${getName('ausma')}|LOOL SPOOP?!`);
+				break;
+			case 'rumia':
+				this.add(`c:|${getName('ausma')}|oh no... it's poomia....`);
+				break;
+			case 'lumari':
+				this.add(`c:|${getName('ausma')}|we should watch the next ladybug ep after this tbh`);
+				break;
+			}
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('ausma')}|IBig Stall™ will be right back (after my coffee)`);

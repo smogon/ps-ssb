@@ -642,6 +642,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					this.actions.useMove("mistyexplosion", source);
 				} else {
 					changeSet(this, target, ssbSets["ausma-Fennekin"]);
+					this.add(`c:|${getName('ausma')}|oh shit i posted to the wrong account`);
 				}
 			},
 		},
