@@ -576,6 +576,86 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ghost",
 	},
 
+	// ausma
+	witchsabstract: {
+		accuracy: 90,
+		basePower: 15,
+		category: "Special",
+		shortDesc: "Hits 5 times, each hit has a 20% chance to inflict status.",
+		name: "Witch's Abstract",
+		pp: 5,
+		multihit: 5,
+		priority: 0,
+		flags: {snatch: 1, metronome: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Geomancy', source);
+			this.add('-anim', source, 'Hyper Beam', target);
+			this.add('-anim', source, 'Dark Void', target);
+		},
+		secondary: {
+			chance: 20,
+			onHit(target, source, move) {
+				move.willCrit = false;
+				const effect = Math.floor(Math.random() * 100);
+				this.add(`c:|${getName('Krytocon')}|Well now. Your query's ${effect}`);
+				if (effect < 10) {
+					target.trySetStatus('psn', target);
+				} else if (effect < 20) {
+					target.trySetStatus('tox', target);
+				} else if (effect < 30) {
+					target.trySetStatus('brn', target);
+				} else if (effect < 50) {
+					const stats: BoostID[] = [];
+					const boost: SparseBoostsTable = {};
+					let statPlus: BoostID;
+					const recipient = this.randomChance(1, 2) ? source : target;
+					for (statPlus in recipient.boosts) {
+						if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
+						if (effect < 40 && recipient.boosts[statPlus] > -6) {
+							stats.push(statPlus);
+						} else if (effect < 50 && recipient.boosts[statPlus] < 6) {
+							stats.push(statPlus);
+						}
+					}
+					const randomStat: BoostID | undefined = stats.length ? this.sample(stats) : undefined;
+					if (randomStat) {
+						boost[randomStat] = 1;
+						if (effect < 40) {
+							boost[randomStat] = -1;
+						}
+					}
+					this.boost(boost, recipient, recipient);
+					this.add(`c:|${getName('Krytocon')}| ${recipient.name}, you get a boost!`);
+				} else if (effect < 60) {
+					move.willCrit = true;
+				} else if (effect < 70) {
+					target.addVolatile('taunt', source);
+				} else if (effect < 80) {
+					target.addVolatile('torment', source);
+				} else if (effect < 90) {
+					target.addVolatile('confusion', source);
+				} else if (effect < 98) {
+					source.addVolatile('witchsabstract');
+					this.actions.useMove("mistyexplosion", source);
+				} else {
+					changeSet(this, target, ssbSets["ausma-Fennekin"]);
+				}
+			},
+		},
+		condition: {
+			duration: 1,
+			onBasePowerPriority: 12,
+			onBasePower(basePower) {
+				return this.chainModify(0.75);
+			},
+		},
+		target: "normal",
+		type: "Fairy",
+	},
+
 	// AuzBat
 	preptime: {
 		accuracy: true,

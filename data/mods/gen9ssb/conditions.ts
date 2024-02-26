@@ -247,6 +247,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('autumn')}|lost ggs`);
 		},
 	},
+	ausma: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('ausma')}|what it Do what it Be`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('ausma')}|IBig Stall™ will be right back (after my coffee)`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('ausma')}|God has punished me for my hubris.`);
+		},
+	},
 	auzbat: {
 		noCopy: true,
 		onStart(pokemon) {

@@ -275,6 +275,38 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// ausma
+	lattebreak: {
+		shortDesc: "Regenerator + one time priority boost upon returning to the field.",
+		name: "Latte Break",
+		onModifyPriority(relayVar, source, target, move) {
+			if (this.effectState.latte) {
+				return relayVar + 0.5;
+			}
+		},
+		onAfterMove() {
+			this.effectState.latte = 0;
+		},
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+			this.effectState.latte = 1;
+		},
+		onTryMove(source, target, move) {
+			this.effectState.foeMemory = target.name;
+		},
+		onFoeSwitchOut(pokemon) {
+			if (this.effectState.foeMemory && pokemon.species.name === "Fennekin") {
+				changeSet(this, pokemon, ssbSets[this.effectState.foeMemory]);
+			}
+		},
+		onFoeFaint(target, source, effect) {
+			if (this.effectState.foeMemory && target.species.name === "Fennekin") {
+				changeSet(this, target, ssbSets[this.effectState.foeMemory]);
+			}
+		},
+		flags: {},
+	},
+
 	// Blitz
 	blitzofruin: {
 		shortDesc: "Active Pokemon without this Ability have their Speed multiplied by 0.75. Also Dazzling.",
