@@ -734,9 +734,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onHit(source) {
 				source.skipBeforeSwitchOutEventFlag = true;
 			},
-		}, // odd bug here: despite the code being copied from baton pass, the boosts are not visible
+		},
+		// odd bug here: despite the code being copied from baton pass, the boosts are not visible
 		// on the recipient of this move. but they do exist and function. no clue why this happens.
 		selfSwitch: 'copyvolatile',
+		secondary: null,
 		target: "self",
 		type: "Normal",
 	},

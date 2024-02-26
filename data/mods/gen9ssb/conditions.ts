@@ -313,7 +313,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Chloe')}|ouch :(`);
 		},
 	},
-	clefable: {
+	clefableuser: {
 		noCopy: true,
 		onStart() {
 			this.add(`c:|${getName('Clefable')}|LF: A win`);

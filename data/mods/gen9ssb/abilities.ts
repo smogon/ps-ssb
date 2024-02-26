@@ -331,7 +331,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "That's Hacked",
 		onResidual(target, source, effect) {
 			if (!target.foes()) return;
-			const abilMessages = ["All hacks and hacking methods are banned!",
+			const abilMessages = [
+				"All hacks and hacking methods are banned!",
 				"Can't be having that.",
 				"Naaah, miss me with that shit.",
 				"Bit bullshit that, mate.",
@@ -346,7 +347,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				"Can you not?",
 				"Yeah, thats a no from me.",
 				"Lets not",
-				"No fun allowed"];
+				"No fun allowed",
+			];
 			this.add(`c:|${getName('Clefable')}|${this.sample(abilMessages)}`);
 			this.add(`c:|${getName('Clefable')}|snt are ${source} n ${target} plus ${target.foes()[0]}`);
 
