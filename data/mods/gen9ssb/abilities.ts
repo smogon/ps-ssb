@@ -1230,7 +1230,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
-	// nyx
+	// Nyx
 	lasthymn: {
 		name: "Last Hymn",
 		shortDesc: "Weakens incoming attacks for each Pokemon fainted.",
