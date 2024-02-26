@@ -1611,12 +1611,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				msg = "We asked an AI to make a randbats set. YOU WON'T BELIEVE WHAT IT CAME UP WITH N.N";
 				break;
 			}
-			// TODO: ban mons with custom stats
-			const team = Teams.generate(randFormat, {name: target.side.name});
-			this.addMove('-anim', target, 'Wish', target);
-			// @ts-ignore set wants a sig but randbats sets don't have one
-			changeSet(this, target, team[0], true);
-			this.add(`c:|${getName((source.illusion || source).name)}|${msg}`);
+			while (true) {
+				const team = Teams.generate(randFormat, {name: target.side.name});
+				const pokemon = team[0].species;
+				const ssbStats = this.dex.species.get(pokemon).baseStats;
+				const oldStats = Dex.species.get(pokemon).baseStats;
+				const ssbAbils = this.dex.species.get(pokemon).abilities;
+				const oldAbils = Dex.species.get(pokemon).abilities;
+				const equalstats = (ssbStats.hp === oldStats.hp && ssbStats.atk === oldStats.atk &&
+					ssbStats.def === oldStats.def && ssbStats.spa === oldStats.spa &&
+					ssbStats.spd === oldStats.spd && ssbStats.spe === oldStats.spe);
+				const equalabils = (ssbAbils[0] === oldAbils[0] && ssbAbils[1] === oldAbils[1] &&
+					ssbAbils.H === oldAbils.H && ssbAbils.S === oldAbils.S);
+				if (!equalstats || !equalabils) continue;
+				this.addMove('-anim', target, 'Wish', target);
+				// @ts-ignore set wants a sig but randbats sets don't have one
+				changeSet(this, target, team[0], true);
+				this.add(`c:|${getName((source.illusion || source).name)}|${msg}`);
+				break;
+			}
 		},
 		isZ: "irpatuziniumz",
 		secondary: null,
