@@ -860,7 +860,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onAnyDeductPP(target, source) {
 			return 3;
 		},
-		flags: {breakable: 1},
+		flags: {},
 	},
 
 	// Kiwi

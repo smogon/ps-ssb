@@ -716,13 +716,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	kingbaruk: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Kingbaruk')}|Pressure pushing down on me`);
+			this.add(`c:|${getName('kingbaruk')}|Pressure pushing down on me`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Kingbaruk')}|Pressing down on you`);
+			this.add(`c:|${getName('kingbaruk')}|Pressing down on you`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Kingbaruk')}|Why can't we give love that one more chance?`);
+			this.add(`c:|${getName('kingbaruk')}|Why can't we give love that one more chance?`);
 		},
 	},
 	kiwi: {

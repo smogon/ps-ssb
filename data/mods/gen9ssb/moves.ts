@@ -1618,8 +1618,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target, source) {
 			this.heal(source.maxhp / 2);
-			for (let i = 0; i < 3; i++) {
-				source.moveSlots[i].pp += 1;
+			for (const moveSlot of source.moveSlots) {
+				if (moveSlot.pp < moveSlot.maxpp) moveSlot.pp += 1;
 			}
 		},
 		onPrepareHit(target, source) {
