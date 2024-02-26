@@ -2088,10 +2088,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Steel Beam', target);
 			this.add('-anim', source, 'G-max Steelsurge', target);
 		},
-		secondary: {
-			chance: 100,
-			sideCondition: 'gmaxsteelsurge',
+		onAfterHit(target, source, move) {
+			if (!move.hasSheerForce && source.hp) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('gmaxsteelsurge');
+				}
+			}
 		},
+		onAfterSubDamage(damage, target, source, move) {
+			if (!move.hasSheerForce && source.hp) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('gmaxsteelsurge');
+				}
+			}
+		},
+		secondary: {}, // Sheer Force-boosted
 		target: "normal",
 		type: "Steel",
 	},
