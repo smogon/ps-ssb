@@ -582,7 +582,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 15,
 		category: "Special",
 		shortDesc: "Hits 5 times, each hit has a 20% chance to inflict status.",
-		name: "Sigil’s Stormt",
+		name: "Sigil’s Storm",
 		pp: 5,
 		multihit: 5,
 		priority: 0,
