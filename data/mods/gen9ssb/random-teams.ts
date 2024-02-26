@@ -129,7 +129,7 @@ export const ssbSets: SSBSets = {
 	ausma: {
 		species: 'Hatterene', ability: 'Latte Break', item: 'Leftovers', gender: 'F',
 		moves: ['Future Sight', 'Detect', 'Chilly Reception'],
-		signatureMove: 'Witch\'s Abstract',
+		signatureMove: 'Sigil\'s Storm',
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Relaxed', teraType: 'Ghost',
 	},
 	'ausma-Fennekin': {

@@ -577,12 +577,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	// ausma
-	witchsabstract: {
+	sigilsstorm: {
 		accuracy: 90,
 		basePower: 15,
 		category: "Special",
 		shortDesc: "Hits 5 times, each hit has a 20% chance to inflict status.",
-		name: "Witch's Abstract",
+		name: "Sigil’s Stormt",
 		pp: 5,
 		multihit: 5,
 		priority: 0,
@@ -592,8 +592,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Geomancy', source);
-			this.add('-anim', source, 'Hyper Beam', target);
-			this.add('-anim', source, 'Dark Void', target);
+			this.add('-anim', source, 'Blood Moon', target);
 		},
 		secondary: {
 			chance: 20,
