@@ -3929,15 +3929,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		shortDesc: "Confuses and paralyzes the foe.",
 		pp: 20,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1},
 		volatileStatus: 'confusion',
 		status: 'par',
 		ignoreImmunity: false,
-		secondary: null,
-		target: "normal",
-		type: "Normal",
-		onTryMove() {
+		onTryMove(pokemon, target, move) {
 			this.attrLastMove('[still]');
+			if (this.randomChance(1, 256)) {
+				this.add('-fail', pokemon);
+				return false;
+			},
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, "Hex", target);
@@ -3945,9 +3946,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onMoveFail() {
 			this.add('-message', '(In Gen 1, moves with 100% accuracy have a 1/256 chance to miss.)');
 		},
-		onModifyMove(move, pokemon, target) {
-			move.accuracy = 25500 / 256;
-		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
 	},
 
 	// Zarel
