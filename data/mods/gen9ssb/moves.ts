@@ -3938,7 +3938,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (this.randomChance(1, 256)) {
 				this.add('-fail', pokemon);
 				return false;
-			},
+			}
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, "Hex", target);
