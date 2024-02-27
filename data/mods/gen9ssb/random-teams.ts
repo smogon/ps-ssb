@@ -494,6 +494,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: '~nyaa',
 		evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant', teraType: 'Steel',
 	},
+	'nya~ ❤': {
+		species: 'Delcatty', ability: 'Adorable Grace', item: 'Focus Band', gender: 'F',
+		moves: ['Frost Breath', 'Tri Attack', 'Volt Switch'],
+		signatureMove: ':3',
+		evs: {hp: 252, spa: 4, spe: 252}, nature: 'Naive', teraType: 'Ice',
+	},
 	PartMan: {
 		species: 'Chandelure', ability: 'C- Tier Shitposter', item: 'Leek', gender: 'M',
 		moves: ['Searing Shot', 'Hex', 'Morning Sun'],
