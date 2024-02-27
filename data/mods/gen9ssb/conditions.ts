@@ -1503,6 +1503,40 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Teclis')}|This was my last dance.`);
 		},
 	},
+	tenshi: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Tenshi')}|he SLEUTHING`);
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'blitz':
+				this.add(`c:|${getName('Tenshi')}|le fishe`);
+			} // todo: lobby staff interaction, but it seems unfeasible.
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('Tenshi')}|omg no SAND save him! :(`);
+			const replacementIndex = Math.max(pokemon.moves.indexOf('pyroball'),
+				pokemon.moves.indexOf('aquatail'), pokemon.moves.indexOf('tripleaxel'), pokemon.moves.indexOf('stoneedge'));
+			if (replacementIndex < 0) {
+				return;
+			}
+			const replacement = this.dex.moves.get('dynamicpunch');
+			const replacementMove = {
+				move: replacement.name,
+				id: replacement.id,
+				pp: replacement.pp,
+				maxpp: replacement.pp,
+				target: replacement.target,
+				disabled: false,
+				used: false,
+			};
+			pokemon.moveSlots[replacementIndex] = replacementMove;
+			pokemon.baseMoveSlots[replacementIndex] = replacementMove;
+			pokemon.setType('Ground');
+		},
+		onFaint() {
+			this.add(`c:|${getName('Tenshi')}|Wait no that's illegal`);
+		},
+	},
 	tico: {
 		noCopy: true,
 		onStart(pokemon) {

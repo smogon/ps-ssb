@@ -3449,6 +3449,58 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// Tenshi
+	sandeat: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Protects user, changes type and gains a new move.",
+		name: "SAND EAT",
+		pp: 10,
+		priority: 4,
+		volatileStatus: 'protect',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onHit(pokemon) {
+			pokemon.addVolatile('stall');
+			const types = ['Fire', 'Water', 'Ice', 'Rock'];
+			const moves = ['pyroball', 'aquatail', 'tripleaxel', 'stoneedge'];
+			const newType = this.sample(types.filter(i => !pokemon.hasType(i)));
+			const newMove = moves[types.indexOf(newType)];
+			const replacementIndex = Math.max(pokemon.moves.indexOf('dynamicpunch'), pokemon.moves.indexOf('pyroball'),
+				pokemon.moves.indexOf('aquatail'), pokemon.moves.indexOf('tripleaxel'), pokemon.moves.indexOf('stoneedge'));
+			if (replacementIndex < 0) {
+				return;
+			}
+			const replacement = this.dex.moves.get(newMove);
+			const replacementMove = {
+				move: replacement.name,
+				id: replacement.id,
+				pp: replacement.pp,
+				maxpp: replacement.pp,
+				target: replacement.target,
+				disabled: false,
+				used: false,
+			};
+			pokemon.moveSlots[replacementIndex] = replacementMove;
+			pokemon.baseMoveSlots[replacementIndex] = replacementMove;
+			pokemon.addType(newType);
+			this.add('-start', pokemon, 'typeadd', newType, '[from] move: SAND EAT');
+			this.add(`c:|${getName('Tenshi')}|omg look HE EAT`);
+		},
+		flags: {},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dig', target);
+			this.add('-anim', source, 'Odor Sleuth', target);
+			this.add('-anim', source, 'Stuff Cheeks', target);
+			return this.runEvent('StallMove', source);
+		},
+		secondary: null,
+		target: "self",
+		type: "Ground",
+	},
+
 	// Theia
 	bodycount: {
 		accuracy: 100,
