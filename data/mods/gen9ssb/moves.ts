@@ -587,6 +587,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		multihit: 5,
 		priority: 0,
 		flags: {snatch: 1, metronome: 1, protect: 1, failcopycat: 1},
+		onTry(source) {
+			if (source.illusion || source.name !== 'ausma') {
+				return;
+			}
+			this.attrLastMove('[still]');
+			this.add('-fail', source, 'move: Aura Wheel');
+			this.hint("Only a Pokemon whose nickname is \"ausma\" can use this move.");
+			return null;
+		},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
