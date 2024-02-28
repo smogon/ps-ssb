@@ -2146,7 +2146,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Status",
 		name: "Roulette",
 		desc: "A random move is selected for use, and then the user's other three moves are replaced with random moves. Aura Wheel, Dark Void, Explosion, Final Gambit, Healing Wish, Hyperspace Fury, Lunar Dance, Memento, Misty Explosion, Revival Blessing, and Self-Destruct cannot be selected.",
-		shortDesc: "Replace other user's 3 moves with random moves.",
+		shortDesc: "Replace target's 3 moves with random moves.",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -2158,43 +2158,29 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Metronome', target);
 			this.add('-anim', source, 'Explosion', target);
 		},
-		onHit(target, source, m) {
+		onHit(target, source) {
 			const bannedList = [
 				'aurawheel', 'darkvoid', 'explosion', 'finalgambit', 'healingwish', 'hyperspacefury',
 				'lunardance', 'memento', 'mistyexplosion', 'revivalblessing', 'selfdestruct',
 			];
 			const moves = this.dex.moves.all().filter(move => (
-				(!source.moves.includes(move.id)) &&
+				!source.moves.includes(move.id) &&
 				(!move.isNonstandard || move.isNonstandard === 'Unobtainable')
 			));
-			for (let i = 0; i < 4; i++) {
-				let randomMove;
-				if (moves.length) {
-					moves.sort((a, b) => a.num - b.num);
-					randomMove = this.sample(moves);
-				}
-				if (randomMove) {
-					if (bannedList.includes(randomMove.id)) {
-						i -= 1;
-						continue;
-					}
-					if (i === 3) {
-						this.actions.useMove(randomMove, source);
-						break;
-					}
-					bannedList.push(randomMove.id);
-					const sketchedMove = {
-						move: randomMove.name,
-						id: randomMove.id,
-						pp: randomMove.pp,
-						maxpp: randomMove.pp,
-						target: randomMove.target,
-						disabled: false,
-						used: false,
-					};
-					source.moveSlots[i] = sketchedMove;
-					source.baseMoveSlots[i] = sketchedMove;
-				}
+			for (const [i, moveSlot] of target.moveSlots.entries()) {
+				if (i > 2) break;
+				const randomMove = this.sample(moves.filter(x => !bannedList.includes(x.id));
+				bannedList.push(randomMove.id);
+				const replacement = {
+					move: randomMove.name,
+					id: randomMove.id,
+					pp: randomMove.pp,
+					maxpp: randomMove.pp,
+					target: randomMove.target,
+					disabled: false,
+					used: false,
+				};
+				target.moveSlots[i] = target.baseMoveSlots[i] = replacement;
 			}
 		},
 		target: "normal",
