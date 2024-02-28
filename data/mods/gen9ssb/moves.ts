@@ -635,7 +635,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				} else if (effect < 90) {
 					target.addVolatile('confusion', source);
 				} else if (effect < 98) {
-					source.addVolatile('witchsabstract');
+					source.addVolatile('sigilsstorm');
 					this.actions.useMove("mistyexplosion", source);
 				} else {
 					changeSet(this, target, ssbSets["ausma-Fennekin"]);
