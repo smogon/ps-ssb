@@ -212,13 +212,14 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		}, // Is a message before going mega supported(unlikely)? if so, the first message in onAfterMega goes there.
 	},
 	arcueid: {
-		// TBA
 		noCopy: true,
 		onStart() {
-		},
-		onSwitchOut() {
+			const img = "https://i.ibb.co/Cv8LYmP/the-rock-look-the-rock-meme.gif";
+			this.add(`c:|${getName('Arcueid')}|/html <img src="${img}" width="32" height="32" />`);
 		},
 		onFaint() {
+			const img = "https://i.ibb.co/ss0VF8x/tRsWWx7.png";
+			this.add(`c:|${getName('Arcueid')}|/html <img src="${img}" width="32" height="32" />`);
 		},
 	},
 	arsenal: {
