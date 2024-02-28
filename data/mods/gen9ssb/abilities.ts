@@ -391,7 +391,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (this.field.weatherState.source !== pokemon) return;
 			for (const target of this.getAllActive()) {
 				if (target === pokemon) continue;
-				if (target.hasAbility('deltastream')) {
+				if (target.hasAbility(['deltastream', 'jetstream'])) {
 					this.field.weatherState.source = target;
 					return;
 				}
