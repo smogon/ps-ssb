@@ -44,6 +44,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Saintly Bullet"},
 	},
 
+	// Arcueid
+	deoxysattack: {
+		inherit: true,
+		abilities: {0: "Marble Phantasm"},
+	},
+	deoxysdefense: {
+		inherit: true,
+		abilities: {0: "Marble Phantasm"},
+	},
+
 	// Arya
 	trapinch: {
 		inherit: true,
@@ -56,6 +66,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	regirock: {
 		inherit: true,
 		abilities: {0: "Sturdy"},
+	},
+
+	// Billo
+	solgaleo: {
+		inherit: true,
+		abilities: {0: "Magic Guard"},
 	},
 
 	// Blitz
@@ -85,6 +101,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	mimikyubusted: {
 		inherit: true,
 		abilities: {0: "Masquerade"},
+	},
+
+	// Clouds
+	corvisquire: {
+		inherit: true,
+		baseStats: {hp: 98, atk: 87, def: 105, spa: 53, spd: 85, spe: 67},
+		abilities: {0: "Jet Stream"},
 	},
 
 	// Coolcodename
@@ -119,6 +142,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	yveltal: {
 		inherit: true,
 		abilities: {0: "Sharpness"},
+	},
+
+	// Elliot
+	sinistea: {
+		inherit: true,
+		baseStats: {hp: 69, atk: 65, def: 114, spa: 134, spd: 65, spe: 70},
+		abilities: {0: "Natural Cure"},
 	},
 
 	// Elly
@@ -190,6 +220,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	medicham: {
 		inherit: true,
 		abilities: {0: "Psychic Surge"},
+	},
+
+	// ken
+	jigglypuff: {
+		inherit: true,
+		baseStats: {hp: 115, atk: 65, def: 99, spa: 65, spd: 115, spe: 111},
+		abilities: {0: "Aroma Veil"},
 	},
 
 	// kenn
@@ -279,6 +316,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Vent Crosser"},
 	},
 
+	// Nyx
+	altaria: {
+		inherit: true,
+		abilities: {0: "Last Hymn", 1: "Natural Cure", H: "Cloud Nine"},
+	},
+	altariamega: {
+		inherit: true,
+		abilities: {0: "Last Hymn"},
+	},
+
 	// PartMan
 	chandelure: {
 		inherit: true,
@@ -295,6 +342,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	jynx: {
 		inherit: true,
 		abilities: {0: "I Did It Again"},
+	},
+
+	// Pissog
+	volcarona: {
+		inherit: true,
+		abilities: {0: "Drought"},
+	},
+	frosmoth: {
+		inherit: true,
+		abilities: {0: "Snow Warning"},
 	},
 
 	// pokemonvortex
@@ -320,6 +377,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ribombee: {
 		inherit: true,
 		abilities: {0: 'Fancy Scarf'},
+	},
+
+	// RSB
+	growlithe: {
+		inherit: true,
+		baseStats: {hp: 70, atk: 86, def: 60, spa: 86, spd: 66, spe: 76},
 	},
 
 	// Rumia
@@ -353,6 +416,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Magical Mystery Charge"},
 	},
 
+	// skies
+	chespin: {
+		inherit: true,
+		baseStats: {hp: 88, atk: 117, def: 122, spa: 74, spd: 85, spe: 84},
+		abilities: {0: "Spikes of Wrath"},
+	},
+
 	// spoo
 	mumbao: {
 		inherit: true,
@@ -375,6 +445,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 84, atk: 66, def: 88, spa: 81, spd: 101, spe: 50},
 		abilities: {0: "Stinky"},
+	},
+
+	// Tenshi
+	sandshrew: {
+		inherit: true,
+		baseStats: {hp: 50, atk: 115, def: 130, spa: 50, spd: 65, spe: 98},
+		abilities: {0: "Sand Sleuth"},
 	},
 
 	// Theia

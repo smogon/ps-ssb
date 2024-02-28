@@ -1,7 +1,7 @@
 import {ssbSets} from "./random-teams";
 import {changeSet, getName, enemyStaff} from "./scripts";
 
-const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream', 'deserteddunes'];
+const STRONG_WEATHERS = ['desolateland', 'primordialsea', 'deltastream', 'deserteddunes', 'millenniumcastle'];
 
 export const Abilities: {[k: string]: ModdedAbilityData} = {
 	/*
@@ -30,6 +30,20 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+		gen: 9,
+	},
+
+	// Akir
+	takeitslow: {
+		shortDesc: "Regenerator + Psychic Surge.",
+		name: "Take it Slow",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onStart(source) {
+			this.field.setTerrain('psychicterrain');
+		},
+		flags: {},
 		gen: 9,
 	},
 
@@ -76,6 +90,30 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+	},
+
+	// Alexander489
+	confirmedtown: {
+		shortDesc: "Technician + Protean.",
+		name: "Confirmed Town",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, attacker, defender, move) {
+			const basePowerAfterMultiplier = this.modify(basePower, this.event.modifier);
+			this.debug('Base Power: ' + basePowerAfterMultiplier);
+			if (basePowerAfterMultiplier <= 60) {
+				this.debug('Confirmed Town boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] ability: Confirmed Town');
+			}
+		},
+		flags: {},
 	},
 
 	// Appletun a la Mode
@@ -180,6 +218,66 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// Arcueid
+	marblephantasm: {
+		shortDesc: "Sets up Millennium Castle, effects vary with user's form.",
+		name: "Marble Phantasm",
+		onStart(source) {
+			this.field.setWeather('millenniumcastle');
+			if (source.species.name === "Deoxys-Attack" && source.setType(['Psychic', 'Fairy'])) {
+				this.add('-start', source, 'typechange', source.getTypes(true).join('/'), '[from] weather: Millennium Castle');
+			} else if (source.species.name === "Deoxys-Defense" && source.setType('Psychic')) {
+				this.add('-start', source, 'typeadd', 'Psychic', '[from] weather: Milennium Castle');
+			}
+		},
+		onAnySetWeather(target, source, weather) {
+			if (this.field.getWeather().id === 'millenniumcastle' && !STRONG_WEATHERS.includes(weather.id)) return false;
+		},
+		onTryHit(target, source, move) {
+			if (move.category === 'Status' && target !== source &&
+				target.effectiveWeather() === 'milleniumcastle' && target.species.name === "Deoxys-Defense") {
+				this.add('-immune', target, '[from] weather: Millennium Castle');
+				return null;
+			}
+		},
+		onSetStatus(status, target, source, effect) {
+			if (target.effectiveWeather() === 'millenniumcastle' && target.species.name === "Deoxys-Defense") {
+				this.add('-immune', target, '[from] weather: Millennium Castle');
+				return false;
+			}
+		},
+		onEnd(pokemon) {
+			if (this.field.weatherState.source !== pokemon) return;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (target.hasAbility('marblephantasm')) {
+					this.field.weatherState.source = target;
+					return;
+				}
+			}
+			this.field.clearWeather();
+		},
+		flags: {},
+		gen: 9,
+	},
+
+	// Arsenal
+	onemore: {
+		shortDesc: "Super Effective and Critical hits cause this Pokemon to flinch.",
+		name: "One More",
+		onHit(target, source, move) {
+			const hitData = target.getMoveHitData(move);
+			if (move.category === "Status" || hitData.typeMod <= 0 || !hitData.crit) return;
+			if (!move.secondaries) move.secondaries = [];
+			move.secondaries.push({
+				chance: 100,
+				volatileStatus: 'flinch',
+			});
+		},
+		flags: {},
+		gen: 9,
+	},
+
 	// Artemis
 	supervisedlearning: {
 		shortDesc: "Mold Breaker + Unaware + Clear Body.",
@@ -218,6 +316,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		flags: {},
 		gen: 9,
+	},
+
+	// ausma
+	lattebreak: {
+		shortDesc: "Regenerator + one-time priority boost per switch-in.",
+		name: "Latte Break",
+		onModifyPriority(relayVar, source, target, move) {
+			if (this.effectState.latte) {
+				return relayVar + 0.5;
+			}
+		},
+		onAfterMove() {
+			this.effectState.latte = false;
+		},
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+			this.effectState.latte = true;
+		},
+		flags: {},
 	},
 
 	// Blitz
@@ -301,6 +418,42 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Clefable
+	thatshacked: {
+		shortDesc: "Tries to inflict the foe with Torment at the end of each turn.",
+		name: "That's Hacked",
+		onResidual(target, source, effect) {
+			if (!target.foes()) return;
+			const abilMessages = [
+				"All hacks and hacking methods are banned!",
+				"Can't be having that.",
+				"Naaah, miss me with that shit.",
+				"Bit bullshit that, mate.",
+				"Wait, thats illegal!",
+				"Nope.",
+				"I can't believe you've done this.",
+				"No thank you.",
+				"Seems a bit suss.",
+				"Thats probably hacked, shouldnt use it here.",
+				"Hacks will get you banned.",
+				"You silly sausage",
+				"Can you not?",
+				"Yeah, thats a no from me.",
+				"Lets not",
+				"No fun allowed",
+			];
+			this.add(`c:|${getName((target.illusion || target).name)}|${this.sample(abilMessages)}`);
+			this.add(`c:|${getName((target.illusion || target).name)}|snt are ${(source.illusion || source).name} n ${(target.illusion || target).name} plus ${target.foes()[0].name}`);
+
+			for (const foe of target.foes()) {
+				if (!foe.volatiles['torment']) {
+					foe.addVolatile('torment');
+				}
+			}
+		},
+		flags: {},
+	},
+
 	// clerica
 	masquerade: {
 		shortDesc: "(Mimikyu only) The first hit is blocked: instead, takes 1/8 damage and gets +1 Atk/Spe.",
@@ -352,6 +505,35 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1, failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
 	},
 
+	// Clouds
+	jetstream: {
+		shortDesc: "Delta Stream + Stealth Rock Immunity.",
+		name: "Jet Stream",
+		onStart(source) {
+			this.field.setWeather('deltastream');
+			this.add('message',	`Strong air currents keep Flying-types ahead of the chase!`);
+		},
+		onAnySetWeather(target, source, weather) {
+			if (this.field.isWeather('deltastream') && !STRONG_WEATHERS.includes(weather.id)) return false;
+		},
+		onEnd(pokemon) {
+			if (this.field.weatherState.source !== pokemon) return;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (target.hasAbility(['deltastream', 'jetstream'])) {
+					this.field.weatherState.source = target;
+					return;
+				}
+			}
+			this.field.clearWeather();
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect && effect.name === 'Stealth Rock') {
+				return false;
+			}
+		},
+		flags: {breakable: 1},
+	},
 
 	// Coolcodename
 	firewall: {
@@ -383,6 +565,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (!foe || foe.fainted || !foe.hp) continue;
 				this.add(`-anim`, pokemon, "Tackle", foe);
 				this.damage(foe.hp / 4, foe, pokemon);
+			}
+		},
+		flags: {},
+	},
+
+	// Corthius
+	grassyemperor: {
+		shortDesc: "On switch-in, summons Grassy Terrain. During Grassy Terrain, Attack is 1.33x.",
+		name: "Grassy Emperor",
+		onStart(pokemon) {
+			if (this.field.setTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'Grassy Emperor', '[source]');
+			} else if (this.field.isTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'ability: Grassy Emperor');
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Grassy Emperor boost');
+				return this.chainModify([5461, 4096]);
 			}
 		},
 		flags: {},
@@ -469,6 +672,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Frostyicelad
+	almostfrosty: {
+		shortDesc: "This Pokemon's damaging moves hit twice. The second hit has its damage halved.",
+		name: "Almost Frosty",
+		onPrepareHit(source, target, move) {
+			if (move.category === 'Status' || move.multihit || move.flags['noparentalbond'] || move.flags['charge'] ||
+				move.flags['futuremove'] || move.spreadHit || move.isZ || move.isMax) return;
+			move.multihit = 2;
+			move.multihitType = 'parentalbond';
+		},
+		// Damage modifier implemented in BattleActions#modifyDamage()
+		onSourceModifySecondaries(secondaries, target, source, move) {
+			if (move.multihitType === 'parentalbond' && move.id === 'secretpower' && move.hit < 2) {
+				// hack to prevent accidentally suppressing King's Rock/Razor Fang
+				return secondaries.filter(effect => effect.volatileStatus === 'flinch');
+			}
+		},
+	},
+
 	// Frozoid
 	snowballer: {
 		shortDesc: "This Pokemon's Attack is raised 1 stage if hit by an Ice move; Ice immunity.",
@@ -483,6 +705,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {breakable: 1},
+	},
+
+	// Fame
+	socialjumpluffwarrior: {
+		shortDesc: "Serene Grace + Mold Breaker.",
+		name: "Social Jumpluff Warrior",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Social Jumpluff Warrior');
+		},
+		onModifyMovePriority: -2,
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+			if (move.secondaries) {
+				this.debug('doubling secondary chance');
+				for (const secondary of move.secondaries) {
+					if (secondary.chance) secondary.chance *= 2;
+				}
+			}
+			if (move.self?.chance) move.self.chance *= 2;
+		},
+		flags: {},
 	},
 
 	// Ganjafin
@@ -691,6 +934,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Kaede
+	ghostlyhallow: {
+		shortDesc: "This Pokémon can hit Normal types with Ghost-type moves.",
+		name: "Ghostly Hallow",
+		onModifyMovePriority: -5,
+		onModifyMove(move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Ghost'] = true;
+			}
+		},
+	},
+
 	// kenn
 	deserteddunes: {
 		onStart(source) {
@@ -784,6 +1040,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
 	},
 
+	// kingbaruk
+	peerpressure: {
+		shortDesc: "All moves used while this Pokemon is on the field consume 4 PP.",
+		name: "Peer Pressure",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Peer Pressure');
+		},
+		onAnyDeductPP(target, source) {
+			return 3;
+		},
+		flags: {},
+	},
+
 	// Kiwi
 	surehitsorcery: {
 		name: "Sure Hit Sorcery",
@@ -808,6 +1077,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.field.setTerrain('grassyterrain');
 		},
 		flags: {},
+	},
+
+	// Klmondo
+	superskilled: {
+		name: "Super Skilled",
+		shortDesc: "Skill Link + Multiscale.",
+		onModifyMove(move) {
+			if (move.multihit && Array.isArray(move.multihit) && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.hp >= target.maxhp) {
+				this.debug('Multiscale weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		flags: {breakable: 1},
 	},
 
 	// Kris
@@ -878,6 +1168,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-clearallboost');
 			for (const poke of this.getAllActive()) {
 				poke.clearBoosts();
+			}
+		},
+		flags: {},
+	},
+
+	// Lionyx
+	enormoos: {
+		name: "EnorMOOs",
+		shortDesc: "This Pokemon's Defense is used in damage calculation instead of Attack or Sp. Atk.",
+		onModifyMove(move, pokemon, target) {
+			if (move.category !== "Status") {
+				move.overrideOffensiveStat = 'def';
 			}
 		},
 		flags: {},
@@ -1017,6 +1319,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// maroon
+	builtdifferent: {
+		shortDesc: "Stamina + Normal type moves get +1 priority.",
+		name: "Built Different",
+		onDamagingHit(damage, target, source, effect) {
+			this.boost({def: 1});
+		},
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.type === 'Normal') return priority + 1;
+		},
+		flags: {},
+	},
+
 	// Mathy
 	dynamictyping: {
 		shortDesc: "Moves used by all Pokemon are ??? type.",
@@ -1131,6 +1446,46 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// nya
+	adorablegrace: {
+		shortDesc: "This Pokemon's secondary effects and certain items have their activation chance doubled.",
+		name: "Adorable Grace",
+		onModifyMovePriority: -2,
+		onModifyMove(move) {
+			if (move.secondaries) {
+				this.debug('doubling secondary chance');
+				for (const secondary of move.secondaries) {
+					if (secondary.chance) secondary.chance *= 2;
+				}
+			}
+			if (move.self?.chance) move.self.chance *= 2;
+		},
+		// Item chances modified in items.js
+	},
+
+	// Nyx
+	lasthymn: {
+		name: "Last Hymn",
+		shortDesc: "Weakens incoming attacks for each Pokemon fainted.",
+		onStart(pokemon) {
+			if (pokemon.side.totalFainted) {
+				this.add('-activate', pokemon, 'ability: Last Hymn');
+				const fallen = Math.min(pokemon.side.totalFainted, 5);
+				this.add('-start', pokemon, `fallen${fallen}`, '[silent]');
+				this.effectState.fallen = fallen;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, `fallen${this.effectState.fallen}`, '[silent]');
+		},
+		onBasePowerPriority: 21,
+		onFoeBasePower(basePower, attacker, defender, move) {
+			if (this.effectState.fallen) {
+				return this.chainModify([10, (10 + this.effectState.fallen)]);
+			}
+		},
+	},
+
 	// PartMan
 	ctiershitposter: {
 		shortDesc: "-1 Atk/SpA, +1 Def/SpD. +1 Atk/SpA/Spe, -1 Def/SpD, Mold Breaker if 420+ dmg taken.",
@@ -1225,6 +1580,50 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Ransei
+	ultramystik: {
+		shortDesc: "Stats 1.5x until hit super effectively + Magic Guard + Leftovers.",
+		name: "Ultra Mystik",
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).typeMod > 0) {
+				this.effectState.superHit = true;
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifyDefPriority: 6,
+		onModifyDef(def, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpDPriority: 6,
+		onModifySpD(spd, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onModifySpe(spe, pokemon) {
+			if (this.effectState.superHit || pokemon.ignoringAbility()) return;
+			return this.chainModify(1.5);
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon, pokemon.getAbility());
+		},
+	},
+
 	// ReturnToMonkey
 	monkeseemonkedo: {
 		shortDesc: "Boosts Atk or SpA by 1 based on foe's defenses, then copies foe's Ability.",
@@ -1270,6 +1669,67 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1},
 	},
 
+	// RSB
+	hotpursuit: {
+		shortDesc: "This Pokemon's damaging moves have the Pursuit effect.",
+		name: "Hot Pursuit",
+		onBeforeTurn(pokemon) {
+			for (const side of this.sides) {
+				if (side.hasAlly(pokemon)) continue;
+				side.addSideCondition('hotpursuit', pokemon);
+				const data = side.getSideConditionData('hotpursuit');
+				if (!data.sources) {
+					data.sources = [];
+				}
+				data.sources.push(pokemon);
+			}
+		},
+		onBasePower(relayVar, source, target, move) {
+			// You can't get here unless the pursuit succeeds
+			if (target.beingCalledBack || target.switchFlag) {
+				this.debug('Pursuit damage boost');
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
+		onModifyMove(move, source, target) {
+			if (target?.beingCalledBack || target?.switchFlag) move.accuracy = true;
+		},
+		onTryHit(target, pokemon) {
+			target.side.removeSideCondition('hotpursuit');
+		},
+		condition: {
+			duration: 1,
+			onBeforeSwitchOut(pokemon) {
+				const move = this.queue.willMove(pokemon.foes()[0]);
+				const moveName = move && move.moveid ? move.moveid.toString() : "";
+				this.debug('Pursuit start');
+				let alreadyAdded = false;
+				pokemon.removeVolatile('destinybond');
+				for (const source of this.effectState.sources) {
+					if (!source.isAdjacent(pokemon) || !this.queue.cancelMove(source) || !source.hp) continue;
+					if (!alreadyAdded) {
+						this.add('-activate', pokemon.foes()[0], 'ability: Hot Pursuit');
+						alreadyAdded = true;
+					}
+					// Run through each action in queue to check if the Pursuit user is supposed to Mega Evolve this turn.
+					// If it is, then Mega Evolve before moving.
+					if (source.canMegaEvo || source.canUltraBurst) {
+						for (const [actionIndex, action] of this.queue.entries()) {
+							if (action.pokemon === source && action.choice === 'megaEvo') {
+								this.actions.runMegaEvo(source);
+								this.queue.list.splice(actionIndex, 1);
+								break;
+							}
+						}
+					}
+					this.actions.runMove(moveName, source, source.getLocOf(pokemon));
+				}
+			},
+		},
+		flags: {},
+	},
+
 	// Rumia
 	youkaiofthedusk: {
 		shortDesc: "Defense: x2. Status moves: +1 Priority.",
@@ -1301,6 +1761,91 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// skies
+	spikesofwrath: {
+		shortDesc: "Stamina + Cheek Pouch + sets Spikes and Toxic Spikes upon KO.",
+		name: "Spikes of Wrath",
+		onDamagingHit(damage, target, source, effect) {
+			if (target.hp) {
+				this.boost({def: 1});
+			} else {
+				const side = source.isAlly(target) ? source.side.foe : source.side;
+				const spikes = side.sideConditions['spikes'];
+				const toxicSpikes = side.sideConditions['toxicspikes'];
+				if ((!spikes || spikes.layers < 3)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('spikes', target);
+				}
+				if ((!toxicSpikes || toxicSpikes.layers < 2)) {
+					this.add('-activate', target, 'ability: Spikes of Wrath');
+					side.addSideCondition('toxicspikes', target);
+				}
+			}
+		},
+		onEatItem(item, pokemon) {
+			this.heal(pokemon.baseMaxhp / 3);
+		},
+		flags: {},
+	},
+
+	// Soft Flex
+	adaptiveengineering: {
+		shortDesc: "Every turn, raises a random stat by 1 stage if the foe has more raised stats.",
+		name: "Adaptive Engineering",
+		onResidual(source) {
+			if (source === undefined || source.foes() === undefined || source.foes()[0] === undefined) return;
+			if (source.positiveBoosts() < source.foes()[0].positiveBoosts()) {
+				const stats: BoostID[] = [];
+				let stat: BoostID;
+				for (stat in source.boosts) {
+					if (stat === 'accuracy' || stat === 'evasion') continue;
+					if (source.boosts[stat] < 6) {
+						stats.push(stat);
+					}
+				}
+				if (stats.length) {
+					const randomStat = this.sample(stats);
+					this.boost({[randomStat]: 1}, source, source);
+				}
+			}
+		},
+		flags: {},
+	},
+
+	// Solaros & Lunaris
+	ridethesun: {
+		shortDesc: "Drought + Chlorophyll",
+		name: "Ride the Sun!",
+		onStart(source) {
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === source && source.species.id === 'groudon') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.field.setWeather('sunnyday');
+		},
+		onModifySpe(spe, pokemon) {
+			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
+				return this.chainModify(2);
+			}
+		},
+		flags: {},
+	},
+
+	// Struchni
+	overaskedclause: {
+		shortDesc: "Moves used on the previous turn will always fail.",
+		name: "Overasked Clause",
+		onFoeBeforeMove(target, source, move) {
+			if (target.lastMove && target.lastMove.id !== 'struggle') {
+				if (move.id === target.lastMove.id) {
+					this.attrLastMove('[still]');
+					this.add('cant', this.effectState.target, 'ability: Overasked Clause', move, '[of] ' + target);
+					return false;
+				}
+			}
+		},
 	},
 
 	// Sulo
@@ -1343,6 +1888,35 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Tenshi
+	sandsleuth: {
+		desc: "Sets Gravity and identifies foes on switch-in. Priority immune from identified foes.",
+		name: "Sand Sleuth",
+		onStart(target) {
+			this.field.addPseudoWeather('gravity', target);
+			for (const opponent of target.adjacentFoes()) {
+				if (!opponent.volatiles['foresight']) {
+					opponent.addVolatile('foresight');
+				}
+			}
+		},
+		onFoeTryMove(target, source, move) {
+			if (target.volatiles['foresight']) {
+				const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
+				if (move.target === 'foeSide' || (move.target === 'all' && !targetAllExceptions.includes(move.id))) {
+					return;
+				}
+				const dazzlingHolder = this.effectState.target;
+				if ((source.isAlly(dazzlingHolder) || move.target === 'all') && move.priority > 0.1) {
+					this.attrLastMove('[still]');
+					this.add('cant', dazzlingHolder, 'ability: Sand Sleuth', move, '[of] ' + target);
+					return false;
+				}
+			}
+		},
+		flags: {},
+	},
+
 	// Theia
 	powerabuse: {
 		shortDesc: "Summons Sun; attacks do 66% less damage to this Pokemon; may burn physical attackers.",
@@ -1357,6 +1931,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.category === "Physical" && this.randomChance(1, 5)) {
 				source.trySetStatus('brn', target);
 			}
+		},
+		flags: {breakable: 1},
+	},
+
+	// Tico
+	eternalgenerator: {
+		shortDesc: "Regenerator + Hazard immune.",
+		name: "Eternal Generator",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		flags: {breakable: 1},
 	},
@@ -1472,6 +2056,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Valerian
+	fullbloom: {
+		shortDesc: "This Pokémon's priority moves have double power.",
+		name: "Full Bloom",
+		onBasePowerPriority: 30,
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.priority > 0) {
+				return this.chainModify(2);
+			}
+		},
+	},
+
 	// Venous
 	concreteoverwater: {
 		shortDesc: "+1 Def/Spd before getting hit by a Super Effective move",
@@ -1570,6 +2166,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
+	// xy01
+	panic: {
+		shortDesc: "Lowers the opponent's Atk and Sp. Atk by 1 upon switch-in.",
+		name: "Panic",
+		onStart(pokemon) {
+			let activated = false;
+			for (const target of pokemon.adjacentFoes()) {
+				if (!activated) {
+					this.add('-ability', pokemon, 'Panic', 'boost');
+					activated = true;
+				}
+				if (target.volatiles['substitute']) {
+					this.add('-immune', target);
+				} else {
+					this.boost({atk: -1, spa: -1}, target, pokemon, null, true);
+				}
+			}
+		},
+		flags: {},
+	},
+
 	// Yellow Paint
 	yellowmagic: {
 		shortDesc: "+25% HP, +1 SpA, +1 Spe, Charge, or Paralyzes attacker when hit by an Electric move; Electric immunity.",
@@ -1628,6 +2245,34 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// za
+	troll: {
+		shortDesc: "Using moves that can flinch makes user move first in their priority bracket.",
+		name: "Troll",
+		onModifyPriority(relayVar, source, target, move) {
+			if (!move) return;
+			if (move.secondary?.volatileStatus === 'flinch') {
+				return relayVar + 0.5;
+			}
+		},
+	},
+
+	// Zarel
+	tempochange: {
+		shortDesc: "Switches Meloetta's forme between Aria and Pirouette at the end of each turn.",
+		name: "Tempo Change",
+		onResidualOrder: 29,
+		onResidual(pokemon) {
+			if (pokemon.species.baseSpecies !== 'Meloetta') return;
+			if (pokemon.species.name === 'Meloetta') {
+				changeSet(this, pokemon, ssbSets['Zarel-Pirouette'], true);
+			} else {
+				changeSet(this, pokemon, ssbSets['Zarel'], true);
+			}
+		},
+		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1},
 	},
 
 	// zoro
