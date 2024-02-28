@@ -3458,6 +3458,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "SAND EAT",
 		pp: 10,
 		priority: 4,
+		flags: {noassist: 1},
+		stallingMove: true,
 		volatileStatus: 'protect',
 		onTryMove() {
 			this.attrLastMove('[still]');
@@ -3494,13 +3496,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-start', pokemon, 'typeadd', newType, '[from] move: SAND EAT');
 			this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|omg look HE EAT`);
 		},
-		flags: {},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Dig', target);
-			this.add('-anim', source, 'Odor Sleuth', target);
-			this.add('-anim', source, 'Stuff Cheeks', target);
-			this.add(`c:|${getName((source.illusion || source).name)}|he do be searching for rocks tho`);
-			return this.runEvent('StallMove', source);
+		onPrepareHit(pokemon, source) {
+			this.add('-anim', source, 'Dig', pokemon);
+			this.add('-anim', source, 'Odor Sleuth', pokemon);
+			this.add('-anim', source, 'Stuff Cheeks', pokemon);
+			this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|he do be searching for rocks tho`);
+			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
 		},
 		secondary: null,
 		target: "self",
