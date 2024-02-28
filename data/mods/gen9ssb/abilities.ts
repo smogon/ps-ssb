@@ -352,8 +352,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add(`c:|${getName((target.illusion || target).name)}|${this.sample(abilMessages)}`);
 			this.add(`c:|${getName((target.illusion || target).name)}|snt are ${(source.illusion || source).name} n ${(target.illusion || target).name} plus ${target.foes()[0].name}`);
 
-			if (!target.foes()[0].getVolatile('torment')) {
-				target.foes()[0].addVolatile('torment');
+			for (const foe of target.foes()) {
+				if (!foe.volatiles['torment'])) {
+					foe.addVolatile('torment');
+				}
 			}
 		},
 		flags: {},
