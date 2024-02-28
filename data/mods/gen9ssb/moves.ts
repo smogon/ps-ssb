@@ -723,21 +723,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Teleport', target);
 			this.add('-anim', source, 'Baton Pass', target);
 		},
+		// Baton Pass clones are stupid client side so we're doing this
 		onHit(target) {
-			if (!this.canSwitch(target.side) || target.volatiles['commanded']) {
-				this.attrLastMove('[still]');
-				this.add('-fail', target);
-				return this.NOT_FAIL;
-			}
+			this.actions.useMove('batonpass', target);
 		},
-		self: {
-			onHit(source) {
-				source.skipBeforeSwitchOutEventFlag = true;
-			},
-		},
-		// odd bug here: despite the code being copied from baton pass, the boosts are not visible
-		// on the recipient of this move. but they do exist and function. no clue why this happens.
-		selfSwitch: 'copyvolatile',
 		secondary: null,
 		target: "self",
 		type: "Normal",
