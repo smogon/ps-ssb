@@ -224,11 +224,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Marble Phantasm",
 		onStart(source) {
 			this.field.setWeather('millenniumcastle');
-			if (source.species.name === "Deoxys-Attack" && !source.hasType('Fairy')) {
-				source.addType("Fairy");
-				this.add('-start', source, 'typeadd', 'Fairy', '[from] weather: Millennium Castle');
-			} else if (source.species.name === "Deoxys-Defense" && source.hasType('Fairy')) {
-				source.setType("Psychic");
+			if (source.species.name === "Deoxys-Attack" && source.setType(['Psychic', 'Fairy'])) {
+				this.add('-start', source, 'typechange', source.getTypes(true).join('/'), '[from] weather: Millennium Castle');
+			} else if (source.species.name === "Deoxys-Defense" && source.setType('Psychic')) {
 				this.add('-start', source, 'typeadd', 'Psychic', '[from] weather: Milennium Castle');
 			}
 		},
