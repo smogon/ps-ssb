@@ -3031,7 +3031,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Thief', target);
 		},
 		onTryHit(target, source) {
-			this.add(`c:|${getName('RSB')}|Contraband detected, confiscating.`);
+			this.add(`c:|${getName((source.illusion || source).name)}|Contraband detected, confiscating.`);
 			for (const condition of ['reflect', 'lightscreen', 'auroraveil']) {
 				if (target.side.removeSideCondition(condition)) {
 					source.side.addSideCondition(condition);
