@@ -3494,6 +3494,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Dig', target);
 			this.add('-anim', source, 'Odor Sleuth', target);
 			this.add('-anim', source, 'Stuff Cheeks', target);
+			this.add(`c:|${getName('Tenshi')}|he do be searching for rocks tho`);
 			return this.runEvent('StallMove', source);
 		},
 		secondary: null,

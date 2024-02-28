@@ -1506,11 +1506,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	tenshi: {
 		noCopy: true,
 		onStart(pokemon) {
-			this.add(`c:|${getName('Tenshi')}|he SLEUTHING`);
 			switch (this.toID(enemyStaff(pokemon))) {
 			case 'blitz':
 				this.add(`c:|${getName('Tenshi')}|le fishe`);
-			} // todo: lobby staff interaction, but it seems unfeasible.
+				break;
+			case 'ut':
+				this.add(`c:|${getName('Tenshi')}|birbs cannot save u from SAND`);
+				break;
+			case 'clouds':
+				this.add(`c:|${getName('Tenshi')}|birbs cannot save u from SAND`);
+				break;
+			default:
+				this.add(`c:|${getName('Tenshi')}|he SLEUTHING`);
+			}
 		},
 		onSwitchOut(pokemon) {
 			this.add(`c:|${getName('Tenshi')}|omg no SAND save him! :(`);
@@ -1533,8 +1541,20 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			pokemon.baseMoveSlots[replacementIndex] = replacementMove;
 			pokemon.setType('Ground');
 		},
-		onFaint() {
-			this.add(`c:|${getName('Tenshi')}|Wait no that's illegal`);
+		onFaint(pokemon) {
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'blitz':
+				this.add(`c:|${getName('Tenshi')}|YOU KILLED YOUR SON`);
+				break;
+			case 'ut':
+				this.add(`c:|${getName('Tenshi')}|worryrex`);
+				break;
+			case 'clouds':
+				this.add(`c:|${getName('Tenshi')}|SAND is no longer in the air tonight :(`);
+				break;
+			default:
+				this.add(`c:|${getName('Tenshi')}|Wait no that's illegal`);
+			}
 		},
 	},
 	tico: {
