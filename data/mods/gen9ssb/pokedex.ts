@@ -44,6 +44,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Saintly Bullet"},
 	},
 
+	// Arcueid
+	deoxysattack: {
+		inherit: true,
+		abilities: {0: "Marble Phantasm"},
+	},
+	deoxysdefense: {
+		inherit: true,
+		abilities: {0: "Marble Phantasm"},
+	},
+
 	// Arya
 	trapinch: {
 		inherit: true,
@@ -91,6 +101,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	mimikyubusted: {
 		inherit: true,
 		abilities: {0: "Masquerade"},
+	},
+
+	// Clouds
+	corvisquire: {
+		inherit: true,
+		baseStats: {hp: 98, atk: 87, def: 105, spa: 53, spd: 85, spe: 67},
+		abilities: {0: "Jet Stream"},
 	},
 
 	// Coolcodename
@@ -205,6 +222,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Psychic Surge"},
 	},
 
+	// ken
+	jigglypuff: {
+		inherit: true,
+		baseStats: {hp: 115, atk: 65, def: 99, spa: 65, spd: 115, spe: 111},
+		abilities: {0: "Aroma Veil"},
+	},
+
 	// kenn
 	larvitar: {
 		inherit: true,
@@ -290,6 +314,16 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	incineroar: {
 		inherit: true,
 		abilities: {0: "Vent Crosser"},
+	},
+
+	// Nyx
+	altaria: {
+		inherit: true,
+		abilities: {0: "Last Hymn", 1: "Natural Cure", H: "Cloud Nine"},
+	},
+	altariamega: {
+		inherit: true,
+		abilities: {0: "Last Hymn"},
 	},
 
 	// PartMan
@@ -398,6 +432,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 84, atk: 66, def: 88, spa: 81, spd: 101, spe: 50},
 		abilities: {0: "Stinky"},
+	},
+
+	// Tenshi
+	sandshrew: {
+		inherit: true,
+		baseStats: {hp: 50, atk: 115, def: 130, spa: 50, spd: 65, spe: 98},
+		abilities: {0: "Sand Sleuth"},
 	},
 
 	// Theia
