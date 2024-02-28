@@ -644,7 +644,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return priority + 2;
 			}
 		},
-		flags: {contact: 1, protect: 1, mirror: 1},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (!target || target.fainted || target.hp <= 0) this.boost({atk: 3}, pokemon, pokemon, move);
 		},
