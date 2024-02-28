@@ -636,6 +636,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 10,
 		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1},
 		onModifyPriority(priority, pokemon) {
 			const move = this.queue.willMove(pokemon.foes()[0])?.moveid;
 			if (move && pokemon.foes()[0].moves.indexOf(move) === pokemon.foes()[0].moves.length - 1) {
