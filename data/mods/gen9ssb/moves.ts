@@ -3409,7 +3409,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				!source.moves.includes(move.id) &&
 				(!move.isNonstandard || move.isNonstandard === 'Unobtainable')
 			));
-			for (const [i, moveSlot] of target.moveSlots.entries()) {
+			for (const i of target.moveSlots.keys()) {
 				if (i > 2) break;
 				const randomMove = this.sample(moves.filter(x => !bannedList.includes(x.id)));
 				bannedList.push(randomMove.id);
