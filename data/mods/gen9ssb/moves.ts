@@ -586,7 +586,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		multihit: 5,
 		priority: 0,
-		flags: {snatch: 1, metronome: 1},
+		flags: {snatch: 1, metronome: 1, protect: 1, failcopycat: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
