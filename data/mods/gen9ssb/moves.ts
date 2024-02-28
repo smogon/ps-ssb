@@ -3468,8 +3468,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const moves = ['pyroball', 'aquatail', 'tripleaxel', 'stoneedge'];
 			const newType = this.sample(types.filter(i => !pokemon.hasType(i)));
 			const newMove = moves[types.indexOf(newType)];
-			const replacementIndex = Math.max(pokemon.moves.indexOf('dynamicpunch'), pokemon.moves.indexOf('pyroball'),
-				pokemon.moves.indexOf('aquatail'), pokemon.moves.indexOf('tripleaxel'), pokemon.moves.indexOf('stoneedge'));
+			const replacementIndex = Math.max(
+				pokemon.moves.indexOf('dynamicpunch'),
+				pokemon.moves.indexOf('pyroball'),
+				pokemon.moves.indexOf('aquatail'),
+				pokemon.moves.indexOf('tripleaxel'),
+				pokemon.moves.indexOf('stoneedge')
+			);
 			if (replacementIndex < 0) {
 				return;
 			}
@@ -3487,14 +3492,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			pokemon.baseMoveSlots[replacementIndex] = replacementMove;
 			pokemon.addType(newType);
 			this.add('-start', pokemon, 'typeadd', newType, '[from] move: SAND EAT');
-			this.add(`c:|${getName('Tenshi')}|omg look HE EAT`);
+			this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|omg look HE EAT`);
 		},
 		flags: {},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dig', target);
 			this.add('-anim', source, 'Odor Sleuth', target);
 			this.add('-anim', source, 'Stuff Cheeks', target);
-			this.add(`c:|${getName('Tenshi')}|he do be searching for rocks tho`);
+			this.add(`c:|${getName((source.illusion || source).name)}|he do be searching for rocks tho`);
 			return this.runEvent('StallMove', source);
 		},
 		secondary: null,

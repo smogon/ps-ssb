@@ -1649,18 +1649,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Tenshi
 	sandsleuth: {
-		desc: "Switch-in sets Gravity, identifies foes. Priority immune from identified foes.",
+		desc: "Sets Gravity and identifies foes on switch-in. Priority immune from identified foes.",
 		name: "Sand Sleuth",
 		onStart(target) {
 			this.field.addPseudoWeather('gravity', target);
 			for (const opponent of target.adjacentFoes()) {
-				if (!opponent.getVolatile('foresight')) {
+				if (!opponent.volatiles['foresight']) {
 					opponent.addVolatile('foresight');
 				}
 			}
 		},
 		onFoeTryMove(target, source, move) {
-			if (target.getVolatile('foresight')) {
+			if (target.volatiles['foresight']) {
 				const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
 				if (move.target === 'foeSide' || (move.target === 'all' && !targetAllExceptions.includes(move.id))) {
 					return;

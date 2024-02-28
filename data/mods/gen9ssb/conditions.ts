@@ -1511,8 +1511,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				this.add(`c:|${getName('Tenshi')}|le fishe`);
 				break;
 			case 'ut':
-				this.add(`c:|${getName('Tenshi')}|birbs cannot save u from SAND`);
-				break;
 			case 'clouds':
 				this.add(`c:|${getName('Tenshi')}|birbs cannot save u from SAND`);
 				break;
@@ -1522,8 +1520,12 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onSwitchOut(pokemon) {
 			this.add(`c:|${getName('Tenshi')}|omg no SAND save him! :(`);
-			const replacementIndex = Math.max(pokemon.moves.indexOf('pyroball'),
-				pokemon.moves.indexOf('aquatail'), pokemon.moves.indexOf('tripleaxel'), pokemon.moves.indexOf('stoneedge'));
+			const replacementIndex = Math.max(
+				pokemon.moves.indexOf('pyroball'),
+				pokemon.moves.indexOf('aquatail'),
+				pokemon.moves.indexOf('tripleaxel'),
+				pokemon.moves.indexOf('stoneedge')
+			);
 			if (replacementIndex < 0) {
 				return;
 			}
@@ -1539,7 +1541,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			};
 			pokemon.moveSlots[replacementIndex] = replacementMove;
 			pokemon.baseMoveSlots[replacementIndex] = replacementMove;
-			pokemon.setType('Ground');
 		},
 		onFaint(pokemon) {
 			switch (this.toID(enemyStaff(pokemon))) {
