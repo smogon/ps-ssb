@@ -267,7 +267,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('ausma')}|IBig Stall™ will be right back (after my coffee)`);
+			this.add(`c:|${getName('ausma')}|Big Stall™ will be right back (after my coffee)`);
 		},
 		onFaint() {
 			this.add(`c:|${getName('ausma')}|God has punished me for my hubris.`);
