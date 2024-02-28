@@ -630,7 +630,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					const randomStat: BoostID | undefined = stats.length ? this.sample(stats) : undefined;
 					if (randomStat) {
 						boost[randomStat] = 1;
-						if (effect < 40) {
+						if (chance < 40) {
 							boost[randomStat] = -1;
 						}
 					}
