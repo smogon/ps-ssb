@@ -346,7 +346,7 @@ export const ssbSets: SSBSets = {
 	},
 	Kaede: {
 		species: 'Kitsunoh', ability: 'Ghostly Hallow', item: 'Choice Band', gender: '',
-		moves: ['Meteor Mash', 'Shadow Strike', 'U-Turn'],
+		moves: ['Meteor Mash', 'Shadow Strike', 'U-turn'],
 		signatureMove: 'Phantom Weapon',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', teraType: ['Steel', 'Ghost'], shiny: 2,
 	},
