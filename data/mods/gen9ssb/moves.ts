@@ -2371,7 +2371,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 	},
 
-	// nyx
+	// Nyx
 	cottoncandycrush: {
 		accuracy: 100,
 		basePower: 80,

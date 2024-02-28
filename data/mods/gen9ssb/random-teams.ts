@@ -434,7 +434,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: '~nyaa',
 		evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant', teraType: 'Steel',
 	},
-	nyx: {
+	Nyx: {
 		species: 'Altaria', ability: 'Last Hymn', item: 'Altarianite', gender: 'F',
 		moves: ['Earthquake', 'Amnesia', 'Roost'],
 		signatureMove: 'Cotton Candy Crush',

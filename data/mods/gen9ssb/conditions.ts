@@ -953,7 +953,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		// phrases TBD
 	},
-	Nyx: {
+	nyx: {
 		noCopy: true,
 		onStart() {
 			this.add(`c:|${getName('Nyx')}|good meowning, here's why you're wrong.`);
