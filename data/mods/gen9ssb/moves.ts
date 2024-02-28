@@ -1739,7 +1739,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onHit(target, source, move) {
 				let success = false;
 				while (!success) {
-					const effect = Math.floor(Math.random() * 100);
+					const effect = this.random(100);
 					if (effect < 10) {
 						if (target.trySetStatus('psn', target)) {
 							success = true;
@@ -1761,32 +1761,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 							success = true;
 						}
 					} else if (effect < 40) {
-						if (!target.getVolatile('confusion')) {
+						if (!target.volatiles['confusion']) {
 							target.addVolatile('confusion', source);
 							success = true;
 						}
 					} else if (effect < 45) {
-						if (!target.getVolatile('attract')) {
+						if (!target.volatiles['attract']) {
 							target.addVolatile('attract', source);
 							success = true;
 						}
 					} else if (effect < 50) {
-						if (!target.getVolatile('taunt')) {
+						if (!target.volatiles['taunt']) {
 							target.addVolatile('taunt', source);
 							success = true;
 						}
 					} else if (effect < 55) {
-						if (target.lastMove && !target.getVolatile('encore')) {
+						if (target.lastMove && !target.volatiles['encore']) {
 							target.addVolatile('encore', source);
 							success = true;
 						}
 					} else if (effect < 60) {
-						if (!target.getVolatile('torment')) {
+						if (!target.volatiles['torment']) {
 							target.addVolatile('torment', source);
 							success = true;
 						}
 					} else if (effect < 65) {
-						if (!target.getVolatile('healblock')) {
+						if (!target.volatiles['healblock']) {
 							target.addVolatile('healblock', source);
 							success = true;
 						}
