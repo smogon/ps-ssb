@@ -3411,7 +3411,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			));
 			for (const [i, moveSlot] of target.moveSlots.entries()) {
 				if (i > 2) break;
-				const randomMove = this.sample(moves.filter(x => !bannedList.includes(x.id));
+				const randomMove = this.sample(moves.filter(x => !bannedList.includes(x.id)));
 				bannedList.push(randomMove.id);
 				const replacement = {
 					move: randomMove.name,
