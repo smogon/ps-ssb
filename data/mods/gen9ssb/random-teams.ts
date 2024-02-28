@@ -136,7 +136,7 @@ export const ssbSets: SSBSets = {
 		species: 'Fennekin', ability: 'Blaze', item: '', gender: '',
 		moves: ['Tackle', 'Growl'],
 		signatureMove: 'Ember',
-		evs: {}, nature: '', skip: 'ausma',
+		evs: {}, skip: 'ausma',
 	},
 	AuzBat: {
 		species: 'Swoobat', ability: 'Magic Guard', item: 'Focus Sash', gender: 'M',

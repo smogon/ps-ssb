@@ -272,6 +272,19 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c:|${getName('ausma')}|God has punished me for my hubris.`);
 		},
+		onTryMove(source, target, move) {
+			this.effectState.foeMemory = target.name;
+		},
+		onFoeSwitchOut(pokemon) {
+			if (this.effectState.foeMemory && pokemon.species.name === "Fennekin") {
+				changeSet(this, pokemon, ssbSets[this.effectState.foeMemory]);
+			}
+		},
+		onFoeFaint(target, source, effect) {
+			if (this.effectState.foeMemory && target.species.name === "Fennekin") {
+				changeSet(this, target, ssbSets[this.effectState.foeMemory]);
+			}
+		},
 	},
 	auzbat: {
 		noCopy: true,

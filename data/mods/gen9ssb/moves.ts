@@ -582,7 +582,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 15,
 		category: "Special",
 		shortDesc: "Hits 5 times, each hit has a 20% chance to inflict status.",
-		name: "Sigil’s Storm",
+		name: "Sigil's Storm",
 		pp: 5,
 		multihit: 5,
 		priority: 0,
@@ -598,23 +598,23 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			chance: 20,
 			onHit(target, source, move) {
 				move.willCrit = false;
-				const effect = Math.floor(Math.random() * 100);
-				if (effect < 10) {
+				const chance = this.random(100);
+				if (chance <= 10) {
 					target.trySetStatus('psn', target);
-				} else if (effect < 20) {
+				} else if (chance <= 20) {
 					target.trySetStatus('tox', target);
-				} else if (effect < 30) {
+				} else if (chance <= 30) {
 					target.trySetStatus('brn', target);
-				} else if (effect < 50) {
+				} else if (chance <= 50) {
 					const stats: BoostID[] = [];
 					const boost: SparseBoostsTable = {};
 					let statPlus: BoostID;
 					const recipient = this.randomChance(1, 2) ? source : target;
 					for (statPlus in recipient.boosts) {
 						if (statPlus === 'accuracy' || statPlus === 'evasion') continue;
-						if (effect < 40 && recipient.boosts[statPlus] > -6) {
+						if (chance <= 40 && recipient.boosts[statPlus] > -6) {
 							stats.push(statPlus);
-						} else if (effect < 50 && recipient.boosts[statPlus] < 6) {
+						} else if (chance <= 50 && recipient.boosts[statPlus] < 6) {
 							stats.push(statPlus);
 						}
 					}
@@ -626,28 +626,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 					this.boost(boost, recipient, recipient);
-				} else if (effect < 60) {
+				} else if (chance <= 60) {
 					move.willCrit = true;
-				} else if (effect < 70) {
+				} else if (chance <= 70) {
 					target.addVolatile('taunt', source);
-				} else if (effect < 80) {
+				} else if (chance <= 80) {
 					target.addVolatile('torment', source);
-				} else if (effect < 90) {
+				} else if (chance <= 90) {
 					target.addVolatile('confusion', source);
-				} else if (effect < 98) {
-					source.addVolatile('sigilsstorm');
-					this.actions.useMove("mistyexplosion", source);
+				} else if (chance <= 98) {
+					const mistyExplosion = this.dex.getActiveMove('mistyexplosion');
+					mistyExplosion.basePower = 75;
+					this.actions.useMove(mistyExplosion, source);
 				} else {
-					changeSet(this, target, ssbSets["ausma-Fennekin"]);
+					changeSet(this, target, ssbSets["ausma-Fennekin"], true);
 					this.add(`c:|${getName('ausma')}|oh shit i posted to the wrong account`);
 				}
-			},
-		},
-		condition: {
-			duration: 1,
-			onBasePowerPriority: 12,
-			onBasePower(basePower) {
-				return this.chainModify(0.75);
 			},
 		},
 		target: "normal",
