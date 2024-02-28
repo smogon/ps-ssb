@@ -58,6 +58,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Sturdy"},
 	},
 
+	// Billo
+	solgaleo: {
+		inherit: true,
+		abilities: {0: "Magic Guard"},
+	},
+
 	// Blitz
 	chiyu: {
 		inherit: true,
@@ -85,6 +91,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	mimikyubusted: {
 		inherit: true,
 		abilities: {0: "Masquerade"},
+	},
+
+	// Clouds
+	corvisquire: {
+		inherit: true,
+		baseStats: {hp: 98, atk: 87, def: 105, spa: 53, spd: 85, spe: 67},
+		abilities: {0: "Jet Stream"},
 	},
 
 	// Coolcodename
@@ -119,6 +132,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	yveltal: {
 		inherit: true,
 		abilities: {0: "Sharpness"},
+	},
+
+	// Elliot
+	sinistea: {
+		inherit: true,
+		baseStats: {hp: 69, atk: 65, def: 114, spa: 134, spd: 65, spe: 70},
+		abilities: {0: "Natural Cure"},
 	},
 
 	// Elly

@@ -33,6 +33,20 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// Akir
+	takeitslow: {
+		shortDesc: "Regenerator + Psychic Surge.",
+		name: "Take it Slow",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onStart(source) {
+			this.field.setTerrain('psychicterrain');
+		},
+		flags: {},
+		gen: 9,
+	},
+
 	// Alex
 	pawprints: {
 		shortDesc: "Oblivious. Status moves +1 priority and ignore abilities.",
@@ -204,6 +218,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// Arsenal
+	onemore: {
+		shortDesc: "Super Effective and Critical hits cause this Pokemon to flinch.",
+		name: "One More",
+		onHit(target, source, move) {
+			const hitData = target.getMoveHitData(move);
+			if (move.category === "Status" || hitData.typeMod <= 0 || !hitData.crit) return;
+			if (!move.secondaries) move.secondaries = [];
+			move.secondaries.push({
+				chance: 100,
+				volatileStatus: 'flinch',
+			});
+		},
+		flags: {},
+		gen: 9,
+	},
+
 	// Artemis
 	supervisedlearning: {
 		shortDesc: "Mold Breaker + Unaware + Clear Body.",
@@ -325,6 +356,42 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// Clefable
+	thatshacked: {
+		shortDesc: "Tries to inflict the foe with Torment at the end of each turn.",
+		name: "That's Hacked",
+		onResidual(target, source, effect) {
+			if (!target.foes()) return;
+			const abilMessages = [
+				"All hacks and hacking methods are banned!",
+				"Can't be having that.",
+				"Naaah, miss me with that shit.",
+				"Bit bullshit that, mate.",
+				"Wait, thats illegal!",
+				"Nope.",
+				"I can't believe you've done this.",
+				"No thank you.",
+				"Seems a bit suss.",
+				"Thats probably hacked, shouldnt use it here.",
+				"Hacks will get you banned.",
+				"You silly sausage",
+				"Can you not?",
+				"Yeah, thats a no from me.",
+				"Lets not",
+				"No fun allowed",
+			];
+			this.add(`c:|${getName((target.illusion || target).name)}|${this.sample(abilMessages)}`);
+			this.add(`c:|${getName((target.illusion || target).name)}|snt are ${(source.illusion || source).name} n ${(target.illusion || target).name} plus ${target.foes()[0].name}`);
+
+			for (const foe of target.foes()) {
+				if (!foe.volatiles['torment']) {
+					foe.addVolatile('torment');
+				}
+			}
+		},
+		flags: {},
+	},
+
 	// clerica
 	masquerade: {
 		shortDesc: "(Mimikyu only) The first hit is blocked: instead, takes 1/8 damage and gets +1 Atk/Spe.",
@@ -376,6 +443,35 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1, failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
 	},
 
+	// Clouds
+	jetstream: {
+		shortDesc: "Delta Stream + Stealth Rock Immunity.",
+		name: "Jet Stream",
+		onStart(source) {
+			this.field.setWeather('deltastream');
+			this.add('message',	`Strong air currents keep Flying-types ahead of the chase!`);
+		},
+		onAnySetWeather(target, source, weather) {
+			if (this.field.isWeather('deltastream') && !STRONG_WEATHERS.includes(weather.id)) return false;
+		},
+		onEnd(pokemon) {
+			if (this.field.weatherState.source !== pokemon) return;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (target.hasAbility(['deltastream', 'jetstream'])) {
+					this.field.weatherState.source = target;
+					return;
+				}
+			}
+			this.field.clearWeather();
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect && effect.name === 'Stealth Rock') {
+				return false;
+			}
+		},
+		flags: {breakable: 1},
+	},
 
 	// Coolcodename
 	firewall: {
@@ -510,6 +606,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					if (!source.hasType(this.activeMove.type)) this.heal(damage);
 					return null;
 				}
+			}
+		},
+	},
+
+	// Frostyicelad
+	almostfrosty: {
+		shortDesc: "This Pokemon's damaging moves hit twice. The second hit has its damage halved.",
+		name: "Almost Frosty",
+		onPrepareHit(source, target, move) {
+			if (move.category === 'Status' || move.multihit || move.flags['noparentalbond'] || move.flags['charge'] ||
+				move.flags['futuremove'] || move.spreadHit || move.isZ || move.isMax) return;
+			move.multihit = 2;
+			move.multihitType = 'parentalbond';
+		},
+		// Damage modifier implemented in BattleActions#modifyDamage()
+		onSourceModifySecondaries(secondaries, target, source, move) {
+			if (move.multihitType === 'parentalbond' && move.id === 'secretpower' && move.hit < 2) {
+				// hack to prevent accidentally suppressing King's Rock/Razor Fang
+				return secondaries.filter(effect => effect.volatileStatus === 'flinch');
 			}
 		},
 	},
@@ -850,6 +965,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1},
 	},
 
+	// kingbaruk
+	peerpressure: {
+		shortDesc: "All moves used while this Pokemon is on the field consume 4 PP.",
+		name: "Peer Pressure",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Peer Pressure');
+		},
+		onAnyDeductPP(target, source) {
+			return 3;
+		},
+		flags: {},
+	},
+
 	// Kiwi
 	surehitsorcery: {
 		name: "Sure Hit Sorcery",
@@ -1112,6 +1240,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (['hail', 'snow'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(1.5);
 			}
+		},
+		flags: {},
+	},
+
+	// maroon
+	builtdifferent: {
+		shortDesc: "Stamina + Normal type moves get +1 priority.",
+		name: "Built Different",
+		onDamagingHit(damage, target, source, effect) {
+			this.boost({def: 1});
+		},
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.type === 'Normal') return priority + 1;
 		},
 		flags: {},
 	},
@@ -1899,6 +2040,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		flags: {},
+	},
+
+	// za
+	troll: {
+		shortDesc: "Using moves that can flinch makes user move first in their priority bracket.",
+		name: "Troll",
+		onModifyPriority(relayVar, source, target, move) {
+			if (!move) return;
+			if (move.secondary?.volatileStatus === 'flinch') {
+				return relayVar + 0.5;
+			}
+		},
 	},
 
 	// Zarel

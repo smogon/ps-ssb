@@ -48,6 +48,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Smelt',
 		evs: {hp: 252, atk: 4, spd: 252}, nature: 'Careful', teraType: 'Steel', shiny: true,
 	},
+	Akir: {
+		species: 'Slowbro', ability: 'Take it Slow', item: 'Heavy-Duty Boots', gender: 'M',
+		moves: ['Future Sight', 'Slack Off', 'Steam Eruption'],
+		signatureMove: 'Free Switch Button',
+		evs: {hp: 248, def: 8, spa: 252}, ivs: {atk: 0, spe: 0}, nature: 'Relaxed', teraType: 'Fairy',
+	},
 	Alex: {
 		species: 'Sprigatito', ability: 'Pawprints', item: 'Eviolite', gender: '',
 		moves: ['Substitute', 'Protect', 'Magic Powder'],
@@ -102,6 +108,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Anyone can be killed',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
+	Arsenal: {
+		species: 'Rabsca', ability: 'One More', item: 'Covert Cloak', gender: 'N',
+		moves: ['Skill Swap', 'Calm Mind', 'Speed Swap'],
+		signatureMove: 'Megidolaon',
+		evs: {hp: 4, spa: 252, spd: 252}, nature: 'Modest', teraType: 'Stellar', shiny: true,
+	},
 	Artemis: {
 		species: 'Genesect', ability: 'Supervised Learning', item: 'Choice Specs', gender: 'N',
 		moves: [],
@@ -120,11 +132,35 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Prep Time',
 		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', teraType: 'Psychic', shiny: 8192,
 	},
+	avarice: {
+		species: 'Sinistcha-Masterpiece', ability: 'Serene Grace', item: ['Covert Cloak', 'Leftovers'], gender: 'N',
+		moves: ['Strength Sap', 'Calm Mind', 'Matcha Gotcha'],
+		signatureMove: 'yu-gi-oh reference',
+		evs: {hp: 252, def: 160, spe: 90}, ivs: {atk: 0}, nature: 'Bold', teraType: 'Steel',
+	},
 	berry: {
 		species: 'Regirock', ability: 'Sturdy', item: 'Maranga Berry', gender: 'F',
 		moves: ['Curse', 'Salt Cure', 'Stone Axe'],
 		signatureMove: 'what kind',
 		evs: {hp: 252, atk: 4, spd: 252}, nature: 'Careful', teraType: 'Rock',
+	},
+	Billo: {
+		species: 'Cosmog', ability: 'Wonder Guard', item: 'Eviolite', gender: 'N',
+		moves: [],
+		signatureMove: 'Hack Check',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	'Billo-Solgaleo': {
+		species: 'Solgaleo', ability: 'Magic Guard', item: 'Choice Scarf', gender: 'N',
+		moves: ['Wave Crash', 'Volt Tackle', 'Flare Blitz'],
+		signatureMove: 'Head Smash',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', skip: 'Billo', shiny: true,
+	},
+	'Billo-Lunala': {
+		species: 'Lunala', ability: 'Shadow Shield', item: 'Lunalium Z', gender: 'N',
+		moves: ['Moongeist Beam', 'Moonblast', 'Ice Beam'],
+		signatureMove: 'Thunderbolt',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', skip: 'Billo',
 	},
 	Blitz: {
 		species: 'Chi-Yu', ability: 'Blitz of Ruin', item: 'Life Orb', gender: 'N',
@@ -157,11 +193,23 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'De Todas las Flores',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', teraType: 'Grass', shiny: true,
 	},
+	Clefable: {
+		species: 'Clefable', ability: 'That\'s Hacked', item: 'Leftovers', gender: 'M',
+		moves: ['Cosmic Power', 'Soft-Boiled', 'Thunder Wave'],
+		signatureMove: 'Giveaway!',
+		evs: {hp: 252, def: 200, spd: 56}, nature: 'Calm', teraType: 'Any', shiny: true,
+	},
 	clerica: {
 		species: 'Mimikyu', ability: 'Masquerade', item: 'Ghostium Z', gender: 'F',
 		moves: ['Protect', 'Substitute', 'Phantom Force'],
 		signatureMove: 'Stockholm Syndrome',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+	},
+	Clouds: {
+		species: 'Corvisquire', ability: 'Jet Stream', item: 'Leftovers', gender: 'M',
+		moves: ['Brave Bird', 'Roost', 'Defog'],
+		signatureMove: 'Winds of Change',
+		evs: {hp: 252, atk: 4, def: 252}, nature: 'Jolly', teraType: 'Flying', shiny: 822,
 	},
 	Coolcodename: {
 		species: 'Victini', ability: 'Firewall', item: 'Heavy-Duty Boots', gender: 'M',
@@ -205,6 +253,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Trivial Pursuit',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Poison',
 	},
+	Elliot: {
+		species: 'Sinistea', ability: 'Natural Cure', item: 'Focus Sash', gender: 'N',
+		moves: ['Moonblast', 'Shadow Ball', 'Teatime'],
+		signatureMove: 'Tea Party',
+		evs: {def: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Water', shiny: true,
+	},
 	Elly: {
 		species: 'Thundurus', ability: 'Storm Surge', item: 'Heavy-Duty Boots', gender: 'F',
 		moves: ['Wildbolt Storm', 'Sandsear Storm', 'Volt Switch'],
@@ -230,6 +284,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Cringe Dad Joke',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', teraType: 'Dark',
 	},
+	Frostyicelad: {
+		species: 'Qwilfish-Hisui', ability: 'Almost Frosty', item: 'Eviolite', gender: 'M',
+		moves: ['Darkest Lariat', 'Recover', ['Dire Claw', 'Meteor Mash', 'Bitter Malice']],
+		signatureMove: 'Puffy Spiky Destruction',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: ['Dark', 'Poison', 'Ghost', 'Steel'], shiny: 1024,
+	},
 	Frozoid: {
 		species: 'Gible', ability: 'Snowballer', item: 'Eviolite', gender: 'M',
 		moves: ['Dragon Dance', 'Dragon Rush', 'Precipice Blades'],
@@ -250,7 +310,7 @@ export const ssbSets: SSBSets = {
 	},
 	HiZo: {
 		species: 'Zoroark-Hisui', ability: 'Martyr Complex', item: 'Heavy-Duty Boots', gender: 'M',
-		moves: ['Last Respects', 'Boomburst', 'Spirit Break'],
+		moves: ['Last Respects', 'Blood Moon', 'Spirit Break'],
 		signatureMove: 'Scapegoat',
 		evs: {atk: 252, spa: 4, spe: 252}, nature: 'Naive', teraType: 'Fairy',
 	},
@@ -326,6 +386,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Hat-Trick',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Any',
 	},
+	kingbaruk: {
+		species: 'Wigglytuff', ability: 'Peer Pressure', item: 'Leftovers', gender: 'M',
+		moves: ['Trump Card', 'Moonblast', ['Protect', 'Flamethrower', 'Eerie Spell']],
+		signatureMove: 'Platinum Record',
+		evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest', teraType: 'Normal',
+	},
 	Kiwi: {
 		species: 'Minccino', ability: 'Sure Hit Sorcery', item: 'Heavy-Duty Boots', gender: 'M',
 		moves: ['Dynamic Punch', 'Substitute', 'Noble Roar'],
@@ -397,6 +463,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Weather Ball', 'Defog', ['Solar Beam', 'Thunder', 'Aurora Veil']],
 		signatureMove: 'Storm Shelter',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', teraType: 'Rock',
+	},
+	maroon: {
+		species: 'Archaludon', ability: 'Built Different', item: 'Leftovers', gender: 'M',
+		moves: ['Body Press', 'Stealth Rock', 'Rapid Spin'],
+		signatureMove: 'Metal Blast',
+		evs: {hp: 252, def: 252, spa: 4}, nature: 'Bold', teraType: 'Flying',
 	},
 	Mathy: {
 		species: 'Furret', ability: 'Dynamic Typing', item: 'Big Root', gender: 'M',
@@ -697,6 +769,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Freezing Glare', 'Ice Beam', 'Slack Off'],
 		signatureMove: 'High Ground',
 		evs: {hp: 248, spa: 252, spe: 8}, nature: 'Modest', teraType: 'Ground',
+	},
+	za: {
+		species: 'Greedent', ability: 'Troll', item: 'Leftovers', gender: 'M',
+		moves: ['Headbutt', 'Iron Head', 'Foul Play'],
+		signatureMove: 'Shitpost',
+		evs: {hp: 252, def: 252, spe: 6}, nature: 'Impish', teraType: 'Steel',
 	},
 	Zalm: {
 		species: 'Weedle', ability: 'Water Bubble', item: 'Clear Amulet', gender: '',
