@@ -443,7 +443,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFoeMoveAborted(target, source, move) {
 			if (source.getVolatile('confusion')) {
 				if (source.foes()) {
-					this.boost({atk: 1, def: 1}, source.foes()[0]);
+					for (const foe of source.foes()) {
+						if (foe.illusion || foe.name !== 'Froggeh') continue;
+						this.boost({atk: 1, def: 1}, foe);
+					}
 				}
 			}
 		},
