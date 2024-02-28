@@ -1338,7 +1338,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('RSB')}|Officer down.`);
 		},
 		onTryHit(target, source, move) {
-			if (target !== source && move.type === 'Fire') {
+			if (!target.illusion && target !== source && move.type === 'Fire') {
 				move.accuracy = true;
 				if (!target.addVolatile('flashfire')) {
 					this.add('-immune', target, '[from] ability: Flash Fire');
