@@ -252,7 +252,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onStart(pokemon) {
 			this.add(`c:|${getName('ausma')}|what it Do what it Be`);
 			switch (this.toID(enemyStaff(pokemon))) {
-			case 'kolohe':
+			case 'umuwo':
 				this.add(`c:|${getName('ausma')}|it's.... chu......`);
 				break;
 			case 'spoo':
