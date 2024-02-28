@@ -1088,7 +1088,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Reset target's stat changes, copies user's negative stats to target, inverts them on user.",
+		shortDesc: "Clear target stats+copies neg stats+inverts on user.",
 		name: "Hasty Revolution",
 		pp: 5,
 		priority: 0,
