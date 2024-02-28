@@ -452,7 +452,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, failcopycat: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -466,7 +466,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(target, source, move) {
 			if (source.species.name === "Deoxys-Defense") {
 				changeSet(this, source, ssbSets['Arcueid-Attack'], true);
-				const randMove = Math.floor(Math.random() * 3);
+				let randMove = this.random(3) - 1;
+				if (randMove < 0) randMove = 0;
 				this.actions.useMove(source.moveSlots[randMove].id, target);
 			} else {
 				changeSet(this, source, ssbSets['Arcueid'], true);

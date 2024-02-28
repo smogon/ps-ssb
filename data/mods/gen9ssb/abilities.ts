@@ -234,16 +234,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (this.field.getWeather().id === 'millenniumcastle' && !STRONG_WEATHERS.includes(weather.id)) return false;
 		},
 		onTryHit(target, source, move) {
-			if (move.category === 'Status' && target !== source && target.species.name === "Deoxys-Defense") {
+			if (move.category === 'Status' && target !== source &&
+				target.effectiveWeather() === 'milleniumcastle' && target.species.name === "Deoxys-Defense") {
 				this.add('-immune', target, '[from] weather: Millennium Castle');
 				return null;
 			}
 		},
 		onSetStatus(status, target, source, effect) {
-			if (this.field.getWeather().id === 'millenniumcastle' && target.species.name === "Deoxys-Defense") {
-				if ((effect as Move)?.status) {
-					this.add('-immune', target, '[from] weather: Millennium Castle');
-				}
+			if (target.effectiveWeather() === 'millenniumcastle' && target.species.name === "Deoxys-Defense") {
+				this.add('-immune', target, '[from] weather: Millennium Castle');
 				return false;
 			}
 		},

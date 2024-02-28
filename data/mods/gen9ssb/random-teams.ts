@@ -104,7 +104,7 @@ export const ssbSets: SSBSets = {
 	},
 	Arcueid: {
 		species: 'Deoxys-Defense', ability: 'Marble Phantasm', item: 'Heavy-Duty Boots', gender: 'N',
-		moves: [['Lunar Blessing', 'Jungle Healing'], 'Body Press', ['Toxic', 'Will-o-Wisp', 'Topsy Turvy']],
+		moves: [['Lunar Blessing', 'Jungle Healing'], 'Body Press', ['Toxic', 'Will-O-Wisp', 'Topsy-Turvy']],
 		signatureMove: 'Funny Vamp',
 		evs: {hp: 248, spa: 8, spe: 252}, nature: 'Naive', shiny: true,
 	},
