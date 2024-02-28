@@ -385,7 +385,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('message',	`Strong air currents keep Flying-types ahead of the chase!`);
 		},
 		onAnySetWeather(target, source, weather) {
-			if (this.field.getWeather().id === 'deltastream' && !STRONG_WEATHERS.includes(weather.id)) return false;
+			if (this.field.isWeather('deltastream') && !STRONG_WEATHERS.includes(weather.id)) return false;
 		},
 		onEnd(pokemon) {
 			if (this.field.weatherState.source !== pokemon) return;
