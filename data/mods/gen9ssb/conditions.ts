@@ -369,14 +369,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		onStart(pokemon) {
 			this.add(`c:|${getName('Cake')}|randem batels`);
-			this.effectState.moves = this.dex.moves.get(pokemon.moveSlots[0].id) + "," +
-			this.dex.moves.get(pokemon.moveSlots[1].id) + "," + this.dex.moves.get(pokemon.moveSlots[2].id);
+			if (pokemon.illusion) return;
+			this.effectState.moves = [
+				pokemon.moveSlots[0].id,
+				pokemon.moveSlots[1].id,
+				pokemon.moveSlots[2].id,
+			];
 		},
 		onSwitchOut(pokemon) {
 			this.add(`c:|${getName('Cake')}|hustle is a good ability`);
-			const oneMove = this.effectState.moves.split(',');
-			for (let i = 0; i < 3; i++) {
-				const replacement = this.dex.moves.get(oneMove[i]);
+			if (!this.effectState.moves) return;
+			for (const [i, moveid] of this.effectState.moves.entries()) {
+				const replacement = this.dex.moves.get(moveid);
 				const replacementMove = {
 					move: replacement.name,
 					id: replacement.id,
@@ -388,7 +392,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				};
 				pokemon.moveSlots[i] = replacementMove;
 				pokemon.baseMoveSlots[i] = replacementMove;
-			} // very notable infinite pp problem here, especially with the set changes...
+			}
+			// very notable infinite pp problem here, especially with the set changes...
 			// consider nerfing custom move pp and removing switch-out moveset restoration.
 		},
 		onFaint() {

@@ -170,7 +170,8 @@ export const ssbSets: SSBSets = {
 	},
 	Cake: {
 		species: 'Dunsparce', ability: 'Scrappy', item: 'Eviolite', gender: 'N',
-		moves: ['Topsy-Turvy', 'Lunar Blessing', 'Lovely Kiss', 'Glare', 'Knock Off', 'Gastro Acid',
+		moves: [
+			'Topsy-Turvy', 'Lunar Blessing', 'Lovely Kiss', 'Glare', 'Knock Off', 'Gastro Acid',
 			'Trick Room', 'Toxic', 'Heal Bell', 'Octolock', 'G-Max Befuddle', 'G-Max Centiferno',
 			'G-Max Cannonade', 'Magic Powder', 'Whirlwind', 'Lunar Dance', 'Power Split',
 			'Snatch', 'Heal Order', 'Parting Shot', 'Population Bomb', 'Metronome',

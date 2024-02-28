@@ -745,7 +745,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 40,
 		priority: 6,
-		flags: {protect: 1, mirror: 1, cantusetwice: 1},
+		flags: {protect: 1, mirror: 1, cantusetwice: 1, failcopycat: 1},
+		onTry(source) {
+			if (source.species.baseSpecies === 'Dunsparce') {
+				return;
+			}
+			this.attrLastMove('[still]');
+			this.add('-fail', source, 'move: Role System');
+			this.hint("Only a Pokemon whose form is Dunsparce can use this move.");
+			return null;
+		},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -764,33 +773,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				let role = '';
 				switch (set) {
 				case 0:
-					newMoves.push('hyperdrill');
-					newMoves.push('combattorque');
-					newMoves.push('extremespeed');
+					newMoves.push('hyperdrill', 'combattorque', 'extremespeed');
 					role = 'Fast Attacker';
 					this.boost({spa: 2, spe: 4});
 					break;
 				case 1:
-					newMoves.push('coil');
-					newMoves.push('bodyslam');
-					newMoves.push('healorder');
+					newMoves.push('coil', 'bodyslam', 'healorder');
 					role = 'Bulky Setup';
 					this.boost({atk: 1, def: 1, spd: 2});
 					break;
 				case 2:
 					const varMoves = ['Ceaseless Edge', 'Stone Axe', 'Mortal Spin', 'G-Max Steelsurge'];
-					const m1 = this.sample(varMoves);
-					const m2 = this.sample(varMoves.filter(i => i !== m1));
-					newMoves.push('healorder');
-					newMoves.push(m1);
-					newMoves.push(m2);
+					const move1 = this.sample(varMoves);
+					const move2 = this.sample(varMoves.filter(i => i !== move1));
+					newMoves.push('healorder', move1, move2);
 					role = 'Bulky Support';
 					this.boost({def: 2, spd: 2});
 					break;
 				case 3:
-					newMoves.push('bloodmoon');
-					newMoves.push('bloodmoon');
-					newMoves.push('bloodmoon');
+					newMoves.push('bloodmoon', 'bloodmoon', 'bloodmoon');
 					role = 'Wallbreaker';
 					this.boost({spa: 6});
 					break;
