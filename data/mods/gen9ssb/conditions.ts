@@ -2094,7 +2094,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			// innate
 			if (pokemon.illusion) return;
 			pokemon.abilityState.gluttony = true;
-			this.add('-activate', pokemon, 'ability: TBA');
+			this.add('-activate', pokemon, 'ability: Nutrient Boost');
 			this.boost({def: 1, spd: 1}, pokemon);
 		},
 		onSwitchOut() {
@@ -2106,7 +2106,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onSourceAfterFaint() {
 			this.add(`c:|${getName('WarriorGallade')}|Triumphant through trouncing tough, tenacious threats today, though testing 212 takeovers tarry. Theorizing these techniques tends to torrid, terribly tiresome tabulations, therefore torrential tactics traverse thorough thoughts.`);
 		},
-		innateName: "TBA",
+		innateName: "Nutrient Boost",
 		shortDesc: "Gluttony + Thick Fat + Neuroforce + +1 Def/Sp. Def boost.",
 		onDamage(item, pokemon) {
 			if (pokemon.illusion) return;
