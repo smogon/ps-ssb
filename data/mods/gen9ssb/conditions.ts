@@ -150,8 +150,11 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	aqrator: {
 		noCopy: true,
-		onStart() {
+		onStart(pokemon) {
 			this.add(`c:|${getName('aQrator')}|Let me tell you my sTori.`);
+			if (this.toID(enemyStaff(pokemon)) === 'warriorgallade') {
+				this.add(`c:|${getName('aQrator')}|Hey Zeiol, how's your brother?`);
+			}
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('aQrator')}|A few Water Guns and Force Palms later, Tori and Riolu- Wait where are you going?`);
@@ -2085,6 +2088,9 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		onStart(pokemon) {
 			this.add(`c:|${getName('WarriorGallade')}|i wanted to proc berries, but it seems that i was better at proc rastinating instead. nom nom nom.`);
+			if (this.toID(enemyStaff(pokemon)) === 'aqrator') {
+				this.add(`c:|${getName('WarriorGallade')}|Hi Tori, how goes your conquest?`);
+			}
 			// innate
 			if (pokemon.illusion) return;
 			pokemon.abilityState.gluttony = true;
