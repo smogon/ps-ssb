@@ -446,7 +446,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	funnyvamp: {
 		accuracy: true,
 		basePower: 0,
-		category: "Special",
+		category: "Status",
 		shortDesc: "Changes user's forme, effects vary with forme.",
 		name: "Funny Vamp",
 		gen: 9,
@@ -568,8 +568,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	anyonecanbekilled: {
 		accuracy: 95,
 		basePower: 80,
-		category: "Status",
-		shortDesc: "Raises the user's Sp. Atk by 2 stages for the next 2 turns, -2 Sp. Atk afterwards.",
+		category: "Special",
+		shortDesc: "+2 SpA for 2 turns.",
 		name: "Anyone can be killed",
 		pp: 10,
 		priority: 0,
@@ -639,11 +639,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {snatch: 1, metronome: 1, protect: 1, failcopycat: 1},
 		onTry(source) {
-			if (source.illusion || source.name !== 'ausma') {
+			if (source.illusion || source.name === 'ausma') {
 				return;
 			}
 			this.attrLastMove('[still]');
-			this.add('-fail', source, 'move: Aura Wheel');
+			this.add('-fail', source, 'move: Sigil\'s Storm');
 			this.hint("Only a Pokemon whose nickname is \"ausma\" can use this move.");
 			return null;
 		},
@@ -808,7 +808,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.heal(pokemon.baseMaxhp / 4, pokemon);
 		},
 		secondary: null,
-		target: "normal",
+		target: "self",
 		type: "Water",
 	},
 
@@ -896,7 +896,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	rolesystem: {
 		accuracy: true,
 		basePower: 0,
-		category: "Physical",
+		category: "Status",
 		shortDesc: "Protects user, changes set. Can't be used consecutively.",
 		// it was easier to do it this way rather than implement failing on consecutive uses
 		name: "Role System",
@@ -933,7 +933,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				case 0:
 					newMoves.push('hyperdrill', 'combattorque', 'extremespeed');
 					role = 'Fast Attacker';
-					this.boost({spa: 2, spe: 4});
+					this.boost({atk: 2, spe: 4});
 					break;
 				case 1:
 					newMoves.push('coil', 'bodyslam', 'healorder');
@@ -1728,7 +1728,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		self: {
 			volatileStatus: 'spikyshield',
 			onHit(target, source, move) {
-				source.setType(source.getTypes(true).map(type => type === "Poison" ? "???" : type));
+				source.setType(source.getTypes(true).filter(type => type !== "Poison"));
 				this.add('-start', source, 'typechange', source.getTypes().join('/'), '[from] move: Puffy Spiky Destruction');
 			},
 			boosts: {
@@ -1808,8 +1808,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Status",
 		shortDesc: "Clear target stats+copies neg stats+inverts on user.",
 		name: "Hasty Revolution",
-		pp: 5,
-		priority: 0,
+		pp: 10,
+		priority: 4,
 		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
@@ -1829,6 +1829,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			this.add('-copyboost', target, source, '[from] move: Hasty Revolution');
 			this.add('-invertboost', source, '[from] move: Hasty Revolution');
+		},
+		stallingMove: true,
+		self: {
+			volatileStatus: 'protect',
 		},
 		target: "normal",
 		type: "Normal",
@@ -2649,6 +2653,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 20,
 		category: "Physical",
+		shortDesc: "+1 Priority. Hits 2-5 times.",
 		name: "The Better Water Shuriken",
 		pp: 30,
 		priority: 1,
@@ -2861,6 +2866,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return bp;
 		},
 		category: "Physical",
+		shortDesc: "BP doubles after each hit. 2x if Defense Curl.",
 		name: "Super Rollout",
 		pp: 20,
 		priority: 0,
@@ -2952,6 +2958,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 90,
 		basePower: 120,
 		category: "Special",
+		shortDesc: "First turn: +1 SpA. No charge in Gravity.",
 		name: "Praise the Moon",
 		pp: 10,
 		priority: 0,
@@ -2963,7 +2970,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			this.add('-prepare', attacker, move.name);
 			this.boost({spa: 1}, attacker, attacker, move);
-			if (['gravity'].includes(attacker.effectiveWeather())) {
+			if (this.field.pseudoWeather['gravity']) {
 				this.attrLastMove('[still]');
 				this.addMove('-anim', attacker, move.name, defender);
 				return;
@@ -3243,8 +3250,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	nyaa: {
 		accuracy: true,
 		basePower: 0,
-		category: "Physical",
-		shortDesc: "100% chance to raise the user's Attack by 1.",
+		category: "Status",
+		shortDesc: "Haze and then +1 Attack.",
 		name: "~nyaa",
 		gen: 9,
 		pp: 10,
@@ -3269,7 +3276,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		slotCondition: 'nyaa',
 		condition: {
-			onSwap(target, source) {
+			onSwap(target) {
+				const source = this.effectState.source;
 				if (!target.fainted) {
 					this.add(`c:|${getName((source.illusion || source).name)}|~nyaa ${target.name}`);
 					this.add(`c:|${getName('Jeopard-E')}|**It is now ${target.name}'s turn to ask a question.**`);
@@ -3541,7 +3549,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				target.moveSlots[i] = target.baseMoveSlots[i] = replacement;
 			}
 		},
-		target: "normal",
+		target: "self",
 		type: "Normal",
 	},
 
@@ -3597,10 +3605,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onResidualOrder: 13,
 			onResidual(pokemon, source) {
 				this.damage(pokemon.baseMaxhp / (pokemon.hasType(['Normal', 'Fairy']) ? 4 : 8));
-				if (!pokemon || pokemon.fainted || pokemon.hp <= 0) {
-					this.add(`c:|${getName((source.illusion || source).name)}|Tripping off the beat kinda, dripping off the meat grinder`);
-				}
+
 				const target = this.getAtSlot(pokemon.volatiles['meatgrinder'].sourceSlot);
+				if (!pokemon || pokemon.fainted || pokemon.hp <= 0) {
+					this.add(`c:|${getName((target.illusion || target).name)}|Tripping off the beat kinda, dripping off the meat grinder`);
+				}
 				if (!target || target.fainted || target.hp <= 0) {
 					this.debug('Nothing to heal');
 					return;
@@ -3773,6 +3782,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
+		shortDesc: "Heals 50% of max HP. Cures status.",
 		name: "Purification",
 		pp: 5,
 		priority: 0,
@@ -4705,6 +4715,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 100,
 		category: "Special",
+		shortDesc: "+1 Priority. Recovers 50% of damage dealt.",
 		name: "Torrential Drain",
 		pp: 10,
 		priority: 1,
@@ -5019,6 +5030,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 95,
 		category: "Physical",
+		shortDesc: "Literally just Foul Play.",
 		name: "Darkest Night",
 		pp: 15,
 		priority: 0,

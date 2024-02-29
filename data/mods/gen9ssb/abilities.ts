@@ -227,7 +227,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (source.species.name === "Deoxys-Attack" && source.setType(['Psychic', 'Fairy'])) {
 				this.add('-start', source, 'typechange', source.getTypes(true).join('/'), '[from] weather: Millennium Castle');
 			} else if (source.species.name === "Deoxys-Defense" && source.setType('Psychic')) {
-				this.add('-start', source, 'typeadd', 'Psychic', '[from] weather: Milennium Castle');
+				this.add('-start', source, 'typechange', 'Psychic', '[from] weather: Milennium Castle');
 			}
 		},
 		onAnySetWeather(target, source, weather) {
@@ -322,17 +322,17 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	lattebreak: {
 		shortDesc: "Regenerator + one-time priority boost per switch-in.",
 		name: "Latte Break",
-		onModifyPriority(relayVar, source, target, move) {
-			if (this.effectState.latte) {
-				return relayVar + 0.5;
-			}
+		onSwitchIn() {
+			delete this.effectState.latte;
 		},
-		onAfterMove() {
-			this.effectState.latte = false;
+		onFractionalPriority(relayVar, source, target, move) {
+			if (!this.effectState.latte) {
+				this.effectState.latte = true;
+				return 0.5;
+			}
 		},
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
-			this.effectState.latte = true;
 		},
 		flags: {},
 	},
@@ -393,7 +393,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Tries to inflict the foe with Torment at the end of each turn.",
 		name: "That's Hacked",
 		onResidual(target, source, effect) {
-			if (!target.foes()) return;
+			if (!target.foes()?.length) return;
 			const abilMessages = [
 				"All hacks and hacking methods are banned!",
 				"Can't be having that.",
@@ -414,7 +414,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			];
 			this.add(`c:|${getName((target.illusion || target).name)}|${this.sample(abilMessages)}`);
 			for (const foe of target.foes()) {
-				if (!foe.volatiles['torment']) {
+				if (foe && !foe.volatiles['torment']) {
 					foe.addVolatile('torment');
 				}
 			}
@@ -424,13 +424,17 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Clementine
 	meltingpoint: {
-		shortDesc: "First Fire move to hit changes user to Water type. +2 Speed.",
+		shortDesc: "Fire moves change user to Water type. +2 Speed. Fire immunity.",
 		name: "Melting Point",
-		onTryPrimaryHit(target, source, move) {
-			if (move.type === 'Fire') {
-				if (!target.setType('Water')) return;
-				this.add('-start', source, 'typechange', 'Water', '[from] ability: Melting Point');
-				this.boost({spe: 2}, target, source, this.dex.abilities.get('meltingpoint'));
+		onTryHit(target, source, move) {
+			if (target !== source && move.type === 'Fire') {
+				if (target.setType('Water')) {
+					this.add('-start', target, 'typechange', 'Water', '[from] ability: Melting Point');
+					this.boost({spe: 2}, target, source, this.dex.abilities.get('meltingpoint'));
+				} else {
+					this.add('-immune', target, '[from] ability: Melting Point');
+				}
+				return null;
 			}
 		},
 	},
@@ -819,7 +823,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				}
 			}
 			if (!warnMoves.length) {
-				this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|Fascinating. None of your sets have any moves of interest.`);
+				this.add(`c:|${getName(name)}|Fascinating. None of your sets have any moves of interest.`);
 				return;
 			}
 			const [warnMoveName, warnTarget] = this.sample(warnMoves);
@@ -828,7 +832,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				`${name} hacked into PS and looked at ${name === 'Hecate' ? 'her' : 'their'} opponent's sets. ` +
 					`${warnTarget.name}'s move ${warnMoveName} drew ${name === 'Hecate' ? 'her' : 'their'} eye.`
 			);
-			this.add(`c:|${name}|Interesting. With that in mind, bring it!`);
+			this.add(`c:|${getName(name)}|Interesting. With that in mind, bring it!`);
 		},
 		flags: {},
 	},
