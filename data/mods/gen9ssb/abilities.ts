@@ -1568,6 +1568,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.debug('Fancy Scarf prevent secondary');
 			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 		},
+		flags: {},
+	},
+
+	// R8
+	antipelau: {
+		name: "Anti-Pelau",
+		shortDesc: "Boosts Sp. Atk by 2 and sets a 25% wish upon switch-in.",
+		flags: {},
+		onStart(target) {
+			this.boost({spa: 2}, target);
+			target.side.addSlotCondition(target, 'antipelau');
+		},
+		condition: {
+			duration: 2,
+			onStart(pokemon, source) {
+				this.effectState.hp = source.maxhp / 4;
+			},
+			onResidualOrder: 4,
+			onEnd(target) {
+				if (target && !target.fainted) {
+					const damage = this.heal(this.effectState.hp, target, target);
+					if (damage) {
+						this.add('-heal', target, target.getHealth, '[from] ability: Anti-Pelau', '[wisher] ' + this.effectState.source.name);
+					}
+				}
+			},
+		},
 	},
 
 	// Ransei
