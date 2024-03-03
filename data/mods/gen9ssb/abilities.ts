@@ -1419,9 +1419,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Changes into Latios after Status move, Latias after Special move.",
 		name: "Eon Call",
 		onAfterMove(source, target, move) {
-			if (move.category === 'Status' && source.species.baseSpecies == 'Latias') {
+			if (move.category === 'Status' && source.species.baseSpecies === 'Latias') {
 				changeSet(this, source, ssbSets['MyPearl'], true);
-			} else if (move.category === 'Special' && source.species.baseSpecies == 'Latios') {
+			} else if (move.category === 'Special' && source.species.baseSpecies === 'Latios') {
 				changeSet(this, source, ssbSets['MyPearl-Latias'], true);
 			}
 		},
