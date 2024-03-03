@@ -280,11 +280,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Artemis
 	supervisedlearning: {
-		shortDesc: "Mold Breaker + Unaware + Clear Body.",
+		shortDesc: "Unaware + Clear Body.",
 		name: "Supervised Learning",
-		onModifyMove(move) {
-			move.ignoreAbility = true;
-		},
 		onAnyModifyBoost(boosts, pokemon) {
 			const unawareUser = this.effectState.target;
 			if (unawareUser === pokemon) return;
@@ -2046,18 +2043,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// UT
 	galeguard: {
-		shortDesc: "Only damaged by direct attacks; Flying moves +1 priority.",
+		shortDesc: "Mountaineer + Fur Coat.",
 		name: "Gale Guard",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move') {
-				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+			if (effect && effect.id === 'stealthrock') {
 				return false;
 			}
 		},
-		onModifyPriority(priority, pokemon, target, move) {
-			if (move?.type === 'Flying') return priority + 1;
+		onTryHit(target, source, move) {
+			if (move.type === 'Rock' && !target.activeTurns) {
+				this.add('-immune', target, '[from] ability: Mountaineer');
+				return null;
+			}
 		},
-		flags: {},
+		onModifyDef(def) {
+			return this.chainModify(2);
+		},
+		flags: {breakable: 1},
 	},
 
 	// umuwo

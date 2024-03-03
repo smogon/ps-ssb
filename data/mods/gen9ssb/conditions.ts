@@ -1987,13 +1987,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	ut: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('UT')}|I just hope both teams have fun!`);
+			this.add(`c:|${getName('UT')}|__being this young is art, aquamarine_`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('UT')}|this path is reckless`);
+			this.add(`c:|${getName('UT')}|__make sure nobody sees you leave__`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('UT')}|screaming, crying, perfect storm`);
+			this.add(`c:|${getName('UT')}|__swaying as the room burnded down__`);
 		},
 	},
 	umowu: {
