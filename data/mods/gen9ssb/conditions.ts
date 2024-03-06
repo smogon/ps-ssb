@@ -1132,16 +1132,16 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Klmondo')}|It's Klmondover`);
 		},
 	},
-	krytocon: {
+	kry: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Krytocon')}|:3`);
+			this.add(`c:|${getName('Kry')}|:3`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Krytocon')}|PartMan is a nerd`);
+			this.add(`c:|${getName('Kry')}|PartMan is a nerd`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Krytocon')}|Guys whatever you do don't say Farigiraf backwards`);
+			this.add(`c:|${getName('Kry')}|Guys whatever you do don't say Farigiraf backwards`);
 		},
 	},
 	lasen: {
@@ -1384,8 +1384,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'computerwizard8800':
 				message = 'CWIZ SLEEP';
 				break;
-			case 'krytocon':
-				this.add(`c:|${getName('PartMan')}|%r 14 // @Krytocon`);
+			case 'kry':
+				this.add(`c:|${getName('PartMan')}|%r 14 // @Kry`);
 				this.add(`c:|${getName('Ice Kyubs')}|Roll: 14`);
 				message = null;
 				break;
