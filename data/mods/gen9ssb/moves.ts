@@ -3225,9 +3225,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Eon Assault",
 		gen: 9,
 		pp: 15,
-		multihit: 2,
 		priority: 0,
 		flags: {protect: 1},
+		multihit: 2,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
