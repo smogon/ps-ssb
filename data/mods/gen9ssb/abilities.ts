@@ -1584,11 +1584,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					this.effectState.hp = source.maxhp / 4;
 				},
 				onResidualOrder: 4,
-				onEnd(target) {
-					if (target && !target.fainted) {
-						const damage = this.heal(this.effectState.hp, target, target);
+				onEnd(pokemon) {
+					if (pokemon&& !pokemon.fainted) {
+						const damage = this.heal(this.effectState.hp, pokemon, pokemon);
 						if (damage) {
-							this.add('-heal', target, target.getHealth, '[from] move: Wish', '[wisher] ' + this.effectState.source.name);
+							this.add('-heal', pokemon, pokemon.getHealth, '[from] move: Wish', '[wisher] ' + this.effectState.source.name);
 						}
 					}
 				},
