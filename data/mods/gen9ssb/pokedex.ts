@@ -442,7 +442,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Super Skilled"},
 	},
 
-	// Krytocon
+	// Kry
 	mawile: {
 		inherit: true,
 		abilities: {0: "Flash Freeze"},
