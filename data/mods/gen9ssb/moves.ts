@@ -4493,7 +4493,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			const varMoves = ["Feather Dance", "Growl", "Rain Dance", "Sunny Day", "Tailwind", "Taunt", "Will-O-Wisp"];
+			const varMoves = ['Feather Dance', 'Growl', 'Rain Dance', 'Sunny Day', 'Tailwind', 'Taunt', 'Will-O-Wisp'];
 			const move1 = this.sample(varMoves);
 			const move2 = this.sample(varMoves.filter(i => i !== move1));
 			this.add('-message', `Fletchling used ${move1}!`);
