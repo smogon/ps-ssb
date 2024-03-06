@@ -1142,7 +1142,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
-	// Krytocon
+	// Kry
 	flashfreeze: {
 		name: "Flash Freeze",
 		shortDesc: "Heatproof + moves coming off of boosted attacking stat do 75% dmg.",
