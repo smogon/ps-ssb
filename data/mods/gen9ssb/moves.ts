@@ -2671,7 +2671,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Water",
 	},
 
-	// Krytocon
+	// Kry
 	attackofopportunity: {
 		accuracy: 100,
 		basePower: 60,
