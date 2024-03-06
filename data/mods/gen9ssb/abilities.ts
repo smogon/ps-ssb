@@ -2046,7 +2046,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Mountaineer + Fur Coat.",
 		name: "Gale Guard",
 		onDamage(damage, target, source, effect) {
-			if (effect && effect.id === 'stealthrock') {
+			if (effect && effect.name === 'Stealth Rock') {
 				return false;
 			}
 		},
