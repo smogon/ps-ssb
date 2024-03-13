@@ -331,6 +331,13 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Solidarity',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid', teraType: 'Fire',
 	},
+	Felucia: {
+		species: 'Vespiquen', ability: 'Eternal Generator', item: 'Red Card', gender: 'F',
+		moves: ['Strength Sap', ['Bug Buzz', 'Night Shade'], ['Thief', 'Calm Mind', 'Toxic']],
+		signatureMove: 'Rigged Dice',
+		evs: {hp: 252, def: 4, spd: 252}, nature: 'Calm',
+		// eternal generator is identical to the requested Regenerator + Hazard immune, so this lets us reuse code. change this if needed.
+	},
 	Froggeh: {
 		species: 'Toxicroak', ability: 'Super Luck', item: 'Leftovers', gender: 'M',
 		moves: ['Gunk Shot', 'Sucker Punch', 'Drain Punch'],
@@ -1009,10 +1016,17 @@ export class RandomStaffBrosTeams extends RandomTeams {
 					this.sample(this.dex.types.names()) :
 					this.sampleIfArray(ssbSet.teraType);
 			}
-			const moves = [];
+			const moves: string[] = [];
 			while (moves.length < 3 && ssbSet.moves.length > 0) {
 				let move = this.sampleNoReplace(ssbSet.moves);
 				if (Array.isArray(move)) move = this.sampleNoReplace(move);
+				if (ssbSet.species === "Vespiquen") {
+					if (move === 'Calm Mind' && moves.includes('Night Shade')) {
+						move = this.sample(['Thief', 'Toxic']);
+					} else if (move === 'Night Shade' && moves.includes('Calm Mind')) {
+						move = 'Bug Buzz';
+					}
+				}
 				moves.push(move);
 			}
 			moves.push(ssbSet.signatureMove);
