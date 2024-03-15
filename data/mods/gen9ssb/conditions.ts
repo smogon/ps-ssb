@@ -1753,13 +1753,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	sificon: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Sificon')}|gm (it's 4pm and I woke up just now)`);
+			this.add(`c:|${getName('Sificon~')}|gm (it's 4pm and I woke up just now)`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Sificon')}|guess I'll go to bed (we all know that I won't)`);
+			this.add(`c:|${getName('Sificon~')}|guess I'll go to bed (we all know that I won't)`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Sificon')}|oop`);
+			this.add(`c:|${getName('Sificon~')}|oop`);
 		},
 	},
 	skies: {
