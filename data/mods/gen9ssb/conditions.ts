@@ -624,10 +624,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onAfterMove(source, target, move) {
 			if (move.name === "Snack Time" && source.getVolatile('twoturnmove')) {
-				this.effectState.snack = 3;			
+				this.effectState.snack = 3;
 				this.effectState.backupMove = move;
 			}
-		},			
+		},
 		onResidual(target, source, effect) {
 			// this has to be done in a roundabout way because when a 2-turn move ends, it yeets all of its
 			// associated volatiles and effectstates - so putting this code in moves.ts does nothing
@@ -639,7 +639,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				// i have no idea how to fix it, but it's functioning and comes with no other visual bugs, so it's here
 				this.effectState.snack -= 1;
 			}
-		},		
+		},	
 	},
 	elliot: {
 		noCopy: true,
