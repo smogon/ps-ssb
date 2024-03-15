@@ -625,7 +625,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Gear Grind',
 		evs: {hp: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
-	Penuin: {
+	PenQuin: {
 		species: 'Empoleon', ability: '\'Poleon\'s Pyro Quirk', item: 'Assault Vest', gender: 'M',
 		moves: ['Liquidation', 'Sacred Fire', 'Knock Off'],
 		signatureMove: 'Splash n\' Lucky Blaze',
