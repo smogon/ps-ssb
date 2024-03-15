@@ -604,6 +604,43 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('dhelmise')}|ok`);
 		},
 	},
+	easyonthehills: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('EasyOnTheHills')}|Yo`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('EasyOnTheHills')}|Would you rather have unlimited bacon, but no more video games, or would you rather have games, unlimited games, but no more games.`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('EasyOnTheHills')}|__loud Dorito bag crinkling noises__`);
+		},
+		onBeforeMove(source, target, move) {
+			if (this.effectState.snack && move.name === "Snack Time" && !source.getVolatile('twoturnmove')) {
+				// the move failure here is a bit weird - it doesn't show that you attempted the move, but it fails successfully
+				this.add('-fail', source, move, 'move: Snack Time');
+				return null;
+			}
+		},
+		onAfterMove(source, target, move) {
+			if (move.name === "Snack Time" && source.getVolatile('twoturnmove')) {
+				this.effectState.snack = 3;			
+				this.effectState.backupMove = move;
+			}
+		},			
+		onResidual(target, source, effect) {
+			// this has to be done in a roundabout way because when a 2-turn move ends, it yeets all of its
+			// associated volatiles and effectstates - so putting this code in moves.ts does nothing
+			if (this.effectState.snack && !target.getVolatile('twoturnmove')) {
+				if (this.effectState.snack) {
+					this.heal(target.baseMaxhp / 4, target, target, this.effectState.backupMove);
+				}
+				// yes this has the unfortunate side effect of not mentioning snack time in the heal message
+				// i have no idea how to fix it, but it's functioning and comes with no other visual bugs, so it's here
+				this.effectState.snack -= 1;
+			}
+		},		
+	},
 	elliot: {
 		noCopy: true,
 		onStart() {

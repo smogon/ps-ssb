@@ -300,6 +300,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'ok',
 		evs: {hp: 252, def: 4, spa: 252}, nature: 'Quiet', teraType: 'Normal',
 	},
+	EasyOnTheHills: {
+		species: 'Snorlax', ability: 'Immunity', item: 'Life Orb', gender: 'M',
+		moves: ['Darkest Lariat', 'Body Slam', 'Heavy Slam'],
+		signatureMove: 'Snack Time',
+		evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant', teraType: 'Ghost', shiny: true,
+	},
 	Elliot: {
 		species: 'Sinistea', ability: 'Natural Cure', item: 'Focus Sash', gender: 'N',
 		moves: ['Moonblast', 'Shadow Ball', 'Teatime'],

@@ -1476,6 +1476,38 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Fairy",
 	},
 
+	// EasyOnTheHills
+	snacktime: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Charges first turn. Second turn +2 Atk/Def, 25% recovery for 3 turns. Can't stack.",
+		name: "Snack Time",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove(attacker, defender, move) {
+			this.attrLastMove('[still]');
+			if (attacker.getVolatile('snacktime')) {
+				this.add('-anim', attacker, 'Shell Smash', attacker);
+				this.boost({atk: 2, def: 2}, attacker, defender);
+				return null;
+			} else {
+				this.add('-prepare', attacker, move.name);
+				this.add('-anim', attacker, 'Geomancy', attacker);
+				if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+					return;
+				}
+				attacker.addVolatile('twoturnmove', defender);
+				return null;
+			}
+		},
+		// passive recovery implemented in conditions.ts
+		secondary: null,
+		target: 'self',
+		type: "Normal",
+	},
+
 	// Elliot
 	teaparty: {
 		accuracy: true,
@@ -4771,7 +4803,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 25,
 		category: "Physical",
 		name: "First Strike",
-		shortDesc: "Turn 1: 100% flinch. +1 NVE, +2 NE, +3 SE Atk.",
+		shortDesc: "Turn 1 only. +1 NVE, +2 NE, +3 SE Atk.",
 		pp: 15,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
@@ -4796,10 +4828,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				boost = 1;
 			}
 			this.boost({atk: boost}, pokemon, pokemon, move);
-		},
-		secondary: {
-			chance: 100,
-			volatileStatus: 'flinch',
 		},
 		target: "normal",
 		type: "Steel",
