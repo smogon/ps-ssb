@@ -385,8 +385,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Blitz')}|Splashyyy!`);
 		},
 		onFaint() {
-			const img = "https://discord.com/assets/2d827842d29f3408d9eb56fcdd96e589.svg";
-			this.add(`c:|${getName('Blitz')}|/html <img src="${img}" width="32" height="32" />`);
+			this.add(`c:|${getName('Blitz')}|https://www.youtube.com/watch?v=lPGipwoJiOM`);
 		},
 	},
 	corjon: {
@@ -514,8 +513,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	clerica: {
 		noCopy: true,
 		onStart() {
-			const img = "https://media.discordapp.net/attachments/764667730468536320/1079168714513064008/meow_gm.png";
-			this.add(`c:|${getName('clerica')}|/html <img src=${img} style="width:32px" />`);
+			this.add(`c:|${getName('clerica')}|gm`);
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('clerica')}|gn`);
@@ -1843,8 +1841,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	swiffix: {
 		noCopy: true,
 		onStart() {
-			const img = "https://cdn.discordapp.com/emojis/995771554904408234.png?size=64&quality=lossless";
-			this.add(`c:|${getName('Swiffix')}|/html <img src="${img}" width="50" height="50" />`);
+			this.add(`c:|${getName('Swiffix')}|:uwupip:`);
 		},
 		onSwitchOut() {
 			this.add(`c:|${getName('Swiffix')}|brb, gonna get some ketchup for my pizza`);
