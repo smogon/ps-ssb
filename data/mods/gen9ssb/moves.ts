@@ -1659,7 +1659,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Inverts target's stat boosts if they have any, taunts otherwise. User then switches.",
+		shortDesc: "Stat changes: inverts, else Taunt. User switches.",
 		name: "Rigged Dice",
 		pp: 10,
 		priority: 0,
