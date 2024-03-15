@@ -1048,7 +1048,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 			if (set.name === "Felucia") {
 				const cmIndex = set.moves.indexOf("Calm Mind");
 				if (cmIndex >= 0 && set.moves.includes("Night Shade")) {
-						set.moves[cmIndex] = this.sample(["Thief", "Toxic"]);
+					set.moves[cmIndex] = this.sample(["Thief", "Toxic"]);
 				}
 			}
 
