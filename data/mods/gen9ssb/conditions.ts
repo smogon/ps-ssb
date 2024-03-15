@@ -2066,11 +2066,10 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		onSwitchOut() {
-			const gif = "https://cdn.discordapp.com/emojis/659987060794327051.gif?size=160&quality=lossless";
-			this.add(`c:|${getName('umowu ✮彡')}|/html <img src="${gif}" width="50" height="50" />`);
+			this.add(`c:|${getName('umowu ✮彡')}|Wait, I just got started!`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('umowu ✮彡')}|Tell.. My wife... She STINKS!!`);
+			this.add(`c:|${getName('umowu ✮彡')}|change da world... my final message. goodbye`);
 		},
 	},
 	valerian: {
