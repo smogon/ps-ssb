@@ -639,7 +639,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				// i have no idea how to fix it, but it's functioning and comes with no other visual bugs, so it's here
 				this.effectState.snack -= 1;
 			}
-		},	
+		},
 	},
 	elliot: {
 		noCopy: true,
