@@ -3806,7 +3806,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
-	// quziel
+	// Quziel
 	reshape: {
 		accuracy: 100,
 		basePower: 0,

@@ -1652,7 +1652,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
-	// quziel
+	// Quziel
 	highperformancecomputing: {
 		shortDesc: "Becomes a random typing at the beginning of each turn.",
 		name: "High Performance Computing",
