@@ -3095,12 +3095,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(pokemon) {
 			pokemon.addVolatile('stall');
 			if (!Object.values(pokemon.boosts).some(x => x >= 6)) {
-				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1, accuracy: 1}, pokemon);
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1, accuracy: 1, evasion: 1}, pokemon);
 				this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|Ope! Wrong button, sorry.`);
 				const unloweredStat = Math.floor(this.random() * 6);
 				this.boost({atk: (unloweredStat === 0 ? 0 : -1), def: (unloweredStat === 1 ? 0 : -1),
 					spa: (unloweredStat === 2 ? 0 : -1), spd: (unloweredStat === 3 ? 0 : -1),
-					spe: (unloweredStat === 4 ? 0 : -1), accuracy: (unloweredStat === 5 ? 0 : -1)}, pokemon);
+					spe: (unloweredStat === 4 ? 0 : -1), accuracy: (unloweredStat === 5 ? 0 : -1), evasion: -1}, pokemon);
 			}
 		},
 		secondary: null,
