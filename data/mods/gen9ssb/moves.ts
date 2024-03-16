@@ -4905,8 +4905,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		shortDesc: "Uses Wish, switches out. Recipient gets Aqua Ring.",
 		name: "Gracidea's Blessing",
 		pp: 10,
-		priority: 1,
-		flags: {protect: 1, mirror: 1, heal: 1, metronome: 1},
+		priority: 0,
+		flags: {},
 		secondary: null,
 		selfSwitch: true,
 		onTryMove() {
