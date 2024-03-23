@@ -4017,7 +4017,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					let move: Move | ActiveMove | null = target.lastMove;
 					if (!move || move.isZ) return;
 					if (move.isMax && move.baseMove) move = this.dex.moves.get(move.baseMove);
-	
 					const ppDeducted = target.deductPP(move.id, 4);
 					if (!ppDeducted) return;
 					this.add('-activate', target, 'move: Hexadecimal Fire', move.name, ppDeducted);
