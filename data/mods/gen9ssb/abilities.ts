@@ -1886,7 +1886,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				pokemon.formeChange('Typhlosion');
 			}
 		},
-
+		flags: {},
 	},
 
 	// Siegfried
