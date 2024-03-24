@@ -3995,7 +3995,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Special",
 		shortDesc: "20% burn, 20% spite, 20% 1/4th recoil.",
 		name: "Hexadecimal Fire",
-		pp: 5,
+		pp: 15,
 		priority: 0,
 		flags: {heal: 1, bypasssub: 1, allyanim: 1},
 		onTryMove() {
