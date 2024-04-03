@@ -705,7 +705,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 				} else if (chance <= 80) {
-					target.side.addSideCondition(this.sample(sideConditions.filter(hazard => !(target.side.getSideCondition(hazard)))));
+					target.side.addSideCondition(this.sample(sideConditions.filter(hazard => !target.side.getSideCondition(hazard))));
 				} else if (chance <= 90) {
 					move.drain = [3, 4];
 				} else {
