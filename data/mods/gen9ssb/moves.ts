@@ -3097,7 +3097,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const boosts = pokemon.boosts;
 			const maxBoostIDs: BoostID[] = [];
 			for (const boost in boosts) {
-				if (boosts[boost] >= 6) {
+				if (boosts[boost as BoostID] >= 6) {
 					maxBoostIDs.push(boost);
 					continue;
 				}
