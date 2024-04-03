@@ -4916,7 +4916,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Morning Sun', source);
 			this.add('-anim', source, 'Seed Flare', target);
 		},
-		slotCondition: 'gracidea\'sblessing',
+		slotCondition: 'gracideasblessing',
 		condition: {
 			duration: 2,
 			onStart(pokemon, source) {
