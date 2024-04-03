@@ -1623,13 +1623,13 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	quziel: {
 		noCopy: true,
 		onStart() {
-			this.add(`c:|${getName('Quziel')}|Gaze`);
+			this.add(`c:|${getName('quziel')}|Gaze`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('Quziel')}|See y-disconnects`);
+			this.add(`c:|${getName('quziel')}|See y-disconnects`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('Quziel')}|I am become Tilt`);
+			this.add(`c:|${getName('quziel')}|I am become Tilt`);
 		},
 	},
 	r8: {
