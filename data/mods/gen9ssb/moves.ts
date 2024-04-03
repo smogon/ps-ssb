@@ -1991,6 +1991,47 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 
+	// HiZo
+	scapegoat: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "A party member is selected and faints, raising the user's Attack, Special Attack, and Speed by 1 if the party member's hp is below 33%, by 2 if the party member's hp is between 33% and 66%, and by 3 if the party member's hp is above 66%. Fails if there are no useable Pokemon on that side besides the user.",
+		shortDesc: "Faints a teammate, raises Atk, SpA, Spe depending on teammate HP.",
+		name: "Scapegoat",
+		gen: 9,
+		pp: 5,
+		priority: 0,
+		flags: {},
+		onTryHit(source) {
+			if (!this.canSwitch(source.side)) {
+				this.attrLastMove('[still]');
+				this.add('-fail', source);
+				return this.NOT_FAIL;
+			}
+		},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Swords Dance', source);
+		},
+		onHit(target, source) {
+			this.add('message', `A sacrifice is needed.`);
+		},
+		slotCondition: 'scapegoat',
+		// fake switch a la revival blessing
+		selfSwitch: true,
+		condition: {
+			duration: 1,
+			// reviving implemented in side.ts, kind of
+		},
+		secondary: null,
+		target: "self",
+		type: "Dark",
+	},
+
+
 	// HoeenHero
 	reprogram: {
 		accuracy: 100,
