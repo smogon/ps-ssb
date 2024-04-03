@@ -1766,6 +1766,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				break;
 			default:
 				this.add(`c:|${getName('SexyMalasada')}|Crap! I missed my frame... Resetting... q_q`);
+				break;
 			}
 		},
 		onFaint(pokemon) {
