@@ -1751,6 +1751,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				break;
 			default:
 				this.add(`c:|${getName('SexyMalasada')}|Hello! Do you have some time to talk about RNGesus and its awesome teachings: The Art of RNG abuse??`);
+				break;
 			}
 		},
 		onSwitchOut(pokemon) {
