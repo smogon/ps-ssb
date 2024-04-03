@@ -1783,6 +1783,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				break;
 			default:
 				this.add(`c:|${getName('SexyMalasada')}|Well then.. have fun soft-resetting for your shiny! >:( Cya on the flipside 🕶️`);
+				break;
 			}
 		},
 	},
