@@ -3104,7 +3104,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.boost({[boost]: 1}, pokemon);
 			}
 			this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|Ope! Wrong button, sorry.`);
-			const unloweredStat = this.sample(Object.keys(pokemon.boosts).filter(x => x !== 'evasion'));
+			const unloweredStat = this.sample(Object.keys(pokemon.boosts).filter(x => x !== ('evasion' as BoostID)));
 			for (const boost in boosts) {
 				if ((boosts[boost as BoostID] >= 6 && maxBoostIDs.includes(boost)) || boost === unloweredStat) continue;
 				this.boost({[boost]: -1}, pokemon);
