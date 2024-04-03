@@ -271,7 +271,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		onSwitchOut() {
-			const phrases = ['vr shift',
+			const phrases = [
+				'vr shift',
 				'commission',
 				'bio lab',
 				'lab report',
