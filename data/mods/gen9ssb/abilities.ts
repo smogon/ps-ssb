@@ -1568,7 +1568,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.debug('Orchard\'s Gift boost');
 				return this.chainModify(1.5);
 			}
-		},		
+		},
 	},
 
 	// PartMan

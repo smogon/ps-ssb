@@ -3488,7 +3488,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					spa: -1,
 					spd: -1,
 				},
-			}
+			},
 		},
 		target: "normal",
 		type: "Normal",
