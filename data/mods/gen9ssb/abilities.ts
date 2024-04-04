@@ -1544,6 +1544,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Opple
+	orchardsgift: {
+		name: "Orchard's Gift",
+		shortDesc: "On switch-in, summons Grassy Terrain. During Grassy Terrain, Sp. Atk and Sp. Def are 1.5x.",
+		onStart(pokemon) {
+			if (this.field.setTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'Orchard\'s Gift', '[source]');
+			} else if (this.field.isTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'ability: Orchard\'s Gift');
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Orchard\'s Gift boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 6,
+		onModifySpD(spd, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Orchard\'s Gift boost');
+				return this.chainModify(1.5);
+			}
+		},		
+	},
+
 	// PartMan
 	ctiershitposter: {
 		shortDesc: "-1 Atk/SpA, +1 Def/SpD. +1 Atk/SpA/Spe, -1 Def/SpD, Mold Breaker if 420+ dmg taken.",

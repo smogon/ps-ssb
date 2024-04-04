@@ -587,6 +587,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Last Hymn"},
 	},
 
+	// Opple
+	applin: {
+		inherit: true,
+		baseStats: {hp: 106, atk: 80, def: 110, spa: 120, spd: 80, spe: 44},
+		abilities: {0: "Orchard's Gift"},
+	},
+
 	// PartMan
 	chandelure: {
 		inherit: true,
