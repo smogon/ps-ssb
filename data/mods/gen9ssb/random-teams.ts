@@ -306,6 +306,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'ok',
 		evs: {hp: 252, def: 4, spa: 252}, nature: 'Quiet', teraType: 'Normal',
 	},
+	DianaNicole: {
+		species: 'Abomasnow', ability: 'Snow Problem', item: 'Abomasite', gender: 'F',
+		moves: ['Giga Drain', 'Earth Power', 'Blizzard'],
+		signatureMove: 'Breath of Tiamat',
+		evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest', shiny: true,
+	},
 	Elliot: {
 		species: 'Sinistea', ability: 'Natural Cure', item: 'Focus Sash', gender: 'N',
 		moves: ['Moonblast', 'Shadow Ball', 'Teatime'],

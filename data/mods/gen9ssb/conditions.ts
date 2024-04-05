@@ -616,6 +616,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('dhelmise')}|ok`);
 		},
 	},
+	diananicole: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('DianaNicole')}|Ready for Initiative? Cause I’m gonna Clickity Clackity, Roll to Attackity!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('DianaNicole')}|Dropping out of Initiative`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('DianaNicole')}|Guess I didn't roll high enough`);
+		},
+	},
 	elliot: {
 		noCopy: true,
 		onStart() {
