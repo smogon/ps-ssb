@@ -1573,7 +1573,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						hitAnims.push(moveAnims[i]);
 					}
 				}
-				this.add(`c:|${getName('dhelmise')}|the holy grail? idk man ${hitAnims}`);
 				this.add('-anim', source, hitAnims[move.hit], target);
 			}
 		},
