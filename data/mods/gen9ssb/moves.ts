@@ -1536,7 +1536,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 
 	// DianaNicole
 	breathoftiamat: {
-		accuracy: 100,
+		accuracy: 95,
 		basePower: 20,
 		category: "Special",
 		shortDesc: "Hits 5 times. In order, each hit's type is Fire, Ice, Poison, Electric, Poison. Skips hits if a foe would be immune.",
