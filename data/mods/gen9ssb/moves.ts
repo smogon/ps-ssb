@@ -3888,8 +3888,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			move.type = type;
 		},
-		onHit(target, source, move) {
-			if (this.randomChance(40, 100)) {
+		secondary: {
+			chance: 40,
+			onHit(target, source, move) {
 				switch (move.type) {
 				case 'Normal':
 					target.addVolatile('yawn');
@@ -3946,7 +3947,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					target.addVolatile('attract');
 					break;
 				} // long ladders go brr. array swap a no-go because of the mix of status and volatiles.
-			}
+			},
 		},
 		target: "normal",
 		type: "???",
