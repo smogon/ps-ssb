@@ -3914,7 +3914,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					target.trySetStatus('tox');
 					break;
 				case 'Electric':
-					target.addVolatile('par');
+					target.trySetStatus('par');
 					break;
 				case 'Ground':
 					target.addVolatile('trapped');
