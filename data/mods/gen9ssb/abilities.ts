@@ -1547,7 +1547,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Opple
 	orchardsgift: {
 		name: "Orchard's Gift",
-		shortDesc: "On switch-in, summons Grassy Terrain. During Grassy Terrain, Sp. Atk and Sp. Def are 1.5x.",
+		shortDesc: "Summons Grassy Terrain. 1.5x Sp. Atk and Sp. Def during Grassy Terrain.",
 		onStart(pokemon) {
 			if (this.field.setTerrain('grassyterrain')) {
 				this.add('-activate', pokemon, 'Orchard\'s Gift', '[source]');
