@@ -3855,9 +3855,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source, move) {
 			this.add('-anim', source, 'Tera Blast ' + move.type, target);
 		},
-		onTryHit(source, target, move) {
-			
-		},
 		onModifyType(move, pokemon, target) {
 			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			move.type = type;
@@ -3893,12 +3890,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					'KyrgyzStan',
 				];
 				this.effectState.ks_name = this.sample(messages);
-				this.add(`c:|${getName('PS')}|we have yet anew reassessed.`);
 				this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ks_name}`);
 			},
 			onTryHit(source, target, move) {
-				if (source.species.baseSpecies === 'Hydreigon' && move.name === 'Pulse Luck')
-				this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ks_name}`);
+				if (source.species.baseSpecies === 'Hydreigon' && move.name === 'Pulse Luck') {
+					this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ks_name}`);
+				}
 			},
 		},
 		secondary: {
