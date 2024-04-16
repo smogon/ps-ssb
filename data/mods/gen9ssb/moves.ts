@@ -3461,7 +3461,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "50% confuses foe, raises SpA, SpD by 2 stages. Else confuses user, lowers SpA, SpD by 1 stage.",
+		shortDesc: "Confuse; +2 SpA/D. Fail=Confuse self; -1 SpA/D.",
 		name: "Wopple or Flopple",
 		gen: 9,
 		pp: 10,
@@ -3473,23 +3473,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Moonlight', source);
 		},
-		onTry(pokemon, target, move) {
-			if (move.sourceEffect !== 'woppleorflopple' && this.randomChance(1, 2)) {
+		onHit(pokemon, target, move) {
+			if (this.randomChance(1, 2)) {
 				target.addVolatile('confusion');
-				this.boost({spa: 2, spd: 2});
-				return null;
+				this.boost({spa: 2, spd: 2}, pokemon);
+			} else {
+				pokemon.addVolatile('confusion');
+				this.boost({spa: -1, spd: -1}, pokemon);
 			}
 		},
-		secondary: {
-			chance: 50,
-			self: {
-				volatileStatus: 'confusion',
-				boosts: {
-					spa: -1,
-					spd: -1,
-				},
-			},
-		},
+		secondary: null,
 		target: "normal",
 		type: "Normal",
 	},
