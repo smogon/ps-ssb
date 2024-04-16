@@ -3891,7 +3891,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: {
 			chance: 40,
 			onHit(target, source, move) {
-				const table: {[k: string] {volatileStatus?: string, status?: string}} = {
+				const table: {[k: string]: {volatileStatus?: string, status?: string}} = {
 					Normal: {volatileStatus: 'yawn'},
 					Fire: {status: 'brn'},
 					Water: {volatileStatus: 'aquaring'},
