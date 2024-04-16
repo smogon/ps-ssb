@@ -3891,62 +3891,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: {
 			chance: 40,
 			onHit(target, source, move) {
-				switch (move.type) {
-				case 'Normal':
-					target.addVolatile('yawn');
-					break;
-				case 'Fire':
-					target.trySetStatus('brn');
-					break;
-				case 'Water':
-					target.addVolatile('aquaring');
-					break;
-				case 'Grass':
-					target.addVolatile('leechseed');
-					break;
-				case 'Flying':
-					target.addVolatile('confusion');
-					break;
-				case 'Fighting':
-					target.addVolatile('partiallytrapped');
-					break;
-				case 'Poison':
-					target.trySetStatus('tox');
-					break;
-				case 'Electric':
-					target.trySetStatus('par');
-					break;
-				case 'Ground':
-					target.addVolatile('trapped');
-					break;
-				case 'Rock':
-					target.addVolatile('saltcure');
-					break;
-				case 'Psychic':
-					target.trySetStatus('slp');
-					break;
-				case 'Ice':
-					target.trySetStatus('frz');
-					break;
-				case 'Bug':
-					target.trySetStatus('psn');
-					break;
-				case 'Ghost':
-					target.addVolatile('disable');
-					break;
-				case 'Steel':
-					target.addVolatile('flinch');
-					break;
-				case 'Dark':
-					target.addVolatile('mustrecharge');
-					break;
-				case 'Dragon':
-					target.addVolatile('taunt');
-					break;
-				case 'Fairy':
-					target.addVolatile('attract');
-					break;
-				} // long ladders go brr. array swap a no-go because of the mix of status and volatiles.
+				const table: {[k: string] {volatileStatus?: string, status?: string}} = {
+					Normal: {volatileStatus: 'yawn'},
+					Fire: {status: 'brn'},
+					Water: {volatileStatus: 'aquaring'},
+					Grass: {volatileStatus: 'leechseed'},
+					Flying: {volatileStatus: 'confusion'},
+					Fighting: {volatileStatus: 'partiallytrapped'},
+					Poison: {status: 'tox'},
+					Electric: {status: 'par'},
+					Ground: {volatileStatus: 'trapped'},
+					Rock: {volatileStatus: 'saltcure'},
+					Psychic: {status: 'slp'},
+					Ice: {status: 'frz'},
+					Bug: {status: 'psn'},
+					Ghost: {volatileStatus: 'disable'},
+					Steel: {volatileStatus: 'flinch'},
+					Dark: {volatileStatus: 'mustrecharge'},
+					Dragon: {volatileStatus: 'taunt'},
+					Fairy: {volatileStatus: 'attract'},
+				};
+				const condition = table[move.type];
+				if (condition.status) {
+					target.trySetStatus(condition.status);
+				} else if (condition.volatileStatus) {
+					target.addVolatile(condition.volatileStatus);
+				}
 			},
 		},
 		target: "normal",
