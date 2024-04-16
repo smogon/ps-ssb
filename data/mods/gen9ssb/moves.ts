@@ -3856,37 +3856,50 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Tera Blast ' + move.type, target);
 		},
 		onTryHit(source, target, move) {
-			const messages = [
-				'Kai Shinden',
-				'Kaio Sama',
-				'Kaiba, Seto',
-				'Kairyu-Shin',
-				'Kaito Shizuki',
-				'Kanga Skhan',
-				'KanSas',
-				'Karakuri Shogun',
-				'Kate Stewart',
-				'Kendo Spirit',
-				'Keratan sulfate',
-				'Kernel streaming',
-				'Key Stage',
-				'Kids Suck',
-				'KillSteal',
-				'Kilometers / Second',
-				'Kilosecond',
-				'King of the Swamp',
-				'King\'s Shield',
-				'Kirk/Spock',
-				'Klingon Security',
-				'Kuroudo (Cloud) Strife',
-				'Kyouko Sakura',
-				'KyrgyzStan',
-			];
-			this.add(`c:|${getName((target.illusion || target).name)}|The kS stands for ${this.sample(messages)}`);
+			
 		},
 		onModifyType(move, pokemon, target) {
 			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			move.type = type;
+		},
+		slotCondition: 'pulseluck',
+		condition: {
+			duration: 999,
+			onStart(pokemon, source) {
+				const messages = [
+					'Kai Shinden',
+					'Kaio Sama',
+					'Kaiba, Seto',
+					'Kairyu-Shin',
+					'Kaito Shizuki',
+					'Kanga Skhan',
+					'KanSas',
+					'Karakuri Shogun',
+					'Kate Stewart',
+					'Kendo Spirit',
+					'Keratan sulfate',
+					'Kernel streaming',
+					'Key Stage',
+					'Kids Suck',
+					'KillSteal',
+					'Kilometers / Second',
+					'Kilosecond',
+					'King of the Swamp',
+					'King\'s Shield',
+					'Kirk/Spock',
+					'Klingon Security',
+					'Kuroudo (Cloud) Strife',
+					'Kyouko Sakura',
+					'KyrgyzStan',
+				];
+				this.effectState.ks_name = this.sample(messages);
+				this.add(`c:|${getName('PS')}|we have yet anew reassessed.`);
+				this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ks_name}`);
+			},
+			onTryHit(source, target, move) {
+				if (source.species.baseSpecies === 'Hydreigon' && move.name === 'Pulse Luck')
+				this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ks_name}`);
+			},
 		},
 		secondary: {
 			chance: 40,
