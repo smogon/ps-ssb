@@ -3098,15 +3098,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const maxBoostIDs: BoostID[] = [];
 			for (const boost in boosts) {
 				if (boosts[boost as BoostID] >= 6) {
-					maxBoostIDs.push(boost);
+					maxBoostIDs.push(boost as BoostID);
 					continue;
 				}
 				this.boost({[boost]: 1}, pokemon);
 			}
 			this.add(`c:|${getName((pokemon.illusion || pokemon).name)}|Ope! Wrong button, sorry.`);
-			const unloweredStat: BoostID = this.sample(Object.keys(pokemon.boosts).filter(x => x !== ('evasion' as BoostID)));
+			const unloweredStat = this.sample(Object.keys(pokemon.boosts).filter(x => x !== ('evasion' as BoostID)));
 			for (const boost in boosts) {
-				if ((boosts[boost as BoostID] >= 6 && maxBoostIDs.includes(boost)) || boost === unloweredStat) continue;
+				if ((boosts[boost as BoostID] >= 6 && maxBoostIDs.includes(boost as BoostID)) || boost === unloweredStat) continue;
 				this.boost({[boost]: -1}, pokemon);
 			}
 		},
