@@ -1567,7 +1567,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				move.type = hitTypes[move.hit];
 				const moveAnims = ['Flamethrower', 'Ice Beam', 'Gunk Shot', 'Charge Beam', 'Sludge Bomb'];
 				const hitAnims = [];
-				for (const [anim, i] of moveAnims.entries()) {
+				for (const [i, anim] of moveAnims.entries()) {
 					const index2 = Math.min(i, hitTypes.length - 1);
 					if (moveTypes[i] === hitTypes[index2]) {
 						hitAnims.push(anim);
