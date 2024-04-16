@@ -1570,7 +1570,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				for (const [anim, i] of moveAnims.entries()) {
 					const index2 = Math.min(i, hitTypes.length - 1);
 					if (moveTypes[i] === hitTypes[index2]) {
-						hitAnims.push(moveAnims[i]);
+						hitAnims.push(anim);
 					}
 				}
 				this.add('-anim', source, hitAnims[move.hit], target);
