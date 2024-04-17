@@ -561,7 +561,7 @@ export const ssbSets: SSBSets = {
 	},
 	'Lyna 氷': {
 		species: 'Dragonair', ability: 'Magic Aura', item: 'Eviolite', gender: 'F',
-		moves: ['Victory Dance', 'V-Create', 'Glacial Lance'],
+		moves: ['Victory Dance', 'V-create', 'Glacial Lance'],
 		signatureMove: 'Wrath of Frozen Flames',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', teraType: 'Dragon',
 	},

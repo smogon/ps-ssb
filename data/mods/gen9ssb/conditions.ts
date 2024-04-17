@@ -1365,6 +1365,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	lyna: {
 		noCopy: true,
 		onStart(pokemon) {
+			let phrase = '';
 			switch (this.toID(enemyStaff(pokemon))) {
 			case 'alex':
 			case 'nya':
@@ -1376,18 +1377,20 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'teclis':
 			case 'swiffix':
 			case 'ironwater':
-				this.add(`c:|${getName('Lyna 氷')}|slt`);
+				phrase = 'slt';
 				break;
 			default:
-				this.add(`c:|${getName('Lyna 氷')}|Hey <3`);
+				phrase = 'Hey <3';
+				break;
 			}
+			this.add(`c:|${getName('Lyna 氷')}|${phrase}`);
 		},
 		onSwitchOut(pokemon) {
-			this.add(`c:|${getName('Lyna 氷')}|`);
+			let phrase = '';
 			switch (this.toID(enemyStaff(pokemon))) {
 			case 'alex':
 			case 'nya':
-				this.add(`c:|${getName('Lyna 氷')}|You're so cute, I can't hit you...`);
+				phrase = 'You\'re so cute, I can\'t hit you...';
 				break;
 			case 'r8':
 			case 'clementine':
@@ -1395,32 +1398,36 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'teclis':
 			case 'swiffix':
 			case 'ironwater':
-				this.add(`c:|${getName('Lyna 氷')}|**Tournoi Hebdo sur <<arcade>> !**`);
+				phrase = '**Tournoi Hebdo sur <<arcade>> !**';
 				break;
 			default:
-				this.add(`c:|${getName('Lyna 氷')}|Nvm I'm too busy for that, cya!`);
+				phrase = 'Nvm I\'m too busy for that, cya!';
+				break;
 			}
+			this.add(`c:|${getName('Lyna 氷')}|${phrase}`);
 		},
 		onFaint(pokemon) {
-			this.add(`c:|${getName('Lyna 氷')}|`);
+			let phrase = '';
 			switch (this.toID(enemyStaff(pokemon))) {
 			case 'alex':
 			case 'nya':
-				this.add(`c:|${getName('Lyna 氷')}|You're definitely too cute...`);
+				phrase = 'You\'re definitely too cute...';
 				break;
 			case 'r8':
-				this.add(`c:|${getName('Lyna 氷')}|ok mais on dit pain au chocolat.`);
+				phrase = 'ok mais on dit pain au chocolat.';
 				break;
 			case 'clementine':
 			case 'lionyx':
 			case 'teclis':
 			case 'swiffix':
 			case 'ironwater':
-				this.add(`c:|${getName('Lyna 氷')}|t'as de la chance que je sois sympa..`);
+				phrase = 't\'as de la chance que je sois sympa..';
 				break;
 			default:
-				this.add(`c:|${getName('Lyna 氷')}|The flames were too frozen...`);
+				phrase = 'The flames were too frozen...';
+				break;
 			}
+			this.add(`c:|${getName('Lyna 氷')}|${phrase}`);
 		},
 	},
 	madmonty: {
