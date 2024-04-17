@@ -1486,25 +1486,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		volatileStatus: 'snack',
 		onTryMove(attacker, defender, move) {
-			this.attrLastMove('[still]');
-			if (attacker.getVolatile('snacktime')) {
-				this.add('-anim', attacker, 'Shell Smash', attacker);
-				this.boost({atk: 2, def: 2}, attacker, defender);
-				return null;
-			} else {
-				this.add('-prepare', attacker, move.name);
-				this.add('-anim', attacker, 'Geomancy', attacker);
-				if (!this.runEvent('ChargeMove', attacker, defender, move)) {
-					return;
-				}
-				attacker.addVolatile('twoturnmove', defender);
+			if (attacker.volatiles['snack']) {
+				this.add('-fail', source, 'move: Snack Time');
+				this.attrLastMove('[still]');
 				return null;
 			}
+			if (attacker.removeVolatile(move.id)) {
+				this.attrLastMove('[still]');
+				this.add('-anim', attacker, 'Shell Smash', attacker);
+				return;
+			}
+			this.add('-prepare', attacker, move.name);
+			this.attrLastMove('[still]');
+			this.add('-anim', attacker, 'Geomancy', attacker);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		boosts: {
+			atk: 2,
+			def: 2,
 		},
 		// passive recovery implemented in conditions.ts
 		secondary: null,
-		target: 'self',
+		target: "self",
 		type: "Normal",
 	},
 
