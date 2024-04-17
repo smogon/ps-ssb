@@ -3223,7 +3223,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Clangorous Soulblaze', target);
 		},
 		onHit(target, source, move) {
-		if (source.terastallized) return;
+			if (source.terastallized) return;
 			if (this.randomChance(8, 10)) {
 				source.addType('Ice');
 				this.add('-start', source, 'typeadd', 'Ice', '[from] move: Wrath of Frozen Flames');
