@@ -1362,6 +1362,67 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Lunell')}|*sad vaporeon noises*`);
 		},
 	},
+	lyna: {
+		noCopy: true,
+		onStart(pokemon) {
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'alex':
+			case 'nya':
+				this.add(`c:|${getName('Lyna 氷')}|Oh, a cat <3`);
+				break;
+			case 'r8':
+			case 'clementine':
+			case 'lionyx':
+			case 'teclis':
+			case 'swiffix':
+			case 'ironwater':
+				this.add(`c:|${getName('Lyna 氷')}|slt`);
+				break;
+			default:
+				this.add(`c:|${getName('Lyna 氷')}|Hey <3`);
+			}
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c:|${getName('Lyna 氷')}|`);
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'alex':
+			case 'nya':
+				this.add(`c:|${getName('Lyna 氷')}|You're so cute, I can't hit you...`);
+				break;
+			case 'r8':
+			case 'clementine':
+			case 'lionyx':
+			case 'teclis':
+			case 'swiffix':
+			case 'ironwater':
+				this.add(`c:|${getName('Lyna 氷')}|**Tournoi Hebdo sur <<arcade>> !**`);
+				break;
+			default:
+				this.add(`c:|${getName('Lyna 氷')}|Nvm I'm too busy for that, cya!`);
+			}
+		},
+		onFaint(pokemon) {
+			this.add(`c:|${getName('Lyna 氷')}|`);
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'alex':
+			case 'nya':
+				this.add(`c:|${getName('Lyna 氷')}|You're definitely too cute...`);
+				break;
+			case 'r8':
+				this.add(`c:|${getName('Lyna 氷')}|ok mais on dit pain au chocolat.`);
+				break;
+			case 'clementine':
+			case 'lionyx':
+			case 'teclis':
+			case 'swiffix':
+			case 'ironwater':
+				this.add(`c:|${getName('Lyna 氷')}|t'as de la chance que je sois sympa..`);
+				break;
+			default:
+				this.add(`c:|${getName('Lyna 氷')}|The flames were too frozen...`);
+			}
+		},
+	},
 	madmonty: {
 		noCopy: true,
 		onStart() {
