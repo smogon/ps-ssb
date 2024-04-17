@@ -5238,6 +5238,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			this.boost({atk: boost}, pokemon, pokemon, move);
 		},
+		secondary: null,
 		target: "normal",
 		type: "Steel",
 	},
