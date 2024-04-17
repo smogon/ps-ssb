@@ -1645,7 +1645,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		volatileStatus: 'snack',
 		onTryMove(attacker, defender, move) {
 			if (attacker.volatiles['snack']) {
-				this.add('-fail', source, 'move: Snack Time');
+				this.add('-fail', attacker, 'move: Snack Time');
 				this.attrLastMove('[still]');
 				return null;
 			}
