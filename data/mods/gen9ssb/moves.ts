@@ -5212,7 +5212,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Physical",
 		name: "First Strike",
 		shortDesc: "Turn 1 only. +1 NVE, +2 NE, +3 SE Atk.",
-    desc: "This move can only be used on the first turn of battle. It boosts the user's Attack by 1 stage if it's resisted, 2 stages if it's neutral, and 3 stages if it's super effective.",
+		desc: "This move can only be used on the first turn of battle. It boosts the user's Attack by 1 stage if it's resisted, 2 stages if it's neutral, and 3 stages if it's super effective.",
 		pp: 15,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
