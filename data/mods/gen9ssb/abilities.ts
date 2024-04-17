@@ -33,6 +33,47 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 9,
 	},
 
+	// Aethernum
+	theeminenceintheshadow: {
+		shortDesc: "Unaware + Supreme Overlord with half the boost.",
+		name: "The Eminence in the Shadow",
+		onAnyModifyBoost(boosts, pokemon) {
+			const unawareUser = this.effectState.target;
+			if (unawareUser === pokemon) return;
+			if (unawareUser === this.activePokemon && pokemon === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (pokemon === this.activePokemon && unawareUser === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['def'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		onStart(pokemon) {
+			if (pokemon.side.totalFainted) {
+				this.add('-activate', pokemon, 'ability: The Eminence in the Shadow');
+				const fallen = Math.min(pokemon.side.totalFainted, 5);
+				this.add('-start', pokemon, `fallen${fallen}`, '[silent]');
+				this.effectState.fallen = fallen;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, `fallen${this.effectState.fallen}`, '[silent]');
+		},
+		onBasePowerPriority: 21,
+		onBasePower(basePower, attacker, defender, move) {
+			if (this.effectState.fallen) {
+				const powMod = [20, 21, 22, 23, 24, 25];
+				this.debug(`Supreme Overlord boost: ${powMod[this.effectState.fallen]}/25`);
+				return this.chainModify([powMod[this.effectState.fallen], 20]);
+			}
+		},
+		flags: {breakable: 1},
+	},
+
 	// Akir
 	takeitslow: {
 		shortDesc: "Regenerator + Psychic Surge.",
@@ -316,20 +357,59 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// ausma
-	lattebreak: {
-		shortDesc: "Regenerator + one-time priority boost per switch-in.",
-		name: "Latte Break",
-		onSwitchIn() {
-			delete this.effectState.latte;
+	cascade: {
+		shortDesc: "Switches out when below 50% HP. First re-entry gives +1 Def/SpD and +3 Spe.",
+		name: "Cascade",
+		onEmergencyExit(target) {
+			if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
+			for (const side of this.sides) {
+				for (const active of side.active) {
+					active.switchFlag = false;
+				}
+			}
+			target.switchFlag = true;
+			if (this.effectState.cascade === undefined) {
+				this.effectState.cascade = 1;
+			} else {
+				this.effectState.cascade = 0;
+			}
+			this.add(`c:|${getName('ausma')}|uuuuuuuuuuuuuuuuuuuuuuuuugggggghhhhhhhh [dizzy sound effect] sec bitte`);
+			this.add('-activate', target, 'ability: Cascade');
 		},
-		onFractionalPriority(relayVar, source, target, move) {
-			if (!this.effectState.latte) {
-				this.effectState.latte = true;
-				return 0.5;
+		onSwitchIn() {
+			if (this.effectState.cascade) {
+				this.boost({def: 1, spd: 1, spe: 3});
+				this.add(`c:|${getName('ausma')}|ok i got my coffee yall mfs r about to face the wrath of Big Stall™`);
+				this.effectState.cascade = 0;
 			}
 		},
-		onSwitchOut(pokemon) {
-			pokemon.heal(pokemon.baseMaxhp / 3);
+		flags: {},
+	},
+
+	// blazeofvictory
+	prismaticlens: {
+		shortDesc: "Pixilate + Tinted Lens.",
+		name: "Prismatic Lens",
+		onModifyTypePriority: -1,
+		onModifyType(move, pokemon) {
+			const noModifyType = [
+				'judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'terrainpulse', 'weatherball',
+			];
+			if (move.type === 'Normal' && !noModifyType.includes(move.id) &&
+				!(move.isZ && move.category !== 'Status') && !(move.name === 'Tera Blast' && pokemon.terastallized)) {
+				move.type = 'Fairy';
+				move.typeChangerBoosted = this.effect;
+			}
+		},
+		onBasePowerPriority: 23,
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.typeChangerBoosted === this.effect) return this.chainModify([4915, 4096]);
+		},
+		onModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).typeMod < 0) {
+				this.debug('Tinted Lens boost');
+				return this.chainModify(2);
+			}
 		},
 		flags: {},
 	},
@@ -623,25 +703,38 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// dhelmise
-	cacophony: {
-		name: "Cacophony",
-		shortDesc: "Sound moves: 1.5x BP, ignore type-based immunities. Opposing sound fails.",
-		onBasePowerPriority: 7,
-		onBasePower(basePower, attacker, defender, move) {
-			if (move.flags['sound']) {
-				this.debug('Cacophony boost');
-				return this.chainModify([6144, 4096]);
+	coalescence: {
+		name: "Coalescence",
+		desc: "All moves heal 37% of damage dealt. Unfainted allies heal 5% HP at the end of each turn. If this Pokemon's HP is less than 25%, moves heal 114% of damage dealt, and allies restore 10% of their health.",
+		shortDesc: "Moves drain 37%. Allies heal 5% HP. <25% HP, moves drain 114%, allies get 10%.",
+		onModifyMove(move, pokemon, target) {
+			if (move.category !== "Status") {
+				// move.flags['heal'] = 1; // For Heal Block
+				if (pokemon.hp > pokemon.maxhp / 4) {
+					move.drain = [37, 100];
+				} else {
+					move.drain = [114, 100];
+				}
 			}
 		},
-		onTryHit(target, source, move) {
-			if (target !== source && move.flags['sound']) {
-				this.add('-immune', target, '[from] ability: Cacophony');
-				return null;
+		onResidualOrder: 5,
+		onResidualSubOrder: 4,
+		onResidual(pokemon) {
+			for (const ally of pokemon.side.pokemon) {
+				if (!ally.hp || ally === pokemon) continue;
+				this.heal(ally.baseMaxhp * (pokemon.hp > pokemon.maxhp / 4 ? 5 : 10) / 100, ally, pokemon);
 			}
 		},
-		onModifyMovePriority: -5,
-		onModifyMove(move) {
-			move.ignoreImmunity = true;
+		flags: {},
+	},
+
+	// DianaNicole
+	snowproblem: {
+		shortDesc: "On switch-in, this Pokemon summons snow and its Sp. Atk is raised by 1 stage.",
+		name: "Snow Problem",
+		onStart(source) {
+			this.field.setWeather('snow');
+			this.boost({spa: 1}, source);
 		},
 		flags: {},
 	},
@@ -891,37 +984,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
-
-	// HiZo
-	martyrcomplex: {
-		desc: "If this Pokemon is knocked out, next Pokemon gets +1 Speed and +1 Attack/Special Attack, whichever is higher.",
-		shortDesc: "If this Pokemon is KOed, next Pokemon gets +1 Spe and +1 Atk or SpA.",
-		name: "Martyr Complex",
-		onDamagingHitOrder: 1,
-		onDamagingHit(damage, target, source, move) {
-			if (!target.hp) {
-				this.add('-activate', target, 'ability: Martyr Complex');
-				this.add('-message', `${target.name} will be avenged!`);
-				target.side.addSlotCondition(target, 'martyrcomplex');
-			}
-		},
-		condition: {
-			onSwap(target) {
-				const boosts: SparseBoostsTable = {};
-				boosts['spe'] = 1;
-				if (target.getStat('atk', false, true) > target.getStat('spa', false, true)) {
-					boosts['atk'] = 1;
-				} else {
-					boosts['spa'] = 1;
-				}
-				this.boost(boosts, target, target, this.effect);
-				target.side.removeSlotCondition(target, 'martyrcomplex');
-			},
-		},
-		// Permanent sleep "status" implemented in the relevant sleep-checking effects
-		flags: {},
-	},
-
 	// HoeenHero
 	misspelled: {
 		shortDesc: "SpA 1.5x, Accuracy 0.8x, Never misses, only misspells moves.",
@@ -1067,6 +1129,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		flags: {},
 		name: "Deserted Dunes",
+		desc: "On switch-in, the weather becomes Deserted Dunes, which removes the weaknesses of the Rock type from Rock-type Pokemon. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by the Desolate Land, Primordial Sea or Delta Stream Abilities.",
+		shortDesc: "On switch-in, a strong Sandstorm begins until this Ability is not active in battle.",
 		gen: 9,
 	},
 
@@ -1202,7 +1266,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Kry
 	flashfreeze: {
 		name: "Flash Freeze",
-		shortDesc: "Heatproof + moves coming off of boosted attacking stat do 75% dmg.",
+		shortDesc: "Heatproof + foe's moves coming off of boosted attacking stat do 75% dmg.",
 		onSourceModifyAtkPriority: 6,
 		onSourceModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Fire') {
@@ -1544,6 +1608,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Opple
+	orchardsgift: {
+		name: "Orchard's Gift",
+		shortDesc: "Summons Grassy Terrain. 1.5x Sp. Atk and Sp. Def during Grassy Terrain.",
+		onStart(pokemon) {
+			if (this.field.setTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'Orchard\'s Gift', '[source]');
+			} else if (this.field.isTerrain('grassyterrain')) {
+				this.add('-activate', pokemon, 'ability: Orchard\'s Gift');
+			}
+		},
+		onModifyAtkPriority: 5,
+		onModifySpA(spa, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Orchard\'s Gift boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 6,
+		onModifySpD(spd, pokemon) {
+			if (this.field.isTerrain('grassyterrain')) {
+				this.debug('Orchard\'s Gift boost');
+				return this.chainModify(1.5);
+			}
+		},
+	},
+
 	// PartMan
 	ctiershitposter: {
 		shortDesc: "-1 Atk/SpA, +1 Def/SpD. +1 Atk/SpA/Spe, -1 Def/SpD, Mold Breaker if 420+ dmg taken.",
@@ -1601,6 +1692,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		// implemented in rulesets.ts
 	},
 
+	// Pulse_kS
+	notorichalcumpulse: {
+		shortDesc: "Mega Launcher + Super Luck.",
+		name: "Not Orichalcum Pulse",
+		onBasePowerPriority: 19,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.flags['pulse']) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifyCritRatio(critRatio) {
+			return critRatio + 1;
+		},
+		flags: {},
+	},
+
 	// PYRO
 	hardcorehustle: {
 		shortDesc: "Moves have 15% more power and -5% Acc for each fainted ally, up to 5 allies.",
@@ -1652,6 +1759,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {},
 	},
 
+	// quziel
+	highperformancecomputing: {
+		shortDesc: "Becomes a random typing at the beginning of each turn.",
+		name: "High Performance Computing",
+		flags: {},
+		onBeforeTurn(source) {
+			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
+			source.setType(type);
+			this.add('-start', source, 'typechange', type, '[from] ability: High Performance Computing');
+		},
+	},
+
 	// R8
 	antipelau: {
 		name: "Anti-Pelau",
@@ -1675,6 +1794,28 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				},
 			};
 			this.actions.useMove(wish, target);
+		},
+		flags: {},
+	},
+
+	// Rainshaft
+	rainysaura: {
+		name: "Rainy's Aura",
+		shortDesc: "Switch-in sets rain and boosts all Psychic-type damage by 33%.",
+		onStart(source) {
+			if (this.suppressingAbility(source)) return;
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === source && source.species.id === 'kyogre') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.field.setWeather('raindance');
+		},
+		onAnyBasePowerPriority: 20,
+		onAnyBasePower(basePower, source, target, move) {
+			if (target === source || move.category === 'Status' || move.type !== 'Psychic') return;
+			if (!move.auraBooster?.hasAbility('Rainy\'s Aura')) move.auraBooster = this.effectState.target;
+			if (move.auraBooster !== this.effectState.target) return;
+			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
 		},
 		flags: {},
 	},
@@ -1857,6 +1998,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move?.category === 'Status') {
 				move.pranksterBoosted = true;
 				return priority + 1;
+			}
+		},
+		flags: {},
+	},
+
+	// SexyMalasada
+	ancestryritual: {
+		shortDesc: "Recoil heals. While below 50% HP, changes to Typhlosion-Hisui.",
+		name: "Ancestry Ritual",
+		onDamage(damage, target, source, effect) {
+			if (effect.id === 'recoil') {
+				if (!this.activeMove) throw new Error("Battle.activeMove is null");
+				if (this.activeMove.id !== 'struggle') {
+					this.heal(damage);
+					return null;
+				}
+			}
+		},
+		onResidualOrder: 20,
+		onResidual(pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Typhlosion' || pokemon.transformed) {
+				return;
+			}
+			if (pokemon.hp <= pokemon.maxhp / 2 && pokemon.species.id !== 'typhlosionhisui') {
+				pokemon.formeChange('Typhlosion-Hisui');
+			} else if (pokemon.hp > pokemon.maxhp / 2 && pokemon.species.id === 'typhlosionhisui') {
+				pokemon.formeChange('Typhlosion');
 			}
 		},
 		flags: {},
@@ -2313,9 +2481,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		flags: {breakable: 1},
 	},
 
+	// vmnunes
+	wildgrowth: {
+		shortDesc: "Attacking moves also inflict Leech Seed on foes.",
+		name: "Wild Growth",
+		onModifyMovePriority: -1,
+		onAfterMove(source, target, move) {
+			if (target.hasType('Grass') || target.hasAbility('Sap Sipper') || !move.hit) return null;
+			target.addVolatile('leechseed', source);
+		},
+		flags: {},
+	},
+
 	// WarriorGallade
 	primevalharvest: {
 		shortDesc: "Sun: Heal 1/8 max HP, random berry if no item. Else 50% random berry if no item.",
+		desc: "In Sun, the user restores 1/8th of its max HP at the end of the turn and has a 100% chance to get a random berry if it has no item. Outside of sun, there is a 50% chance to get a random berry. Berry given will be one of: Cheri, Chesto, Pecha, Lum, Aguav, Liechi, Ganlon, Petaya, Apicot, Salac, Micle, Lansat, Enigma, Custap, Kee or Maranga.",
 		name: "Primeval Harvest",
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
@@ -2382,6 +2563,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Yellow Paint
 	yellowmagic: {
 		shortDesc: "+25% HP, +1 SpA, +1 Spe, Charge, or Paralyzes attacker when hit by an Electric move; Electric immunity.",
+		desc: "This Pokemon is immune to Electric type moves. When this Pokemon is hit by one, it either: restores 25% of its max HP, boosts Sp. Atk by 1 stage, boosts Speed by 1 stage, begins charging or paralyzes the attacker.",
 		name: "Yellow Magic",
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Electric') {
@@ -2418,7 +2600,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// YveltalNL
 	heightadvantage: {
-		shortDesc: "If this Pokemon's height is more than that of the opponent, lowers the opponent's Atk and Sp. Atk by 1..",
+		shortDesc: "If this Pokemon's height is more than that of the opponent, lowers the opponent's Atk and Sp. Atk by 1.",
 		name: "Height Advantage",
 		onStart(pokemon) {
 			let activated = false;

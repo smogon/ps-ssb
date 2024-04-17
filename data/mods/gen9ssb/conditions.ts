@@ -56,6 +56,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Aelita')}|Well, I hope the Lyoko Warriors are at least well equipped.`);
 		},
 	},
+	aethernum: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Aethernum')}|We are the Shadow Garden, and your time has come. Prepare yourself`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Aethernum')}|Better play the side character for now, i'll wait a more favorable opportunity`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Aethernum')}|There are important things that i have to attend, i don't have any more time for you`);
+		},
+	},
 	akir: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -262,13 +274,24 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			case 'rumia':
 				this.add(`c:|${getName('ausma')}|oh no... it's poomia....`);
 				break;
+			case 'lily':
+				this.add(`c:|${getName('ausma')}|togedemaru`);
+				break;
 			case 'lumari':
 				this.add(`c:|${getName('ausma')}|we should watch the next ladybug ep after this tbh`);
 				break;
 			}
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('ausma')}|Big Stall™ will be right back (after my coffee)`);
+			const phrases = [
+				'vr shift',
+				'commission',
+				'bio lab',
+				'lab report',
+				'council post',
+				'anti-tera blast propaganda post',
+			];
+			this.add(`c:|${getName('ausma')}|oh shit i forgot to do this ${this.sample(phrases)} hang on`);
 		},
 		onFaint() {
 			this.add(`c:|${getName('ausma')}|God has punished me for my hubris.`);
@@ -374,6 +397,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 
+	},
+	blazeofvictory: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('blazeofvictory')}|blazeofvictorys in ur puter, askin u trivia questinz`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('blazeofvictory')}|I'll let you have bp... for now...`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('blazeofvictory')}|[ bleps at you sadly :( ]`);
+		},
 	},
 	blitzuser: {
 		noCopy: true,
@@ -594,14 +629,80 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	dhelmiseuser: {
 		noCopy: true,
-		onStart() {
-			this.add(`c:|${getName('dhelmise')}|ok`);
+		onStart(pokemon) {
+			let quotes: string[] = [];
+			if (!pokemon.m.sentOutBefore) {
+				quotes = [
+					`Humanity is shackled. I will find the key.`,
+					`Humanity is shackled. I hold the key.`,
+					`Our minds are shackled. Submission is the key.`,
+				];
+				pokemon.m.sentOutBefore = true;
+			} else {
+				quotes = [
+					`If it must be done, let it be done quickly.`,
+					`Let us keep our questionable choices to a minimum.`,
+					`On with it.`,
+					`I'll see this matter resolved.`,
+					`Knowledge is its own reward.`,
+					`More field research? Grand...`,
+					`Much lies in store. Let us see to it.`,
+					`Push your limits. Nothing breaks that I cannot mend.`,
+					`Your work is a hypothesis. Prove it.`,
+					`Let us go on to the end.`,
+					`Victory grows more certain by the minute.`,
+					`Victory is within our grasp.`,
+					`I have come not to sve, but to __empower__.`,
+					`Now our true work begins.`,
+					`My soul hungers.`,
+					`Do not fight your true nature.`,
+				];
+				if (pokemon.side.pokemonLeft > pokemon.side.foe.pokemonLeft) {
+					quotes.push(`We hold the advantage. Shall we keep it?`);
+				} else if (pokemon.side.pokemonLeft === pokemon.side.foe.pokemonLeft) {
+					quotes.push(
+						`If we're hopingto win, now's the time.`,
+						`It all comes down to this.`,
+						`Prepare yourselves for the decisive battle.`,
+						`This fight is all that remains.`
+					);
+				} else {
+					quotes.push(
+						`Another setback and all will be lost.`,
+						`One more mistake, and we fail.`,
+						`We cannot tolerate any more missteps.`,
+						`We must reverse the course that we are on.`
+					);
+				}
+			}
+			this.add(`c:|${getName('dhelmise')}|${this.sample(quotes)}`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('dhelmise')}|ok`);
+			const quotes = [
+				`Fading.`,
+				`Like shadow.`,
+				`Obscured.`,
+				`Of the Void.`,
+				`Dissolution.`,
+				`Into darkness.`,
+				`Unknowable.`,
+			];
+			this.add(`c:|${getName('dhelmise')}|${this.sample(quotes)}`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('dhelmise')}|ok`);
+			this.add(`c:|${getName('dhelmise')}|Revive me.`);
+		},
+	},
+	diananicole: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('DianaNicole')}|Ready for Initiative? Cause I'm gonna Clickity Clackity, Roll to Attackity!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('DianaNicole')}|Dropping out of Initiative`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('DianaNicole')}|Guess I didn't roll high enough`);
 		},
 	},
 	easyonthehills: {
@@ -1290,7 +1391,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onStart() {
 			this.add(`c:|${getName('marillvibes ♫')}|Is that a __rat__?`);
 		},
-		onSwitchOut(pokemon) {
+		onSwitchOut() {
 			this.add(`c:|${getName('marillvibes ♫')}|Here for a good time, not a long time!`);
 		},
 		onFaint() {
@@ -1423,6 +1524,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Nyx')}|We let TPP cook too hard...`);
 		},
 		innateName: "Natural Cure",
+	},
+	opple: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Opple')}|I'm boutta Wopple with Opple!`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Opple')}|Opple you glad I am leavin'!? Get it? Opple instead of Orange? I'm wasted here! Bu-Bye!`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Opple')}|Who's the floppling? Opple? AGAIN?!`);
+		},
 	},
 	partman: {
 		noCopy: true,
@@ -1599,6 +1712,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('ptoad')}|Who told you you're allowed to rain on my parade?`);
 		},
 	},
+	pulseks: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('Pulse_kS')}|Mid Skill, God Luck`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Pulse_kS')}|brb lemme run the numbers`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Pulse_kS')}|If my model is accurate (it isn't)`);
+		},
+	},
 	pyro: {
 		noCopy: true,
 		onStart() {
@@ -1632,6 +1757,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('Quite Quiet')}|hm`);
 		},
 	},
+	quziel: {
+		noCopy: true,
+		onStart() {
+			this.add(`c:|${getName('quziel')}|Gaze`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('quziel')}|See y-disconnects`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('quziel')}|I am become Tilt`);
+		},
+	},
 	r8: {
 		noCopy: true,
 		onStart() {
@@ -1642,6 +1779,18 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('R8')}|Getting KOed won't prevent me from making propaganda: https://www.smogon.com/forums/forums/national-dex-other-tiers.738/`);
+		},
+	},
+	rainshaft: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c:|${getName('Rainshaft')}|Hello ${pokemon.side.name} and ${pokemon.side.foe.name} :P`);
+		},
+		onSwitchOut() {
+			this.add(`c:|${getName('Rainshaft')}|Hope you got lucky there...`);
+		},
+		onFaint() {
+			this.add(`c:|${getName('Rainshaft')}|You weren't lucky enough, join <<survivor>> for more practice XD`);
 		},
 	},
 	ransei: {
@@ -1731,6 +1880,72 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 		onFaint() {
 			this.add(`c:|${getName('Scotteh')}|\`\`Segmentation fault (core dumped)\`\``);
+		},
+	},
+	sexymalasada: {
+		noCopy: true,
+		onStart(pokemon) {
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'wigglytree':
+				this.add(`c:|${getName('SexyMalasada')}|Hey Wiggles! I made pizza again! Wanna learn more RNG btw?`);
+				break;
+			case 'appletunalamode':
+				this.add(`c:|${getName('SexyMalasada')}|And now you must learn how to RNG with nothing but a sundial for a timer! __Trust me!__`);
+				break;
+			case 'loethalion':
+				this.add(`c:|${getName('SexyMalasada')}|For the hundredth time Loe, check. the. pins.`);
+				break;
+			case 'nicolic':
+				this.add(`c:|${getName('SexyMalasada')}|Hi Nic! Why you keep postponing learning old-gen RNG? q_q`);
+				break;
+			case 'swiffix':
+				this.add(`c:|${getName('SexyMalasada')}|....something smells in here`);
+				break;
+			case 'mex':
+				this.add(`c:|${getName('SexyMalasada')}|Today is the day you finally learn RNG Mex, deal with it!`);
+				break;
+			case 'clefable':
+				this.add(`c:|${getName('SexyMalasada')}|Oi! I'm not hacking, it's RNG!`);
+				break;
+			case 'billo':
+				this.add(`c:|${getName('SexyMalasada')}|Billo help! The tool isn't working again q_q`);
+				break;
+			default:
+				this.add(`c:|${getName('SexyMalasada')}|Hello! Do you have some time to talk about RNGesus and its awesome teachings: The Art of RNG abuse??`);
+				break;
+			}
+		},
+		onSwitchOut(pokemon) {
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'loethalion':
+				this.add(`c:|${getName('SexyMalasada')}|fricking heck`);
+				break;
+			case 'swiffix':
+				this.add(`c:|${getName('SexyMalasada')}|Just shower already!`);
+				break;
+			case 'billo':
+				this.add(`c:|${getName('SexyMalasada')}|Fiiiine I'll read the wiki...`);
+				break;
+			default:
+				this.add(`c:|${getName('SexyMalasada')}|Crap! I missed my frame... Resetting... q_q`);
+				break;
+			}
+		},
+		onFaint(pokemon) {
+			switch (this.toID(enemyStaff(pokemon))) {
+			case 'loethalion':
+				this.add(`c:|${getName('SexyMalasada')}|fricking heck`);
+				break;
+			case 'swiffix':
+				this.add(`c:|${getName('SexyMalasada')}|Just shower already!`);
+				break;
+			case 'billo':
+				this.add(`c:|${getName('SexyMalasada')}|Fiiiine I'll read the wiki...`);
+				break;
+			default:
+				this.add(`c:|${getName('SexyMalasada')}|Well then.. have fun soft-resetting for your shiny! >:( Cya on the flipside 🕶️`);
+				break;
+			}
 		},
 	},
 	sharpclaw: {
@@ -2372,6 +2587,96 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		},
 	},
 
+	// dhelmise
+	bioticorbself: {
+		name: "Biotic Orb (Self)",
+		// side condition
+		effectType: 'Condition',
+		duration: 4,
+		onSideStart(side, source) {
+			this.effectState.source = source;
+			this.add('-sidestart', side, 'move: Biotic Orb (Self)');
+		},
+		onResidualOrder: 5,
+		onResidualSubOrder: 1,
+		onResidual(target, pokemon, effect) {
+			const source = this.effectState.source;
+			const quotes: string[] = [
+				`A cure for all that ails.`,
+				`A sip for the parched.`,
+				`Be nourished!`,
+				`I offer something more.`,
+				`Receive my aid.`,
+				`Be nurtured.`,
+				`Know mother's kindness.`,
+				`A salve for all that ails.`,
+				`An eldritch blessing.`,
+				`Flourish.`,
+				`Now feast.`,
+				`Recover your strength.`,
+			];
+			if (target.hp) {
+				let amount = 65;
+				if (this.effectState.duration === 4) amount = 40;
+				this.heal(amount, target, source, effect);
+			}
+			this.add(`c:|${getName((source.illusion || source).name)}|${this.sample(quotes)}`);
+		},
+		onSideResidualOrder: 26,
+		onSideResidualSubOrder: 5,
+		onSideEnd(side) {
+			this.add('-sideend', side, 'move: Biotic Orb (Self)');
+		},
+	},
+	bioticorbfoe: {
+		name: "Biotic Orb (Foe)",
+		// side condition
+		effectType: 'Condition',
+		duration: 4,
+		onSideStart(side, source) {
+			this.effectState.source = source;
+			this.add('-sidestart', side, 'move: Biotic Orb (Foe)');
+		},
+		onResidualOrder: 5,
+		onResidualSubOrder: 1,
+		onResidual(target, pokemon, effect) {
+			const source = this.effectState.source;
+			let quotes: string[] = [
+				`A taste of poison.`,
+				`Misery made manifest.`,
+				`Pain is inevitable.`,
+				`You cannot escape me!`,
+				`Your end is within my reach.`,
+				`Bí ag stangadh leat.`,
+				`Ruination is imminent.`,
+				`The weak can fend for themselves.`,
+				`Know darkness.`,
+				`Let shadow consume you.`,
+				`Your pain will be endless.`,
+			];
+			if (target.hp) {
+				this.damage(50, target, source, effect);
+			}
+			if (target.fainted || target.hp <= 0) {
+				quotes = [
+					`Expect the unexpected.`,
+					`In chaos lies opportunity.`,
+					`Mind your surroundings.`,
+					`Perhaps next time you should not stand in the way of the orb.`,
+					`A torturous gift.`,
+					`The darkness will find them.`,
+					`The gloom takes you.`,
+				];
+			}
+			this.add(`c:|${getName((source.illusion || source).name)}|${this.sample(quotes)}`);
+		},
+		onSideResidualOrder: 26,
+		onSideResidualSubOrder: 5,
+		onSideEnd(side) {
+			this.add('-sideend', side, 'move: Biotic Orb (Foe)');
+		},
+	},
+
 	// EasyOnTheHills
 	snack: {
 		name: "Snack",
@@ -2452,6 +2757,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	stormsurge: {
 		name: 'StormSurge',
 		effectType: 'Weather',
+		shortDesc: "Rain + Wind moves: perfect acc, 20% boost",
+		desc: "Wind moves get perfect accuracy and become 20% stronger. Water moves are 50% stronger, Fire moves are 50% weaker.",
 		duration: 5,
 		durationCallback(source, effect) {
 			if (source?.hasItem('damprock')) {

@@ -18,6 +18,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Fortified Metal"},
 	},
 
+	// Aethernum
+	giratinaorigin: {
+		inherit: true,
+		abilities: {0: "The Eminince in the Shadow"},
+	},
+
 	// Akir
 	slowbro: {
 		inherit: true,
@@ -237,10 +243,19 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 
 	// dhelmise
-	nymble: {
+	slowkinggalar: {
 		inherit: true,
-		baseStats: {hp: 110, atk: 200, def: 99, spa: 101, spd: 99, spe: 35},
-		abilities: {0: "Cacophony"},
+		abilities: {0: "Coalescence"},
+	},
+
+	// DianaNicole
+	abomasnow: {
+		inherit: true,
+		abilities: {0: "Snow Problem"},
+	},
+	abomasnowmega: {
+		inherit: true,
+		abilities: {0: "Flash Fire"},
 	},
 
 	// Elliot
@@ -339,7 +354,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	// HiZo
 	zoroarkhisui: {
 		inherit: true,
-		abilities: {0: "Martyr Complex"},
+		abilities: {0: "Justified"},
 	},
 
 	// HoeenHero
@@ -585,6 +600,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	altariamega: {
 		inherit: true,
 		abilities: {0: "Last Hymn"},
+	},
+
+	// Opple
+	applin: {
+		inherit: true,
+		baseStats: {hp: 106, atk: 80, def: 110, spa: 120, spd: 80, spe: 44},
+		abilities: {0: "Orchard's Gift"},
 	},
 
 	// PartMan
