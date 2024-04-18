@@ -366,7 +366,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (target.volatiles['sigilsstorm']?.lostFocus) {
 				// delays the switch-out if using sigil's storm and it fails, such that the switch happens after trick room is used.
 				this.effectState.cascade_sigil = 1;
-			} else {				
+			} else {
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
 				for (const side of this.sides) {
 					for (const active of side.active) {
