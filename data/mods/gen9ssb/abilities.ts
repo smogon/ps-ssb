@@ -193,10 +193,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-ability', pokemon, 'Quag of Ruin');
 		},
 		onAnyModifyDef(def, target, source, move) {
-			if (move === null) return;
+			if (!move) return;
 			const abilityHolder = this.effectState.target;
 			if (target.hasAbility('Quag of Ruin')) return;
-			if (move.ruinedDef !== null && !move.ruinedDef?.hasAbility('Quag of Ruin')) move.ruinedDef = abilityHolder;
+			if (!move.ruinedDef?.hasAbility('Quag of Ruin')) move.ruinedDef = abilityHolder;
 			if (move.ruinedDef !== abilityHolder) return;
 			this.debug('Quag of Ruin Def drop');
 			return this.chainModify(0.85);
@@ -215,10 +215,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-ability', pokemon, 'Clod of Ruin');
 		},
 		onAnyModifyAtk(atk, target, source, move) {
-			if (move === null) return;
+			if (!move) return;
 			const abilityHolder = this.effectState.target;
 			if (target.hasAbility('Clod of Ruin')) return;
-			if (move.ruinedAtk !== null && !move.ruinedAtk?.hasAbility('Clod of Ruin')) move.ruinedAtk = abilityHolder;
+			if (!move.ruinedAtk?.hasAbility('Clod of Ruin')) move.ruinedAtk = abilityHolder;
 			if (move.ruinedAtk !== abilityHolder) return;
 			this.debug('Clod of Ruin Atk drop');
 			return this.chainModify(0.85);
@@ -365,13 +365,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onEmergencyExit(target) {
 			if (target.volatiles['sigilsstorm']?.lostFocus) {
 				// delays the switch-out if using sigil's storm and it fails, such that the switch happens after trick room is used.
-				this.effectState.cascade_sigil = 1;
+				this.effectState.cascadeSigil = true;
 			} else {
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
-				for (const side of this.sides) {
-					for (const active of side.active) {
-						active.switchFlag = false;
-					}
+				for (const active of this.getAllActive()) {
+					active.switchFlag = false;
 				}
 				target.switchFlag = true;
 				if (this.effectState.cascade === undefined) {
@@ -389,16 +387,14 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add(`c:|${getName('ausma')}|ok i got my coffee yall mfs r about to face the wrath of Big Stall™`);
 				this.effectState.cascade = 0;
 			}
-			this.effectState.cascade_sigil = 0;
+			delete this.effectState.cascadeSigil;
 		},
 		onResidual(target, source, effect) {
-			if (this.effectState.cascade_sigil) {
-				this.effectState.cascade_sigil = 0;
+			if (this.effectState.cascadeSigil) {
+				delete this.effectState.cascadeSigil;
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
-				for (const side of this.sides) {
-					for (const active of side.active) {
-						active.switchFlag = false;
-					}
+				for (const active of this.getAllActive()) {
+					active.switchFlag = false;
 				}
 				target.switchFlag = true;
 				if (this.effectState.cascade === undefined) {

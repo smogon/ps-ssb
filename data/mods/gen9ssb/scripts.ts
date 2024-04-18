@@ -687,7 +687,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (isCrit && !suppressMessages) this.battle.add('-crit', target);
 
 			if (pokemon.status === 'brn' && move.category === 'Physical' &&
-			!pokemon.hasAbility('guts') && !pokemon.hasAbility('fortifiedmetal')) {
+				!pokemon.hasAbility(['guts', 'fortifiedmetal'])) {
 				if (this.battle.gen < 6 || move.id !== 'facade') {
 					baseDamage = this.battle.modify(baseDamage, 0.5);
 				}

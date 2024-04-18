@@ -1654,7 +1654,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.add('-anim', attacker, 'Shell Smash', attacker);
 				return;
 			}
-			this.attrLastMove('[anim]');
 			this.attrLastMove('[still]');
 			this.add('-anim', attacker, 'Geomancy', attacker);
 			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
@@ -3222,7 +3221,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (attacker.removeVolatile(move.id)) {
 				return;
 			}
-			this.attrLastMove('[anim]');
 			this.boost({spa: 1}, attacker, attacker, move);
 			if (this.field.pseudoWeather['gravity']) {
 				this.attrLastMove('[still]');
@@ -5431,7 +5429,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.attrLastMove('[anim] Psycho Cut');
 				return;
 			}
-			this.attrLastMove('[anim]');
 			this.attrLastMove('[anim] Tailwind');
 			this.add('-message', `${attacker.name} whipped up an intense whirlwind and began to glow a vivine green!`);
 			if (attacker.getItem().isBerry) {
