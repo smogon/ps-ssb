@@ -1088,7 +1088,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const dancers = [];
 				for (const currentPoke of this.battle.getAllActive()) {
 					if (pokemon === currentPoke) continue;
-					if ((currentPoke.hasAbility('dancer') || currentPoke.hasAbility('virtualidol')) && !currentPoke.isSemiInvulnerable()) {
+					if (currentPoke.hasAbility(['dancer', 'virtualidol']) && !currentPoke.isSemiInvulnerable()) {
 						dancers.push(currentPoke);
 					}
 				}
