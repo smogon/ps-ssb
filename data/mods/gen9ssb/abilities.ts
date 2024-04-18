@@ -1804,6 +1804,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "High Performance Computing",
 		flags: {},
 		onBeforeTurn(source) {
+			if (source.terastallized) return;
 			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			source.setType(type);
 			this.add('-start', source, 'typechange', type, '[from] ability: High Performance Computing');
