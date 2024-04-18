@@ -363,26 +363,51 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Switches out when below 50% HP. First re-entry gives +1 Def/SpD and +3 Spe.",
 		name: "Cascade",
 		onEmergencyExit(target) {
-			if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
-			for (const side of this.sides) {
-				for (const active of side.active) {
-					active.switchFlag = false;
+			if (target.volatiles['sigilsstorm']?.lostFocus) {
+				// delays the switch-out if using sigil's storm and it fails, such that the switch happens after trick room is used.
+				this.effectState.cascade_sigil = 1;
+			} else {				
+				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
+				for (const side of this.sides) {
+					for (const active of side.active) {
+						active.switchFlag = false;
+					}
 				}
+				target.switchFlag = true;
+				if (this.effectState.cascade === undefined) {
+					this.effectState.cascade = 1;
+				} else {
+					this.effectState.cascade = 0;
+				}
+				this.add(`c:|${getName('ausma')}|uuuuuuuuuuuuuuuuuuuuuuuuugggggghhhhhhhh [dizzy sound effect] sec bitte`);
+				this.add('-activate', target, 'ability: Cascade');
 			}
-			target.switchFlag = true;
-			if (this.effectState.cascade === undefined) {
-				this.effectState.cascade = 1;
-			} else {
-				this.effectState.cascade = 0;
-			}
-			this.add(`c:|${getName('ausma')}|uuuuuuuuuuuuuuuuuuuuuuuuugggggghhhhhhhh [dizzy sound effect] sec bitte`);
-			this.add('-activate', target, 'ability: Cascade');
 		},
 		onSwitchIn() {
 			if (this.effectState.cascade) {
 				this.boost({def: 1, spd: 1, spe: 3});
 				this.add(`c:|${getName('ausma')}|ok i got my coffee yall mfs r about to face the wrath of Big Stall™`);
 				this.effectState.cascade = 0;
+			}
+			this.effectState.cascade_sigil = 0;
+		},
+		onResidual(target, source, effect) {
+			if (this.effectState.cascade_sigil) {
+				this.effectState.cascade_sigil = 0;
+				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
+				for (const side of this.sides) {
+					for (const active of side.active) {
+						active.switchFlag = false;
+					}
+				}
+				target.switchFlag = true;
+				if (this.effectState.cascade === undefined) {
+					this.effectState.cascade = 1;
+				} else {
+					this.effectState.cascade = 0;
+				}
+				this.add(`c:|${getName('ausma')}|uuuuuuuuuuuuuuuuuuuuuuuuugggggghhhhhhhh [dizzy sound effect] sec bitte`);
+				this.add('-activate', target, 'ability: Cascade');
 			}
 		},
 		flags: {},
