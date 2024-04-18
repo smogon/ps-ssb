@@ -2833,7 +2833,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return priority + 1;
 			}
 		},
-		onHit(target, source, move) {
+		onHitField(target, source, move) {
 			for (const pokemon of this.getAllActive()) {
 				if (pokemon.hp <= 0 || pokemon.fainted) continue;
 				pokemon.forceSwitchFlag = true;
@@ -3707,13 +3707,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Moonlight', source);
 		},
-		onHit(pokemon, target, move) {
+		onHit(target, source, move) {
 			if (this.randomChance(1, 2)) {
 				target.addVolatile('confusion');
-				this.boost({spa: 2, spd: 2}, pokemon);
+				this.boost({spa: 2, spd: 2}, source);
 			} else {
-				pokemon.addVolatile('confusion');
-				this.boost({spa: -1, spd: -1}, pokemon);
+				source.addVolatile('confusion');
+				this.boost({spa: -1, spd: -1}, source);
 			}
 		},
 		secondary: null,

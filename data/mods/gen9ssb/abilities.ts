@@ -193,9 +193,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-ability', pokemon, 'Quag of Ruin');
 		},
 		onAnyModifyDef(def, target, source, move) {
+			if (move === null) return;
 			const abilityHolder = this.effectState.target;
 			if (target.hasAbility('Quag of Ruin')) return;
-			if (!move.ruinedDef?.hasAbility('Quag of Ruin')) move.ruinedDef = abilityHolder;
+			if (move.ruinedDef !== null && !move.ruinedDef?.hasAbility('Quag of Ruin')) move.ruinedDef = abilityHolder;
 			if (move.ruinedDef !== abilityHolder) return;
 			this.debug('Quag of Ruin Def drop');
 			return this.chainModify(0.85);
@@ -214,9 +215,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-ability', pokemon, 'Clod of Ruin');
 		},
 		onAnyModifyAtk(atk, target, source, move) {
+			if (move === null) return;
 			const abilityHolder = this.effectState.target;
 			if (target.hasAbility('Clod of Ruin')) return;
-			if (!move.ruinedAtk?.hasAbility('Clod of Ruin')) move.ruinedAtk = abilityHolder;
+			if (move.ruinedAtk !== null && !move.ruinedAtk?.hasAbility('Clod of Ruin')) move.ruinedAtk = abilityHolder;
 			if (move.ruinedAtk !== abilityHolder) return;
 			this.debug('Clod of Ruin Atk drop');
 			return this.chainModify(0.85);
@@ -436,7 +438,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			const dazzlingHolder = this.effectState.target;
 			if ((source.isAlly(dazzlingHolder) || move.target === 'all') && move.priority > 0.1) {
 				this.attrLastMove('[still]');
-				this.add('cant', dazzlingHolder, 'ability: Blitz of Ruin', move, '[of] ' + target);
+				this.add('cant', target, 'ability: Blitz of Ruin', move, '[of] ' + source);
 				return false;
 			}
 		},
@@ -2232,7 +2234,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (target.lastMove && target.lastMove.id !== 'struggle') {
 				if (move.id === target.lastMove.id) {
 					this.attrLastMove('[still]');
-					this.add('cant', this.effectState.target, 'ability: Overasked Clause', move, '[of] ' + target);
+					this.add('cant', target, 'ability: Overasked Clause', move, '[of] ' + source);
 					return false;
 				}
 			}
@@ -2300,7 +2302,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				const dazzlingHolder = this.effectState.target;
 				if ((source.isAlly(dazzlingHolder) || move.target === 'all') && move.priority > 0.1) {
 					this.attrLastMove('[still]');
-					this.add('cant', dazzlingHolder, 'ability: Sand Sleuth', move, '[of] ' + target);
+					this.add('cant', target, 'ability: Sand Sleuth', move, '[of] ' + source);
 					return false;
 				}
 			}
