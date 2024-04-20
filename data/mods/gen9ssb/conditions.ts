@@ -1617,7 +1617,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				message = 'Do I count as a gunner?';
 				break;
 			case 'aqrator':
-				message = 'Speaking of cafes - this Pokemon is so popular, it has an entire cafe dedicated to it in the Pokemon world! Alongside the cafe, there's also stuff like a bus tour where you can sit one-on-one with the Pokemon and admire its beauty.';
+				message = 'Speaking of cafes - this Pokemon is so popular, it has an entire cafe dedicated to it in the Pokemon world! Alongside the cafe, there\'s also stuff like a bus tour where you can sit one-on-one with the Pokemon and admire its beauty.';
 				break;
 			case 'beowulf':
 				message = 'BEE';
