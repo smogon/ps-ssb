@@ -3528,7 +3528,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		secondary: null,
 		target: "self",
-		type: "grass",
+		type: "Grass",
 	},
 
 	// MyPearl
