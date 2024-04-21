@@ -127,7 +127,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		gen: 9,
 		pp: 5,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1},
 		onPrepareHit(target, source, move) {
 			this.add('-anim', source, 'Trick Room', target);
 			this.add('-anim', source, 'Clangerous Soul', source);
