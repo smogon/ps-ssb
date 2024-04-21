@@ -694,7 +694,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100},
 		abilities: {0: "Prankster"},
 	},
-	
+
 	// ptoad
 	politoed: {
 		inherit: true,
@@ -724,7 +724,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "High Performance Computing"},
 	},
-	
+
 	// R8
 	chansey: {
 		inherit: true,
@@ -1034,7 +1034,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "See No Evil, Hear No Evil, Speak No Evil"},
 	},
-	
+
 	// Vistar
 	zeraora: {
 		inherit: true,
