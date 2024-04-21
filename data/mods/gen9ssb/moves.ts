@@ -3838,15 +3838,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Jet Punch', target);
 			this.add('-anim', source, 'Flare Blitz', target);
 		},
-		secondary: {
-			chance: 100,
-			status: 'brn',
-			self: {
-				boosts: {
-					atk: 1,
+		secondaries: [
+			{
+				chance: 100,
+				status: 'brn',
+			}, {
+				chance: 100,
+				self: {
+					boosts: {
+						atk: 1,
+					},
 				},
 			},
-		},
+		],
 		target: "normal",
 		type: "Water",
 	},
