@@ -973,7 +973,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c:|${getName('HiZo')}|Did I break something again`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('HiZo')}|This isn’t my fault this time I swear`);
+			this.add(`c:|${getName('HiZo')}|This isn't my fault this time I swear`);
 			this.add(`c:|${getName('HiZo')}|Ok maybe it is but that doesn't mean you should blame me automatically`);
 		},
 		onFaint() {
