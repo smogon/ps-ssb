@@ -203,7 +203,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		shortDesc: "Leech Seed + Heal Block + Infestation",
-		desc: "Applies the effects of Leech Seed, Heal Block, and partial trapping to the target, causing the user to steal 1/8 of the target's maximum HP at the end of each turn until the target switches out, preventing the target from using any moves, items, or Abilities that heal HP for 5 turns, and preventing the target from switching out while damaging it for an additional 1/8 of its maximum HP at the end of each turn for 4-5 turns. If the target uses Baton Pass, the effects of Leech Seed, Heal Block, and patial trapping will remain in effect for the replacement.",
+		desc: "Applies the effects of Leech Seed, Heal Block, and partial trapping to the target, causing the user to steal 1/8 of the target's maximum HP at the end of each turn until the target switches out, preventing the target from using any moves, items, or Abilities that heal HP for 5 turns, and preventing the target from switching out while damaging it for an additional 1/8 of its maximum HP at the end of each turn for 4-5 turns. If the target uses Baton Pass, the effects of Leech Seed, Heal Block, and partial trapping will remain in effect for the replacement.",
 		name: "Spicier Extract",
 		pp: 15,
 		priority: 0,
