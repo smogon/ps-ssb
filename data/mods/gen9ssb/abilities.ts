@@ -7,8 +7,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	/*
 	// Example
 	abilityid: {
-		desc: "", // long description
 		shortDesc: "", // short description, shows up in /dt
+		desc: "", // long description
 		name: "Ability Name",
 		// The bulk of an ability is not easily shown in an example since it varies
 		// For more examples, see https://github.com/smogon/pokemon-showdown/blob/master/data/abilities.ts
@@ -257,7 +257,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Arcueid
 	marblephantasm: {
-		shortDesc: "Sets up Millennium Castle, effects vary with user's form.",
+		shortDesc: "Deoxys-Defense is immune to status moves/effects. Deoxys-Attack gains Fairy type.",
 		name: "Marble Phantasm",
 		onStart(source) {
 			this.field.setWeather('millenniumcastle');
@@ -300,7 +300,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Arsenal
 	onemore: {
-		shortDesc: "Super Effective and Critical hits cause this Pokemon to flinch.",
+		shortDesc: "Super effective and critical hits cause this Pokemon to flinch.",
 		name: "One More",
 		onHit(target, source, move) {
 			const hitData = target.getMoveHitData(move);
@@ -433,7 +433,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Blitz
 	blitzofruin: {
-		shortDesc: "Active Pokemon without this Ability have their Speed multiplied by 0.75. Also Dazzling.",
+		shortDesc: "Dazzling + active Pokemon without this Ability have their Speed multiplied by 0.75.",
 		name: "Blitz of Ruin",
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Blitz of Ruin');
@@ -538,7 +538,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Clementine
 	meltingpoint: {
-		shortDesc: "Fire moves change user to Water type. +2 Speed. Fire immunity.",
+		shortDesc: "+2 Speed. Fire moves change user to Water type. Fire immunity.",
 		name: "Melting Point",
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Fire') {
@@ -605,7 +605,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Clouds
 	jetstream: {
-		shortDesc: "Delta Stream + Stealth Rock Immunity.",
+		shortDesc: "Delta Stream + Stealth Rock immunity.",
 		name: "Jet Stream",
 		onStart(source) {
 			this.field.setWeather('deltastream');
@@ -635,7 +635,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Coolcodename
 	firewall: {
-		shortDesc: "Burns opponents that attempt to use status moves on this Pokemon; Status move immunity.",
+		shortDesc: "Burns foes that attempt to use status moves on this Pokemon; Status move immunity.",
 		name: "Firewall",
 		onTryHit(target, source, move) {
 			if (move.category === 'Status' && target !== source) {
@@ -721,9 +721,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// dhelmise
 	coalescence: {
-		name: "Coalescence",
-		desc: "All moves heal 37% of damage dealt. Unfainted allies heal 5% HP at the end of each turn. If this Pokemon's HP is less than 25%, moves heal 114% of damage dealt, and allies restore 10% of their health.",
 		shortDesc: "Moves drain 37%. Allies heal 5% HP. <25% HP, moves drain 114%, allies get 10%.",
+		desc: "All moves heal 37% of damage dealt. Unfainted allies heal 5% HP at the end of each turn. If this Pokemon's HP is less than 25%, moves heal 114% of damage dealt, and allies restore 10% of their health.",
+		name: "Coalescence",
 		onModifyMove(move, pokemon, target) {
 			if (move.category !== "Status") {
 				// move.flags['heal'] = 1; // For Heal Block
@@ -758,7 +758,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Elly
 	stormsurge: {
-		shortDesc: "Rain+wind moves have perfect acc, 1.2x BP.",
+		shortDesc: "On switch-in, summons rain that causes wind moves to have perfect accuracy and 1.2x Base Power.",
 		desc: "Wind moves get perfect accuracy and become 20% stronger. Water moves are 50% stronger, Fire moves are 50% weaker.",
 		name: "Storm Surge",
 		onStart(source) {
@@ -874,6 +874,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Goro Yagami
 	illusionmaster: {
 		shortDesc: "This Pokemon has an illusion until it falls below 33% health.",
+		name: "Illusion Master",
 		onBeforeSwitchIn(pokemon) {
 			pokemon.illusion = null;
 			// yes, you can Illusion an active pokemon but only if it's to your right
@@ -926,12 +927,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			pokemon.illusion = null;
 		},
 		flags: {failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1},
-		name: "Illusion Master",
 	},
 
 	// havi
 	mensiscage: {
-		shortDesc: "Immune to status and is considered to be asleep. 30% chance to disable when hit.",
+		shortDesc: "Immune to status and is considered to be asleep. 30% chance to Disable when hit.",
 		name: "Mensis Cage",
 		onDamagingHit(damage, target, source, move) {
 			if (source.volatiles['disable']) return;
@@ -1004,7 +1004,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// HoeenHero
 	misspelled: {
-		shortDesc: "SpA 1.5x, Accuracy 0.8x, Never misses, only misspells moves.",
+		shortDesc: "SpA 1.5x, Accuracy 0.8x. Never misses, only misspells moves.",
 		name: "Misspelled",
 		onModifySpAPriority: 5,
 		onModifySpA(spa) {
@@ -1022,7 +1022,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Hydrostatics
 	hydrostaticpositivity: {
-		shortDesc: "Sturdy + Storm Drain + Motor Drive + x1.3 accuracy of water & electric moves",
+		shortDesc: "Sturdy + Storm Drain + Motor Drive + 1.3x accuracy of Water & Electric moves",
 		name: "Hydrostatic Positivity",
 		onTryHit(target, source, move) {
 			// Storm Drain
@@ -1093,7 +1093,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Irpachuza
 	mimeknowsbest: {
-		desc: "Uses a random screen/protect move on switch in.",
+		shortDesc: "When this Pokemon switches in, it uses a random screen or protect move.",
 		name: "Mime knows best",
 		onStart(target) {
 			const randomMove = [
@@ -1110,8 +1110,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// J0rdy004
 	fortifyingfrost: {
-		name: "Fortifying Frost",
 		shortDesc: "If Snow is active, this Pokemon's Sp. Atk and Sp. Def are 1.5x.",
+		name: "Fortifying Frost",
 		onModifySpAPriority: 5,
 		onModifySpA(spa, pokemon) {
 			if (['hail', 'snow'].includes(pokemon.effectiveWeather())) {
@@ -1128,6 +1128,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// kenn
 	deserteddunes: {
+		shortDesc: "Summons Deserted Dunes until switch-out; Sandstorm + Rock weaknesses removed.",
+		desc: "On switch-in, the weather becomes Deserted Dunes, which removes the weaknesses of the Rock type from Rock-type Pokemon. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by the Desolate Land, Primordial Sea or Delta Stream Abilities.",
+		name: "Deserted Dunes",
 		onStart(source) {
 			this.field.setWeather('deserteddunes');
 		},
@@ -1146,9 +1149,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.field.clearWeather();
 		},
 		flags: {},
-		name: "Deserted Dunes",
-		desc: "On switch-in, the weather becomes Deserted Dunes, which removes the weaknesses of the Rock type from Rock-type Pokemon. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by the Desolate Land, Primordial Sea or Delta Stream Abilities.",
-		shortDesc: "On switch-in, a strong Sandstorm begins until this Ability is not active in battle.",
 		gen: 9,
 	},
 
@@ -1236,8 +1236,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Kiwi
 	surehitsorcery: {
-		name: "Sure Hit Sorcery",
 		shortDesc: "No Guard + Prankster + Grassy Surge.",
+		name: "Sure Hit Sorcery",
 		onAnyInvulnerabilityPriority: 1,
 		onAnyInvulnerability(target, source, move) {
 			if (move && (source === this.effectState.target || target === this.effectState.target)) return 0;
@@ -1262,8 +1262,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Klmondo
 	superskilled: {
-		name: "Super Skilled",
 		shortDesc: "Skill Link + Multiscale.",
+		name: "Super Skilled",
 		onModifyMove(move) {
 			if (move.multihit && Array.isArray(move.multihit) && move.multihit.length) {
 				move.multihit = move.multihit[1];
@@ -1283,8 +1283,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Kry
 	flashfreeze: {
+		shortDesc: "Heatproof + If foe's used offensive stat has positive stat changes, it deals 75% damage.",
 		name: "Flash Freeze",
-		shortDesc: "Heatproof + foe's moves coming off of boosted attacking stat do 75% dmg.",
 		onSourceModifyAtkPriority: 6,
 		onSourceModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Fire') {
@@ -1317,7 +1317,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lasen
 	idealizedworld: {
-		shortDesc: "Removes everything on Switchin.",
+		shortDesc: "Removes everything on switch-in.",
 		name: "Idealized World",
 		onStart(pokemon) {
 			const target = pokemon.side.foe;
@@ -1348,8 +1348,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lionyx
 	enormoos: {
-		name: "EnorMOOs",
 		shortDesc: "This Pokemon's Defense is used in damage calculation instead of Attack or Sp. Atk.",
+		name: "EnorMOOs",
 		onModifyMove(move, pokemon, target) {
 			if (move.category !== "Status") {
 				move.overrideOffensiveStat = 'def';
@@ -1360,7 +1360,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lumari
 	pyrotechnic: {
-		shortDesc: "Critical hits are guaranteed when foe is burned.",
+		shortDesc: "Critical hits are guaranteed when the foe is burned.",
 		name: "Pyrotechnic",
 		onModifyCritRatio(critRatio, source, target) {
 			if (target?.status === 'brn') return 5;
@@ -1370,7 +1370,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lunell
 	lowtidehightide: {
-		shortDesc: "Switch-in sets Gravity, water immune, traps water type foes.",
+		shortDesc: "Switch-in sets Gravity, immune to Water, traps Water-type foes.",
 		name: "Low Tide, High Tide",
 		onStart(source) {
 			this.field.addPseudoWeather('gravity', source);
@@ -1642,8 +1642,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Nyx
 	lasthymn: {
+		shortDesc: "Weakens incoming attacks by 10% for each Pokemon fainted.",
 		name: "Last Hymn",
-		shortDesc: "Weakens incoming attacks for each Pokemon fainted.",
 		onStart(pokemon) {
 			if (pokemon.side.totalFainted) {
 				this.add('-activate', pokemon, 'ability: Last Hymn');
@@ -1665,8 +1665,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Opple
 	orchardsgift: {
-		name: "Orchard's Gift",
 		shortDesc: "Summons Grassy Terrain. 1.5x Sp. Atk and Sp. Def during Grassy Terrain.",
+		name: "Orchard's Gift",
 		onStart(pokemon) {
 			if (this.field.setTerrain('grassyterrain')) {
 				this.add('-activate', pokemon, 'Orchard\'s Gift', '[source]');
@@ -1728,8 +1728,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// PenQuin
 	poleonspyroquirk: {
-		name: "'Poleon's Pyro Quirk",
 		shortDesc: "Burned Pokemon also become confused.",
+		name: "'Poleon's Pyro Quirk",
 		onAnyAfterSetStatus(status, target, source, effect) {
 			if (source !== this.effectState.target || target === source || effect.effectType !== 'Move') return;
 			if (status.id === 'brn') {
@@ -1829,8 +1829,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// R8
 	antipelau: {
+		shortDesc: "Boosts Sp. Atk by 2 and sets a 25% Wish upon switch-in.",
 		name: "Anti-Pelau",
-		shortDesc: "Boosts Sp. Atk by 2 and sets a 25% wish upon switch-in.",
 		onStart(target) {
 			this.boost({spa: 2}, target);
 			const wish = this.dex.getActiveMove('wish');
@@ -1856,8 +1856,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Rainshaft
 	rainysaura: {
+		shortDesc: "On switch-in, this Pokemon summons rain. Boosts all Psychic-type damage by 33%.",
 		name: "Rainy's Aura",
-		shortDesc: "Switch-in sets rain and boosts all Psychic-type damage by 33%.",
 		onStart(source) {
 			if (this.suppressingAbility(source)) return;
 			for (const action of this.queue) {
@@ -2044,7 +2044,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Rumia
 	youkaiofthedusk: {
-		shortDesc: "Defense: x2. Status moves: +1 Priority.",
+		shortDesc: "This Pokemon's Defense is doubled and its status moves gain +1 priority.",
 		name: "Youkai of the Dusk",
 		onModifyDefPriority: 6,
 		onModifyDef(def) {
@@ -2275,7 +2275,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Swiffix
 	stinky: {
-		desc: "10% chance to either poison or paralyze the Pokemon on hit.",
+		desc: "10% chance to either poison or paralyze the target on hit.",
 		name: "Stinky",
 		onModifyMovePriority: -1,
 		onModifyMove(move) {
@@ -2397,9 +2397,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Two of Roses
 	aswesee: {
-		name: "As We See",
-		desc: "Once per turn, when any active Pokemon has a stat boosted, this Pokemon has a 50% chance of copying it and a 15% chance to raise another random stat.",
 		shortDesc: "1x per turn: Stat gets boosted -> 50% chance to copy, 15% to raise another.",
+		desc: "Once per turn, when any active Pokemon has a stat boosted, this Pokemon has a 50% chance of copying it and a 15% chance to raise another random stat.",
+		name: "As We See",
 		onFoeAfterBoost(boost, target, source, effect) { // Opportunist
 			if (this.randomChance(1, 2)) {
 				if (effect && ['As We See', 'Mirror Herb', 'Opportunist'].includes(effect.name)) return;
@@ -2486,7 +2486,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Venous
 	concreteoverwater: {
-		shortDesc: "+1 Def/Spd before getting hit by a Super Effective move",
+		shortDesc: "Gains +1 Defense and Sp. Def before getting hit by a super effective move.",
 		name: "Concrete Over Water",
 		onTryHit(target, source, move) {
 			if (target === source || move.category === 'Status') return;
@@ -2499,7 +2499,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Violet
 	seenoevilhearnoevilspeaknoevil: {
-		shortDesc: "Dark Immunity; Cornerstone: Sound immunity. Wellspring: Moves never miss. Hearthflame: 1.3x bp vs male Pokemon.",
+		shortDesc: "Dark immune; Cornerstone: Sound immune. Wellspring: Moves never miss. Hearthflame: 1.3x BP vs male.",
 		name: "See No Evil, Hear No Evil, Speak No Evil",
 		onTryHit(target, source, move) {
 			if (target !== source && move.flags['sound'] && target.species.id.startsWith('ogerponcornerstone')) {
@@ -2559,7 +2559,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// vmnunes
 	wildgrowth: {
-		shortDesc: "Attacking moves also inflict Leech Seed on foes.",
+		shortDesc: "Attacking moves also inflict Leech Seed on the target.",
 		name: "Wild Growth",
 		onModifyMovePriority: -1,
 		onAfterMove(source, target, move) {
@@ -2598,7 +2598,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// WigglyTree
 	treestance: {
-		shortDesc: "No recoil; 3/4 damage from supereffective attacks.",
+		shortDesc: "No recoil; 3/4 damage from super effective attacks.",
 		name: "Tree Stance",
 		onDamage(damage, target, source, effect) {
 			if (effect.id === 'recoil') {
@@ -2617,7 +2617,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// xy01
 	panic: {
-		shortDesc: "Lowers the opponent's Atk and Sp. Atk by 1 upon switch-in.",
+		shortDesc: "Lowers the foe's Atk and Sp. Atk by 1 upon switch-in.",
 		name: "Panic",
 		onStart(pokemon) {
 			let activated = false;
@@ -2638,7 +2638,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Yellow Paint
 	yellowmagic: {
-		shortDesc: "+25% HP, +1 SpA, +1 Spe, Charge, or Paralyzes attacker when hit by an Electric move; Electric immunity.",
+		shortDesc: "+25% HP, +1 SpA, +1 Spe, Charge, or paralyzes attacker when hit by an Electric move; Electric immunity.",
 		desc: "This Pokemon is immune to Electric type moves. When this Pokemon is hit by one, it either: restores 25% of its max HP, boosts Sp. Atk by 1 stage, boosts Speed by 1 stage, begins charging or paralyzes the attacker.",
 		name: "Yellow Magic",
 		onTryHit(target, source, move) {
@@ -2676,7 +2676,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// YveltalNL
 	heightadvantage: {
-		shortDesc: "If this Pokemon's height is more than that of the opponent, lowers the opponent's Atk and Sp. Atk by 1.",
+		shortDesc: "If this Pokemon's height is more than that of the foe, lowers the foe's Atk and Sp. Atk by 1.",
 		name: "Height Advantage",
 		onStart(pokemon) {
 			let activated = false;
@@ -2727,7 +2727,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// zoro
 	ninelives: {
-		shortDesc: "Twice per battle, Umbreon will survive a lethal hit with 1 HP remaining, regardless of the HP it was at.",
+		shortDesc: "Twice per battle, this Pokemon will survive a lethal hit with 1 HP remaining, regardless of HP.",
 		name: "Nine Lives",
 		onTryHit(pokemon, target, move) {
 			if (move.ohko) {
