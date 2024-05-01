@@ -2218,6 +2218,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Swords Dance', source);
 		},
 		onHit(target, source) {
+			this.add(`c:|${getName((source.illusion || source).name)}|Ok I have a stupid idea, just here me out`);
 			this.add('message', `A sacrifice is needed.`);
 		},
 		slotCondition: 'scapegoat',

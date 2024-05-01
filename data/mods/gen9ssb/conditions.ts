@@ -956,7 +956,6 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	hizo: {
 		noCopy: true,
 		onStart() {
-			// TODO: Confirm nicks later
 			let friends;
 			const tier = this.sample(['pic', 'sketch', 'ggsp']);
 			switch (tier) {
@@ -970,13 +969,16 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 				friends = ['roonie217', 'chromate', 'tkhanh', 'lilyhii'];
 				break;
 			}
-			this.add(`c:|${getName('HiZo')}|/pm ${this.sample(friends)}, ${tier}?`);
+			this.add(`c:|${getName('HiZo')}|Why am I needed here, I was in the middle of a game of ${tier} with ${this.sample(friends)}`);
+			this.add(`c:|${getName('HiZo')}|Did I break something again`);
 		},
 		onSwitchOut() {
-			this.add(`c:|${getName('HiZo')}|maybe later then`);
+			this.add(`c:|${getName('HiZo')}|This isn’t my fault this time I swear`);
+			this.add(`c:|${getName('HiZo')}|Ok maybe it is but that doesn't mean you should blame me automatically`);
 		},
 		onFaint() {
-			this.add(`c:|${getName('HiZo')}|can i try that matchup again?`);
+			this.add(`c:|${getName('HiZo')}|What did I do to deserve this`);
+			this.add(`c:|${getName('HiZo')}|Actually on second thought don't answer that question`);
 		},
 	},
 	hoeenhero: {
