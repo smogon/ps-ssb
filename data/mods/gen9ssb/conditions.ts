@@ -957,12 +957,12 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		noCopy: true,
 		onStart() {
 			let friends;
-			const tier = this.sample(['pic', 'sketch', 'ggsp']);
+			const tier = this.sample(['Partners in Crime', 'Sketchmons', 'Godly Power']);
 			switch (tier) {
-			case 'pic':
+			case 'Partners in Crime':
 				friends = ['chromate', 'yuki', 'YoBuddyTheBaker', 'zoe', 'jasprose'];
 				break;
-			case 'sketch':
+			case 'Sketchmons':
 				friends = ['Eggs', 'career ended', 'ponchlake'];
 				break;
 			default:

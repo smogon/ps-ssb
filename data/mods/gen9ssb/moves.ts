@@ -2218,7 +2218,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Swords Dance', source);
 		},
 		onHit(target, source) {
-			this.add(`c:|${getName((source.illusion || source).name)}|Ok I have a stupid idea, just here me out`);
+			this.add(`c:|${getName((source.illusion || source).name)}|Ok I have a stupid idea, just hear me out`);
 			this.add('message', `A sacrifice is needed.`);
 		},
 		slotCondition: 'scapegoat',
@@ -4052,11 +4052,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	// Pulse_kS
-	pulseluck: {
+	luckpulse: {
 		accuracy: 100,
 		basePower: 90,
 		category: "Special",
-		name: "Pulse Luck",
+		name: "Luck Pulse",
 		shortDesc: "Random type. 40% chance for random effect. High crit ratio.",
 		critRatio: 1,
 		pp: 10,
@@ -4072,46 +4072,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const type = this.sample(this.dex.types.names().filter(i => i !== 'Stellar'));
 			move.type = type;
 		},
-		self: {
-			slotCondition: 'Pulse Luck',
-		},
-		condition: {
-			duration: 999,
-			onStart(pokemon, source) {
-				const messages = [
-					'Kai Shinden',
-					'Kaio Sama',
-					'Kaiba, Seto',
-					'Kairyu-Shin',
-					'Kaito Shizuki',
-					'Kanga Skhan',
-					'KanSas',
-					'Karakuri Shogun',
-					'Kate Stewart',
-					'Kendo Spirit',
-					'Keratan sulfate',
-					'Kernel streaming',
-					'Key Stage',
-					'Kids Suck',
-					'KillSteal',
-					'Kilometers / Second',
-					'Kilosecond',
-					'King of the Swamp',
-					'King\'s Shield',
-					'Kirk/Spock',
-					'Klingon Security',
-					'Kuroudo (Cloud) Strife',
-					'Kyouko Sakura',
-					'KyrgyzStan',
-				];
-				this.effectState.ksName = this.sample(messages);
-				this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ksName}`);
-			},
-			onTryHit(source, target, move) {
-				if (source.species.baseSpecies === 'Hydreigon' && move.name === 'Pulse Luck') {
-					this.add(`c:|${getName('Pulse_kS')}|The kS stands for ${this.effectState.ksName}`);
-				}
-			},
+		onTryHit(target, source, move) {
+			const messages = [
+				'Kai Shinden',
+				'Kaio Sama',
+				'Kaiba, Seto',
+				'Kairyu-Shin',
+				'Kaito Shizuki',
+				'Kanga Skhan',
+				'KanSas',
+				'Karakuri Shogun',
+				'Kate Stewart',
+				'Kendo Spirit',
+				'Keratan sulfate',
+				'Kernel streaming',
+				'Key Stage',
+				'Kids Suck',
+				'KillSteal',
+				'Kilometers / Second',
+				'Kilosecond',
+				'King of the Swamp',
+				'King\'s Shield',
+				'Kirk/Spock',
+				'Klingon Security',
+				'Kuroudo (Cloud) Strife',
+				'Kyouko Sakura',
+				'KyrgyzStan',
+				'Kpop Star',
+				'Kartana Swords dance',
+			];
+			this.add(`c:|${getName((source.illusion || source).name)}|The kS stands for ${this.sample(messages)}`);
 		},
 		secondary: {
 			chance: 40,
