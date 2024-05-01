@@ -1748,9 +1748,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// Pulse_kS
-	notorichalcumpulse: {
+	pulseluck: {
 		shortDesc: "Mega Launcher + Super Luck.",
-		name: "Not Orichalcum Pulse",
+		name: "Pulse Luck",
 		onBasePowerPriority: 19,
 		onBasePower(basePower, attacker, defender, move) {
 			if (move.flags['pulse']) {
