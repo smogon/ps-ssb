@@ -6643,8 +6643,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target, source, effect) {
 			const moves = [];
-			for (const id in this.dex.data.Moves) {
-				const move = this.dex.moves.get(id);
+			for (const move of this.dex.moves.all()) {
 				if (move.realMove || move.id.includes('metronome')) continue;
 				// Calling 1 BP move is somewhat lame and disappointing. However,
 				// signature Z moves are fine, as they actually have a base power.
