@@ -403,18 +403,18 @@ export const commands: Chat.ChatCommands = {
 		this.checkCan('rangeban');
 		target = toID(target);
 		if (!Object.keys(ssbSets).map(toID).includes(target as ID)) {
-			return this.errorReply(`${target} has no SSB set.`);
+			throw new Chat.ErrorMessage(`${target} has no SSB set.`);
 		}
 		const disableIdx = disabledSets.indexOf(target);
 		if (cmd.startsWith('enable')) {
 			if (disableIdx < 0) {
-				return this.errorReply(`${target}'s set is not disabled.`);
+				throw new Chat.ErrorMessage(`${target}'s set is not disabled.`);
 			}
 			disabledSets.splice(disableIdx, 1);
 			this.privateGlobalModAction(`${user.name} enabled ${target}'s SSB set.`);
 		} else {
 			if (disableIdx > -1) {
-				return this.errorReply(`That set is already disabled.`);
+				throw new Chat.ErrorMessage(`That set is already disabled.`);
 			}
 			disabledSets.push(target);
 			this.privateGlobalModAction(`${user.name} disabled the SSB set for ${target}`);
